@@ -1,2 +1,1 @@
-# SITschool
-SITschool项目
+# HelloSIT

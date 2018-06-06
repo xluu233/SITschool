@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/A1"
+            android:text="课程代码：B3042257"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/A2"
+            android:text="课程名称：无线传感器网络与应用"
+            android:layout_weight="1"
+            android:layout_toRightOf="@+id/A1"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/A3"
+            android:text="学分：1"
+            android:layout_toRightOf="@+id/A2"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="平之分：100"
+            android:id="@+id/A4"
+            android:layout_below="@+id/A3"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/A5"
+            android:text="期中：100"
+            android:layout_below="@+id/A1"
+            android:layout_toRightOf="@id/A4"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/A6"
+            android:text="期末：100"
+            android:layout_below="@id/A2"
+            android:layout_toRightOf="@+id/A5"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/A7"
+            android:text="总评：100"
+            android:layout_below="@id/A4"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/A8"
+            android:text="二考成绩：100"
+            android:layout_below="@id/A4"
+            android:layout_toRightOf="@id/A7"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/A9"
+            android:text="二考总评：100"
+            android:layout_toRightOf="@id/A8"
+            android:layout_below="@id/A5"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="15sp"/>
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

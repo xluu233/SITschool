@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="寝室号："
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/chaxun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="格式为:10+楼号+房间号"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tips：查询结果为每天定时更新数据，与实际数据会有误差。如需查询实时信息请至多媒体机查询。如对查询结果有疑问，请致电一卡通中心咨询，联系电话021-60873113。"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="
+
+Tips：学校服务器不稳定，连接内网查询成功几率更高哟，若等待10s后还没有信息，请刷新重试"
+            android:layout_below="@+id/a"
+            android:textSize="14dp"/>
+
+
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/lv"
+        android:dividerHeight="4dp"
+        android:divider="#dcdcdc">
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentBottom= "true">
+
+        <Button
+            android:id="@+id/send_request"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dip"
+            android:layout_gravity="center"
+            android:background="@drawable/shape2"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:text="查询电费"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+

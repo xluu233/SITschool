@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/A1"
+        android:gravity="center_horizontal"
+        android:textColor="#000"
+        android:textSize="60sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/A2"
+        android:layout_toRightOf="@+id/A1"
+        android:gravity="center_horizontal"
+        android:textColor="#000"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/A3"
+        android:layout_toRightOf="@+id/A1"
+        android:layout_below="@+id/A2"
+        android:gravity="center_horizontal"
+        android:textColor="#000"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/A4"
+        android:layout_toRightOf="@+id/A1"
+        android:layout_below="@+id/A3"
+        android:gravity="center_horizontal"
+        android:textColor="#000"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/A5"
+        android:layout_toRightOf="@+id/A1"
+        android:layout_below="@+id/A4"
+        android:gravity="center_horizontal"
+        android:textColor="#000"
+        android:textSize="15sp"/>
+
+</RelativeLayout>

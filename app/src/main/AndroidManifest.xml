@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.luhongcheng">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="SITschool"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".startactivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
+        </activity>
+
+        <activity android:name=".NEWS.NewsDisplayActvivity"/>
+        <activity android:name=".item0"> </activity>
+        <activity android:name=".item1"> </activity>
+        <activity android:name=".item2"> </activity>
+        <activity android:name=".item3"> </activity>
+        <activity android:name=".item4"> </activity>
+        <activity android:name=".item5"> </activity>
+        <activity android:name=".item6"> </activity>
+        <activity android:name=".item7"> </activity>
+        <activity android:name=".item8"> </activity>
+        <activity android:name=".item9"> </activity>
+        <activity android:name=".item10"> </activity>
+        <activity android:name=".item11"> </activity>
+        <activity android:name=".item12"> </activity>
+        <activity android:name=".item13"> </activity>
+        <activity android:name=".item14"> </activity>
+        <activity android:name=".about.about0"></activity>
+        <activity android:name=".about.about1"></activity>
+        <activity android:name=".about.about2"></activity>
+        <activity android:name=".about.about3"></activity>
+        <activity android:name=".about.about4"></activity>
+        <activity android:name=".GetHtml"/>
+    </application>
+
+</manifest>
