@@ -56,7 +56,7 @@ public class TestAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.a1.setText(" "+newsList.get(position).geta1());
-        viewHolder.a2.setText("     考试课程/时间/地点/性质 : "+newsList.get(position).geta2());
+        viewHolder.a2.setText(" "+newsList.get(position).geta2());
         viewHolder.a3.setText(" "+newsList.get(position).geta3());
         viewHolder.a4.setText(" "+newsList.get(position).geta4());
         viewHolder.a5.setText(" "+newsList.get(position).geta5());

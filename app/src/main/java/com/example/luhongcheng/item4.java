@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -31,13 +32,9 @@ import okhttp3.Response;
 public class item4 extends AppCompatActivity implements View.OnClickListener {
 
     private List<grade> newsList;
-    private List<grade> newsList2;
-    private String[][] newsList3;
-
     private gradeAdapter adapter;
     private Handler handler;
     private ListView lv;
-
     String a1;
     String a2;
     String a3;
@@ -47,15 +44,15 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
     String a7;
     String a8;
     String a9;
-
     String xuehao;
     String mima;
-
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
     List<String> cookies;
     String b = "http://ems.sit.edu.cn/";
     String c="http://ems.sit.edu.cn:85/student/graduate/scorelist.jsp";//成绩链接
+    private ProgressBar progressBar;
+
 
 
     @Override
@@ -69,11 +66,14 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
         sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
+        progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
+
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
+                    progressBar.setVisibility(View.GONE);
                     adapter = new gradeAdapter(item4.this,newsList);
                     lv.setAdapter(adapter);
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

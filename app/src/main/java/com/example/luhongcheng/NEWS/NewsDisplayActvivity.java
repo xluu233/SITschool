@@ -30,8 +30,11 @@ public class NewsDisplayActvivity extends AppCompatActivity {
         //System.out.println(str.toString());
         //接受COOKIE后会打不开网页
 
+        SharedPreferences spCount = getSharedPreferences("cookies", 0);
+        str= spCount.getString("iPlanetDirectoryPro", "");
+
         getcookie();
-        System.out.println(str.toString());
+        System.out.println("登陆网页的cookie"+str.toString());
 
         newsUrl = getIntent().getStringExtra("news_url");
         webView = (WebView) findViewById(R.id.web_view);
@@ -40,7 +43,7 @@ public class NewsDisplayActvivity extends AppCompatActivity {
 
 
 
-        extraHeaders.put("Accept", "text/html, application/xhtml+xml, image/jxr, */*");
+        extraHeaders.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
         extraHeaders.put("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5");
         extraHeaders.put("Connection", "Keep-Alive");
         extraHeaders.put("Cookie", str);

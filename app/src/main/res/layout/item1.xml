@@ -1,12 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:id="@+id/bottomlinear"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#33CCFF">
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="item1"/>
+        <Button 
+            android:id="@+id/btn_second"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+             android:text="我的"/>
+        <Button 
+            android:id="@+id/btn_third"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:text="讲座"/>
+        <Button 
+            android:id="@+id/btn_four"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:text="公益"/>
+        <Button 
+            android:id="@+id/btn_fifth"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:text="三创"/>
+        <Button
+            android:id="@+id/btn_six"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.5"
+            android:textSize="14sp"
+            android:text="校园文化"/>
+        <Button
+            android:id="@+id/btn_seven"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:text="社团"/>
+        <Button
+            android:id="@+id/btn_eight"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.5"
+            android:textSize="14sp"
+            android:text="社会实践"/>
+        
+    </LinearLayout>
+
+    <LinearLayout 
+        android:id="@+id/cursorarea"
+        android:layout_width="fill_parent"
+        android:background="#33CCFF"
+        android:orientation="horizontal"
+        android:layout_height="2dp">
+      	<ImageView
+      	    android:id="@+id/cursor_btn"
+      	    android:layout_width="fill_parent"
+      	    android:layout_height="fill_parent">
+      	</ImageView>
+    </LinearLayout>
+
+     
+    <android.support.v4.view.ViewPager
+        android:id="@+id/myviewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
+
+
+
+    
 
 </LinearLayout>

@@ -1,8 +1,5 @@
 package com.example.luhongcheng;
-/**
- * Created by alex233 on 2018/4/21.
- */
-import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,49 +10,52 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.example.luhongcheng.NEWS.News;
-import com.example.luhongcheng.NEWS.NewsAdapter;
-import com.example.luhongcheng.NEWS.NewsDisplayActvivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Headers;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.R.attr.value;
 
-public class item7 extends AppCompatActivity implements View.OnClickListener {
 
-    private List<News> newsList;
-    private NewsAdapter adapter;
+public class  item7 extends AppCompatActivity implements View.OnClickListener {
+
+    private List<Test> newsList;
+    private TestAdapter adapter;
     private Handler handler;
     private ListView lv;
 
-    private Button sendpostdata;
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
     List<String> cookies;
-    String str;
+    String b = "http://ems.sit.edu.cn/";
+    String a2;
+    String a3;
+    String a4;
+    String a5;
 
     String xuehao;
     String mima;
 
-    String LOGINURL1 = "http://myportal.sit.edu.cn/userPasswordValidate.portal";
-    String LOGINURL2 = "http://myportal.sit.edu.cn/index.portal";
+    private ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,21 +68,21 @@ public class item7 extends AppCompatActivity implements View.OnClickListener {
         sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
+        progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
+
 
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
-                    adapter = new NewsAdapter(item7.this,newsList);
+                    progressBar.setVisibility(View.GONE);
+                    adapter = new TestAdapter(item7.this,newsList);
                     lv.setAdapter(adapter);
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            News news = newsList.get(position);
-                            Intent intent = new Intent(item7.this,NewsDisplayActvivity.class);
-                            intent.putExtra("news_url",news.getNewsUrl());
-                            startActivity(intent);
+                            Test news = newsList.get(position);
 
                             //Intent intent2 = new Intent(MainActivity.this,NewsDisplayActvivity.class);
                             //intent2.putExtra("COOKIE",str);
@@ -113,6 +113,7 @@ public class item7 extends AppCompatActivity implements View.OnClickListener {
             else {
                 Toast.makeText(item7.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
             }
+
         }
     }
 
@@ -122,54 +123,118 @@ public class item7 extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void run() {
                 try {
-                    OkHttpClient client = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("goto", "http://myportal.sit.edu.cn/loginSuccess.portal")
-                            .add("gotoOnFail", "http://myportal.sit.edu.cn/loginFailure.portal")
-                            .add("Login.Token1",xuehao)
-                            .add("Login.Token2",mima)
+                    final OkHttpClient client = new OkHttpClient().newBuilder()
+                            .followRedirects(false)//禁止重定向
+                            .followSslRedirects(false)//哈哈哈哈哈哈哈好开心啊
                             .build();
+
                     Request request1 = new Request.Builder()
-                            .url(LOGINURL1)
-                            .post(requestBody)
+                            .url(b)
+                            .addHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
+                            .addHeader("Accept-Language","zh-CN,zh;q=0.9")
+                            .addHeader("Connection","Keep-Alive")
+                            .addHeader("Host","ems.sit.edu.cn:85")
+                            .addHeader("Upgrade-Insecure-Requests","1")
+                            .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
+                            .build();
+                    Response response1 = client.newCall(request1).execute();
+                    String responseData1 = response1.body().string();
+                    final Headers headers1 = response1.headers();
+                    //Log.d("头信息11", "header " + headers1);
+                    cookies = headers1.values("Set-Cookie"); //这是另一种获取cookie的方法
+                    //Log.d("JSESSIONID11", "onResponse-size: " + cookies);
+
+                    String[] aa = cookies.toArray(new String[cookies.size()]);
+                    String str1 = null;
+                    String str2 = null;
+                    for (int i = 0; i < aa.length; ++i) {
+                        str1 = aa[i=0];
+                        str2 = aa[i=1];
+                    }
+                    //System.out.println("1:"+str1.toString());
+                    //System.out.println("2:"+str2.toString());
+
+                    RequestBody requestBody1 = new FormBody.Builder()
+                            .add("loginName",xuehao)
+                            .add("password",mima)
+                            .add("authtype","2")
+                            .add("loginYzm","")
+                            .add("Login.Token1","")
+                            .add("Login.Token2","")
+                            .build();
+                    Request request2 = new Request.Builder()
+                            .url("http://ems.sit.edu.cn:85/login.jsp")
+                            .post(requestBody1)
+                            .header("Accept","text/html, application/xhtml+xml, image/jxr, */*")
+                            .header("Accept-Language","zh-CN,zh;q=0.9")
+                            .header("Cache-Control","max-age=0")
+                            .header("Connection","Keep-Alive")
+                            .header("Content-Length","85")
+                            .header("Content-Type","application/x-www-form-urlencoded")
+                            .header("Cookie",str1)
+                            .header("Host","ems.sit.edu.cn:85")
+                            .header("Origin","http://ems.sit.edu.cn:85")
+                            .header("Referer","http://ems.sit.edu.cn:85/")
+                            .addHeader("Upgrade-Insecure-Requests","1")
+                            .header("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
                             .build();
 
-                    Response response1 = client.newCall(request1).execute();
-                    final Headers headers = response1.headers();
-                    HttpUrl loginUrl = request1.url();
+                    Response response2 = client.newCall(request2).execute();
+                    String responseData2 = response2.body().string();
+                    final Headers headers2 = response2.headers();
+                    //Log.d("头信息22", "header " + headers2);
+                    cookies = headers2.values("Set-Cookie"); //这是另一种获取cookie的方法
+                    //Log.d("cookie22", "onResponse-size: " + cookies);
 
-                    cookies = headers.values("Set-Cookie");
-                    Log.d("cookie信息", "onResponse-size: " + cookies);
-
-                    String[] strs = cookies.toArray(new String[cookies.size()]);
-                    for (int i = 0; i < strs.length; ++i) {
-                        str = strs[i];
+                    String[] bb = cookies.toArray(new String[cookies.size()]);
+                    String str3 = null;
+                    String str4 = null;
+                    String str5 = null;
+                    for (int i = 0; i < bb.length; ++i) {
+                        str3 = bb[i=0];
+                        str4 = bb[i=1];
+                        str5 = bb[i=2];
                     }
+                    //System.out.println("3:"+str3.toString());
+                    //System.out.println("4:"+str4.toString());
+                    //System.out.println("5:"+str5.toString());
 
-                    Request request = new Request.Builder()
-                            .url(LOGINURL2)
-                            .header("Accept", "text/html, application/xhtml+xml, image/jxr, */*")
-                            .header("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5")
+                    String str = str1+";"+str2+";"+str3+";"+str4;
+                    //System.out.println("总共的cookies:"+str.toString());
+
+                    String classtablecookie = str;
+                    savecookie(classtablecookie);
+
+                    Request request3 = new Request.Builder()
+                            .url("http://ems.sit.edu.cn:85/student/main.jsp")
+                            .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
+                            // .header("Accept-Encoding", "gzip, deflate")
+                            .header("Accept-Language", "zh-CN,zh;q=0.9")
+                            .header("Cache-Control","max-age=0")
                             .header("Connection", "Keep-Alive")
-                            .header("Cookie", str)
-                            .header("Host", "myportal.sit.edu.cn")
-                            .header("Referer", "http://myportal.sit.edu.cn/userPasswordValidate.portal")
+                            .header("Cookie",str)
+                            .header("Host", "ems.sit.edu.cn:85")
+                            .header("Referer", "http://ems.sit.edu.cn:85/")
+                            .header("Upgrade-Insecure-Requests","1")
                             .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
                             .build();
-                    Response response = client.newCall(request).execute();
-                    String responseData = response.body().string();
-                    getNews(responseData);
+                    Response response3 = client.newCall(request3).execute();
+                    String responseData3 = response3.body().string();
+                    getNews(responseData3);
 
 
-                    okHttpClient.newCall(request).enqueue(new Callback() {
+                    okHttpClient.newCall(request3).enqueue(new Callback() {
                         @Override
-                        public void onFailure(okhttp3.Call call, IOException e) {
+                        public void onFailure(Call call, IOException e) {
                         }
                         @Override
-                        public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                            //   Log.d("源代码", "onResponse: " + response.body().string().toString());
+                        public void onResponse(Call call, Response response) throws IOException {
+                            //Log.d("源代码", "onResponse: " + response.body().string().toString());
                         }
                     });
+
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -177,29 +242,62 @@ public class item7 extends AppCompatActivity implements View.OnClickListener {
         }).start();
     }
 
+    private void savecookie(String classtablecookie) {
+        SharedPreferences.Editor editor=getSharedPreferences("classtable",0).edit();
+        editor.clear();
+        editor.putString("cookie",classtablecookie);
+        editor.commit();
+    }
 
-    private void getNews(final String responseData){
+
+    private void getNews(final String responseData3){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try{
-                    Document doc = Jsoup.parse(responseData);
-                    Element url = doc.getElementById("pf8272");   //依据ID取值
-                    Elements link =  url.getElementsByTag("li");
+                    Document doc = Jsoup.parse(responseData3);
 
-                    for(int j = 0;j < link.size();j++){
-                        String uri = link.get(j).select("a.rss-title").attr("href");
-                        uri = "http://myportal.sit.edu.cn/"+uri;
-                        //System.out.println(uri.toString());
+                    Elements link =  doc.getElementsByTag("tbody").get(5).select("tr");
 
-                        String title = link.get(j).select("a").attr("title");
-                        //System.out.println(title.toString());
+                    for(int j = 2;j < link.size();j++){
 
-                        String time = link.get(j).select("span").text();
-                        //System.out.println(time.toString());
 
-                        News news = new News(title,uri,null,time);
+                        int a1 = j-1;
+
+                        a2 = link.get(j).select("td").text();
+                        System.out.println("a2："+a2.toString());
+
+                        a3="";
+                        a4="";
+                        a5="";
+
+                        /*
+
+                        a3 = link.get(j).select("td").get(2).text();
+                        System.out.println("a3："+a3.toString());
+
+                        a4 = link.get(j).select("td").get(3).text();
+                        System.out.println("a4："+a4.toString());
+
+                        a5 = link.get(j).select("td").get(4).text();
+                        System.out.println("a5："+a5.toString());
+                        */
+
+                        /*
+                           Elements link =  doc.getElementsByTag("tr");
+
+                            for(int j = 25;j < link.size();j++){
+
+                                String a1="";
+                                String a2="";
+                                String a3 = link.get(j).select("td").text();
+                                System.out.println(a3.toString());
+                                String a4="";
+                                String a5="";  */
+
+                        Test news = new Test(a1,a2,a3,a4,a5);
                         newsList.add(news);
+
                     }
 
 

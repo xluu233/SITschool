@@ -6,14 +6,12 @@
     android:padding="10dip" >
 
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
+    <ImageView
+        android:id="@+id/shareapp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:textSize="18sp"
-        android:text="分享"
-        />
+        android:src="@drawable/share"/>
+
 </RelativeLayout>

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -40,22 +41,17 @@ public class item5 extends AppCompatActivity implements View.OnClickListener {
     private dianfeiAdapter adapter;
     private Handler handler;
     private ListView lv;
-
     private EditText chaxun;
-    private Button sendpostdata;
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
     List<String> cookies;
-    String str;
     String classroomid;
-
-
     String xuehao;
     String mima;
-
-
     String LOGINURL1 = "http://myportal.sit.edu.cn/userPasswordValidate.portal";
     String dianfei = "http://card.sit.edu.cn/dk_xxmh.jsp";
+    private ProgressBar progressBar;
+
 
 
     @Override
@@ -70,6 +66,8 @@ public class item5 extends AppCompatActivity implements View.OnClickListener {
         sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
+        progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
+
 
         restoreInfo();
 
@@ -77,6 +75,7 @@ public class item5 extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
+                    progressBar.setVisibility(View.GONE);
                     adapter = new dianfeiAdapter(item5.this,newsList);
                     lv.setAdapter(adapter);
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

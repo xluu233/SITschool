@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/top_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red_300"
+        android:gravity="center"
+        android:minHeight="45dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/top_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:clickable="true"
+            android:text="SITschool"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/lunhuan"
+        android:layout_width="fill_parent"
+        android:layout_height="200dip"
+        android:layout_below="@+id/top_title"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dip">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:layout_centerInParent="true">
+            </android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="25dip"
+                android:orientation="vertical"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:background="#33000000">
+
+                <LinearLayout
+                    android:id="@+id/ll_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    >
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    //可爱的分割线
+    <LinearLayout
+        android:id="@+id/cutelinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lunhuan">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="5dp"
+            android:background="#FFFFFF" />
+
+    </LinearLayout>
+
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridview"
+        android:background="#ffffff"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:columnWidth="100dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:layout_below="@+id/cutelinear"
+        />
+
+
+</RelativeLayout>
