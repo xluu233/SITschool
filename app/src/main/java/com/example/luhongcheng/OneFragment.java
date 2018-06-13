@@ -23,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.example.luhongcheng.userCard.userCardinfo;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -131,7 +133,7 @@ public class OneFragment extends Fragment {
 
         int[] to={R.id.ItemImage,R.id.ItemText};
 
-        adapter=new SimpleAdapter(getContext(), dataList, R.layout.gridview_item, from, to);
+        adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
 
         gridView.setAdapter(adapter);
 
@@ -174,6 +176,9 @@ public class OneFragment extends Fragment {
                         Intent intent7=new Intent(getActivity(),item7.class);
                         startActivity(intent7);
                         break;
+                    case 8:
+                        Intent intent8 = new Intent(getActivity(),userCardinfo.class);
+                        startActivity(intent8);
                     default:
                         break;
                 }
@@ -188,10 +193,10 @@ public class OneFragment extends Fragment {
 
     void initData() {
         //图标
-        int icno[] = { R.mipmap.g12,R.mipmap.g1,R.mipmap.g15,R.mipmap.g7,R.mipmap.g4,R.mipmap.g5,R.mipmap.g9,R.mipmap.g3};
+        int icno[] = { R.mipmap.g12,R.mipmap.g1,R.mipmap.g15,R.mipmap.g7,R.mipmap.g4,R.mipmap.g5,R.mipmap.g9,R.mipmap.g3,R.mipmap.g3};
         //图标下的文字
         String name[]={"个人信息","第二课堂","其他系统","OA主页","成绩查看",
-                "电费查询","二级学院","考试安排"};
+                "电费查询","二级学院","考试安排","学生卡"};
 
         dataList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <icno.length; i++) {

@@ -53,13 +53,7 @@
             android:gravity="center"
             layout="@layout/input_layout" />
 
-        //转圈圈的动画
-        <include
-            android:id="@+id/layout_progress"
-            android:layout_width="match_parent"
-            android:layout_height="130dip"
-            layout="@layout/layout_progress"
-            android:visibility="gone" />
+
 
         <TextView
             android:id="@+id/main_btn_login"

@@ -28,6 +28,7 @@ public class SecondClassDisplayActvivity extends AppCompatActivity {
 
     private String newsUrl;
     String str;
+    String T0;
     String T1;
     String T2;
     String shenqingURL;
@@ -42,6 +43,7 @@ public class SecondClassDisplayActvivity extends AppCompatActivity {
 
         newsUrl = getIntent().getStringExtra("news_url");
 
+        final TextView title0 = (TextView) findViewById(R.id.title0);
         final TextView title1 = (TextView) findViewById(R.id.title1) ;
         final TextView title2 = (TextView) findViewById(R.id.title2) ;
         Button bt = (Button) findViewById(R.id.shenqing);
@@ -52,10 +54,14 @@ public class SecondClassDisplayActvivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
+                    title0.setText(getT0(T0));
                     title1.setText(getT1(T1));
                     title2.setText(getT2(T2));
 
                 }
+            }
+            private String getT0(String T0) {
+                return T0;
             }
             private String getT1(String T1) {
                 return T1;
@@ -187,8 +193,8 @@ public class SecondClassDisplayActvivity extends AppCompatActivity {
                     Elements link =  doc.getElementsByClass("box-1");
 
                     for(int j = 0;j < link.size();j++){
-                        String A1 = link.get(j).select("class.title_8").text();
-                        System.out.println("A1"+A1.toString());
+                        T0 = link.get(j).select("h1").text();
+                        System.out.println("T0"+T0.toString());
 
                         T1 = link.get(j).select("div").get(1).text();
                         System.out.println("T2"+T1.toString());

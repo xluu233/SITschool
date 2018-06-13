@@ -57,15 +57,16 @@
 
             <Button
                 android:id="@+id/send_request"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_margin="5dip"
-                android:layout_gravity="center"
-                android:background="@drawable/shape2"
                 android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:background="@drawable/rotate_layout_bg"
                 android:textSize="15dp"
-                android:text="--刷新哟--"
+                android:textAllCaps="false"
+                android:text="-刷新-"
                 />
+
 
         </LinearLayout>
 

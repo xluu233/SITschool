@@ -69,8 +69,9 @@ public class item3 extends FragmentActivity implements OnClickListener, OnPageCh
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.item3);
 		initView();
-		getCookies();
 		getID();
+		getCookies();
+
 	}
 
 	private void getID() {

@@ -1,8 +1,5 @@
-package com.example.luhongcheng;
-/**
- * Created by alex233 on 2018/4/21.
- */
-import android.content.Intent;
+package com.example.luhongcheng.userCard;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,14 +7,12 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.NEWS.News;
-import com.example.luhongcheng.NEWS.NewsAdapter;
-import com.example.luhongcheng.NEWS.NewsDisplayActvivity;
+import com.example.luhongcheng.R;
+import com.example.luhongcheng.item4;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,10 +33,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class item11 extends AppCompatActivity implements View.OnClickListener {
+public class userCardinfo extends AppCompatActivity {
 
-    private List<News> newsList;
-    private NewsAdapter adapter;
+    private List<userCard> newsList;
+    private userCardAdapter adapter;
     private Handler handler;
     private ListView lv;
 
@@ -50,22 +45,20 @@ public class item11 extends AppCompatActivity implements View.OnClickListener {
     private OkHttpClient.Builder builder;
     List<String> cookies;
     String str;
-
-    String LOGINURL1 = "http://myportal.sit.edu.cn/userPasswordValidate.portal";
-    String LOGINURL2 = "http://myportal.sit.edu.cn/index.portal";
-
     String xuehao;
     String mima;
+
+    String LOGINURL1 = "http://myportal.sit.edu.cn/userPasswordValidate.portal";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item11);
+        setContentView(R.layout.usercardinfo);
         newsList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.news_lv);
 
-        Button sendpostdata = (Button) findViewById(R.id.send_request);
-        sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
 
@@ -74,45 +67,31 @@ public class item11 extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
-                    adapter = new NewsAdapter(item11.this,newsList);
+                    adapter = new userCardAdapter(userCardinfo.this,newsList);
                     lv.setAdapter(adapter);
-                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            News news = newsList.get(position);
-                            Intent intent = new Intent(item11.this,NewsDisplayActvivity.class);
-                            intent.putExtra("news_url",news.getNewsUrl());
-                            startActivity(intent);
 
-                            //Intent intent2 = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-                            //intent2.putExtra("COOKIE",str);
-                            //startActivity(intent2);
-                            //此处不能传递COOKIE，可能会混淆
-                        }
-                    });
                 }
             }
         };
-        getID();
+        check();
+
     }
 
-    private void getID() {
+
+
+    private void check() {
         SharedPreferences spCount = getSharedPreferences("userid", 0);
         xuehao= spCount.getString("username", "");
         mima= spCount.getString("password", "");
-
-    }
-
-    public void onClick(View v) {
-        if (v.getId() == R.id.send_request) {
-            if(xuehao.length()==10&&mima.length()>=4){
-                postdata();
-            }
-            else {
-                Toast.makeText(item11.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
-            }
+        if(xuehao.length()==10&&mima.length()>=4){
+            postdata();
         }
+        else {
+            Toast.makeText(userCardinfo.this,"你还没有输入账号", Toast.LENGTH_LONG).show();
+        }
+
     }
+
 
     public void postdata() {
         // 开启线程来发起网络请求
@@ -145,7 +124,7 @@ public class item11 extends AppCompatActivity implements View.OnClickListener {
                     }
 
                     Request request = new Request.Builder()
-                            .url(LOGINURL2)
+                            .url("http://card.sit.edu.cn/personalxiaofei.jsp")
                             .header("Accept", "text/html, application/xhtml+xml, image/jxr, */*")
                             .header("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5")
                             .header("Connection", "Keep-Alive")
@@ -165,7 +144,7 @@ public class item11 extends AppCompatActivity implements View.OnClickListener {
                         }
                         @Override
                         public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                            //   Log.d("源代码", "onResponse: " + response.body().string().toString());
+                          //   Log.d("源代码", "onResponse: " + response.body().string().toString());
                         }
                     });
                 } catch (Exception e) {
@@ -181,24 +160,29 @@ public class item11 extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void run() {
                 try{
-                    Document doc = Jsoup.parse(responseData);
-                    Element url = doc.getElementById("pf8275");   //依据ID取值
-                    Elements link =  url.getElementsByTag("li");
+                        Document doc = Jsoup.parse(responseData);
+                        Element url = doc.getElementById("table");   //依据ID取值
+                        Elements link =  url.getElementsByTag("tr");
 
-                    for(int j = 0;j < link.size();j++){
-                        String uri = link.get(j).select("a.rss-title").attr("href");
-                        uri = "http://myportal.sit.edu.cn/"+uri;
-                        //System.out.println(uri.toString());
+                        for(int j = 1;j < link.size();j++){
+                            String a1 = link.get(j).select("td").get(2).text();
+                            System.out.println("a1"+a1.toString());
 
-                        String title = link.get(j).select("a").attr("title");
-                        //System.out.println(title.toString());
+                            String aa = link.get(j).select("td").get(3).text();
 
-                        String time = link.get(j).select("span").text();
-                        //System.out.println(time.toString());
 
-                        News news = new News(title,uri,null,time);
-                        newsList.add(news);
-                    }
+                            a1 = a1 +"   "+ aa;
+
+
+                            String a2 = link.get(j).select("td").get(4).text();
+                            System.out.println("a2"+a2.toString());
+
+                            String a3 = link.get(j).select("td").get(5).text();
+                            System.out.println("a3"+a3.toString());
+
+                            userCard news = new userCard(a1,a2,a3);
+                            newsList.add(news);
+                        }
 
 
                     Message msg = new Message();
@@ -209,9 +193,9 @@ public class item11 extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         }).start();
-    }
+            }
 
-}
+    }
 
 
 

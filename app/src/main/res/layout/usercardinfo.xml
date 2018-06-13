@@ -9,32 +9,20 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
+    <ProgressBar
+        android:id="@+id/progressBarNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/news_lv"
-        android:dividerHeight="4dp"
-        android:divider="#dcdcdc">
+        android:dividerHeight="10dp"
+        android:divider="#FFFF">
     </ListView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_alignParentBottom= "true">
 
-        <Button
-            android:id="@+id/send_request"
-            android:layout_width="130dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dip"
-            android:layout_gravity="center"
-            android:background="@drawable/shape2"
-            android:gravity="center"
-            android:textSize="15dp"
-            android:text="--刷新哟--"
-            />
-
-    </LinearLayout>
 
 </RelativeLayout>
