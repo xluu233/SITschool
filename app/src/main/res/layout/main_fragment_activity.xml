@@ -8,14 +8,14 @@
         android:background="#ffffff"
         android:id="@+id/tab_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
 
         <LinearLayout
             android:id="@+id/AAA"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="35dp">
 
 
             <ImageView

@@ -55,6 +55,7 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         D.setSelected(false);
     }
 
+
     //隐藏所有Fragment
     public void hideAllFragment(FragmentTransaction transaction){
         if(f1!=null){
@@ -70,6 +71,7 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
             transaction.hide(f4);
         }
     }
+
 
     @Override
     public void onClick(View v) {
@@ -123,6 +125,80 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         transaction.commit();
     }
 
+
+    /*
+    //隐藏所有Fragment
+    public void hideAllFragment(FragmentTransaction transaction){
+        if(f1!=null){
+            transaction.hide(f1);
+        }
+        if(f2!=null){
+            transaction.hide(f2);
+        }
+        if(f3!=null){
+            transaction.hide(f3);
+        }
+        if(f4!=null){
+            transaction.hide(f4);
+        }
+    }
+
+
+
+
+    @Override
+    public void onClick(View v) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        hideAllFragment(transaction);
+        switch(v.getId()){
+            case R.id.A:
+                selected();
+                A.setSelected(true);
+                if(f1==null){
+                    f1 = new OneFragment("第一个Fragment");
+                    transaction.add(R.id.fragment_container,f1);
+                }else{
+                    transaction.show(f1);
+                }
+                break;
+
+            case R.id.B:
+                selected();
+                B.setSelected(true);
+                if(f2==null){
+                    f2 = new TwoFragment("第二个Fragment");
+                    transaction.add(R.id.fragment_container,f2);
+                }else{
+                    transaction.show(f2);
+                }
+                break;
+
+            case R.id.C:
+                selected();
+                C.setSelected(true);
+                if(f3==null){
+                    f3 = new ThreeFragment("第三个Fragment");
+                    transaction.add(R.id.fragment_container,f3);
+                }else{
+                    transaction.show(f3);
+                }
+                break;
+
+            case R.id.D:
+                selected();
+                D.setSelected(true);
+                if(f4==null){
+                    f4 = new FourFragment("第四个Fragment");
+                    transaction.add(R.id.fragment_container,f4);
+                }else{
+                    transaction.show(f4);
+                }
+                break;
+        }
+        transaction.commit();
+    }
+
+*/
 
 
 }
