@@ -1,5 +1,7 @@
 package com.example.luhongcheng;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -34,13 +37,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.icu.util.ULocale.getName;
 
-public class item5 extends AppCompatActivity implements View.OnClickListener {
 
-    private List<com.example.luhongcheng.dianfei> newsList;
-    private dianfeiAdapter adapter;
+public class item5 extends Activity implements View.OnClickListener {
+
+
     private Handler handler;
-    private ListView lv;
     private EditText chaxun;
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
@@ -52,14 +55,20 @@ public class item5 extends AppCompatActivity implements View.OnClickListener {
     String dianfei = "http://card.sit.edu.cn/dk_xxmh.jsp";
     private ProgressBar progressBar;
 
+    String name;
+    String a1;
+    String a2;
+    String a3;
+    String a4;
 
 
+
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item5);
-        newsList = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.lv);
+
 
         Button sendpostdata = (Button) findViewById(R.id.send_request);
         chaxun = (EditText) findViewById(R.id.chaxun);
@@ -68,6 +77,11 @@ public class item5 extends AppCompatActivity implements View.OnClickListener {
         okHttpClient = builder.build();
         progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
 
+        final TextView title0 = (TextView) findViewById(R.id.room1);
+        final TextView title1 = (TextView) findViewById(R.id.A1) ;
+        final TextView title2 = (TextView) findViewById(R.id.B1) ;
+        final TextView title3 = (TextView) findViewById(R.id.C1);
+        final TextView title4 = (TextView) findViewById(R.id.D1) ;
 
         restoreInfo();
 
@@ -75,26 +89,34 @@ public class item5 extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
-                    progressBar.setVisibility(View.GONE);
-                    adapter = new dianfeiAdapter(item5.this,newsList);
-                    lv.setAdapter(adapter);
-                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            dianfei news = newsList.get(position);
-
-                            //Intent intent2 = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-                            //intent2.putExtra("COOKIE",str);
-                            //startActivity(intent2);
-                            //此处不能传递COOKIE，可能会混淆
-                        }
-                    });
+                    title0.setText(getT(name));
+                    title1.setText(getT0(a1));
+                    title2.setText(getT1(a2));
+                    title3.setText(getT2(a3));
+                    title4.setText(getT3(a4));
                 }
             }
+            private String getT(String name) {
+                return name;
+            }
+            private String getT0(String a1) {
+                return a1;
+            }
+            private String getT1(String a2) {
+                return a2;
+            }
+            private String getT2(String a3) {
+                return a3;
+            }
+            private String getT3(String a4) {
+                return a4;
+            }
         };
+
         getID();
     }
+
+
 
     private void getID() {
         SharedPreferences spCount = getSharedPreferences("userid", 0);
@@ -229,11 +251,7 @@ public class item5 extends AppCompatActivity implements View.OnClickListener {
                         //List将数值表示为集合，在下面进行分解
                         List<String> name1 = link.get(j).select("td").eachText();
                         String[] names = name1.toArray(new String[name1.size()]);
-                        String name = null;
-                        String a1 = null;
-                        String a2 = null;
-                        String  a3 = null;
-                        String  a4 = null;
+
                         for (int i = 0; i < names.length; ++i) {
                             name = names[i=0];
                             a1 = names[i=1];
@@ -244,18 +262,14 @@ public class item5 extends AppCompatActivity implements View.OnClickListener {
                         System.out.println("name:"+name.toString());
                         //String a1 = link.get(j).select("td").text();
                         System.out.println("a1:"+a1.toString());
-
                         //String a2 = link.get(j).select("td").text();
                         System.out.println("a2:"+a2.toString());
-
                         //String a3 = link.get(j).select("td").text();
                         System.out.println("a3:"+a3.toString());
-
                         //String a4 = link.get(j).select("td").text();
                         System.out.println("a4:"+a4.toString());
 
-                        com.example.luhongcheng.dianfei news = new dianfei(name,a1,a2,a3,a4);
-                        newsList.add(news);
+
                     }
 
 

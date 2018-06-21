@@ -1,6 +1,7 @@
 
 package com.example.luhongcheng;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import java.util.Map;
  * Created by alex233 on 2018/4/21.
  */
 
-public class item2 extends AppCompatActivity {
+public class item2 extends Activity {
 
     /*以下是GridView定义的*/
     private GridView gridView;

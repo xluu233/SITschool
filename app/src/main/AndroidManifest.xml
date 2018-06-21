@@ -31,6 +31,8 @@
         <activity android:name=".item6"> </activity>
         <activity android:name=".item7"> </activity>
         <activity android:name=".item8"/>
+        <activity android:name=".TuisongActivity"/>
+        <activity android:name=".WeiXin.gongzonghao"/>
 
         <activity android:name=".TuisongActivity"/>
         <activity android:name=".userCard.userCardinfo"/>

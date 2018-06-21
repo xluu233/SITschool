@@ -1,5 +1,6 @@
 package com.example.luhongcheng.userCard;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.luhongcheng.R;
@@ -33,7 +35,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class userCardinfo extends AppCompatActivity {
+public class userCardinfo extends Activity {
 
     private List<userCard> newsList;
     private userCardAdapter adapter;
@@ -61,12 +63,14 @@ public class userCardinfo extends AppCompatActivity {
 
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
 
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
+                    progressBar.setVisibility(View.GONE);
                     adapter = new userCardAdapter(userCardinfo.this,newsList);
                     lv.setAdapter(adapter);
 

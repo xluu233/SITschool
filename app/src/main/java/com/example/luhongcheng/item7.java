@@ -1,5 +1,7 @@
 package com.example.luhongcheng;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,7 +37,7 @@ import okhttp3.Response;
 import static android.R.attr.value;
 
 
-public class  item7 extends AppCompatActivity implements View.OnClickListener {
+public class  item7 extends Activity implements View.OnClickListener {
 
     private List<Test> newsList;
     private TestAdapter adapter;
@@ -57,6 +59,7 @@ public class  item7 extends AppCompatActivity implements View.OnClickListener {
     private ProgressBar progressBar;
 
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

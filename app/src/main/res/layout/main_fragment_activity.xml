@@ -4,18 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
     <LinearLayout
         android:background="#ffffff"
         android:id="@+id/tab_menu"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="47dp"
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
 
         <LinearLayout
             android:id="@+id/AAA"
             android:layout_width="match_parent"
-            android:layout_height="35dp">
+            android:layout_height="32dp">
 
 
             <ImageView
@@ -34,7 +36,7 @@
             <ImageView
                 android:id="@+id/C"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="2dp"
                 android:layout_width="0dp"
                 android:src="@drawable/tab_menu_me"
                 android:layout_height="match_parent"
@@ -42,7 +44,7 @@
             <ImageView
                 android:id="@+id/D"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="2dp"
                 android:src="@drawable/tab_menu_class"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -72,7 +74,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:text="消息"
+                android:text="公众号"
                 android:textSize="12dp"
                 android:gravity="center"
                 android:layout_width="0dp"

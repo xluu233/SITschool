@@ -20,6 +20,10 @@ public class MyReceiver extends BroadcastReceiver{
         Bundle bundle = intent.getExtras();
         Log.d(TAG, "onReceive - " + intent.getAction());
 
+        String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);//通知标题
+        String content = bundle.getString(JPushInterface.EXTRA_ALERT);//通知内容
+        String type = bundle.getString(JPushInterface.EXTRA_EXTRA);//附加字段  JSON格式
+
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
             String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
             Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
@@ -34,10 +38,15 @@ public class MyReceiver extends BroadcastReceiver{
             // 在这里可以自己写代码去定义用户点击后的行为
             Intent intent1 = new Intent(context, TuisongActivity.class);  //自定义打开的界面
             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent1.putExtra("title",title);
+            intent1.putExtra("content",content);
+            //intent1.putExtra("type",type);
             context.startActivity(intent1);
         } else {
             Log.d(TAG, "Unhandled intent - " + intent.getAction());
         }
+
+
     }
 
 }

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.luhongcheng.about.about0;
@@ -40,7 +42,6 @@ public class FourFragment extends Fragment {
     public FourFragment(String context){
         this.context = context;
     }
-
 
 
     private String[] data = {
@@ -77,6 +78,8 @@ public class FourFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,data);
 
+
+        TextView vv = (TextView) getActivity().findViewById(R.id.VV);
 
 
         ListView listView = (ListView) getView().findViewById(R.id.list_view);
@@ -135,6 +138,7 @@ public class FourFragment extends Fragment {
         bindView();
 
     }
+
 
 
     private void bindView() {

@@ -71,15 +71,91 @@ Tips：学校服务器不稳定，连接内网查询成功几率更高哟，若�
 
     </RelativeLayout>
 
-
-
-    <ListView
+    <RelativeLayout
+        android:gravity="center"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/lv"
-        android:dividerHeight="4dp"
-        android:divider="#dcdcdc">
-    </ListView>
+        android:layout_height="300dp">
+
+        <TextView
+            android:id="@+id/room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="房    间    号   ： "
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/room1"
+            android:layout_toRightOf="@id/room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/A"
+            android:layout_below="@id/room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="存款余额(元)："
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/A1"
+            android:layout_below="@id/room"
+            android:layout_toRightOf="@id/A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/B"
+            android:layout_below="@id/A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电补余额(元)："
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/B1"
+            android:layout_below="@id/A"
+            android:layout_toRightOf="@id/B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/C"
+            android:layout_below="@id/B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计余额(元)："
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/C1"
+            android:layout_below="@id/B"
+            android:layout_toRightOf="@id/C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/D"
+            android:layout_below="@id/C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可用电量(度)："
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/D1"
+            android:layout_below="@id/C"
+            android:layout_toRightOf="@id/D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

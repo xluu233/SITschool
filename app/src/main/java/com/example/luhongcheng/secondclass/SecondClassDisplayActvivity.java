@@ -1,6 +1,7 @@
 package com.example.luhongcheng.secondclass;
 
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class SecondClassDisplayActvivity extends AppCompatActivity {
+public class SecondClassDisplayActvivity extends Activity {
 
     private String newsUrl;
     String str;
