@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.luhongcheng.about.about0;
 import com.example.luhongcheng.about.about1;
+import com.example.luhongcheng.about.about3;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -107,9 +108,9 @@ public class FourFragment extends Fragment {
                         startActivity(intent2); //启动浏览器
                         break;
                     case 3:
-                       /* Intent intent3=new Intent(item13.this, about3.class);
-                        startActivity(intent3);*/
-                        Toast.makeText(getActivity(),"此功能未开放", Toast.LENGTH_SHORT).show();
+                        Intent intent3=new Intent(getActivity(), about3.class);
+                        startActivity(intent3);
+                       /* Toast.makeText(getActivity(),"此功能未开放", Toast.LENGTH_SHORT).show();*/
                         break;
                     case 4:
                        /* Intent intent4=new Intent(item13.this, about4.class);

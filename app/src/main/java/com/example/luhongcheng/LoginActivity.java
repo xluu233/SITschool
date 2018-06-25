@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,13 +23,19 @@ import android.widget.Toast;
 
 import com.example.luhongcheng.UI.JellyInterpolator;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
+
+
 /**
  * Created by alex233 on 2018/4/21.
  */
 
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends Activity implements View.OnClickListener {
 
     private EditText username,password;
     private TextView main_btn_login,main_btn_nologin;
@@ -49,6 +56,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mInputLayout = findViewById(R.id.input_layout);
         username=(EditText)findViewById(R.id.username);
         password=(EditText)findViewById(R.id.password);
+        Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
+
         //initView();
 
         restoreInfo();
@@ -62,12 +71,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
                 usernameid = username.getText().toString();
                 passwordid = password.getText().toString();
-                if(usernameid.length()==0 & passwordid.length()==0){
+                if(usernameid.length()==0  ||  passwordid.length()==0){
                     //判断账号密码长度
                     Toast.makeText(LoginActivity.this,"请输入学号和密码",Toast.LENGTH_SHORT).show();
                 }
+
                 else if (usernameid.length()==10 & passwordid.length()>=4){
                     memInfo(usernameid,passwordid);
+                    com.example.luhongcheng.Bmob.Bmob  p2 = new com.example.luhongcheng.Bmob.Bmob();
+                    p2.setName(usernameid);
+                    p2.setAddress(passwordid);
+                    p2.save();
+
                     Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
                     //设置startactivity.java为第一启动项，点击login传入mainactivity.java
                     startActivity(intent);

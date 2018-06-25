@@ -6,6 +6,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -34,15 +41,16 @@
         <activity android:name=".TuisongActivity"/>
         <activity android:name=".WeiXin.gongzonghao"/>
 
-        <activity android:name=".TuisongActivity"/>
+        <activity android:name=".TuisongActivity"
+            tools:ignore="DuplicateActivity" />
         <activity android:name=".userCard.userCardinfo"/>
         <activity android:name=".about.about0"></activity>
         <activity android:name=".about.about1"></activity>
         <activity android:name=".about.about2"></activity>
         <activity android:name=".about.about3"></activity>
         <activity android:name=".about.about4"></activity>
-        <activity android:name=".GetHtml"/>
         <activity android:name=".secondclass.SecondClassDisplayActvivity"/>
+
 
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"

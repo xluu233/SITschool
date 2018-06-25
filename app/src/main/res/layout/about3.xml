@@ -3,4 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_marginTop="20dp"
+        android:hint="请输入遇到的问题或者建议......"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <EditText
+        android:id="@+id/cell"
+        android:layout_marginTop="20dp"
+        android:hint="联系方式：QQ或者微信"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="提交" />
+
 </LinearLayout>
