@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".item9"
+    tools:layout_editor_absoluteY="25dp">
 
     <LinearLayout
+        android:id="@+id/top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/red_300"
@@ -13,34 +18,56 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/top_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="微信资讯"
-            android:gravity="center"
+            android:layout_marginLeft="12dp"
+            android:clickable="true"
+            android:text="失物招领信息"
             android:textColor="@android:color/white"
             android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="12dp"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/gridview"
-        android:layout_marginTop="20dp"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:columnWidth="100dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        android:layout_below="@+id/cutelinear"
-        />
+    <ListView
+        android:layout_below="@+id/top_title"
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#ffffff"
+        android:dividerHeight="7sp">
+    </ListView>
+
+
+
+    <Button
+        android:id="@+id/bt1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:text="发布信息"
+        android:onClick="send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dot_normal"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/bt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bt1"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:background="@drawable/dot_normal"
+        android:text="刷   新" />
 
 
 
 
-</LinearLayout>
+
+
+
+</RelativeLayout>

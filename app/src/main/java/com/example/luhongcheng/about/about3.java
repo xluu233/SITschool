@@ -40,7 +40,7 @@ public class about3  extends AppCompatActivity {
                 String content = mContent.getText().toString();
                 com.example.luhongcheng.Bmob.fankui p2 = new com.example.luhongcheng.Bmob.fankui();
                 p2.setCall(call);
-                p2.getContent(content);
+                p2.setContent(content);
                 p2.save(new SaveListener<String>() {
                     @Override
                     public void done(String objectId, BmobException e) {

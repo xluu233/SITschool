@@ -183,6 +183,11 @@ public class OneFragment extends Fragment {
                     case 9:
                         Intent intent9 = new Intent(getActivity(),item8.class);
                         startActivity(intent9);
+                        break;
+                    case 10:
+                        Intent intent10 = new Intent(getActivity(),item9.class);
+                        startActivity(intent10);
+                        break;
                     default:
                         break;
                 }
@@ -198,10 +203,10 @@ public class OneFragment extends Fragment {
     void initData() {
         //图标
         int icno[] = { R.mipmap.g12,R.mipmap.g1,R.mipmap.g15,R.mipmap.g7,R.mipmap.g4,
-                        R.mipmap.g5,R.mipmap.g9,R.mipmap.g3,R.drawable.card,R.drawable.library};
+                        R.mipmap.g5,R.mipmap.g9,R.mipmap.g3,R.drawable.card,R.drawable.library,R.drawable.weixin};
         //图标下的文字
         String name[]={"个人信息","第二课堂","其他系统","OA主页","成绩查看",
-                "电费查询","二级学院","考试安排","学生卡","移动读书馆"};
+                "电费查询","二级学院","考试安排","学生卡","移动读书馆","微信"};
 
         dataList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <icno.length; i++) {

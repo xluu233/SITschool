@@ -3,8 +3,10 @@ package com.example.luhongcheng.Bmob;
 import cn.bmob.v3.BmobObject;
 
 public class fankui extends BmobObject {
-    public String getContent(String content) {
-        return this.content;
+
+
+    public String getContent() {
+        return content;
     }
 
     public void setContent(String content) {

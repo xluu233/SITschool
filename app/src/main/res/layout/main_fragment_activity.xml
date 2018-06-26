@@ -74,7 +74,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:text="公众号"
+                android:text="失物招领"
                 android:textSize="12dp"
                 android:gravity="center"
                 android:layout_width="0dp"
