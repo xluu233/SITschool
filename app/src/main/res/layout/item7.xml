@@ -70,21 +70,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="75dp"
-            android:layout_height="25dp"
-            android:layout_alignParentBottom= "true">
 
-            <Button
-                android:id="@+id/sendA"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape3"
-                android:textSize="10dp"
-                android:text="申请缓考"
-                />
-
-        </LinearLayout>
 
 
     </RelativeLayout>

@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.luhongcheng"
-        minSdkVersion 22
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 12
         versionName "2.7"

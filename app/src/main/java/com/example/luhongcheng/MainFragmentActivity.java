@@ -31,6 +31,7 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.main_fragment_activity);
         bindView();
 
+
     }
 
 

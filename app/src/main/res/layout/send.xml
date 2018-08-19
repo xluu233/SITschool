@@ -28,9 +28,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="wrap_content">
         <EditText
             android:id="@+id/title"
             android:hint="标题"
@@ -45,36 +47,25 @@
 
         <EditText
             android:id="@+id/time"
-            android:hint="时间"
+            android:hint="时间地点"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/adress"
-            android:hint="地点"
+            android:hint="联系方式"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
 
-        <ImageView
-            android:id="@+id/picture"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:src="@drawable/add"/>
-
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/select_photo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="从相册中选择图片"
-        android:background="@color/white"/>
-
 
     <Button
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:id="@+id/send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -16,7 +16,7 @@ public class about1 extends AppCompatActivity {
     protected  void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
       //  setContentView(R.layout.about1);
-        Intent intent = new Intent();
+       // Intent intent = new Intent();
         joinQQGroup("ztsdUJHGWN-PjRprGf3p9HbWjQz2yAGo");
     }
 

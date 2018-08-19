@@ -75,7 +75,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     //判断账号密码长度
                     Toast.makeText(LoginActivity.this,"请输入学号和密码",Toast.LENGTH_SHORT).show();
                 }
-
                 else if (usernameid.length()==10 & passwordid.length()>=4){
                     memInfo(usernameid,passwordid);
                     com.example.luhongcheng.Bmob.Bmob  p2 = new com.example.luhongcheng.Bmob.Bmob();
@@ -85,7 +84,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                     Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
                     //设置startactivity.java为第一启动项，点击login传入mainactivity.java
-                    startActivity(intent);
+                    LoginActivity.this.startActivity(intent);
+                    LoginActivity.this.finish();
                 }
                 else{
                     Toast.makeText(LoginActivity.this,"格式错误，请重试",Toast.LENGTH_SHORT).show();

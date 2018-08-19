@@ -30,7 +30,6 @@ public class ThreeFragment extends Fragment {
     public ThreeFragment(String context){
         this.context = context;
     }
-    ImageView imageView ;
     ListView listView;
 
     @Nullable
@@ -43,7 +42,6 @@ public class ThreeFragment extends Fragment {
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        imageView = (ImageView) getActivity().findViewById(R.id.iv);
         listView = (ListView) getActivity().findViewById(R.id.listView);
         Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
         get();
@@ -82,13 +80,11 @@ public class ThreeFragment extends Fragment {
                             final String[] content  =  new String[list.size()];
                             final String[] time  =  new String[list.size()];
                             final String[] adress  =  new String[list.size()];
-                            final String[] image = new String[list.size()];
                             for(int i = 0;i<list.size();i++){
                                 title[i] = list.get(i).getTitle();
                                 content[i] = list.get(i).getContent();
                                 time[i] = list.get(i).getTime();
                                 adress[i] = list.get(i).getAdress();
-                                image[i] = list.get(i).getIconUrl();
 
                             }
 
@@ -121,7 +117,6 @@ public class ThreeFragment extends Fragment {
                                         LayoutInflater inflater = LayoutInflater.from(context);
                                         convertView = inflater.inflate(R.layout.swzl_item_layout, null);//实例化一个布局文件
                                         viewHolder = new ViewHolder();
-                                        viewHolder.tv_img = (ImageView)convertView.findViewById(R.id.iv);
                                         viewHolder.tv_title = (TextView)convertView.findViewById(R.id.tv_title);
                                         viewHolder.tv_content = (TextView)convertView.findViewById(R.id.tv_content);
                                         viewHolder.tv_time = (TextView)convertView.findViewById(R.id.tv_time);
@@ -139,7 +134,6 @@ public class ThreeFragment extends Fragment {
                                     return convertView;
                                 }
                                 class ViewHolder{
-                                    ImageView tv_img;
                                     TextView tv_title;
                                     TextView tv_content;
                                     TextView tv_time;

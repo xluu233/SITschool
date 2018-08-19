@@ -26,7 +26,9 @@ import android.widget.Toast;
 
 import com.example.luhongcheng.about.about0;
 import com.example.luhongcheng.about.about1;
+import com.example.luhongcheng.about.about2;
 import com.example.luhongcheng.about.about3;
+import com.example.luhongcheng.about.about4;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -102,10 +104,14 @@ public class FourFragment extends Fragment {
                         break;
                     case 2:
                         //检查更新
+                        Intent intent2=new Intent(getActivity(),about2.class);
+                        startActivity(intent2);
+                        /*
                         Intent intent2 = new Intent();
                         intent2.setData(Uri.parse("https://www.coolapk.com/apk/187672"));//Url 就是你要打开的网址
                         intent2.setAction(Intent.ACTION_VIEW);
                         startActivity(intent2); //启动浏览器
+                        */
                         break;
                     case 3:
                         Intent intent3=new Intent(getActivity(), about3.class);
@@ -113,9 +119,9 @@ public class FourFragment extends Fragment {
                        /* Toast.makeText(getActivity(),"此功能未开放", Toast.LENGTH_SHORT).show();*/
                         break;
                     case 4:
-                       /* Intent intent4=new Intent(item13.this, about4.class);
-                        startActivity(intent4);   */
-                        Toast.makeText(getActivity(),"赞赏未开放，可以到应用商店给个好评哟", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(getActivity(), about4.class);
+                        startActivity(intent4);
+                       // Toast.makeText(getActivity(),"赞赏未开放，可以到应用商店给个好评哟", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;

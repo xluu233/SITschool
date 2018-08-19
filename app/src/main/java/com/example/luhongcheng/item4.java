@@ -290,7 +290,7 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         }).start();
-            }
+    }
 
     /*保存密码-嘻嘻*/
     private void memInfo(String a1, String a2, String a3, String a4, String a5, String a6, String a7, String a8, String a9){
