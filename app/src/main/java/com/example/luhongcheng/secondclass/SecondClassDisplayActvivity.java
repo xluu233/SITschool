@@ -195,13 +195,13 @@ public class SecondClassDisplayActvivity extends Activity {
 
                     for(int j = 0;j < link.size();j++){
                         T0 = link.get(j).select("h1").text();
-                        System.out.println("T0"+T0.toString());
+                        //System.out.println("T0"+T0.toString());
 
                         T1 = link.get(j).select("div").get(1).text();
-                        System.out.println("T2"+T1.toString());
+                        //System.out.println("T2"+T1.toString());
 
                         T2 = link.get(j).select("div").get(2).text();
-                        System.out.println("T2"+T2.toString());
+                        //System.out.println("T2"+T2.toString());
                     }
 
 

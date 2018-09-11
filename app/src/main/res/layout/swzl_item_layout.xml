@@ -18,10 +18,12 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/tv_title"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:gravity="center"
+            android:gravity="left"
             android:text="标题" />
         <View
             android:layout_marginLeft="25dp"
@@ -73,6 +75,21 @@
             android:layout_height="wrap_content"
             android:textSize="12dp"
             android:text="地点" />
+        <View
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/black"/>
+        <TextView
+            android:gravity="right"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:id="@+id/create_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:text="创建时间:" />
         <View
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"

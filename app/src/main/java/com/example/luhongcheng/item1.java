@@ -14,9 +14,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.example.luhongcheng.secondclass.*;
+import com.example.luhongcheng.secondclass.EightFragment;
+import com.example.luhongcheng.secondclass.FifthFragment;
 import com.example.luhongcheng.secondclass.FourFragment;
+import com.example.luhongcheng.secondclass.MyFragmentPagerAdapter;
+import com.example.luhongcheng.secondclass.SecondFragment;
+import com.example.luhongcheng.secondclass.SevenFragment;
+import com.example.luhongcheng.secondclass.SixFragment;
+import com.example.luhongcheng.secondclass.ThridFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +79,10 @@ public class item1 extends FragmentActivity implements OnClickListener, OnPageCh
 		SharedPreferences spCount = getSharedPreferences("userid", 0);
 		xuehao= spCount.getString("username", "");
 		mima= spCount.getString("password", "");
+
+		if(xuehao.length()==0){
+			Toast.makeText(item1.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+		}
 
 	}
 
@@ -150,16 +161,16 @@ public class item1 extends FragmentActivity implements OnClickListener, OnPageCh
 							.build();
 					Response response3 = client.newCall(request3).execute();
 					final Headers headers3 = response3.headers();
-					Log.d("头信息", "header " + headers3);
+					//Log.d("头信息", "header " + headers3);
 					cookies = headers3.values("Set-Cookie");
 					String[] ad = cookies.toArray(new String[cookies.size()]);
 					String str3 = null;
 					for (int i = 0; i < ad.length; ++i) {
 						str3 = ad[i];
 					}
-					System.out.println("真的JSESSIONID:"+str3.toString());
+					//System.out.println("真的JSESSIONID:"+str3.toString());
 					str = str1+";"+str3;
-					System.out.println("str:"+str.toString());
+					//System.out.println("str:"+str.toString());
 					save(str);
 
 				} catch (Exception e) {

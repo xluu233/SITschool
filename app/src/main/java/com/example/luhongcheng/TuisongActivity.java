@@ -28,16 +28,7 @@ public class TuisongActivity extends Activity{
         title.setText(a);
         content.setText(b);
 
-        Button bt = (Button) findViewById(R.id.check);
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setData(Uri.parse("https://www.coolapk.com/apk/187672"));//Url 就是你要打开的网址
-                intent.setAction(Intent.ACTION_VIEW);
-                startActivity(intent); //启动浏览器
-            }
-        });
+
 
 
     }

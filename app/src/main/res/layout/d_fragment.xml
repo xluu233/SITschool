@@ -77,41 +77,56 @@
             android:layout_height="15dp">
 
             <TextView
-                android:id="@+id/VV"
+                android:id="@+id/version"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/servison"
+                android:text="VersionName:"
                 android:textSize="11dp"/>
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-
-    <ListView
-        android:id="@+id/list_view"
+    <ScrollView
         android:layout_below="@+id/servison"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:gravity="center"
-        android:layout_below="@id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"/>
 
-        <Button
-            android:id="@+id/clear"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:background="@drawable/shape2"
-            android:layout_height="40dp"
-            android:textSize="17dp"
-            android:text="清除账号信息&amp;退出登录"/>
+            <RelativeLayout
+                android:id="@+id/clear1"
+                android:gravity="center"
+                android:layout_below="@id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/clear"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/shape2"
+                    android:layout_height="40dp"
+                    android:textSize="17dp"
+                    android:text="清除账号信息&amp;退出登录"/>
+            </RelativeLayout>
 
-    </RelativeLayout>
+            <FrameLayout
+                android:layout_below="@+id/clear1"
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
 
 
 </RelativeLayout>

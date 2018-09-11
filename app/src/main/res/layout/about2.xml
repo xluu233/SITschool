@@ -7,14 +7,28 @@
 
     <TextView
         android:layout_gravity="center"
-        android:text="若更新出现错误，可以去网页下载"
-        android:textSize="17dp"
+        android:text="若更新出现错误，请转到网页下载："
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="50dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="酷安"/>
 
     <ImageButton
         android:id="@+id/kuan"
         android:background="@drawable/kuan"
         android:layout_width="100dp"
         android:layout_height="100dp" />
+    <TextView
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Bmob:"/>
+
+    <ImageButton
+        android:id="@+id/bmob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bmob" />
 </LinearLayout>

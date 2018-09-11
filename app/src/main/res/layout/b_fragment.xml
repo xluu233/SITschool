@@ -1,221 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/ttt"
         android:background="@color/red_300"
-        android:gravity="center"
-        android:minHeight="45dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="课程表"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="12dp"/>
-
-
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/bt"
-        android:layout_below="@+id/title"
-        android:layout_width="80dp"
-        android:background="@color/blue_300"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
 
         <LinearLayout
             android:orientation="vertical"
-            android:background="@color/blue_300"
+            android:background="@color/red_300"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/zong"
-                android:background="@color/blue_300"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_height="45dp">
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="总课表"/>
+                android:text="课程表"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
 
-            <Button
-                android:id="@+id/zhou1"
-                android:background="@color/blue_300"
+            <TextView
+                android:id="@+id/subtitle"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第一周"/>
-
-            <Button
-                android:id="@+id/zhou2"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第二周"/>
-
-            <Button
-                android:id="@+id/zhou3"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第三周"/>
-
-            <Button
-                android:id="@+id/zhou4"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第四周"/>
-
-            <Button
-                android:id="@+id/zhou5"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第五周"/>
-
-            <Button
-                android:id="@+id/zhou6"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第六周"/>
-
-            <Button
-                android:id="@+id/zhou7"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第七周"/>
-
-            <Button
-                android:id="@+id/zhou8"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第八周"/>
-
-            <Button
-                android:id="@+id/zhou9"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第九周"/>
-
-            <Button
-                android:id="@+id/zhou10"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十周"/>
-
-            <Button
-                android:id="@+id/zhou11"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十一周"/>
-
-            <Button
-                android:id="@+id/zhou12"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十二周"/>
-
-            <Button
-                android:id="@+id/zhou13"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十三周"/>
-
-            <Button
-                android:id="@+id/zhou14"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十四周"/>
-
-            <Button
-                android:id="@+id/zhou15"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十五周"/>
-
-            <Button
-                android:id="@+id/zhou16"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十六周"/>
-
-            <Button
-                android:id="@+id/zhou17"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十七周"/>
-
-            <Button
-                android:id="@+id/zhou18"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十八周"/>
-
-            <Button
-                android:id="@+id/zhou19"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第十九周"/>
-
-            <Button
-                android:id="@+id/zhou20"
-                android:background="@color/blue_300"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第二十周"/>
+                android:textSize="11dp"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
-    </ScrollView>
-
-    <RelativeLayout
-        android:layout_toRightOf="@+id/bt"
-        android:layout_below="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ProgressBar
-            android:id="@+id/progressBarNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
-        <WebView
-            android:id="@+id/wb"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </WebView>
-
+        <Button
+            android:id="@+id/jiazai"
+            android:background="@color/transparent"
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="重新加载"
+            android:textSize="11dp"
+            android:layout_alignParentRight="true" />
 
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <WebView
+                android:id="@+id/wb"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="550dp">
+            </WebView>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content">
+                </Spinner>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
 
 
 
 
 
-</RelativeLayout>
+
+
+
+</LinearLayout>

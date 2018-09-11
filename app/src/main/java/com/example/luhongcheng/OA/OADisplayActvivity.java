@@ -110,7 +110,7 @@ public class OADisplayActvivity extends AppCompatActivity {
                     HttpUrl loginUrl = request1.url();
 
                     cookies = headers.values("Set-Cookie");
-                    Log.d("cookie信息", "onResponse-size: " + cookies);
+                   // Log.d("cookie信息", "onResponse-size: " + cookies);
 
                     String[] strs = cookies.toArray(new String[cookies.size()]);
                     for (int i = 0; i < strs.length; ++i) {

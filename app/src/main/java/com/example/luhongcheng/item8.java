@@ -59,7 +59,7 @@ public class item8 extends AppCompatActivity{
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
         //不显示webview缩放按钮
-        //webSettings.setDisplayZoomControls(false);
+        webSettings.setDisplayZoomControls(false);
 
 
     }
@@ -72,6 +72,9 @@ public class item8 extends AppCompatActivity{
         return super.onKeyDown(keyCode, event);
     }
 
+    public   void back(View view){
+        this.finish();
+    }
 
 
 }

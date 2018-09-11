@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.luhongcheng.OA.EightOAFragment;
 import com.example.luhongcheng.OA.FifthOAFragment;
@@ -79,6 +80,10 @@ public class item3 extends FragmentActivity implements OnClickListener, OnPageCh
 		xuehao= spCount.getString("username", "");
 		mima= spCount.getString("password", "");
 
+		if(xuehao.length()==0){
+			Toast.makeText(item3.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+		}
+
 	}
 
 
@@ -103,7 +108,7 @@ public class item3 extends FragmentActivity implements OnClickListener, OnPageCh
 					final Headers headers = response1.headers();
 
 					cookies = headers.values("Set-Cookie");
-					Log.d("cookie信息", "onResponse-size: " + cookies);
+					//Log.d("cookie信息", "onResponse-size: " + cookies);
 
 					String[] strs = cookies.toArray(new String[cookies.size()]);
 					for (int i = 0; i < strs.length; ++i) {

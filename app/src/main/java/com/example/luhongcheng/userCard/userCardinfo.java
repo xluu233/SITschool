@@ -120,7 +120,7 @@ public class userCardinfo extends Activity {
                     HttpUrl loginUrl = request1.url();
 
                     cookies = headers.values("Set-Cookie");
-                    Log.d("cookie信息", "onResponse-size: " + cookies);
+                    //Log.d("cookie信息", "onResponse-size: " + cookies);
 
                     String[] strs = cookies.toArray(new String[cookies.size()]);
                     for (int i = 0; i < strs.length; ++i) {
@@ -170,7 +170,7 @@ public class userCardinfo extends Activity {
 
                         for(int j = 1;j < link.size();j++){
                             String a1 = link.get(j).select("td").get(2).text();
-                            System.out.println("a1"+a1.toString());
+                            //System.out.println("a1"+a1.toString());
 
                             String aa = link.get(j).select("td").get(3).text();
 
@@ -179,10 +179,10 @@ public class userCardinfo extends Activity {
 
 
                             String a2 = link.get(j).select("td").get(4).text();
-                            System.out.println("a2"+a2.toString());
+                           // System.out.println("a2"+a2.toString());
 
                             String a3 = link.get(j).select("td").get(5).text();
-                            System.out.println("a3"+a3.toString());
+                           // System.out.println("a3"+a3.toString());
 
                             userCard news = new userCard(a1,a2,a3);
                             newsList.add(news);

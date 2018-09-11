@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:id="@+id/bottomlinear"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+
+        <Button 
+            android:id="@+id/btn_third"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="学校新闻"/>
+        <Button 
+            android:id="@+id/btn_four"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="校园快讯"/>
+        <Button 
+            android:id="@+id/btn_fifth"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="学术文化"/>
+        <Button
+            android:id="@+id/btn_six"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="通知公告"/>
+
+        
+    </LinearLayout>
+
+    <LinearLayout 
+        android:id="@+id/cursorarea"
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:layout_height="2dp">
+      	<ImageView
+      	    android:id="@+id/cursor_btn"
+      	    android:layout_width="fill_parent"
+      	    android:layout_height="fill_parent">
+      	</ImageView>
+    </LinearLayout>
+
+     
+    <android.support.v4.view.ViewPager
+        android:id="@+id/myviewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
+
+
+
+    
+
+</LinearLayout>

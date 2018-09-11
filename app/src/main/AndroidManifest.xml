@@ -5,30 +5,38 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
 
-
+    <meta-data android:name="android.max_aspect" android:value="2.2" />
 
 
     <application
         android:allowBackup="true"
+        android:name=".MyApplication"
         android:icon="@drawable/ic_launcher"
-        android:label="SITschool"
+        android:label="SIT学生助手"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartFlash">
+
+        <activity android:name=".StartFlash"
+            android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".LoginActivity"/>
         <activity android:name=".MainFragmentActivity"/>
         <activity android:name=".OA.OADisplayActvivity"/>
-        <activity android:name=".item0"> </activity>
+        <activity
+            android:name=".item0"
+            android:theme="@style/myTransparent">
+        </activity>
         <activity android:name=".item1"> </activity>
         <activity android:name=".item2"> </activity>
         <activity android:name=".item3"> </activity>
@@ -51,6 +59,15 @@
         <activity android:name=".send"/>
         <activity android:name="item9"/>
         <activity android:name=".secondclass.SecondClassDisplayActvivity"/>
+        <activity android:name=".zixun.news"/>
+        <activity android:name=".zixun.zhuyeDisplayActvivity"/>
+        <activity android:name=".MoreTips"/>
+        <activity android:name=".MoreQuestion"/>
+        <activity android:name=".SWZL"/>
+        <activity android:name=".OneSelf"
+            android:theme="@style/bantouming">
+        </activity>
+
 
 
         <service android:name="cn.jpush.android.service.PushService"
@@ -75,6 +92,23 @@
                 <category android:name="com.example.luhongcheng" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="com.miui.zeus.mimo.sdk.activityProxy.ProxyActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 

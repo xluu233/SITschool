@@ -8,66 +8,31 @@
     tools:context=".item9"
     tools:layout_editor_absoluteY="25dp">
 
-    <LinearLayout
-        android:id="@+id/top_title"
+    <RelativeLayout
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:background="@color/red_300"
-        android:gravity="center"
-        android:minHeight="45dp"
-        android:orientation="horizontal">
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/a"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/shequ4"/>
 
         <TextView
-            android:id="@+id/top_sign"
+            android:id="@+id/b"
+            android:layout_toRightOf="@+id/a"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:clickable="true"
-            android:text="失物招领信息"
+            android:layout_height="match_parent"
+            android:text="上应社区"
+            android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
-    </LinearLayout>
-
-
-    <ListView
-        android:layout_below="@+id/top_title"
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#ffffff"
-        android:dividerHeight="7sp">
-    </ListView>
-
-
-
-    <Button
-        android:id="@+id/bt1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:text="发布信息"
-        android:onClick="send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dot_normal"
-        tools:ignore="OnClick" />
-
-    <Button
-        android:id="@+id/bt2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bt1"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:background="@drawable/dot_normal"
-        android:text="刷   新" />
-
-
-
-
-
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -100,6 +100,10 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
         xuehao= spCount.getString("username", "");
         mima= spCount.getString("password", "");
 
+        if(xuehao.length()==0){
+            Toast.makeText(item4.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
@@ -107,9 +111,7 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
         if(xuehao.length()==10&&mima.length()>=4){
             postdata();
         }
-        else {
-            Toast.makeText(item4.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     public void postdata() {
@@ -249,31 +251,31 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
                         for(int j = 4; j < link.size(); j++){
 
                             a1 = link.get(j).select("td").get(0).text();
-                            System.out.println("a1"+a1.toString());
+                            //System.out.println("a1"+a1.toString());
 
                             a2 = link.get(j).select("td").get(1).text();
-                            System.out.println("a2"+a1.toString());
+                            //System.out.println("a2"+a1.toString());
 
                             a3 = link.get(j).select("td").get(2).text();
-                            System.out.println("a3"+a1.toString());
+                            //System.out.println("a3"+a1.toString());
 
                             a4 = link.get(j).select("td").get(3).text();
-                            System.out.println("a4"+a1.toString());
+                            //System.out.println("a4"+a1.toString());
 
                             a5 = link.get(j).select("td").get(4).text();
-                            System.out.println("a5"+a1.toString());
+                            //System.out.println("a5"+a1.toString());
 
                             a6 = link.get(j).select("td").get(5).text();
-                            System.out.println("a6"+a1.toString());
+                            //System.out.println("a6"+a1.toString());
 
                             a7 = link.get(j).select("td").get(6).text();
-                            System.out.println("a7"+a1.toString());
+                            //System.out.println("a7"+a1.toString());
 
                             a8 = link.get(j).select("td").get(7).text();
-                            System.out.println("a8"+a1.toString());
+                            //System.out.println("a8"+a1.toString());
 
                             a9 = link.get(j).select("td").get(8).text();
-                            System.out.println("a9"+a1.toString());
+                            //System.out.println("a9"+a1.toString());
 
 
                             grade news = new grade(a1,a2,a3,a4,a5,a6,a7,a8,a9);

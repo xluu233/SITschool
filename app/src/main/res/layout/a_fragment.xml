@@ -1,102 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
 
     <LinearLayout
-        android:id="@+id/top_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red_300"
+        android:id="@+id/tt"
         android:gravity="center"
-        android:minHeight="45dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher"/>
+        android:background="@color/red_300"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/top_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:clickable="true"
-            android:text="SITschool"
-            android:textColor="@android:color/white"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            />
+        <ImageView
+            android:background="@color/red_300"
+            android:layout_width="12dp"
+            android:layout_height="45dp" />
+
+        <ImageButton
+            android:id="@+id/OneSelf"
+            android:background="@drawable/ic_launcher"
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/red_300"
+            app:subtitleTextAppearance="@style/Toolbar.subTitleText"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
+
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/lunhuan"
-        android:layout_width="fill_parent"
-        android:layout_height="200dip"
-        android:layout_below="@+id/top_title"
-        >
+
+
+    <ScrollView
+        android:layout_below="@+id/tt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dip">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp"
-                android:layout_width="match_parent"
-                android:layout_height="200dip"
-                android:layout_centerInParent="true">
-            </android.support.v4.view.ViewPager>
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="25dip"
-                android:orientation="vertical"
-                android:layout_gravity="bottom"
-                android:layout_alignParentBottom="true"
+                android:id="@+id/top_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red_300"
                 android:gravity="center"
-                android:background="#33000000">
-
-                <LinearLayout
-                    android:id="@+id/ll_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    >
-                </LinearLayout>
+                android:orientation="horizontal">
 
             </LinearLayout>
 
+
+            <FrameLayout
+                android:id="@+id/lunhuan"
+                android:layout_width="fill_parent"
+                android:layout_height="160dip"
+                android:layout_below="@+id/top_title"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true">
+                    </android.support.v4.view.ViewPager>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="20dip"
+                        android:orientation="vertical"
+                        android:layout_gravity="bottom"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:background="#33000000">
+
+                        <LinearLayout
+                            android:id="@+id/ll_tag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            >
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            //可爱的分割线
+            <LinearLayout
+                android:id="@+id/cutelinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lunhuan">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:background="#FFFFFF" />
+
+            </LinearLayout>
+
+
+            <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/gridview"
+                android:background="#ffffff"
+                android:layout_width="fill_parent"
+                android:layout_height="170dp"
+                android:numColumns="4"
+                android:gravity="center"
+                android:layout_below="@+id/cutelinear" />
+
+            <TextView
+                android:id="@+id/havefun"
+                android:layout_below="@+id/gridview"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="11dp"/>
+
+            <ImageView
+                android:id="@+id/huabian"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_below="@+id/havefun"
+                android:src="@drawable/huabian" />
+
+
+
+            <LinearLayout
+                android:id="@+id/tip"
+                android:background="@color/white"
+                android:layout_below="@+id/huabian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_marginLeft="30dp"
+                    android:gravity="left"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tips:"
+                    android:textSize="11dp"/>
+
+                <ImageView
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_width="fill_parent"
+                    android:background="@color/blue_300"
+                    android:layout_height="1dp" />
+
+
+                <ScrollView
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="60dp">
+                    <TextView
+                        android:id="@+id/tips"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:textSize="11dp"
+                        android:text="(♡˙︶˙♡)"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </ScrollView>
+
+                <ImageView
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@color/blue_300"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp" />
+                <Button
+                    android:id="@+id/more"
+                    android:layout_width="match_parent"
+                    android:layout_height="23dp"
+                    android:background="@color/white"
+                    android:text="更多推送"
+                    android:textSize="11dp"
+                    android:textColor="@color/red_300"/>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/div2"
+                android:layout_below="@+id/tip"
+                android:layout_width="fill_parent"
+                android:layout_height="15dp" />
+
+            <LinearLayout
+                android:id="@+id/answer"
+                android:background="@color/white"
+                android:layout_below="@+id/div2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:gravity="left"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="你问我答:"
+                    android:textSize="11dp"/>
+                <ImageView
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_width="fill_parent"
+                    android:background="@color/blue_300"
+                    android:layout_height="1dp" />
+
+                <ScrollView
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="40dp">
+
+                    <TextView
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:id="@+id/QQ"
+                        android:text="Q:"
+                        android:textSize="11dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </ScrollView>
+
+                <ScrollView
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:id="@+id/AA"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:text="A:"
+                        android:textSize="11dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </ScrollView>
+
+                <ImageView
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@color/blue_300"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp" />
+                <Button
+                    android:id="@+id/more2"
+                    android:layout_width="match_parent"
+                    android:layout_height="23dp"
+                    android:background="@color/white"
+                    android:text="更多问题"
+                    android:textSize="11dp"
+                    android:textColor="@color/red_300"/>
+            </LinearLayout>
+
+
         </RelativeLayout>
 
-    </FrameLayout>
-
-    //可爱的分割线
-    <LinearLayout
-        android:id="@+id/cutelinear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lunhuan">
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="5dp"
-            android:background="#FFFFFF" />
-
-    </LinearLayout>
-
-
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/gridview"
-        android:background="#ffffff"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:numColumns="4"
-        android:gravity="center"
-        android:layout_below="@+id/cutelinear"
-        />
+    </ScrollView>
 
 
 </RelativeLayout>

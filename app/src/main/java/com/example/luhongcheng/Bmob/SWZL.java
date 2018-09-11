@@ -1,5 +1,7 @@
 package com.example.luhongcheng.Bmob;
 
+
+
 import cn.bmob.v3.BmobObject;
 
 public class SWZL extends BmobObject {
@@ -43,7 +45,6 @@ public class SWZL extends BmobObject {
     }
 
     private String adress;
-
 
 
 }

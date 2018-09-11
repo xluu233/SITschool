@@ -55,12 +55,13 @@ public class ImageLunhuanAdapter extends PagerAdapter {
 
             @Override
             public void onClick(View v) {
+                /*
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_TEXT, "SITschool上应大学生助手集成OA系统部分查询及资讯功能，可在Android端实现查询成绩，查询电费，查询第二课堂，查询考试安排等等一系列功能，目前在酷安已发布，快来下载吧：https://www.coolapk.com/apk/187672");
                 intent.setType("text/plain");
                 context.startActivity(Intent.createChooser(intent, "分享到"));
-                //startActivity(Intent.createChooser(intent, "分享到"));
+                */
             }
         });
         container.addView(data.get(position%data.size()));

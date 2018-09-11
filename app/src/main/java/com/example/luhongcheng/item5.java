@@ -138,7 +138,7 @@ public class item5 extends Activity implements View.OnClickListener {
                 }
             }
             else {
-                Toast.makeText(item5.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+                Toast.makeText(item5.this,"你还没有输入账号，请重启登入学号", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -187,7 +187,7 @@ public class item5 extends Activity implements View.OnClickListener {
                     HttpUrl loginUrl = request1.url();
                     //List<Cookie> cookies = Cookie.parseAll(loginUrl, headers);  //这是另一种获取cookie的方法
                     cookies = headers.values("Set-Cookie");
-                    Log.d("cookie信息", "onResponse-size: " + cookies);
+                    //Log.d("cookie信息", "onResponse-size: " + cookies);
 
                     //List<String>是String数组集合，先转换成String[],在转换成String
                     String[] strs = cookies.toArray(new String[cookies.size()]);
@@ -259,15 +259,11 @@ public class item5 extends Activity implements View.OnClickListener {
                             a3 = names[i=3];
                             a4 = names[i=4];
                         }
-                        System.out.println("name:"+name.toString());
-                        //String a1 = link.get(j).select("td").text();
-                        System.out.println("a1:"+a1.toString());
-                        //String a2 = link.get(j).select("td").text();
-                        System.out.println("a2:"+a2.toString());
-                        //String a3 = link.get(j).select("td").text();
-                        System.out.println("a3:"+a3.toString());
-                        //String a4 = link.get(j).select("td").text();
-                        System.out.println("a4:"+a4.toString());
+                        //System.out.println("name:"+name.toString());
+                        //System.out.println("a1:"+a1.toString());
+                        //System.out.println("a2:"+a2.toString());
+                        //System.out.println("a3:"+a3.toString());
+                        // System.out.println("a4:"+a4.toString());
 
 
                     }

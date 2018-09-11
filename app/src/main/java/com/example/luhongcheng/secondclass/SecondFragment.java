@@ -233,34 +233,34 @@ public class SecondFragment extends Fragment {
 
 					for(int j = 0;j < link.size();j++){
 						C1 = link.get(j).select("tr").get(1).text();
-						System.out.println("C1"+C1.toString());
+						//System.out.println("C1"+C1.toString());
 
 						C2 = link.get(j).select("tr").get(2).text();
-						System.out.println("C2"+C2.toString());
+						//System.out.println("C2"+C2.toString());
 
 						C3 = link.get(j).select("tr").get(3).text();
-						System.out.println("C3"+C3.toString());
+						//System.out.println("C3"+C3.toString());
 
 						C4 = link.get(j).select("tr").get(4).text();
-						System.out.println("C4"+C4.toString());
+						//System.out.println("C4"+C4.toString());
 
 						C5 = link.get(j).select("tr").get(5).text();
-						System.out.println("C5"+C5.toString());
+						//System.out.println("C5"+C5.toString());
 
 						C6 = link.get(j).select("tr").get(6).text();
-						System.out.println("C6"+C6.toString());
+						//System.out.println("C6"+C6.toString());
 
 						C7 = link.get(j).select("tr").get(7).text();
-						System.out.println("C7"+C7.toString());
+						//System.out.println("C7"+C7.toString());
 
 						C8 = link.get(j).select("tr").get(8).text();
-						System.out.println("C8"+C8.toString());
+						//System.out.println("C8"+C8.toString());
 
 						C9 = link.get(j).select("tr").get(9).text();
-						System.out.println("C9"+C9.toString());
+						//System.out.println("C9"+C9.toString());
 
 						C10 = link.get(j).select("tr").get(10).text();
-						System.out.println("C10"+C10.toString());
+						//System.out.println("C10"+C10.toString());
 					}
 					Message msg = new Message();
 					msg.what = 1;

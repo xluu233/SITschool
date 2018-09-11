@@ -168,14 +168,14 @@ public class SevenFragment extends Fragment implements View.OnClickListener {
 
 					for(int j = 2;j < link.size();j++){
 						String A1 = link.get(j).select("a").text();
-						System.out.println("A1"+A1.toString());
+						//System.out.println("A1"+A1.toString());
 
 						String A2 = link.get(j).select("a").attr("href");
 						A2 = "http://sc.sit.edu.cn"+A2;
-						System.out.println("A2"+A1.toString());
+						//System.out.println("A2"+A1.toString());
 
 						String A3 = link.get(j).select("span").text();
-						System.out.println("A3"+A1.toString());
+						//System.out.println("A3"+A1.toString());
 
 						SecondClass news = new SecondClass(A1,A2,A3);
 						newsList.add(news);

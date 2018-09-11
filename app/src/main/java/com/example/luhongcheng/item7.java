@@ -106,15 +106,16 @@ public class  item7 extends Activity implements View.OnClickListener {
         xuehao= spCount.getString("username", "");
         mima= spCount.getString("password", "");
 
+        if(xuehao.length()==0){
+            Toast.makeText(item7.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.send_request) {
             if(xuehao.length()==10&&mima.length()>=4){
                 postdata();
-            }
-            else {
-                Toast.makeText(item7.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
             }
 
         }

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
 
 
@@ -35,8 +36,8 @@
                 android:layout_weight="1"/>
             <ImageView
                 android:id="@+id/C"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
                 android:layout_width="0dp"
                 android:src="@drawable/tab_menu_me"
                 android:layout_height="match_parent"
@@ -58,6 +59,7 @@
             android:layout_height="15dp">
 
             <TextView
+                android:id="@+id/A1"
                 android:text="首页"
                 android:gravity="center"
                 android:layout_width="0dp"
@@ -66,6 +68,7 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/B1"
                 android:text="课表"
                 android:textSize="12dp"
                 android:gravity="center"
@@ -74,7 +77,8 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:text="失物招领"
+                android:id="@+id/C1"
+                android:text="社区"
                 android:textSize="12dp"
                 android:gravity="center"
                 android:layout_width="0dp"
@@ -82,6 +86,7 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/D1"
                 android:text="我的"
                 android:textSize="12dp"
                 android:gravity="center"
@@ -100,7 +105,7 @@
     <View
         android:id="@+id/div_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="#DDDDDD"
         android:layout_above="@id/tab_menu"/>
 
@@ -115,16 +120,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/tab_title"
-                android:layout_width="match_parent"
-                android:layout_height="48dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_alignParentBottom="true"/>
-            </RelativeLayout>
 
         </FrameLayout>
 

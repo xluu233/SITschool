@@ -1,30 +1,40 @@
 package com.example.luhongcheng;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.luhongcheng.Bmob.Tips;
+import com.example.luhongcheng.Bmob.lan;
+import com.example.luhongcheng.about.about0;
 import com.example.luhongcheng.userCard.userCardinfo;
-
+import com.example.luhongcheng.zixun.news;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -32,18 +42,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.b.V;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
-import okhttp3.OkHttpClient;
-
-
-
-/*Gridview*/
+import static com.example.luhongcheng.FourFragment.TAG;
 
 /**
  * Created by Administrator on 2018/4/7.
  */
 
-public class OneFragment extends Fragment {
+@SuppressLint("ValidFragment")
+public class OneFragment extends Fragment{
     private String context;
     public OneFragment(String context){
         this.context = context;
@@ -53,8 +65,6 @@ public class OneFragment extends Fragment {
     private List<Map<String, Object>> dataList;
     private SimpleAdapter adapter;
 
-    /*注销APP*/
-    private long mExitTime;
 
     /*轮换图片定义的*/
     //统计下载了几张图片
@@ -110,42 +120,87 @@ public class OneFragment extends Fragment {
         };
     };
 
+    private Toolbar mToolbar;
+    Button more,more2;
+    TextView tips,QQ,AA,havefun;
 
-    String username;
-    String password;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.a_fragment, container, false);
+        //((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         return  view;
     }
 
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        /*gridview.java*/
         gridView = (GridView) getView().findViewById(R.id.gridview);
-        //初始化数据
         initData();
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));//设置状态栏背景色
+        }
+
+        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        mToolbar.inflateMenu(R.menu.menu);
+        mToolbar.setTitle("SITschool");
+        mToolbar.setSubtitle("明德、明学、明事");
+
+
+        Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
+        gettip();
+        tips = (TextView) getActivity().findViewById(R.id.tips);
+        more = (Button) getActivity().findViewById(R.id.more);
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MoreTips.class);
+                startActivity(intent);
+            }
+        });
+
+        havefun = (TextView) getActivity().findViewById(R.id.havefun);
+        QQ =  (TextView) getActivity().findViewById(R.id.QQ);
+        AA =  (TextView) getActivity().findViewById(R.id.AA);
+        more2 = (Button) getActivity().findViewById(R.id.more2);
+        more2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MoreQuestion.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton one = (ImageButton) getActivity().findViewById(R.id.OneSelf);
+        one.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(getActivity(),OneSelf.class);
+                startActivity(intent);
+            }
+        });
+
         String[] from={"ItemImage","ItemText"};
-
         int[] to={R.id.ItemImage,R.id.ItemText};
-
         adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
-
         gridView.setAdapter(adapter);
 
 
    /* 给item设置点击事件*/
-
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        Intent intent=new Intent(getActivity(),item0.class);
+                        Intent intent=new Intent(getActivity(),item2.class);
                         startActivity(intent);
                         break;
                     case 1:
@@ -153,40 +208,51 @@ public class OneFragment extends Fragment {
                         startActivity(intent1);
                         break;
                     case 2:
-                        Intent intent2=new Intent(getActivity(),item2.class);
+                        Intent intent2=new Intent(getActivity(),item3.class);
                         startActivity(intent2);
                         break;
                     case 3:
-                        Intent intent3=new Intent(getActivity(),item3.class);
+                        Intent intent3=new Intent(getActivity(),item4.class);
                         startActivity(intent3);
                         break;
                     case 4:
-                        Intent intent4=new Intent(getActivity(),item4.class);
+                        Intent intent4=new Intent(getActivity(),item5.class);
                         startActivity(intent4);
                         break;
                     case 5:
-                        Intent intent5=new Intent(getActivity(),item5.class);
+                        Intent intent5=new Intent(getActivity(),item6.class);
                         startActivity(intent5);
                         break;
                     case 6:
-                        Intent intent6=new Intent(getActivity(),item6.class);
+                        Intent intent6=new Intent(getActivity(),item7.class);
                         startActivity(intent6);
                         break;
                     case 7:
-                        Intent intent7=new Intent(getActivity(),item7.class);
+                        Intent intent7 = new Intent(getActivity(),userCardinfo.class);
                         startActivity(intent7);
                         break;
                     case 8:
-                        Intent intent8 = new Intent(getActivity(),userCardinfo.class);
+                        Intent intent8 = new Intent(getActivity(),item8.class);
                         startActivity(intent8);
                         break;
+                        /*
                     case 9:
-                        Intent intent9 = new Intent(getActivity(),item8.class);
+                        Intent intent9 = new Intent(getActivity(),item9.class);
                         startActivity(intent9);
+                        Toast.makeText(getActivity(),"暂未开放",Toast.LENGTH_SHORT).show();
+                        break;
+                        */
+                    case 9:
+                        Intent intent10 = new Intent(getActivity(),news.class);
+                        startActivity(intent10);
                         break;
                     case 10:
-                        Intent intent10 = new Intent(getActivity(),item9.class);
-                        startActivity(intent10);
+                        startActivity(new Intent(getActivity(),item0.class));
+                        getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_silent);
+
+                        //Intent intent11 = new Intent(getActivity(),item0.class);
+                        //startActivity(intent11);
+
                         break;
                     default:
                         break;
@@ -195,18 +261,90 @@ public class OneFragment extends Fragment {
         });
         /*点击事件设置完毕*/
         init();
-
-
+        getlan();
     }
+
+    public void gettip(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BmobQuery<Tips> query = new BmobQuery<Tips>();
+                query.findObjects(new FindListener<Tips>(){
+                    @Override
+                    public void done(List<Tips> list, BmobException e) {
+                        List<Tips> lists = new ArrayList<>();
+                        if (list != null) {
+                            final String[] tip  =  new String[list.size()];
+                            for(int i = 0;i<list.size();i++){
+                                tip[i] = list.get(i).getTips();
+                            }
+                            tips.setText(tip[0]);
+                        }
+                    }
+                });
+            }
+        }); //子线程
+        thread.start();
+    }
+
+    public void getlan(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BmobQuery<lan> query = new BmobQuery<lan>();
+                query.findObjects(new FindListener<lan>(){
+                    @Override
+                    public void done(List<lan> list, BmobException e) {
+                        List<lan> lists = new ArrayList<>();
+                        if (list != null) {
+                            final String[] lan = new String[list.size()];
+                            String[] sub = new  String[list.size()];
+                            int i;
+                            for(i = 0;i<list.size();i++){
+                                lan[i] = list.get(i).getYouqudejuzi();
+                                sub[i] = list.get(i).getSubtitle();
+                            }
+                            havefun.setText(lan[0]);
+                            mToolbar.setSubtitle(sub[0]);
+                        }
+                    }
+                });
+            }
+        }); //子线程
+        thread.start();
+    }
+
+    //toolbar
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.toolbar_action1:
+                //Toast.makeText(getActivity(),"更多功能敬请期待",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),about0.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     void initData() {
         //图标
-        int icno[] = { R.mipmap.g12,R.mipmap.g1,R.mipmap.g15,R.mipmap.g7,R.mipmap.g4,
-                        R.mipmap.g5,R.mipmap.g9,R.mipmap.g3,R.drawable.card,R.drawable.library,R.drawable.weixin};
+        int icno[] = { R.mipmap.g16,R.mipmap.g1,R.mipmap.g7,R.mipmap.g4,
+                        R.mipmap.g5,R.mipmap.g9,R.mipmap.g3,R.drawable.card,
+                        R.drawable.library,R.drawable.zixun,
+                        R.mipmap.g15};
         //图标下的文字
-        String name[]={"个人信息","第二课堂","其他系统","OA主页","成绩查看",
-                "电费查询","二级学院","考试安排","学生卡","移动读书馆","微信"};
+        String name[]={"部门","第二课堂","OA主页","成绩",
+                "电费","学院","考试","学生卡","读书馆","资讯","更多"};
 
         dataList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <icno.length; i++) {
@@ -216,8 +354,6 @@ public class OneFragment extends Fragment {
             dataList.add(map);
         }
     }
-
-
 
 
     /*轮换图片*/
@@ -287,6 +423,8 @@ public class OneFragment extends Fragment {
         }.start();
 
     }
+
+
     //控制图片轮播
     class MyThread extends Thread{
         @Override
@@ -299,7 +437,7 @@ public class OneFragment extends Fragment {
                 message.obj=p;
                 mHandler.sendMessage(message);
                 try {
-                    //睡眠3秒,在isStart为真的情况下，一直每隔三秒循环
+                    //睡眠5秒,在isStart为真的情况下，一直每隔三秒循环
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
@@ -309,6 +447,7 @@ public class OneFragment extends Fragment {
             }
         }
     }
+
     protected void creatTag() {
         tag=new ImageView[imageUrl.length];
         for(int i=0;i<imageUrl.length;i++){
@@ -328,6 +467,8 @@ public class OneFragment extends Fragment {
             ll_tag.addView(tag[i]);
         }
     }
+
+
 
 
 }

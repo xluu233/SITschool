@@ -5,13 +5,22 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dip"
         android:background="@drawable/radius_drawable_bg"
         android:orientation="vertical"
         android:padding="10dip" >
+
+
+        <ProgressBar
+            android:visibility="invisible"
+            android:id="@+id/ProgressBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
 
         <LinearLayout
             android:id="@+id/input_layout_name"
@@ -38,6 +47,8 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/view"
+            android:layout_below="@+id/input_layout_name"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginBottom="5dip"
@@ -46,6 +57,7 @@
 
         <LinearLayout
             android:id="@+id/input_layout_psw"
+            android:layout_below="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
@@ -71,7 +83,7 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>
