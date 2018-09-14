@@ -5,11 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.example.luhongcheng.Bmob.LOGO;
 import java.io.InputStream;
@@ -25,30 +28,29 @@ public class StartFlash extends Activity {
 
     private Intent intent;
     private static Bitmap bitmap;
-    private static ImageView mImageView;
+    private static ImageButton mImageView;
     private static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
+                    mImageView.setBackgroundResource(0);
                     mImageView.setImageBitmap(bitmap);
                     break;
             }
         }
     };
     public String ImageUrl ;
+    String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.startflash);
-        mImageView = (ImageView) findViewById(R.id.kaiji);
+        mImageView = (ImageButton) findViewById(R.id.kaiji);
         //bmob sdk
         Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
-
-
-
 
 
         //查找LOGO表里面id为Z2GB666E的数据
@@ -57,11 +59,8 @@ public class StartFlash extends Activity {
             @Override
             public void done(LOGO object,BmobException e) {
                 if(e==null){
-                    //获得数据的objectId信息
-                    //object.getObjectId();
-                    //获得createdAt数据创建时间（注意是：createdAt，不是createAt）
-                    //object.getCreatedAt();
                     ImageUrl = object.getimageUrl();
+                    url = object.getUrl();
                     //System.out.println("开机图片地址"+ImageUrl);
                     postUrl(ImageUrl);
                 }else{

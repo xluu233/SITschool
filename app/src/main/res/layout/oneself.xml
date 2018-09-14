@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/myicon"
                     android:textColor="@color/red_300"
-                    android:text="上应学子" />
+                    android:text="啊，朋友你好" />
 
                 <TextView
                     android:id="@+id/qianming"
@@ -56,7 +56,7 @@
                     android:layout_below="@+id/nickname"
                     android:layout_toRightOf="@+id/myicon"
                     android:textSize="12dp"
-                    android:text="签名" />
+                    android:text="明德，明学，明事" />
 
                 <TextView
                     android:id="@+id/APPid"
@@ -122,6 +122,7 @@
             </RelativeLayout>
 
             <ScrollView
+                android:id="@+id/B"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/A"
                 android:layout_marginLeft="10dp"
@@ -138,18 +139,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="230dp"/>
 
-                    <ImageButton
-                        android:id="@+id/center"
-                        android:layout_marginTop="20dp"
-                        android:layout_below="@+id/list_view"
-                        android:layout_width="40dp"
-                        android:layout_height="38dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@drawable/zhuancenter" />
 
                     <FrameLayout
-                        android:layout_below="@+id/center"
+                        android:layout_below="@+id/list_view"
+                        android:layout_marginTop="30dp"
                         android:id="@+id/container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -159,7 +152,17 @@
 
 
 
-
+            <ImageButton
+                android:id="@+id/center"
+                android:layout_marginTop="20dp"
+                android:layout_above="@+id/close"
+                android:layout_marginBottom="10dp"
+                android:layout_width="40dp"
+                android:layout_height="38dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/zhuancenter"
+                tools:ignore="NotSibling" />
 
 
 

@@ -142,6 +142,11 @@ public class OneSelf extends Activity{
                         nickname.setText(xixi.getNickname());
                         qianming.setText(xixi.getQianming());
                         APPid.setText("ID:"+xixi.getObjectId());
+                        //保存用户的ID
+                        SharedPreferences.Editor editor=getSharedPreferences("personID",0).edit();
+                        editor.putString("ID",xixi.getObjectId());
+                        editor.commit();
+
                         xueyuan.setText(xixi.getXueyuan());
                         iconUrl = xixi.geticonUrl();
                         //System.out.println("头像链接"+iconUrl);
@@ -150,7 +155,7 @@ public class OneSelf extends Activity{
 
                     }
                 }else{
-                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                    //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
             }
         });
@@ -194,6 +199,7 @@ public class OneSelf extends Activity{
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
+                    icon.setBackgroundResource(0);//清楚imageview的背景，还有一种方法是setImageDrawable(null);
                     icon.setImageBitmap(bitmap);
                     icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
                     break;

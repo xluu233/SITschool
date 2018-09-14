@@ -217,6 +217,7 @@ public class LoginActivity extends Activity {
                     xueyuan = url.select("li").get(3).text();
                     //System.out.println(name.toString());
                     //System.out.println(xueyuan.toString());
+                    storeInfo(name,xueyuan);
 
                     //这个密码是看不见的
                     _User bu = new _User();
@@ -229,8 +230,7 @@ public class LoginActivity extends Activity {
                         @Override
                         public void done(_User s, BmobException e) {
                             if(e==null){
-                                //toast("注册成功:" +s.toString());
-                                storeInfo(name,xueyuan);
+                                Toast.makeText(LoginActivity.this, "上海应用技术大学：注册成功", Toast.LENGTH_SHORT).show();
                             }else{
                                 LoginActivity.this.finish();
                             }
@@ -306,7 +306,7 @@ public class LoginActivity extends Activity {
 
     //保存个人信息在本地
     private void storeInfo(String name, String xueyuan) {
-        SharedPreferences.Editor editor=getSharedPreferences("userid",0).edit();
+        SharedPreferences.Editor editor=getSharedPreferences("nameid",0).edit();
         editor.putString("name",name);
         editor.putString("xueyuan",xueyuan);
         editor.commit();

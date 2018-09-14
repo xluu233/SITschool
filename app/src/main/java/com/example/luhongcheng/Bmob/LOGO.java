@@ -20,6 +20,16 @@ public class LOGO extends BmobObject {
         return image.getFileUrl();
     }
 
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
+    }
+
+    String Url;
+
 
 
 }

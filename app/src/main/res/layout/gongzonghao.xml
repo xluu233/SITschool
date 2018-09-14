@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:clickable="true"
-            android:text="微信资讯"
+            android:text="资讯"
             android:textColor="@android:color/white"
             android:textSize="15dp"
             android:textStyle="bold"

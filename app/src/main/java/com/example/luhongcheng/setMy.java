@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,22 +17,27 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.luhongcheng.Bmob._User;
 
 import java.io.File;
+import java.io.IOException;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 public class setMy extends Activity {
     ImageButton setIcon;
     Button send;
     Uri imageUri;
+    public static final int CHOOSE_PHOTO = 3;
+    EditText qianming,nickname;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,73 +46,68 @@ public class setMy extends Activity {
         setIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                /* 开启Pictures画面Type设定为image */
+                Intent intent = new Intent("android.intent.action.GET_CONTENT");
                 intent.setType("image/*");
-                /* 使用Intent.ACTION_GET_CONTENT这个Action */
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                /* 取得相片后返回本画面 */
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, CHOOSE_PHOTO);
             }
         });
+        qianming =(EditText)findViewById(R.id.qm);
+        nickname =(EditText)findViewById(R.id.nk);
 
         send =(Button)findViewById(R.id.send);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postImage();
-            }
-        });
+                final String qm,nk, icon_path;
+                qm = qianming.getText().toString();
+                nk = nickname.getText().toString();
 
-    }
+                SharedPreferences sp=getSharedPreferences("personID",0);
+                final String ID = sp.getString("ID","");
 
-    /*
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            imageUri = data.getData();
-        }
-    }
 
-    private void postImage() {
-        String path;
-        path =imageUri;
-        final BmobFile bmobFile = new BmobFile(new File(path));
-        bmobFile.uploadblock(new UploadFileListener() {
-            @Override
-            public void done(BmobException e) {
-                if(e==null){
-                    //bmobFile.getFileUrl()--返回的上传文件的完整地址
-                    Toast.makeText(setMy.this, "上传文件成功:" + bmobFile.getFileUrl(), Toast.LENGTH_SHORT).show();
-                    _User image = new _User();
-                    image.save(new SaveListener<String>() {
-                        @Override
-                        public void done(String s, BmobException e) {
-                            if(e==null){
-                                Log.d("bmob", "成功");
-                            }else{
-                                Log.d("bmob","失败："+e.getMessage()+","+e.getErrorCode());
-                            }
+                //获取文件路径
+                //icon_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/1.jpg";
+                icon_path = imagePath;
+                final BmobFile bmobfile = new BmobFile(new File(icon_path));
+
+                bmobfile.upload(new UploadFileListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if (e == null) {
+                            _User object = new _User();
+                            object.setNickname(nk);
+                            object.setQianming(qm);
+                            object.setImage(bmobfile);
+                            object.update(ID, new UpdateListener() {
+                                @Override
+                                public void done(BmobException e1) {
+                                    if(e1==null){
+                                       // Log.i("bmob","更新成功");
+                                        Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                       // Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                                    }
+                                }
+                            });
+                        } else {
+                            Toast.makeText(setMy.this, "文件上传失败", Toast.LENGTH_SHORT).show();
+                            //System.out.println("文件上传失败");
                         }
-                    });
-                }else{
-                    Toast.makeText(setMy.this, "上传文件失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+                    }
 
-            }
 
-            @Override
-            public void onProgress(Integer value) {
-                // 返回的上传进度（百分比）
+                });
             }
         });
+
     }
-    */
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
-            case 1:
+            case CHOOSE_PHOTO:
                 if (resultCode == RESULT_OK){
                     //判断手机系统版本号
                     if (Build.VERSION.SDK_INT>=19){
@@ -149,9 +150,9 @@ public class setMy extends Activity {
     private void displayImage(String imagePath) {
         if (imagePath!=null){
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-            picture.setImageBitmap(bitmap);
+            setIcon.setImageBitmap(bitmap);
         }else {
-            Toast.makeText(AddActivity.this, "未得到图片", Toast.LENGTH_SHORT).show();
+            Toast.makeText(setMy.this, "未得到图片", Toast.LENGTH_SHORT).show();
         }
     }
 

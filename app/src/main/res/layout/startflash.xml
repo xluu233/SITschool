@@ -7,8 +7,9 @@
     >
 
 
-    <ImageView
+    <ImageButton
         android:id="@+id/kaiji"
+        android:background="@color/white"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
@@ -21,7 +22,8 @@
         android:layout_height="140dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/kaijilogo" />
+        android:src="@drawable/kaijilogo"
+        android:layout_alignParentLeft="true" />
 
 
 
