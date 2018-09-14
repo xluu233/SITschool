@@ -31,6 +31,7 @@
         </activity>
 
         <activity android:name=".LoginActivity"/>
+        <activity android:name=".setMy"></activity>
         <activity android:name=".MainFragmentActivity"/>
         <activity android:name=".OA.OADisplayActvivity"/>
         <activity
@@ -67,6 +68,7 @@
         <activity android:name=".OneSelf"
             android:theme="@style/bantouming">
         </activity>
+        <activity android:name=".KB"></activity>
 
 
 

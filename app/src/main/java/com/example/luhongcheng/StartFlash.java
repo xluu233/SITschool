@@ -62,7 +62,7 @@ public class StartFlash extends Activity {
                     //获得createdAt数据创建时间（注意是：createdAt，不是createAt）
                     //object.getCreatedAt();
                     ImageUrl = object.getimageUrl();
-                    System.out.println("开机图片地址"+ImageUrl);
+                    //System.out.println("开机图片地址"+ImageUrl);
                     postUrl(ImageUrl);
                 }else{
                     Log.i("bmob图片","失败："+e.getMessage()+","+e.getErrorCode());

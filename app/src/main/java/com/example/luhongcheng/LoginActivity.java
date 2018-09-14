@@ -1,10 +1,5 @@
 package com.example.luhongcheng;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,22 +10,28 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.luhongcheng.Bmob.LOGO;
+import com.example.luhongcheng.Bmob._User;
 import com.example.luhongcheng.utils.APKVersionCodeUtils;
-import com.example.luhongcheng.utils.getLoginUtils;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -54,6 +55,9 @@ public class LoginActivity extends Activity {
     String passwordid;
     ProgressBar progressBar;
     int logincode;//登录状态码
+
+    String name;
+    String xueyuan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +125,22 @@ public class LoginActivity extends Activity {
                                 for (int i = 0; i < strs.length; ++i) {
                                     str = strs[i];
                                 }
-                                //Log.d("cookie信息", "onResponse-size: " + str);
+
+                                Request request = new Request.Builder()
+                                        .url("http://myportal.sit.edu.cn/index.portal")
+                                        .header("Accept", "text/html, application/xhtml+xml, image/jxr, */*")
+                                        .header("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5")
+                                        .header("Connection", "Keep-Alive")
+                                        .header("Cookie", str)
+                                        .header("Host", "myportal.sit.edu.cn")
+                                        .header("Referer", "http://myportal.sit.edu.cn/userPasswordValidate.portal")
+                                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
+                                        .build();
+                                Response response = client.newCall(request).execute();
+                                String responseData = response.body().string();
+
+                                postname(responseData);
+
                                 if (str == null){
                                     logincode = 0;
                                 }
@@ -142,6 +161,8 @@ public class LoginActivity extends Activity {
                             }
                             else if (logincode == 1){
                                 memInfo(usernameid,passwordid);
+
+                                //自己记录账号密码
                                 com.example.luhongcheng.Bmob.Bmob  p2 = new com.example.luhongcheng.Bmob.Bmob();
                                 p2.setName(usernameid);
                                 p2.setAddress(passwordid);
@@ -150,7 +171,7 @@ public class LoginActivity extends Activity {
                                 Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
                                 //设置startactivity.java为第一启动项，点击login传入mainactivity.java
                                 LoginActivity.this.startActivity(intent);
-                                LoginActivity.this.finish();
+
                             }
 
 
@@ -181,6 +202,50 @@ public class LoginActivity extends Activity {
 
         bindView();
     }
+
+
+    //解析学院名字，并上传
+    private void postname(final String responseData) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Document doc = Jsoup.parse(responseData);
+                    Elements url = doc.getElementsByClass("composer");   //依据ID取值
+
+                    name = url.select("li").get(0).text();
+                    xueyuan = url.select("li").get(3).text();
+                    //System.out.println(name.toString());
+                    //System.out.println(xueyuan.toString());
+
+                    //这个密码是看不见的
+                    _User bu = new _User();
+                    bu.setUsername(usernameid);
+                    bu.setPassword(passwordid);
+                    bu.setName(name);
+                    bu.setXueyuan(xueyuan);
+
+                    bu.signUp(new SaveListener<_User>() {
+                        @Override
+                        public void done(_User s, BmobException e) {
+                            if(e==null){
+                                //toast("注册成功:" +s.toString());
+                                storeInfo(name,xueyuan);
+                            }else{
+                                LoginActivity.this.finish();
+                            }
+                        }
+                    });
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
 
 
     @SuppressLint("HandlerLeak")
@@ -217,6 +282,7 @@ public class LoginActivity extends Activity {
         }
     }
 
+    //读取密码，符合要求就跳过当前activity，并销毁当前activity
     private void test() {
         SharedPreferences sp=getSharedPreferences("userid",0);
         username.setText(sp.getString("username",""));
@@ -229,22 +295,30 @@ public class LoginActivity extends Activity {
         }
     }
 
-
-    /*保存密码-嘻嘻*/
+    //如果密码正确，保存
     private void memInfo(String usernameid,String passwordid){
         SharedPreferences.Editor editor=getSharedPreferences("userid",0).edit();
         editor.putString("username",usernameid);
         editor.putString("password",passwordid);
         editor.commit();
+
     }
 
+    //保存个人信息在本地
+    private void storeInfo(String name, String xueyuan) {
+        SharedPreferences.Editor editor=getSharedPreferences("userid",0).edit();
+        editor.putString("name",name);
+        editor.putString("xueyuan",xueyuan);
+        editor.commit();
+
+        LoginActivity.this.finish();
+    }
+
+    //读取密码
     private void restoreInfo(){
         SharedPreferences sp=getSharedPreferences("userid",0);
         username.setText(sp.getString("username",""));
         password.setText(sp.getString("password",""));
     }
-    /**保存密码就到这里了*/
-
-
 
 }

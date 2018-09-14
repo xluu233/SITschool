@@ -6,13 +6,22 @@
 
     <TextView
         android:id="@+id/tv"
-        android:gravity="center"
+        android:gravity=""
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="111"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="50dp"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:gravity="right"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="2018-09-12 13:18:17"
+        android:textSize="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <ImageView
         android:layout_marginLeft="20dp"

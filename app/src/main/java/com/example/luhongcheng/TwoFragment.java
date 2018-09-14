@@ -24,6 +24,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.List;
@@ -108,7 +109,7 @@ public class TwoFragment extends Fragment {
         spinner.setVisibility(View.VISIBLE);
 
 
-        Button jiazai = (Button) getActivity().findViewById(R.id.jiazai);
+        ImageButton jiazai = (ImageButton) getActivity().findViewById(R.id.jiazai);
         jiazai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +136,17 @@ public class TwoFragment extends Fragment {
 
             }
         });
+
+
+        ImageButton qiehuan = (ImageButton) getActivity().findViewById(R.id.qiehuan);
+        qiehuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  intent = new Intent(getActivity(),KB.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         dbHelper = new MyDatabaseHelper(getActivity(), "BookStore.db", null, 2);
@@ -205,8 +217,8 @@ public class TwoFragment extends Fragment {
                     }
 
                     RequestBody requestBody1 = new FormBody.Builder()
-                            .add("loginName","1510400642")
-                            .add("password","199709")
+                            .add("loginName",xuehao)
+                            .add("password",mima)
                             .add("authtype","2")
                             .add("loginYzm","")
                             .add("Login.Token1","")

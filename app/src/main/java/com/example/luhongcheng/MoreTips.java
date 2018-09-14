@@ -44,8 +44,10 @@ public class MoreTips extends Activity {
                         List<Tips> lists = new ArrayList<>();
                         if (list != null) {
                             final String[] title  =  new String[list.size()];
+                            final String[] time  =  new String[list.size()];
                             for(int i = 0;i<list.size();i++){
                                 title[i] = list.get(i).getTips();
+                                time[i] = list.get(i).getCreatedAt();
                             }
 
 
@@ -78,6 +80,7 @@ public class MoreTips extends Activity {
                                         convertView = inflater.inflate(R.layout.tips_item, null);//实例化一个布局文件
                                         viewHolder = new ViewHolder();
                                         viewHolder.tv_title = (TextView)convertView.findViewById(R.id.tv);
+                                        viewHolder.time = (TextView)convertView.findViewById(R.id.time);
 
 
                                         convertView.setTag(viewHolder);
@@ -85,10 +88,12 @@ public class MoreTips extends Activity {
                                         viewHolder = (ViewHolder) convertView.getTag();
                                     }
                                     viewHolder.tv_title.setText(title[position]);
+                                    viewHolder.time.setText(time[position]);
                                     return convertView;
                                 }
                                 class ViewHolder{
                                     TextView tv_title;
+                                    TextView time;
                                 }
                             }
                             listView.setAdapter(new MyAdapter(getApplicationContext()));

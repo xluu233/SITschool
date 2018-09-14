@@ -98,12 +98,12 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
                     url = object.getapkUrl();
                     code1 = object.getCode();
                     text = object.getText();
-                    System.out.println("APK更新地址：" + url);
-                    System.out.println("版本号：" + code1);
-                    System.out.println("更新内容" + text);
+                    //System.out.println("APK更新地址：" + url);
+                    //System.out.println("版本号：" + code1);
+                    //System.out.println("更新内容" + text);
                     check(code1);
                 } else {
-                    Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                    //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                 }
             }
         });

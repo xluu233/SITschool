@@ -111,13 +111,13 @@ public class FifthOAFragment extends Fragment {
 					for(int j = 0;j < link.size();j++){
 						String A2 = link.get(j).select("a.rss-title").attr("href");
 						A2 = "http://myportal.sit.edu.cn/"+A2;
-						System.out.println(A2.toString());
+					//	System.out.println(A2.toString());
 
 						String A1 = link.get(j).select("a").attr("title");
-						System.out.println(A1.toString());
+						//System.out.println(A1.toString());
 
 						String A3 = link.get(j).select("span").text();
-						System.out.println(A3.toString());
+						//System.out.println(A3.toString());
 
 						OA news = new OA(A1,A2,A3);
 						newsList.add(news);

@@ -6,9 +6,21 @@
 
     <RelativeLayout
         android:id="@+id/ttt"
+        android:gravity="center"
         android:background="@color/red_300"
         android:layout_width="match_parent"
         android:layout_height="45dp">
+
+        <ImageButton
+            android:id="@+id/qiehuan"
+            android:layout_width="23dp"
+            android:layout_height="22dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="14dp"
+            android:background="@drawable/qiehuan"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="14dp" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -27,67 +39,55 @@
                 android:textColor="@android:color/white"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/subtitle"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:layout_below="@+id/title"
-                android:layout_width="match_parent"
-                android:textSize="11dp"
-                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/jiazai"
-            android:background="@color/transparent"
-            android:layout_width="47dp"
-            android:layout_height="wrap_content"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="重新加载"
-            android:textSize="11dp"
-            android:layout_alignParentRight="true" />
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/jiazai" />
 
     </RelativeLayout>
 
-    <ScrollView
+    <LinearLayout
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:minHeight="30dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content">
+        </Spinner>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="切换课表请点击上面按钮，网页里面操作是无效的"/>
+
+        <WebView
+            android:id="@+id/wb"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <WebView
-                android:id="@+id/wb"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="550dp">
-            </WebView>
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content">
-                </Spinner>
-
-            </LinearLayout>
+            android:layout_height="match_parent">
+        </WebView>
 
 
-        </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
 
 
 

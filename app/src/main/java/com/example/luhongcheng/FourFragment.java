@@ -5,24 +5,21 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.luhongcheng.FruitItem.Fruit;
+import com.example.luhongcheng.FruitItem.FruitAdapter;
 import com.example.luhongcheng.about.about0;
 import com.example.luhongcheng.about.about1;
 import com.example.luhongcheng.about.about2;
@@ -34,7 +31,8 @@ import com.miui.zeus.mimo.sdk.ad.IAdWorker;
 import com.miui.zeus.mimo.sdk.listener.MimoAdListener;
 import com.xiaomi.ad.common.pojo.AdType;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/8.
@@ -49,20 +47,13 @@ public class FourFragment extends Fragment {
     private IAdWorker mAdWorker;
     ViewGroup container;
 
-
+    private List<Fruit> fruitList = new ArrayList<Fruit>();
 
     @SuppressLint("ValidFragment")
     public FourFragment(String context){
         this.context = context;
     }
 
-    private String[] data = {
-            "功能介绍",
-            "加入team",
-            "检查更新",
-            "反馈帮助",
-            "捐赠开发者"
-    };
 
     //打包问题，在这里加入无参构造函数
     public FourFragment() {
@@ -83,21 +74,21 @@ public class FourFragment extends Fragment {
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, data);
-
         container = (ViewGroup) getActivity().findViewById(R.id.container);
-
         //设置版本号
         vv = (TextView) getActivity().findViewById(R.id.version);
         @SuppressLint({"NewApi", "LocalSuppress"}) String versionName = APKVersionCodeUtils.getVerName(this.getContext());
         vv.setText("V" + versionName);
 
+        initFruits(); // 初始化水果数据
         ListView listView = (ListView) getView().findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
+        FruitAdapter adapter2 = new FruitAdapter(getActivity(), R.layout.fruit_item, fruitList);
+        listView.setAdapter(adapter2);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Fruit fruit = fruitList.get(position);
+                //Toast.makeText(getActivity(), fruit.getImageId(), Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
                         //版本介绍
@@ -113,25 +104,19 @@ public class FourFragment extends Fragment {
                         //检查更新
                         Intent intent2 = new Intent(getActivity(), about2.class);
                         startActivity(intent2);
-                        /*
-                        Intent intent2 = new Intent();
-                        intent2.setData(Uri.parse("https://www.coolapk.com/apk/187672"));//Url 就是你要打开的网址
-                        intent2.setAction(Intent.ACTION_VIEW);
-                        startActivity(intent2); //启动浏览器
-                        */
                         break;
                     case 3:
                         Intent intent3 = new Intent(getActivity(), about3.class);
                         startActivity(intent3);
-                        /* Toast.makeText(getActivity(),"此功能未开放", Toast.LENGTH_SHORT).show();*/
                         break;
                     case 4:
                         Intent intent4 = new Intent(getActivity(), about4.class);
                         startActivity(intent4);
-                        // Toast.makeText(getActivity(),"赞赏未开放，可以到应用商店给个好评哟", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
+
+
                 }
             }
         });
@@ -187,6 +172,20 @@ public class FourFragment extends Fragment {
         //广告完了
 
     }
+
+    private void initFruits() {
+        Fruit apple = new Fruit("功能介绍", R.drawable.jieshao);
+        fruitList.add(apple);
+        Fruit banana = new Fruit("加入team", R.drawable.team);
+        fruitList.add(banana);
+        Fruit orange = new Fruit("检查更新", R.drawable.update);
+        fruitList.add(orange);
+        Fruit watermelon = new Fruit("反馈帮助", R.drawable.fankui);
+        fruitList.add(watermelon);
+        Fruit pear = new Fruit("捐赠开发者", R.drawable.juanzeng);
+        fruitList.add(pear);
+    }
+
 
     private void bindView() {
         ImageView share = (ImageView) getView().findViewById(R.id.shareapp) ;

@@ -168,16 +168,7 @@ public class OneFragment extends Fragment{
         });
 
         havefun = (TextView) getActivity().findViewById(R.id.havefun);
-        QQ =  (TextView) getActivity().findViewById(R.id.QQ);
-        AA =  (TextView) getActivity().findViewById(R.id.AA);
-        more2 = (Button) getActivity().findViewById(R.id.more2);
-        more2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),MoreQuestion.class);
-                startActivity(intent);
-            }
-        });
+
 
         ImageButton one = (ImageButton) getActivity().findViewById(R.id.OneSelf);
         one.setOnClickListener(new View.OnClickListener() {
@@ -278,7 +269,7 @@ public class OneFragment extends Fragment{
                             for(int i = 0;i<list.size();i++){
                                 tip[i] = list.get(i).getTips();
                             }
-                            tips.setText(tip[0]);
+                            tips.setText(tip[list.size() - 1]);
                         }
                     }
                 });
