@@ -11,6 +11,14 @@
         android:layout_width="150dp"
         android:layout_height="150dp" />
 
+    <Button
+        android:id="@+id/send1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="提交头像"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -28,7 +36,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/send2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存昵称" />
 
     <LinearLayout
         android:layout_marginLeft="30dp"
@@ -49,21 +66,19 @@
 
     </LinearLayout>
 
+
     <Button
-        android:id="@+id/QQ"
+        android:id="@+id/send3"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:text="绑定QQ"
+        android:text="保存签名"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/send"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="提交"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="对于Android7.0以上版本可能会无法上传"/>
 
 
 </LinearLayout>

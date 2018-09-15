@@ -61,11 +61,17 @@
 
     </LinearLayout>
 
+    <ImageButton
+        android:layout_gravity="center"
+        android:id="@+id/image"
+        android:src="@drawable/fab_add"
+        android:scaleType="centerCrop"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
 
     <Button
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:id="@+id/send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

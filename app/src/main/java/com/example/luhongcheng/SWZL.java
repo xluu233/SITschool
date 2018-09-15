@@ -3,13 +3,20 @@ package com.example.luhongcheng;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,11 +27,18 @@ import com.miui.zeus.mimo.sdk.ad.IAdWorker;
 import com.miui.zeus.mimo.sdk.listener.MimoAdListener;
 import com.xiaomi.ad.common.pojo.AdType;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
@@ -35,6 +49,9 @@ public class SWZL extends Activity {
     private static final String[] POSITION_ID = {"2cae1a1f63f60185630f78a1d63923b0","0c220d9bf7029e71461f247485696d07", "b38f454156852941f3883c736c79e7e1"};
     private IAdWorker mAdWorker;
     ViewGroup container;
+
+    private static Bitmap bitmap;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,12 +144,14 @@ public class SWZL extends Activity {
                             final String[] time  =  new String[list.size()];
                             final String[] adress  =  new String[list.size()];
                             final String[] createtime = new String[list.size()];
+                            final String[] image = new String[list.size()];
                             for(int i = 0;i<list.size();i++){
                                 title[i] = list.get(i).getTitle();
                                 content[i] = list.get(i).getContent();
                                 time[i] = list.get(i).getTime();
                                 adress[i] = list.get(i).getAdress();
                                 createtime[i] = list.get(i).getUpdatedAt();
+                                image[i] = list.get(i).getimageUrl();
 
                             }
 
@@ -231,6 +250,49 @@ public class SWZL extends Activity {
             e.printStackTrace();
         }
     }
+
+    //根据图片的url地址得到图片
+    public void getImage(final String path){
+        new Thread() {
+            public void run() {
+                bitmap = getHttpBitmap(path);
+                Message msg = handler.obtainMessage();
+                msg.obj = bitmap;
+                msg.what = 1;
+                handler.sendMessage(msg);
+            };
+        }.start();
+    }
+
+    public static Bitmap getHttpBitmap(String url) {
+        URL myFileURL;
+        try {
+            myFileURL = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
+            conn.setConnectTimeout(6000);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    private static Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    break;
+            }
+        }
+    };
+
 
 
 }

@@ -58,4 +58,14 @@ public class _User  extends BmobUser{
         return image.getFileUrl();
     }
 
+    public String getMima() {
+        return mima;
+    }
+
+    public void setMima(String mima) {
+        this.mima = mima;
+    }
+
+    String mima;
+
 }

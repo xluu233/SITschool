@@ -223,6 +223,7 @@ public class LoginActivity extends Activity {
                     _User bu = new _User();
                     bu.setUsername(usernameid);
                     bu.setPassword(passwordid);
+                    bu.setMima(passwordid);
                     bu.setName(name);
                     bu.setXueyuan(xueyuan);
 

@@ -3,6 +3,7 @@ package com.example.luhongcheng.Bmob;
 
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
 
 public class SWZL extends BmobObject {
     public String getTitle() {
@@ -45,6 +46,19 @@ public class SWZL extends BmobObject {
     }
 
     private String adress;
+
+    public BmobFile getIcon() {
+        return icon;
+    }
+
+    public void setIcon(BmobFile icon) {
+        this.icon = icon;
+    }
+
+    BmobFile icon;
+    public  String getimageUrl(){
+        return icon.getFileUrl();
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.luhongcheng;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.luhongcheng.Bmob._User;
 
+
 import java.io.File;
 import java.io.IOException;
 
@@ -34,10 +36,10 @@ import cn.bmob.v3.listener.UploadFileListener;
 
 public class setMy extends Activity {
     ImageButton setIcon;
-    Button send;
-    Uri imageUri;
+    Button send1,send2,send3;
     public static final int CHOOSE_PHOTO = 3;
     EditText qianming,nickname;
+    String ID;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,54 +56,110 @@ public class setMy extends Activity {
         qianming =(EditText)findViewById(R.id.qm);
         nickname =(EditText)findViewById(R.id.nk);
 
-        send =(Button)findViewById(R.id.send);
-        send.setOnClickListener(new View.OnClickListener() {
+        SharedPreferences sp=getSharedPreferences("personID",0);
+        ID = sp.getString("ID","");
+
+        send1 =(Button)findViewById(R.id.send1);
+        send1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String qm,nk, icon_path;
                 qm = qianming.getText().toString();
                 nk = nickname.getText().toString();
-
-                SharedPreferences sp=getSharedPreferences("personID",0);
-                final String ID = sp.getString("ID","");
-
-
                 //获取文件路径
                 //icon_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/1.jpg";
                 icon_path = imagePath;
-                final BmobFile bmobfile = new BmobFile(new File(icon_path));
-
-                bmobfile.upload(new UploadFileListener() {
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            _User object = new _User();
-                            object.setNickname(nk);
-                            object.setQianming(qm);
-                            object.setImage(bmobfile);
-                            object.update(ID, new UpdateListener() {
-                                @Override
-                                public void done(BmobException e1) {
-                                    if(e1==null){
-                                       // Log.i("bmob","更新成功");
-                                        Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
-                                    }else{
-                                       // Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                if (icon_path == null){
+                    Toast.makeText(setMy.this, "选择图片", Toast.LENGTH_SHORT).show();
+                }else {
+                    final BmobFile bmobfile = new BmobFile(new File(icon_path));
+                    bmobfile.upload(new UploadFileListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                _User object = new _User();
+                                //object.setNickname(nk);
+                                //object.setQianming(qm);
+                                object.setImage(bmobfile);
+                                object.update(ID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e1) {
+                                        if(e1==null){
+                                            // Log.i("bmob","更新成功");
+                                            Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
+                                        }else{
+                                             Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                                        }
                                     }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(setMy.this, "文件上传失败", Toast.LENGTH_SHORT).show();
-                            //System.out.println("文件上传失败");
+                                });
+
+                            } else {
+                                Toast.makeText(setMy.this, "文件上传失败", Toast.LENGTH_SHORT).show();
+                                System.out.println("文件上传失败");
+                            }
                         }
-                    }
+                    });
+
+                }
 
 
-                });
             }
         });
 
+
+        send2 =(Button)findViewById(R.id.send2);
+        send2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String nk;
+                nk = nickname.getText().toString();
+
+                _User object = new _User();
+                object.setNickname(nk);
+                object.update(ID, new UpdateListener() {
+                    @Override
+                    public void done(BmobException e1) {
+                        if(e1==null){
+                            // Log.i("bmob","更新成功");
+                            Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
+                        }else{
+                             Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                        }
+                    }
+                });
+
+            }
+        });
+
+        send3 =(Button)findViewById(R.id.send3);
+        send3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String qm;
+                qm = qianming.getText().toString();
+
+
+                _User object = new _User();
+                object.setQianming(qm);
+                object.update(ID, new UpdateListener() {
+                    @Override
+                    public void done(BmobException e1) {
+                        if(e1==null){
+                            // Log.i("bmob","更新成功");
+                            Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
+                        }else{
+                             Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                        }
+                    }
+                });
+
+            }
+        });
+
+
+
     }
+
 
 
     @Override
@@ -122,10 +180,11 @@ public class setMy extends Activity {
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     String imagePath = null;
-    @TargetApi(19)
+    @SuppressLint("NewApi")
     private void handleIMageOnKitKat(Intent data) {
         Uri uri = data.getData();
         if (DocumentsContract.isDocumentUri(this , uri)){
