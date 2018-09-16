@@ -1,7 +1,6 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.SWZL;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -13,16 +12,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.SWZL;
-import com.example.luhongcheng.Bmob._User;
+import com.example.luhongcheng.Bmob.diudiu;
+import com.example.luhongcheng.R;
 
 import java.io.File;
 
@@ -30,24 +27,20 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
-public class send extends Activity {
-
-    EditText title,content,time,adress;
+public class send2 extends Activity {
+    EditText title,content,QQ;
     ImageButton addimage;
     public static final int CHOOSE_PHOTO = 3;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.send);
+        setContentView(R.layout.send2);
         Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
         title = (EditText) findViewById(R.id.title);
         content = (EditText) findViewById(R.id.content);
-        time = (EditText) findViewById(R.id.time);
-        adress = (EditText) findViewById(R.id.adress);
+        QQ = (EditText) findViewById(R.id.adress);
         addimage = (ImageButton)findViewById(R.id.image);
         addimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,42 +52,39 @@ public class send extends Activity {
         });
     }
 
-
     public void post (View view){
         final String mtitle  = title.getText().toString();
         final String mcontent = content.getText().toString();
-        final String mtime = time.getText().toString();
-        final String madress = adress.getText().toString();
+        final String lianxi = QQ.getText().toString();
         final String icon_path = imagePath;
         if (mtitle == null){
-            Toast.makeText(send.this,"请填写完整信息", Toast.LENGTH_SHORT).show();
+            Toast.makeText(send2.this,"请填写完整信息", Toast.LENGTH_SHORT).show();
         } else if (icon_path == null){
-            Toast.makeText(send.this, "选择图片", Toast.LENGTH_SHORT).show();
+            Toast.makeText(send2.this, "选择图片", Toast.LENGTH_SHORT).show();
         } else {
             final BmobFile bmobfile = new BmobFile(new File(icon_path));
             bmobfile.upload(new UploadFileListener() {
                 @Override
                 public void done(BmobException e) {
                     if (e == null) {
-                        SWZL p2= new SWZL();
+                        diudiu p2 = new diudiu();
                         p2.setTitle(mtitle);
                         p2.setContent(mcontent);
-                        p2.setTime(mtime);
-                        p2.setAdress(madress);
-                        p2.setIcon(bmobfile);
+                        p2.setQQ(lianxi);
+                        p2.setImage(bmobfile);
                         p2.save(new SaveListener<String>() {
                             @Override
                             public void done(String objectId, BmobException e) {
                                 if(e==null){
-                                    Toast.makeText(send.this,"添加数据成功，返回objectId为："+objectId,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(send2.this,"添加数据成功，返回objectId为："+objectId,Toast.LENGTH_SHORT).show();
                                 }else{
-                                    Toast.makeText(send.this,"创建数据失败：" + e.getMessage(),Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(send2.this,"创建数据失败：" + e.getMessage(),Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
 
                     } else {
-                        Toast.makeText(send.this, "文件上传失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(send2.this, "文件上传失败", Toast.LENGTH_SHORT).show();
                         System.out.println("文件上传失败");
                     }
                 }
@@ -154,7 +144,7 @@ public class send extends Activity {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             addimage.setImageBitmap(bitmap);
         }else {
-            Toast.makeText(send.this, "未得到图片", Toast.LENGTH_SHORT).show();
+            Toast.makeText(send2.this, "未得到图片", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -175,6 +165,5 @@ public class send extends Activity {
         String imagePath = getImagePath(uri , null);
         displayImage(imagePath);
     }
-
 
 }

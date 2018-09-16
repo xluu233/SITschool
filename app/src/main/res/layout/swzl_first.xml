@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <ListView
+        android:layout_marginBottom="160dp"
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#ffffff"
+        android:dividerHeight="5sp"></ListView>
+
+
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingBottom="30dp"
+        android:paddingLeft="10dp"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/teal_500"
+        app:menu_icon="@drawable/fab_add"
+        app:menu_labels_ellipsize="end"
+        app:menu_labels_singleLine="true"
+        app:menu_backgroundColor="#ccffffff">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/teal_500"
+            app:fab_colorPressed="@color/teal_500"
+            android:src="@drawable/fab_add"
+            app:fab_size="mini"
+            app:fab_label="发布招领信息" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/diudiu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/teal_500"
+            app:fab_colorPressed="@color/teal_500"
+            app:fab_size="mini"
+            app:fab_label="发布丢失信息" />
+
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/teal_500"
+            app:fab_colorPressed="@color/teal_500"
+            app:fab_size="mini"
+            app:fab_label="刷新" />
+
+
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+
+
+
+
+
+</RelativeLayout>

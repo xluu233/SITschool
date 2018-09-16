@@ -1,96 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".item9"
-    tools:layout_editor_absoluteY="25dp">
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/top_title"
+        android:id="@+id/bottomlinear"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red_300"
-        android:gravity="center"
-        android:minHeight="45dp"
+        android:layout_height="45dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/top_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:clickable="true"
-            android:text="失物招领信息"
-            android:textColor="@android:color/white"
-            android:textSize="15dp"
-            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btn_first"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:text="丢失物件"
+            />
+
+        <Button
+            android:id="@+id/btn_second"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:text="寻找物件"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
-    <ListView
-        android:layout_below="@+id/top_title"
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="#ffffff"
-        android:dividerHeight="5sp">
-    </ListView>
+    <LinearLayout
+        android:id="@+id/cursorarea"
+        android:layout_width="fill_parent"
+        android:background="@color/teal_500"
+        android:orientation="horizontal"
+        android:layout_height="2dp">
+        <ImageView
+            android:id="@+id/cursor_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        </ImageView>
+    </LinearLayout>
 
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_below="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
-
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/fab"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:paddingRight="10dp"
-        android:paddingBottom="30dp"
-        android:paddingLeft="10dp"
-        app:menu_colorNormal="@color/colorAccent"
-        app:menu_colorPressed="@color/blue_300"
-        app:menu_icon="@drawable/fab_add"
-        app:menu_labels_ellipsize="end"
-        app:menu_labels_singleLine="true"
-        app:menu_backgroundColor="#ccffffff">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/teal_300"
-            app:fab_colorPressed="@color/teal_300"
-            android:src="@drawable/fab_add"
-            app:fab_size="mini"
-            app:fab_label="发布" />
-
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/bugray_300"
-            app:fab_colorPressed="@color/bugray_300"
-            android:src="@drawable/refresh"
-            app:fab_size="mini"
-            app:fab_label="刷新" />
-
-    </com.github.clans.fab.FloatingActionMenu>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/myviewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="12">
+    </android.support.v4.view.ViewPager>
 
 
 
-
-
-
-
-</RelativeLayout>
+</LinearLayout>

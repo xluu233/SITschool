@@ -137,7 +137,7 @@
                         android:background="@drawable/textshape3"
                         android:id="@+id/list_view"
                         android:layout_width="match_parent"
-                        android:layout_height="230dp"/>
+                        android:layout_height="210dp"/>
 
 
                     <FrameLayout

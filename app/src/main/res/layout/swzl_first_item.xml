@@ -7,15 +7,15 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:id="@+id/iv"
-        android:layout_width="120dp"
-        android:layout_height="160dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
         android:src="@drawable/ic_launcher"/>
 
     <LinearLayout
         android:gravity="center"
         android:layout_toRightOf="@+id/iv"
         android:layout_width="wrap_content"
-        android:layout_height="160dp"
+        android:layout_height="140dp"
         android:orientation="vertical">
         <TextView
             android:id="@+id/tv_title"
@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:gravity="left"
+            android:textColor="@color/black"
             android:text="标题" />
         <View
             android:layout_marginLeft="25dp"
@@ -44,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
                 android:maxHeight="200dp"
+                android:textColor="@color/black"
                 android:text="内容" />
 
         </ScrollView>
@@ -60,6 +62,7 @@
             android:id="@+id/tv_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textSize="12dp"
             android:text="时间" />
         <View
@@ -73,6 +76,7 @@
             android:layout_marginRight="25dp"
             android:id="@+id/tv_adress"
             android:layout_width="match_parent"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:textSize="12dp"
             android:text="地点" />
@@ -90,6 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12dp"
+            android:textColor="@color/black"
             android:text="创建时间:" />
         <View
             android:layout_marginLeft="25dp"

@@ -57,18 +57,19 @@
         <activity android:name=".about.about2"></activity>
         <activity android:name=".about.about3"></activity>
         <activity android:name=".about.about4"></activity>
-        <activity android:name=".send"/>
+        <activity android:name=".SWZL.send"/>
         <activity android:name="item9"/>
         <activity android:name=".secondclass.SecondClassDisplayActvivity"/>
         <activity android:name=".zixun.news"/>
         <activity android:name=".zixun.zhuyeDisplayActvivity"/>
         <activity android:name=".MoreTips"/>
         <activity android:name=".MoreQuestion"/>
-        <activity android:name=".SWZL"/>
         <activity android:name=".OneSelf"
             android:theme="@style/bantouming">
         </activity>
         <activity android:name=".KB"></activity>
+        <activity android:name=".SWZL.send2"/>
+        <activity android:name=".SWZL.swzlmain"/>
 
 
 

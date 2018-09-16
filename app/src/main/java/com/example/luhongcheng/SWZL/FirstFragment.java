@@ -1,25 +1,22 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.SWZL;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.luhongcheng.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.miui.zeus.mimo.sdk.ad.AdWorkerFactory;
@@ -27,23 +24,19 @@ import com.miui.zeus.mimo.sdk.ad.IAdWorker;
 import com.miui.zeus.mimo.sdk.listener.MimoAdListener;
 import com.xiaomi.ad.common.pojo.AdType;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class SWZL extends Activity {
 
+public class FirstFragment extends Fragment {
     ListView listView;
     public static final String TAG = "AD-StandardNewsFeed";
     private static final String[] POSITION_ID = {"2cae1a1f63f60185630f78a1d63923b0","0c220d9bf7029e71461f247485696d07", "b38f454156852941f3883c736c79e7e1"};
@@ -52,29 +45,35 @@ public class SWZL extends Activity {
 
     private static Bitmap bitmap;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        View v = inflater.inflate(R.layout.swzl_first, container,false);
+        return v;
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.swzl);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        listView = (ListView) findViewById(R.id.listView);
-        Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
+        listView = (ListView) getActivity().findViewById(R.id.listView);
+        Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
         get();
 
-        final FloatingActionMenu fab = (FloatingActionMenu) findViewById(R.id.fab);
+        final FloatingActionMenu fab = (FloatingActionMenu) getActivity().findViewById(R.id.fab);
         fab.setClosedOnTouchOutside(true);
 
-        container = (ViewGroup)findViewById(R.id.container);
+        container = (ViewGroup)getActivity().findViewById(R.id.container);
 
 
-        FloatingActionButton add = (FloatingActionButton) findViewById(R.id.fab_share);
-        FloatingActionButton refresh = (FloatingActionButton) findViewById(R.id.fab_preview);
+        FloatingActionButton add = (FloatingActionButton) getActivity().findViewById(R.id.fab_share);
+        FloatingActionButton refresh = (FloatingActionButton)getActivity(). findViewById(R.id.fab_preview);
+        FloatingActionButton diudiu = (FloatingActionButton)getActivity(). findViewById(R.id.diudiu);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(SWZL.this,send.class);
+                Intent intent1=new Intent(getActivity(),send.class);
                 startActivity(intent1);
             }
         });
@@ -85,11 +84,18 @@ public class SWZL extends Activity {
                 get();
             }
         });
+        diudiu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(getActivity(),send2.class);
+                startActivity(intent1);
+            }
+        });
 
 
         //xiaomiSDK
         try {
-            mAdWorker = AdWorkerFactory.getAdWorker(this, container, new MimoAdListener() {
+            mAdWorker = AdWorkerFactory.getAdWorker(getActivity(), container, new MimoAdListener() {
                 @Override
                 public void onAdPresent() {
                     Log.e(TAG, "onAdPresent");
@@ -126,6 +132,7 @@ public class SWZL extends Activity {
         loadAD();
         //广告完了
 
+
     }
 
     public void get(){
@@ -152,6 +159,7 @@ public class SWZL extends Activity {
                                 adress[i] = list.get(i).getAdress();
                                 createtime[i] = list.get(i).getUpdatedAt();
                                 image[i] = list.get(i).getimageUrl();
+                                Log.d("imageURL",list.get(i).getimageUrl());
 
                             }
 
@@ -181,8 +189,8 @@ public class SWZL extends Activity {
                                 public View getView(int position, View convertView, ViewGroup parent) {
                                     ViewHolder viewHolder;
                                     if (convertView == null){
-                                        LayoutInflater inflater = LayoutInflater.from(getApplication());
-                                        convertView = inflater.inflate(R.layout.swzl_item_layout, null);//实例化一个布局文件
+                                        LayoutInflater inflater = LayoutInflater.from(getContext());
+                                        convertView = inflater.inflate(R.layout.swzl_first_item, null);//实例化一个布局文件
                                         viewHolder = new ViewHolder();
                                         viewHolder.tv_title = (TextView)convertView.findViewById(R.id.tv_title);
                                         viewHolder.tv_content = (TextView)convertView.findViewById(R.id.tv_content);
@@ -292,7 +300,6 @@ public class SWZL extends Activity {
             }
         }
     };
-
 
 
 }

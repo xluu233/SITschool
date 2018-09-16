@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -124,16 +125,20 @@ public class news extends Activity implements OnClickListener, OnPageChangeListe
 		myviewpager.setAdapter(adapter);
 		
 		resetButtonColor();
-		btn_third.setTextColor(Color.RED);
+		btn_third.setTextColor(Color.WHITE);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().setStatusBarColor(getResources().getColor(R.color.teal_500));//设置状态栏背景色
+		}
 		
 	}
 	
 	//重置所有按钮的颜色
 	public void resetButtonColor(){
-		btn_third.setBackgroundColor(Color.parseColor("#ffffff"));
-		btn_four.setBackgroundColor(Color.parseColor("#ffffff"));
-		btn_fifth.setBackgroundColor(Color.parseColor("#ffffff"));
-		btn_six.setBackgroundColor(Color.parseColor("#ffffff"));
+		btn_third.setBackgroundColor(Color.parseColor("#009688"));
+		btn_four.setBackgroundColor(Color.parseColor("#009688"));
+		btn_fifth.setBackgroundColor(Color.parseColor("#009688"));
+		btn_six.setBackgroundColor(Color.parseColor("#009688"));
 
 		btn_third.setTextColor(Color.BLACK);
 		btn_four.setTextColor(Color.BLACK);
@@ -195,7 +200,7 @@ public class news extends Activity implements OnClickListener, OnPageChangeListe
 		//每次滑动首先重置所有按钮的颜色
 		resetButtonColor();
 		//将滑动到的当前按钮颜色设置为红色
-		btnArgs[arg0].setTextColor(Color.RED);
+		btnArgs[arg0].setTextColor(Color.WHITE);
 		cursorAnim(arg0);
 	}
 	

@@ -77,7 +77,8 @@ public class FourFragment extends Fragment {
         container = (ViewGroup) getActivity().findViewById(R.id.container);
         //设置版本号
         vv = (TextView) getActivity().findViewById(R.id.version);
-        @SuppressLint({"NewApi", "LocalSuppress"}) String versionName = APKVersionCodeUtils.getVerName(this.getContext());
+        //@SuppressLint({"NewApi", "LocalSuppress"}) String versionName = APKVersionCodeUtils.getVerName(this.getContext());
+        String versionName = APKVersionCodeUtils.getVerName(getActivity());
         vv.setText("V" + versionName);
 
         initFruits(); // 初始化水果数据
