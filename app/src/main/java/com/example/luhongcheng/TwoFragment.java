@@ -56,7 +56,6 @@ public class TwoFragment extends Fragment {
     List<String> cookies = null;
     String str;
     String A;
-    String DialogText;
 
     private MyDatabaseHelper dbHelper;
 
@@ -248,11 +247,9 @@ public class TwoFragment extends Fragment {
                     String[] bb = cookies.toArray(new String[cookies.size()]);
                     String str3 = null;
                     String str4 = null;
-                    String str5 = null;
                     for (int i = 0; i < bb.length; ++i) {
                         str3 = bb[i=0];
                         str4 = bb[i=1];
-                        str5 = bb[i=2];
                     }
                     str = str1+";"+str2+";"+str3+";"+str4;
                     //System.out.println(str);
@@ -342,7 +339,7 @@ public class TwoFragment extends Fragment {
                 case 0:
                     WeekNum =1;
                     showResponse(WeekNum);
-                    Toast.makeText(getActivity(), "第1周", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "第1周", Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
                     WeekNum =2;

@@ -69,7 +69,7 @@ public class swzlmain extends FragmentActivity implements View.OnClickListener, 
 
         fragments = new ArrayList<Fragment>();
         fragments.add(new FirstFragment());
-        fragments.add(new SecondFragment_beifen());
+        fragments.add(new SecondFragment());
 
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),fragments);
         myviewpager.setAdapter(adapter);

@@ -68,4 +68,18 @@ public class _User  extends BmobUser{
 
     String mima;
 
+    public BmobFile getLink() {
+        return link;
+    }
+
+    public void setLink(BmobFile link) {
+        this.link = link;
+    }
+
+    BmobFile link;
+
+    public  String getlinkUrl(){
+        return link.getFileUrl();
+    }
+
 }

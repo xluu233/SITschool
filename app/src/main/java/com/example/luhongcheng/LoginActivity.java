@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +27,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
@@ -58,6 +64,8 @@ public class LoginActivity extends Activity {
 
     String name;
     String xueyuan;
+    List<String> cookies;
+    String str = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +111,7 @@ public class LoginActivity extends Activity {
                         @Override
                         public void run() {
                             //int logincode = getLoginUtils.getlgoin(usernameid,passwordid);
-                            List<String> cookies;
-                            String str = null;
+
                             try {
                                 OkHttpClient client = new OkHttpClient();
                                 RequestBody requestBody = new FormBody.Builder()
@@ -138,7 +145,6 @@ public class LoginActivity extends Activity {
                                         .build();
                                 Response response = client.newCall(request).execute();
                                 String responseData = response.body().string();
-
                                 postname(responseData);
 
                                 if (str == null){
@@ -203,6 +209,7 @@ public class LoginActivity extends Activity {
         bindView();
     }
 
+    String link;
 
     //解析学院名字，并上传
     private void postname(final String responseData) {
@@ -219,6 +226,35 @@ public class LoginActivity extends Activity {
                     //System.out.println(xueyuan.toString());
                     storeInfo(name,xueyuan);
 
+                    /*
+                    //本来想把OA图像显示出来，但是想到太丑了影响用户心情
+                    link = doc.getElementsByClass("ar_l_b").select("img").attr("src");
+                    //Log.d("默认头像链接",link);
+                    //System.out.println(link.toString());
+                    // 这个网址是没有cookie的
+                    link = "http://myportal.sit.edu.cn/"+link;
+                    // http://myportal.sit.edu.cn/attachmentDownload.portal?type=userFace&ownerId=1510400642
+
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url(link)
+                            .header("Accept", "text/html, application/xhtml+xml, image/jxr, *//*这里多了几个符号*//*")
+                            .header("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5")
+                            .header("Connection", "Keep-Alive")
+                            .header("Cookie", str)
+                            .header("Host", "myportal.sit.edu.cn")
+                            .header("Referer", "http://myportal.sit.edu.cn/userPasswordValidate.portal")
+                            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        byte[] bytes = response.body().bytes();
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                    }
+                    */
+
+
                     //这个密码是看不见的
                     _User bu = new _User();
                     bu.setUsername(usernameid);
@@ -233,6 +269,7 @@ public class LoginActivity extends Activity {
                             if(e==null){
                                 Toast.makeText(LoginActivity.this, "上海应用技术大学：注册成功", Toast.LENGTH_SHORT).show();
                             }else{
+                                //Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
                                 LoginActivity.this.finish();
                             }
                         }

@@ -86,8 +86,9 @@ public class setMy extends Activity {
                                     public void done(BmobException e1) {
                                         if(e1==null){
                                             // Log.i("bmob","更新成功");
-                                            Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
+                                             Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
                                         }else{
+                                             Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
                                              Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
                                         }
                                     }

@@ -78,7 +78,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="对于Android7.0以上版本可能会无法上传"/>
+        android:text="注意：头像，昵称，个性签名只能设置一次！"/>
 
 
 </LinearLayout>

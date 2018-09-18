@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
 
+
+
     <meta-data android:name="android.max_aspect" android:value="2.2" />
 
 
@@ -65,7 +67,7 @@
         <activity android:name=".MoreTips"/>
         <activity android:name=".MoreQuestion"/>
         <activity android:name=".OneSelf"
-            android:theme="@style/bantouming">
+            android:theme="@style/myTransparent">
         </activity>
         <activity android:name=".KB"></activity>
         <activity android:name=".SWZL.send2"/>

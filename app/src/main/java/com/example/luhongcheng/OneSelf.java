@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,8 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -62,11 +65,13 @@ public class OneSelf extends Activity{
     String Weixintext;
     String iconUrl;
 
+    String name;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.oneself);
+
         bianji = (Button)findViewById(R.id.bianji);
         cn.bmob.v3.Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
         icon = (ImageButton) findViewById(R.id.myicon);
@@ -126,6 +131,8 @@ public class OneSelf extends Activity{
         this.finish();
     }
 
+    String link;
+
     //读取个人信息
     private void restoreInfo(){
         SharedPreferences sp=getSharedPreferences("userid",0);
@@ -140,7 +147,16 @@ public class OneSelf extends Activity{
                 if(e==null){
                     for (_User xixi : object) {
                         nickname.setText(xixi.getNickname());
+
+                        name =  xixi.getName();
+                        name = name.replace("姓名：","");
+                        //System.out.println("姓名"+name);
+                        if (nickname.length() == 0){
+                            nickname.setText("你好，"+name);
+                        }
+
                         qianming.setText(xixi.getQianming());
+
                         APPid.setText("ID:"+xixi.getObjectId());
                         //保存用户的ID
                         SharedPreferences.Editor editor=getSharedPreferences("personID",0).edit();
@@ -150,8 +166,14 @@ public class OneSelf extends Activity{
                         xueyuan.setText(xixi.getXueyuan());
                         iconUrl = xixi.geticonUrl();
                         //System.out.println("头像链接"+iconUrl);
-                        postUrl(iconUrl);
 
+                        /*
+                        if (iconUrl.length() == 0){
+                            iconUrl = xixi.getLink();
+                        }
+                        */
+
+                        postUrl(iconUrl);
 
                     }
                 }else{
