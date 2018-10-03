@@ -1,16 +1,21 @@
 package com.example.luhongcheng.zixun;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.luhongcheng.R;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import okhttp3.OkHttpClient;
 
@@ -47,7 +52,34 @@ public class zhuyeDisplayActvivity extends AppCompatActivity {
         news.setWebViewClient(new WebViewClient());
         news.setWebChromeClient(new WebChromeClient());
 
+        webSettings.setLoadsImagesAutomatically(true);
+
         news.loadUrl(newsUrl);
+
+        final FloatingActionMenu fab = (FloatingActionMenu) findViewById(R.id.fab);
+        fab.setClosedOnTouchOutside(true);
+        FloatingActionButton refresh = (FloatingActionButton)findViewById(R.id.fab_preview);
+        FloatingActionButton zhuan = (FloatingActionButton)findViewById(R.id.zhuan);
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                news.reload();
+            }
+        });
+        zhuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nowURL = news.getUrl();
+
+                Intent intent= new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                intent.setData(Uri.parse(nowURL));
+                startActivity(intent);
+
+            }
+        });
+
 
 
     }

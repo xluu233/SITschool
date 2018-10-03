@@ -19,10 +19,6 @@ import android.widget.TextView;
 import com.example.luhongcheng.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.miui.zeus.mimo.sdk.ad.AdWorkerFactory;
-import com.miui.zeus.mimo.sdk.ad.IAdWorker;
-import com.miui.zeus.mimo.sdk.listener.MimoAdListener;
-import com.xiaomi.ad.common.pojo.AdType;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -38,11 +34,6 @@ import cn.bmob.v3.listener.FindListener;
 
 public class FirstFragment extends Fragment {
     ListView listView;
-    public static final String TAG = "AD-StandardNewsFeed";
-    private static final String[] POSITION_ID = {"2cae1a1f63f60185630f78a1d63923b0","0c220d9bf7029e71461f247485696d07", "b38f454156852941f3883c736c79e7e1"};
-    private IAdWorker mAdWorker;
-    ViewGroup container;
-
     private static Bitmap bitmap;
 
     @Override
@@ -62,9 +53,6 @@ public class FirstFragment extends Fragment {
 
         final FloatingActionMenu fab = (FloatingActionMenu) getActivity().findViewById(R.id.fab);
         fab.setClosedOnTouchOutside(true);
-
-        container = (ViewGroup)getActivity().findViewById(R.id.container);
-
 
         FloatingActionButton add = (FloatingActionButton) getActivity().findViewById(R.id.fab_share);
         FloatingActionButton refresh = (FloatingActionButton)getActivity(). findViewById(R.id.fab_preview);
@@ -91,46 +79,6 @@ public class FirstFragment extends Fragment {
                 startActivity(intent1);
             }
         });
-
-
-        //xiaomiSDK
-        try {
-            mAdWorker = AdWorkerFactory.getAdWorker(getActivity(), container, new MimoAdListener() {
-                @Override
-                public void onAdPresent() {
-                    Log.e(TAG, "onAdPresent");
-                }
-
-                @Override
-                public void onAdClick() {
-                    Log.e(TAG, "onAdClick");
-                }
-
-                @Override
-                public void onAdDismissed() {
-                    Log.e(TAG, "onAdDismissed");
-                }
-
-                @Override
-                public void onAdFailed(String s) {
-                    Log.e(TAG, "onAdFailed");
-                }
-
-                @Override
-                public void onAdLoaded(int size) {
-                    showAD();
-                }
-
-                @Override
-                public void onStimulateSuccess() {
-                }
-            }, AdType.AD_STANDARD_NEWSFEED);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        loadAD();
-        //广告完了
 
 
     }
@@ -231,33 +179,6 @@ public class FirstFragment extends Fragment {
 
     }
 
-
-    private void loadAD() {
-        try {
-            mAdWorker.recycle();
-            mAdWorker.load("b38f454156852941f3883c736c79e7e1");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showAD() {
-        try{
-            container.addView(mAdWorker.updateAdView(null, 0));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        try {
-            mAdWorker.recycle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     //根据图片的url地址得到图片
     public void getImage(final String path){

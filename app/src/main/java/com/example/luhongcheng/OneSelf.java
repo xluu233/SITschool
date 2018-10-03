@@ -126,18 +126,15 @@ public class OneSelf extends Activity{
 
     }
 
-
     public void close(View view){
         this.finish();
     }
-
     String link;
 
     //读取个人信息
     private void restoreInfo(){
         SharedPreferences sp=getSharedPreferences("userid",0);
         username = sp.getString("username","");
-
 
         BmobQuery<_User> query = new BmobQuery<_User>();
         query.addWhereEqualTo("username", username);
@@ -177,7 +174,7 @@ public class OneSelf extends Activity{
 
                     }
                 }else{
-                    //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
             }
         });

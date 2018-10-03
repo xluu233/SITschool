@@ -52,7 +52,7 @@ public class userCardinfo extends Activity {
 
     String LOGINURL1 = "http://myportal.sit.edu.cn/userPasswordValidate.portal";
 
-
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class userCardinfo extends Activity {
 
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
+        progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
 
 
         handler = new Handler(){
@@ -92,6 +92,8 @@ public class userCardinfo extends Activity {
         }
         else {
             Toast.makeText(userCardinfo.this,"你还没有输入账号", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
+
         }
 
     }

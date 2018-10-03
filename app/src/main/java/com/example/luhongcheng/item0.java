@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.luhongcheng.BBox.PeopleSay;
 import com.example.luhongcheng.SWZL.swzlmain;
 
 /**
@@ -45,7 +46,7 @@ public class item0 extends Activity {
     }
 
     public  void question(View view){
-        Intent intent = new Intent(item0.this,MoreQuestion.class);
+        Intent intent = new Intent(item0.this,PeopleSay.class);
         startActivity(intent);
     }
 

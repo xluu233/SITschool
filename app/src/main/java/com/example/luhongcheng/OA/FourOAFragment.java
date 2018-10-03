@@ -95,6 +95,7 @@ public class FourOAFragment extends Fragment {
 		//在fragment中用share方法要getActivity（）
 		data = spCount.getString("data", "");
 		getNews(data);
+
 	}
 
 
@@ -106,7 +107,7 @@ public class FourOAFragment extends Fragment {
 			public void run() {
 				try{
 					Document doc = Jsoup.parse(data);
-					Element url = doc.getElementById("pf8272");   //依据ID取值
+					Element url = doc.getElementById("pf8272");
 					Elements link =  url.getElementsByTag("li");
 
 					for(int j = 0;j < link.size();j++){

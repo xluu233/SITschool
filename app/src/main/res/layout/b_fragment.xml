@@ -1,99 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/ttt"
-        android:gravity="center"
-        android:background="@color/red_300"
-        android:layout_width="match_parent"
-        android:layout_height="45dp">
-
-        <ImageButton
-            android:id="@+id/qiehuan"
-            android:layout_width="23dp"
-            android:layout_height="22dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="14dp"
-            android:background="@drawable/qiehuan"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="14dp" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:background="@color/red_300"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_marginRight="60dp"
-            android:layout_marginLeft="60dp"
-            android:layout_height="45dp">
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="课程表"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"/>
-
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/jiazai"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/jiazai" />
-
-    </RelativeLayout>
-
     <LinearLayout
-        android:gravity="center"
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:minHeight="30dp"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content">
-        </Spinner>
+        android:layout_height="wrap_content"
+        android:background="@color/red_300"
+        android:gravity="center"
+        android:minHeight="45dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="切换课表请点击上面按钮，网页里面操作是无效的"/>
-
-        <WebView
-            android:id="@+id/wb"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </WebView>
-
+            android:layout_weight="1"
+            android:text="课程表"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_marginLeft="12dp"/>
 
 
     </LinearLayout>
 
+    <ScrollView
+        android:id="@+id/bt"
+        android:layout_below="@+id/title"
+        android:layout_width="55dp"
+        android:background="@color/blue_300"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/blue_300"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/zong"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="总课表"/>
+
+            <Button
+                android:id="@+id/zhou1"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="第一周"/>
+
+            <Button
+                android:id="@+id/zhou2"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="第二周"/>
+
+            <Button
+                android:id="@+id/zhou3"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="第三周"/>
+
+            <Button
+                android:id="@+id/zhou4"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="第四周"/>
+
+            <Button
+                android:id="@+id/zhou5"
+                android:background="@color/blue_300"
+                android:textSize="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="第五周"/>
+
+            <Button
+                android:id="@+id/zhou6"
+                android:background="@color/blue_300"
+                android:textSize="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="第六周"/>
+
+            <Button
+                android:id="@+id/zhou7"
+                android:textSize="12dp"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="第七周"/>
+
+            <Button
+                android:id="@+id/zhou8"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="第八周"/>
+
+            <Button
+                android:id="@+id/zhou9"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="第九周"/>
+
+            <Button
+                android:id="@+id/zhou10"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="第十周"/>
+
+            <Button
+                android:id="@+id/zhou11"
+                android:background="@color/blue_300"
+                android:textSize="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="十一周"/>
+
+            <Button
+                android:id="@+id/zhou12"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="十二周"/>
+
+            <Button
+                android:id="@+id/zhou13"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="十三周"/>
+
+            <Button
+                android:id="@+id/zhou14"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="十四周"/>
+
+            <Button
+                android:id="@+id/zhou15"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="十五周"/>
+
+            <Button
+                android:id="@+id/zhou16"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="十六周"/>
+
+            <Button
+                android:id="@+id/zhou17"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="十七周"/>
+
+            <Button
+                android:id="@+id/zhou18"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="十八周"/>
+
+            <Button
+                android:id="@+id/zhou19"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="十九周"/>
+
+            <Button
+                android:id="@+id/zhou20"
+                android:background="@color/blue_300"
+                android:layout_width="match_parent"
+                android:textSize="12dp"
+                android:layout_height="wrap_content"
+                android:text="二十周"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_toRightOf="@+id/bt"
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBarNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <WebView
+            android:id="@+id/wb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </WebView>
+
+
+    </RelativeLayout>
 
 
 
 
 
 
-
-</LinearLayout>
+</RelativeLayout>

@@ -11,8 +11,7 @@
         android:layout_marginBottom="5dp"
         android:id="@+id/A1"
         android:gravity="left"
-        android:textColor="#000"
-        android:textSize="17sp"/>
+        android:textColor="#000"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
         android:id="@+id/A3"
         android:gravity="right"
         android:textColor="#000"
-        android:textSize="15sp"/>
+        android:textSize="12sp"/>
 
 
 </LinearLayout>

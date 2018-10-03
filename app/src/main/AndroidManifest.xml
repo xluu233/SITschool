@@ -11,10 +11,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
 
-
-
     <meta-data android:name="android.max_aspect" android:value="2.2" />
-
 
     <application
         android:allowBackup="true"
@@ -23,7 +20,6 @@
         android:label="SIT学生助手"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".StartFlash"
             android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
@@ -31,7 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".LoginActivity"/>
         <activity android:name=".setMy"></activity>
         <activity android:name=".MainFragmentActivity"/>
@@ -49,12 +44,11 @@
         <activity android:name=".item7"> </activity>
         <activity android:name=".item8"/>
         <activity android:name=".TuisongActivity"/>
-        <activity android:name=".WeiXin.gongzonghao"/>
-
         <activity android:name=".TuisongActivity"
             tools:ignore="DuplicateActivity" />
         <activity android:name=".userCard.userCardinfo"/>
-        <activity android:name=".about.about0"></activity>
+        <activity android:name=".about.about0"
+            android:theme="@style/about0"></activity>
         <activity android:name=".about.about1"></activity>
         <activity android:name=".about.about2"></activity>
         <activity android:name=".about.about3"></activity>
@@ -65,21 +59,17 @@
         <activity android:name=".zixun.news"/>
         <activity android:name=".zixun.zhuyeDisplayActvivity"/>
         <activity android:name=".MoreTips"/>
-        <activity android:name=".MoreQuestion"/>
         <activity android:name=".OneSelf"
             android:theme="@style/myTransparent">
         </activity>
-        <activity android:name=".KB"></activity>
+        <activity android:name=".KB2"></activity>
         <activity android:name=".SWZL.send2"/>
         <activity android:name=".SWZL.swzlmain"/>
-
-
-
+        <activity android:name=".SouHuNews"></activity>
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" >
         </service>
-
         <receiver
             android:name="MyReceiver"
             android:enabled="true">
@@ -98,22 +88,16 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name="com.miui.zeus.mimo.sdk.activityProxy.ProxyActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+        <activity android:name=".BBox.ManyWorks"></activity>
+        <activity android:name=".BBox.EatFood"/>
+        <activity android:name=".BBox.AnLi"/>
+        <activity android:name=".BBox.Learning"/>
+        <activity android:name=".BBox.Love"/>
+        <activity android:name=".BBox.PeopleSay"/>
+        <activity android:name=".BBox.ToDayBest"/>
+        <activity android:name=".MoreBox"/>
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+
 
     </application>
 

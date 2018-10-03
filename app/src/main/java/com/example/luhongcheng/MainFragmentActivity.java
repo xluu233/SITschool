@@ -1,28 +1,23 @@
 package com.example.luhongcheng;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
+import android.view.MenuItem;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.luhongcheng.Bmob.update;
@@ -33,42 +28,67 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
-public class MainFragmentActivity extends AppCompatActivity implements View.OnClickListener{
-
-    private ImageView A;
-    private ImageView B;
-    private ImageView C;
-    private ImageView D;
-    TextView A1;
-    TextView B1;
-    TextView C1;
-    TextView D1;
-
-    private FragmentManager fragmentManager;
-    private OneFragment f1;
-    private TwoFragment f2;
-    private ThreeFragment f3;
-    private FourFragment f4;
+public class MainFragmentActivity extends AppCompatActivity{
 
 
     private String url;
     private String code1;
     private String text;
-
     public int code;
-    FragmentTransaction transaction;
 
+    private OneFragment     fragment1;
+    private TwoFragment     fragment2;
+    private FourFragment    fragment3;
+    private Fragment[]      fragments;
+    private int             lastShowFragment = 0;
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                   // Toast.makeText(MainFragmentActivity.this,"第一个",Toast.LENGTH_SHORT).show();
+                    if (lastShowFragment != 0) {
+                        switchFrament(lastShowFragment, 0);
+                        lastShowFragment = 0;
+                    }
+
+                    return true;
+                case R.id.navigation_dashboard:
+                   // Toast.makeText(MainFragmentActivity.this,"第二个",Toast.LENGTH_SHORT).show();
+                    if (lastShowFragment != 1) {
+                        switchFrament(lastShowFragment, 1);
+                        lastShowFragment = 1;
+                    }
+                    return true;
+                case R.id.navigation_notifications:
+                   // Toast.makeText(MainFragmentActivity.this,"第三个",Toast.LENGTH_SHORT).show();
+                    if (lastShowFragment != 2) {
+                        switchFrament(lastShowFragment,2);
+                        lastShowFragment = 2;
+                    }
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main_fragment_activity);
-        bindView();
         Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
         querySingleData();
-
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
@@ -83,9 +103,34 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
             getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));
         }
 
-        startOne();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        initFragments();
+
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_container, fragments[0]);
+        transaction.show(fragments[0]).commitAllowingStateLoss();
+        //switchFrament(lastShowFragment,0);
+
     }
 
+    public void switchFrament(int lastIndex, int index) {
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.hide(fragments[lastIndex]);
+        if (!fragments[index].isAdded()) {
+            transaction.add(R.id.fragment_container, fragments[index]);
+        }
+        transaction.show(fragments[index]).commitAllowingStateLoss();
+    }
+
+    private void initFragments() {
+        fragment1 = new OneFragment("");
+        fragment2 = new TwoFragment("");
+        fragment3 = new FourFragment("");
+        fragments = new Fragment[]{fragment1, fragment2, fragment3};
+        lastShowFragment = 0;
+      //  getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment1).show(fragment1).commit();
+    }
 
 
     //查询单条数据
@@ -115,8 +160,47 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         int i = Integer.valueOf(this.code1).intValue();
         if (i > code) {
             showDialog();
+        }else {
+            shareAPP();
         }
     }
+
+    private void shareAPP() {
+        SharedPreferences sp=getSharedPreferences("share",0);
+        String id = sp.getString("id","");
+        if (id.length() == 0){
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setIcon(R.drawable.ic_launcher)//设置标题的图片
+                    .setTitle("分享")//设置对话框的标题
+                    .setMessage("你是首次登陆，是否愿意将APP分享给其他同学")//设置对话框的内容
+                    //设置对话框的按钮
+                    .setNegativeButton("不愿意", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Toast.makeText(MainActivity.this, "点击了取消按钮", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    })
+                    .setPositiveButton("分享", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_SEND);
+                            intent.putExtra(Intent.EXTRA_TEXT, "SITschool上应大学生助手集成OA系统部分查询及资讯功能，可在Android端实现查询成绩，查询电费，查询第二课堂，查询考试安排等等一系列功能，快来下载吧：https://www.coolapk.com/apk/187672");
+                            intent.setType("text/plain");
+                            startActivity(Intent.createChooser(intent, "分享到"));
+
+                            SharedPreferences.Editor editor=getSharedPreferences("share",0).edit();
+                            editor.putString("id","11");
+                            editor.commit();
+
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
+    }
+
 
     private void showDialog() {
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -142,126 +226,6 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
                     }
                 }).create();
         dialog.show();
-    }
-
-
-    //UI组件初始化与事件绑定
-    private void bindView() {
-        A = (ImageView) this.findViewById(R.id.A);
-        B = (ImageView) this.findViewById(R.id.B);
-        C = (ImageView) this.findViewById(R.id.C);
-        D = (ImageView) this.findViewById(R.id.D);
-        A1 = (TextView) this.findViewById(R.id.A1);
-        B1 = (TextView) this.findViewById(R.id.B1);
-        C1 = (TextView) this.findViewById(R.id.C1);
-        D1 = (TextView) this.findViewById(R.id.D1);
-
-        A.setOnClickListener(this);
-        B.setOnClickListener(this);
-        C.setOnClickListener(this);
-        D.setOnClickListener(this);
-    }
-
-    //重置所有文本的选中状态
-    public void selected(){
-        A.setSelected(false);
-        B.setSelected(false);
-        C.setSelected(false);
-        D.setSelected(false);
-
-        A1.setTextColor(getResources().getColor(R.color.black_primary));
-        B1.setTextColor(getResources().getColor(R.color.black_primary));
-        C1.setTextColor(getResources().getColor(R.color.black_primary));
-        D1.setTextColor(getResources().getColor(R.color.black_primary));
-    }
-
-
-    //隐藏所有Fragment
-    public void hideAllFragment(FragmentTransaction transaction){
-        if(f1!=null){
-            transaction.hide(f1);
-        }
-        if(f2!=null){
-            transaction.hide(f2);
-        }
-        if(f3!=null){
-            transaction.hide(f3);
-        }
-        if(f4!=null){
-            transaction.hide(f4);
-        }
-    }
-
-    private void startOne() {
-        transaction = getFragmentManager().beginTransaction();
-        hideAllFragment(transaction);
-        selected();
-        A.setSelected(true);
-        A1.setTextColor(getResources().getColor(R.color.red_300));
-        if(f1==null){
-            f1 = new OneFragment("第一个Fragment");
-            transaction.add(R.id.fragment_container,f1);
-        }else{
-            transaction.show(f1);
-        }
-        transaction.commit();
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        transaction = getFragmentManager().beginTransaction();
-        hideAllFragment(transaction);
-        switch(v.getId()){
-            case R.id.A:
-                selected();
-                A.setSelected(true);
-                A1.setTextColor(getResources().getColor(R.color.red_300));
-                if(f1==null){
-                    f1 = new OneFragment("第一个Fragment");
-                    transaction.add(R.id.fragment_container,f1);
-                }else{
-                    transaction.show(f1);
-                }
-                break;
-
-            case R.id.B:
-                selected();
-                B.setSelected(true);
-                B1.setTextColor(getResources().getColor(R.color.red_300));
-                if(f2==null){
-                    f2 = new TwoFragment("第二个Fragment");
-                    transaction.add(R.id.fragment_container,f2);
-                }else{
-                    transaction.show(f2);
-                }
-                break;
-
-            case R.id.C:
-                selected();
-                C.setSelected(true);
-                C1.setTextColor(getResources().getColor(R.color.red_300));
-                if(f3==null){
-                    f3 = new ThreeFragment("第三个Fragment");
-                    transaction.add(R.id.fragment_container,f3);
-                }else{
-                    transaction.show(f3);
-                }
-                break;
-
-            case R.id.D:
-                selected();
-                D.setSelected(true);
-                D1.setTextColor(getResources().getColor(R.color.red_300));
-                if(f4==null){
-                    f4 = new FourFragment("第四个Fragment");
-                    transaction.add(R.id.fragment_container,f4);
-                }else{
-                    transaction.show(f4);
-                }
-                break;
-        }
-        transaction.commit();
     }
 
     // 用来计算返回键的点击间隔时间

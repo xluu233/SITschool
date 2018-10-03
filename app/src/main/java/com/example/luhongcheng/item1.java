@@ -3,6 +3,7 @@ package com.example.luhongcheng;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,6 +36,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+//第二课堂
 
 public class item1 extends FragmentActivity implements OnClickListener, OnPageChangeListener {
 	Fragment fragment;
@@ -73,6 +75,10 @@ public class item1 extends FragmentActivity implements OnClickListener, OnPageCh
 		initView();
 		getCookies();
 		getID();
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().setStatusBarColor(getResources().getColor(R.color.OA));//设置状态栏背景色
+		}
 	}
 
 	private void getID() {

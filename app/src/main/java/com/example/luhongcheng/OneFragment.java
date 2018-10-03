@@ -1,8 +1,7 @@
 package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,8 +12,9 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,11 +30,31 @@ import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.luhongcheng.BBox.AnLi;
+import com.example.luhongcheng.BBox.EatFood;
+import com.example.luhongcheng.BBox.Learning;
+import com.example.luhongcheng.BBox.Love;
+import com.example.luhongcheng.BBox.ManyWorks;
+import com.example.luhongcheng.BBox.PeopleSay;
+import com.example.luhongcheng.BBox.ToDayBest;
 import com.example.luhongcheng.Bmob.Tips;
 import com.example.luhongcheng.Bmob.lan;
 import com.example.luhongcheng.about.about0;
+import com.example.luhongcheng.about.about1;
+import com.example.luhongcheng.about.about2;
+import com.example.luhongcheng.about.about3;
+import com.example.luhongcheng.about.about4;
 import com.example.luhongcheng.userCard.userCardinfo;
 import com.example.luhongcheng.zixun.news;
+import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -44,11 +64,14 @@ import java.util.List;
 import java.util.Map;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.b.V;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-
-import static com.example.luhongcheng.FourFragment.TAG;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2018/4/7.
@@ -65,7 +88,8 @@ public class OneFragment extends Fragment{
     private List<Map<String, Object>> dataList;
     private SimpleAdapter adapter;
 
-
+    private List<Box> fruitList = new ArrayList<Box>();
+    TextView weather;
     /*轮换图片定义的*/
     //统计下载了几张图片
     int n=0;
@@ -122,7 +146,10 @@ public class OneFragment extends Fragment{
 
     private Toolbar mToolbar;
     Button more,more2;
-    TextView tips,QQ,AA,havefun;
+    TextView tips,QQ,AA;
+
+    ImageButton souhuiv;
+    TextView souhutitle,souhusubtitle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -148,11 +175,29 @@ public class OneFragment extends Fragment{
             getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));//设置状态栏背景色
         }
 
+        weather = (TextView)getActivity().findViewById(R.id.weather);
+
+        weather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),zhuyeDisplayActvivity.class);
+                intent.putExtra("news_url","https://m.sm.cn/s?q=%E4%B8%8A%E6%B5%B7%E5%A5%89%E8%B4%A4%E5%A4%A9%E6%B0%94&by=submit&snum=6");
+                startActivity(intent);
+            }
+        });
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.inflateMenu(R.menu.menu);
         mToolbar.setTitle("SITschool");
         mToolbar.setSubtitle("明德、明学、明事");
+        Button box =(Button) getActivity().findViewById(R.id.moreBox);
+        box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MoreBox.class);
+                startActivity(intent);
+            }
+        });
 
 
         Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
@@ -166,8 +211,6 @@ public class OneFragment extends Fragment{
                 startActivity(intent);
             }
         });
-
-        havefun = (TextView) getActivity().findViewById(R.id.havefun);
 
 
         ImageButton one = (ImageButton) getActivity().findViewById(R.id.OneSelf);
@@ -226,24 +269,17 @@ public class OneFragment extends Fragment{
                         Intent intent8 = new Intent(getActivity(),item8.class);
                         startActivity(intent8);
                         break;
-                        /*
-                    case 9:
-                        Intent intent9 = new Intent(getActivity(),item9.class);
-                        startActivity(intent9);
-                        Toast.makeText(getActivity(),"暂未开放",Toast.LENGTH_SHORT).show();
-                        break;
-                        */
                     case 9:
                         Intent intent10 = new Intent(getActivity(),news.class);
                         startActivity(intent10);
                         break;
                     case 10:
+                        Intent intent11 = new Intent(getActivity(),item9.class);
+                        startActivity(intent11);
+                        break;
+                    case 11:
                         startActivity(new Intent(getActivity(),item0.class));
                         getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_silent);
-
-                        //Intent intent11 = new Intent(getActivity(),item0.class);
-                        //startActivity(intent11);
-
                         break;
                     default:
                         break;
@@ -253,7 +289,122 @@ public class OneFragment extends Fragment{
         /*点击事件设置完毕*/
         init();
         getlan();
+
+
+        souhuiv = (ImageButton) getActivity().findViewById(R.id.souhu_iv);
+        souhutitle = (TextView)getActivity().findViewById(R.id.souhu_title);
+        souhusubtitle =(TextView)getActivity().findViewById(R.id.souhu_subtitle);
+        souhuiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),SouHuNews.class);
+                startActivity(intent);
+            }
+        });
+        getsouhu();
+
+        initFruits();
+        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+        BoxAdapter adapter = new BoxAdapter(fruitList);
+        recyclerView.setAdapter(adapter);
+
     }
+
+
+    Bitmap bitmap;
+    private void getsouhu() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    final OkHttpClient client = new OkHttpClient().newBuilder()
+                            .followRedirects(false)//禁止重定向
+                            .followSslRedirects(false)//哈哈哈哈哈哈哈好开心啊
+                            .build();
+
+                    Request request = new Request.Builder()
+                            .url("http://m.sohu.com/media/694346?spm=smwp.content.author-info.1.1537437344995hk1YAuY")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+
+                    Document doc = Jsoup.parse(responseData);
+                    Elements url = doc.select("ul.feed-list-area");
+                    Element link =  url.select("li").get(0);
+
+                    /*
+                    String A1 = link.select("a.onePic").attr("href");
+                    A1 = " http://m.sohu.com"+A1+"&spm=smwp.media.fd-s.1.1537437360311dAYraYh";
+                    System.out.println("文章链接:"+A1.toString());
+                    */
+
+                    String A2 = link.select("section.onePic__img-area").select("img").attr("original");
+                    System.out.println("图片链接:"+A2.toString());
+
+                    URL myFileURL;
+                    try {
+                        myFileURL = new URL(A2);
+                        HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
+                        conn.setConnectTimeout(3000);
+                        conn.setDoInput(true);
+                        conn.setUseCaches(false);
+                        conn.connect();
+                        InputStream is = conn.getInputStream();
+                        bitmap = BitmapFactory.decodeStream(is);
+                        is.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Message msg = handler.obtainMessage();
+                    msg.obj = bitmap;
+                    msg.what = 1;
+                    handler.sendMessage(msg);
+
+                    String A3 = link.select("article.onePic__content").select("h4.feed__title").text();
+                    System.out.println("标题:"+A3.toString());
+                    souhutitle.setText(A3);
+
+                    String A4 = link.select("article.onePic__content").select("footer.feed__detail").select("span.time").text();
+                    System.out.println("时间:"+A4.toString());
+                    souhusubtitle.setText(A4);
+
+                    //天气
+                    Request request2 = new Request.Builder()
+                            .url("https://www.tianqi.com/fengxian/")
+                            .build();
+                    Response response2 = client.newCall(request2).execute();
+                    String responseData2 = response2.body().string();
+
+                    Document doc2 = Jsoup.parse(responseData2);
+                    Elements url2 = doc2.getElementsByClass("weather");
+                    String t1 = url2.select("span").text();
+                    weather.setText("今日天气："+t1);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    souhuiv.setBackgroundResource(0);
+                    souhuiv.setImageBitmap(bitmap);
+                    break;
+            }
+        }
+    };
+
+
 
     public void gettip(){
         Thread thread = new Thread(new Runnable() {
@@ -278,6 +429,7 @@ public class OneFragment extends Fragment{
         thread.start();
     }
 
+
     public void getlan(){
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -288,14 +440,11 @@ public class OneFragment extends Fragment{
                     public void done(List<lan> list, BmobException e) {
                         List<lan> lists = new ArrayList<>();
                         if (list != null) {
-                            final String[] lan = new String[list.size()];
                             String[] sub = new  String[list.size()];
                             int i;
                             for(i = 0;i<list.size();i++){
-                                lan[i] = list.get(i).getYouqudejuzi();
                                 sub[i] = list.get(i).getSubtitle();
                             }
-                            havefun.setText(lan[0]);
                             mToolbar.setSubtitle(sub[0]);
                         }
                     }
@@ -331,11 +480,11 @@ public class OneFragment extends Fragment{
         //图标
         int icno[] = { R.mipmap.g16,R.mipmap.g1,R.mipmap.g7,R.mipmap.g4,
                         R.mipmap.g5,R.mipmap.g9,R.mipmap.g3,R.drawable.card,
-                        R.drawable.library,R.drawable.zixun,
+                        R.drawable.library,R.drawable.zixun,R.drawable.weixin,
                         R.mipmap.g15};
         //图标下的文字
         String name[]={"部门","第二课堂","OA主页","成绩",
-                "电费","学院","考试","学生卡","读书馆","资讯","更多"};
+                "电费","学院","考试","学生卡","读书馆","资讯","微信","更多"};
 
         dataList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <icno.length; i++) {
@@ -459,6 +608,109 @@ public class OneFragment extends Fragment{
         }
     }
 
+
+    private void initFruits() {
+        Box orange = new Box("#今日最佳#", R.drawable.best);
+        fruitList.add(orange);
+        Box apple = new Box("#众话说#", R.drawable.talk);
+        fruitList.add(apple);
+        Box banana = new Box("#表白墙#", R.drawable.love);
+        fruitList.add(banana);
+        Box watermelon = new Box("#学习交流#", R.drawable.learn);
+        fruitList.add(watermelon);
+        Box pear = new Box("#安利#", R.drawable.anli);
+        fruitList.add(pear);
+        Box grape = new Box("#一日三餐#", R.drawable.food);
+        fruitList.add(grape);
+        Box pineapple = new Box("#需求池#", R.drawable.xuqiu);
+        fruitList.add(pineapple);
+    }
+
+    class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.ViewHolder>{
+        private List<Box> mFruitList;
+        class ViewHolder extends RecyclerView.ViewHolder {
+            View fruitView;
+            ImageView fruitImage;
+            TextView fruitName;
+            public ViewHolder(View view) {
+                super(view);
+                fruitView = view;
+                fruitImage = (ImageView) view.findViewById(R.id.fruit_image);
+                fruitName = (TextView) view.findViewById(R.id.fruit_name);
+            }
+        }
+
+        public BoxAdapter(List<Box> fruitList) {
+            mFruitList = fruitList;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.box_item, parent, false);
+            final ViewHolder holder = new ViewHolder(view);
+            holder.fruitView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = holder.getAdapterPosition();
+                    Box fruit = mFruitList.get(position);
+                    switch(position){
+                        case 0:
+                            //今日最佳
+                            Intent intent = new Intent(getActivity(), ToDayBest.class);
+                            startActivity(intent);
+                            break;
+                        case 1:
+                            //众话说
+                            Intent intent1 = new Intent(getActivity(), PeopleSay.class);
+                            startActivity(intent1);
+                            break;
+                        case 2:
+                            //表白墙
+                            Intent intent2 = new Intent(getActivity(), Love.class);
+                            startActivity(intent2);
+                            break;
+                        case 3:
+                            //学习交流
+                            Intent intent3 = new Intent(getActivity(), Learning.class);
+                            startActivity(intent3);
+                            break;
+                        case 4:
+                            //安利
+                            Intent intent4 = new Intent(getActivity(), AnLi.class);
+                            startActivity(intent4);
+                            break;
+                        case 5:
+                            //一日三餐
+                            Intent intent5 = new Intent(getActivity(), EatFood.class);
+                            startActivity(intent5);
+                            break;
+                        case 6:
+                            //需求池
+                            Intent intent6 = new Intent(getActivity(), ManyWorks.class);
+                            startActivity(intent6);
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            });
+
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            Box fruit = mFruitList.get(position);
+            holder.fruitImage.setImageResource(fruit.getImageId());
+            holder.fruitName.setText(fruit.getName());
+        }
+
+        @Override
+        public int getItemCount() {
+            return mFruitList.size();
+        }
+    }
 
 
 

@@ -8,8 +8,7 @@
         android:id="@+id/bottomlinear"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="#33CCFF">
+        android:orientation="horizontal">
 
 
         <Button 
@@ -18,7 +17,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:textSize="14sp"
-             android:text="我的"/>
+            android:text="我的"/>
         <Button 
             android:id="@+id/btn_third"
             android:layout_width="0dp"
@@ -67,7 +66,6 @@
     <LinearLayout 
         android:id="@+id/cursorarea"
         android:layout_width="fill_parent"
-        android:background="#33CCFF"
         android:orientation="horizontal"
         android:layout_height="2dp">
       	<ImageView

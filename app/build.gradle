@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "27.0.3"
+    buildToolsVersion '28.0.2'
     useLibrary 'org.apache.http.legacy'
 
 
@@ -15,14 +15,12 @@ android {
         applicationId "com.example.luhongcheng"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 114
-        versionName "2.9.8.1"
+        versionCode 117
+        versionName "2.9.8.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a','x86', 'x86_64', 'mips', 'mips64'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
 
         manifestPlaceholders = [
@@ -43,32 +41,35 @@ android {
     }
 }
 
+
+
+
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:design:26.1.0'
-    testCompile 'junit:junit:4.12'
-    //compile ('com.google.code.gson:gson:2.7') { exclude group: 'com.google.gson.JsonElement'}
-    compile('com.squareup.okhttp3:okhttp:3.10.0') {
+    implementation 'com.android.support:appcompat-v7:26.+'
+    implementation 'com.android.support:design:26.1.0'
+    testImplementation 'junit:junit:4.12'
+
+    implementation('com.squareup.okhttp3:okhttp:3.10.0') {
         exclude group: 'com.squareup.okhttp3'
         exclude group: 'com.squareup.okio'
     }
-    compile files('libs/jsoup-1.11.3.jar')
-    compile files('libs/android-async-http-1.4.9.jar')
-    compile 'cn.jiguang.sdk:jpush:3.1.1'
+    implementation files('libs/jsoup-1.11.3.jar')
+    implementation files('libs/android-async-http-1.4.9.jar')
+    implementation 'cn.jiguang.sdk:jpush:3.1.1'
     // 此处以JPush 3.1.1 版本为例。
-    compile 'cn.jiguang.sdk:jcore:1.1.9'
+    implementation 'cn.jiguang.sdk:jcore:1.1.9'
     // 此处以JCore 1.1.9 版本为例。
-    compile('cn.bmob.android:bmob-sdk:3.6.3') {
+    implementation('cn.bmob.android:bmob-sdk:3.6.3') {
         exclude group: 'com.squareup.okhttp3'
         exclude group: 'com.squareup.okio'
         exclude group: 'com.google.gson.JsonElement'
     }
-    compile 'com.github.clans:fab:1.6.4'
-    //小米SDK
-    implementation files('libs/MimoSdk.jar')
+    implementation 'com.github.clans:fab:1.6.4'
+
 
 }

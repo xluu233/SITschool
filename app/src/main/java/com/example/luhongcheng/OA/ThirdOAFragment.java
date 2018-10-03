@@ -95,6 +95,7 @@ public class ThirdOAFragment extends Fragment {
 		//在fragment中用share方法要getActivity（）
 		data = spCount.getString("data", "");
 		getNews(data);
+
 	}
 
 

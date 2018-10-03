@@ -1,13 +1,16 @@
 package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
+import android.annotation.TargetApi;
+import android.support.v4.app.Fragment;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +29,12 @@ import com.example.luhongcheng.about.about2;
 import com.example.luhongcheng.about.about3;
 import com.example.luhongcheng.about.about4;
 import com.example.luhongcheng.utils.APKVersionCodeUtils;
-import com.miui.zeus.mimo.sdk.ad.AdWorkerFactory;
-import com.miui.zeus.mimo.sdk.ad.IAdWorker;
-import com.miui.zeus.mimo.sdk.listener.MimoAdListener;
-import com.xiaomi.ad.common.pojo.AdType;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import static cn.bmob.v3.Bmob.getApplicationContext;
 
 /**
  * Created by Administrator on 2018/4/8.
@@ -41,11 +43,8 @@ import java.util.List;
 public class FourFragment extends Fragment {
     private String context;
     TextView vv;
-
-    public static final String TAG = "AD-StandardNewsFeed";
-    private static final String[] POSITION_ID = {"2cae1a1f63f60185630f78a1d63923b0","0c220d9bf7029e71461f247485696d07", "b38f454156852941f3883c736c79e7e1"};
-    private IAdWorker mAdWorker;
     ViewGroup container;
+    Button RedBag;
 
     private List<Fruit> fruitList = new ArrayList<Fruit>();
 
@@ -71,6 +70,7 @@ public class FourFragment extends Fragment {
         return view;
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -80,6 +80,17 @@ public class FourFragment extends Fragment {
         //@SuppressLint({"NewApi", "LocalSuppress"}) String versionName = APKVersionCodeUtils.getVerName(this.getContext());
         String versionName = APKVersionCodeUtils.getVerName(getActivity());
         vv.setText("V" + versionName);
+        RedBag = (Button)getActivity().findViewById(R.id.RedBag);
+        RedBag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager cmb = (ClipboardManager)getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                cmb.setText("540942228");
+                Toast.makeText(getApplicationContext(),"已复制到剪切板,在搜索框中搜索即可",Toast.LENGTH_LONG).show();
+                Intent intent = getApplicationContext().getPackageManager() .getLaunchIntentForPackage("com.eg.android.AlipayGphone");
+                startActivity(intent);
+            }
+        });
 
         initFruits(); // 初始化水果数据
         ListView listView = (ListView) getView().findViewById(R.id.list_view);
@@ -128,49 +139,13 @@ public class FourFragment extends Fragment {
             public void onClick(View v) {
                 SharedPreferences.Editor editor = getActivity().getSharedPreferences("userid", 0).edit();
                 editor.clear().commit();
-                Toast.makeText(getActivity(), "账号信息已清除，请退出重新登录", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "账号信息已清除", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                startActivity(intent);
             }
         });
         bindView();
-
-        //xiaomiSDK
-        try {
-            mAdWorker = AdWorkerFactory.getAdWorker(getActivity(), container, new MimoAdListener() {
-                @Override
-                public void onAdPresent() {
-                    Log.e(TAG, "onAdPresent");
-                }
-
-                @Override
-                public void onAdClick() {
-                    Log.e(TAG, "onAdClick");
-                }
-
-                @Override
-                public void onAdDismissed() {
-                    Log.e(TAG, "onAdDismissed");
-                }
-
-                @Override
-                public void onAdFailed(String s) {
-                    Log.e(TAG, "onAdFailed");
-                }
-
-                @Override
-                public void onAdLoaded(int size) {
-                    show();
-                }
-
-                @Override
-                public void onStimulateSuccess() {
-                }
-            }, AdType.AD_STANDARD_NEWSFEED);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        load();
-        //广告完了
 
     }
 
@@ -189,46 +164,25 @@ public class FourFragment extends Fragment {
 
 
     private void bindView() {
-        ImageView share = (ImageView) getView().findViewById(R.id.shareapp) ;
+        final ImageView share = (ImageView) getView().findViewById(R.id.shareapp) ;
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_TEXT, "SITschool上应大学生助手集成OA系统部分查询及资讯功能，可在Android端实现查询成绩，查询电费，查询第二课堂，查询考试安排等等一系列功能，快来下载吧：https://www.coolapk.com/apk/187672");
                 intent.setType("text/plain");
                 startActivity(Intent.createChooser(intent, "分享到"));
+
             }
         });
     }
 
-    private void load() {
-        try {
-            mAdWorker.recycle();
-            mAdWorker.load("2cae1a1f63f60185630f78a1d63923b0");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void show() {
-        try{
-            container.addView(mAdWorker.updateAdView(null, 0));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        try {
-            mAdWorker.recycle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
 }
+
+
+

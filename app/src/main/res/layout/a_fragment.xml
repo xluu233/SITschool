@@ -29,15 +29,76 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/red_300"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
             app:subtitleTextAppearance="@style/Toolbar.subTitleText"
-            app:titleTextAppearance="@style/Toolbar.TitleText" />
+            app:titleTextAppearance="@style/Toolbar.TitleText">
+
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/lunhuan"
+        android:layout_width="fill_parent"
+        android:layout_height="160dip"
+        android:layout_below="@+id/tt"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+            </android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="20dip"
+                android:orientation="vertical"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:background="#33000000">
+
+                <LinearLayout
+                    android:id="@+id/ll_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    >
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    //可爱的分割线
+    <LinearLayout
+        android:id="@+id/cutelinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lunhuan">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#FFFFFF" />
 
     </LinearLayout>
 
 
-
     <ScrollView
-        android:layout_below="@+id/tt"
+        android:layout_below="@+id/cutelinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -47,74 +108,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <LinearLayout
-                android:id="@+id/top_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/red_300"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-
-
-            <FrameLayout
-                android:id="@+id/lunhuan"
-                android:layout_width="fill_parent"
-                android:layout_height="160dip"
-                android:layout_below="@+id/top_title"
-                >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/vp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true">
-                    </android.support.v4.view.ViewPager>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="20dip"
-                        android:orientation="vertical"
-                        android:layout_gravity="bottom"
-                        android:layout_alignParentBottom="true"
-                        android:gravity="center"
-                        android:background="#33000000">
-
-                        <LinearLayout
-                            android:id="@+id/ll_tag"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            >
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-            </FrameLayout>
-
-            //可爱的分割线
-            <LinearLayout
-                android:id="@+id/cutelinear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lunhuan">
-
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="5dp"
-                    android:background="#FFFFFF" />
-
-            </LinearLayout>
 
 
             <GridView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -126,19 +119,13 @@
                 android:gravity="center"
                 android:layout_below="@+id/cutelinear" />
 
-            <TextView
-                android:id="@+id/havefun"
-                android:layout_below="@+id/gridview"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="11dp"/>
 
             <ImageView
                 android:id="@+id/huabian"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="12dp"
-                android:layout_below="@+id/havefun"
+                android:layout_below="@+id/gridview"
                 android:src="@drawable/huabian" />
 
 
@@ -154,6 +141,7 @@
 
                 <TextView
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:gravity="left"
                     android:background="@color/white"
                     android:layout_width="match_parent"
@@ -173,35 +161,191 @@
                     android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
-                    android:layout_height="60dp">
+                    android:layout_height="70dp">
                     <TextView
                         android:id="@+id/tips"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:textSize="11dp"
-                        android:text="(♡˙︶˙♡)"
+                        android:text="                              ( ♡˙︶˙♡ )"
                         android:layout_gravity="center"
                         android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </ScrollView>
 
-                <ImageView
+
+                <View
+                    android:id="@+id/div33"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_above="@id/navigation"/>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:background="@color/blue_300"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp" />
-                <Button
-                    android:id="@+id/more"
                     android:layout_width="match_parent"
-                    android:layout_height="23dp"
-                    android:background="@color/white"
-                    android:text="更多推送"
-                    android:textSize="11dp"
-                    android:textColor="@color/red_300"/>
+                    android:layout_height="20dp">
+                    <TextView
+                        android:id="@+id/weather"
+                        android:text="今日天气："
+                        android:textSize="11dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_width="200dp"
+                        android:layout_height="20dp" />
+
+                    <Button
+                        android:id="@+id/more"
+                        android:gravity="right"
+                        android:background="@color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:text="更多"
+                        android:textSize="11dp"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/div"
+                android:layout_below="@+id/tip"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+
+            <RelativeLayout
+                android:id="@+id/souhu"
+                android:background="@color/white"
+                android:layout_below="@+id/div"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/souhu_title"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:textSize="11dp"/>
+
+                <TextView
+                    android:id="@+id/souhu_subtitle"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="11dp"
+                    android:layout_below="@+id/souhu_title"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:gravity="left"/>
+
+                <ImageButton
+                    android:id="@+id/souhu_iv"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_toRightOf="@+id/souhu_title"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
+
+                <View
+                    android:id="@+id/div_tab_bar"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_above="@id/navigation"/>
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/div2"
+                android:layout_below="@+id/souhu"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+
+            <View
+                android:layout_below="@+id/div2"
+                android:id="@+id/div_tab_bar2"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDDDDD"
+                android:layout_above="@id/navigation"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:id="@+id/moremore"
+                android:layout_below="@+id/div_tab_bar2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="25dp">
+
+
+                <Button
+                    android:background="#00FFFFFF"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="7dp"
+                    android:text="热门话题"
+                    android:textSize="11dp"
+                    android:gravity="left"
+                    android:textStyle="bold"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:id="@+id/moreBox"
+                    android:background="#00FFFFFF"
+                    android:layout_marginTop="7dp"
+                    android:textSize="11dp"
+                    android:text="更多"
+                    android:gravity="right"
+                    android:layout_marginRight="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/recycler"
+                android:background="@color/white"
+                android:layout_below="@+id/moremore"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:id="@+id/div_tab_bar3"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#DDDDDD"
+                    android:layout_above="@id/navigation"/>
+
+            </LinearLayout>
+
+
+
 
 
 

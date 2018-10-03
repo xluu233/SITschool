@@ -1,65 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:background="@color/red_300"
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:orientation="horizontal">
+        android:background="?attr/colorPrimary"
+        app:title="移动读书馆"
+        app:titleTextAppearance="@style/Toolbar.TitleText">
 
-        <ImageButton
-            android:onClick="back"
-            android:background="@drawable/back"
-            android:layout_width="40dp"
-            android:layout_height="45dp" />
-
-        <LinearLayout
-            android:id="@+id/top_title"
-            android:layout_marginRight="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/red_300"
-            android:gravity="center"
-            android:minHeight="45dp"
-            android:orientation="horizontal">
+    </android.support.v7.widget.Toolbar>
 
 
-            <TextView
-                android:id="@+id/top_sign"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:clickable="true"
-                android:text="移动读书馆"
-                android:textColor="@android:color/white"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-
-
-    <ProgressBar
-        android:id="@+id/progressbar"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="3dip"
-        android:max="100"
-        android:progress="0"
-        android:visibility="gone"/>
 
     <WebView
+        android:layout_below="@+id/toolbar"
         android:id="@+id/library"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </WebView>
 
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingBottom="30dp"
+        android:paddingLeft="10dp"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/teal_500"
+        app:menu_icon="@drawable/fab_add"
+        app:menu_labels_ellipsize="end"
+        app:menu_labels_singleLine="true"
+        app:menu_backgroundColor="#00000000">
 
-</LinearLayout>
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/zhuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/teal_500"
+            app:fab_colorPressed="@color/teal_500"
+            app:fab_size="mini"
+            android:src="@drawable/zhuan"
+            app:fab_label="转到系统浏览器分享" />
+
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/teal_500"
+            app:fab_colorPressed="@color/teal_500"
+            app:fab_size="mini"
+            android:src="@drawable/refresh2"
+            app:fab_label="刷新" />
+
+
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+
+
+</RelativeLayout>

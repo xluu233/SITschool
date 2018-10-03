@@ -108,6 +108,7 @@ public class  item7 extends Activity implements View.OnClickListener {
 
         if(xuehao.length()==0){
             Toast.makeText(item7.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
         }
 
     }
@@ -115,6 +116,7 @@ public class  item7 extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.send_request) {
             if(xuehao.length()==10&&mima.length()>=4){
+                newsList.clear();
                 postdata();
             }
 
@@ -193,18 +195,12 @@ public class  item7 extends Activity implements View.OnClickListener {
                     String[] bb = cookies.toArray(new String[cookies.size()]);
                     String str3 = null;
                     String str4 = null;
-                    String str5 = null;
                     for (int i = 0; i < bb.length; ++i) {
                         str3 = bb[i=0];
                         str4 = bb[i=1];
-                        str5 = bb[i=2];
                     }
-                    //System.out.println("3:"+str3.toString());
-                    //System.out.println("4:"+str4.toString());
-                    //System.out.println("5:"+str5.toString());
 
                     String str = str1+";"+str2+";"+str3+";"+str4;
-                    //System.out.println("总共的cookies:"+str.toString());
 
                     String classtablecookie = str;
                     savecookie(classtablecookie);
@@ -233,7 +229,7 @@ public class  item7 extends Activity implements View.OnClickListener {
                         }
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            //Log.d("源代码", "onResponse: " + response.body().string().toString());
+                            Log.d("源代码", "onResponse: " + response.body().string().toString());
                         }
                     });
 
@@ -260,12 +256,8 @@ public class  item7 extends Activity implements View.OnClickListener {
             public void run() {
                 try{
                     Document doc = Jsoup.parse(responseData3);
-
                     Elements link =  doc.getElementsByTag("tbody").get(5).select("tr");
-
                     for(int j = 2;j < link.size();j++){
-
-
                         int a1 = j-1;
 
                         a2 = link.get(j).select("td").text();
@@ -274,30 +266,6 @@ public class  item7 extends Activity implements View.OnClickListener {
                         a3="";
                         a4="";
                         a5="";
-
-                        /*
-
-                        a3 = link.get(j).select("td").get(2).text();
-                        System.out.println("a3："+a3.toString());
-
-                        a4 = link.get(j).select("td").get(3).text();
-                        System.out.println("a4："+a4.toString());
-
-                        a5 = link.get(j).select("td").get(4).text();
-                        System.out.println("a5："+a5.toString());
-                        */
-
-                        /*
-                           Elements link =  doc.getElementsByTag("tr");
-
-                            for(int j = 25;j < link.size();j++){
-
-                                String a1="";
-                                String a2="";
-                                String a3 = link.get(j).select("td").text();
-                                System.out.println(a3.toString());
-                                String a4="";
-                                String a5="";  */
 
                         Test news = new Test(a1,a2,a3,a4,a5);
                         newsList.add(news);

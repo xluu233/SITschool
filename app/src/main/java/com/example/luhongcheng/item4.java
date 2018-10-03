@@ -29,7 +29,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class item4 extends AppCompatActivity implements View.OnClickListener {
+public class item4 extends AppCompatActivity {
 
     private List<grade> newsList;
     private gradeAdapter adapter;
@@ -63,7 +63,13 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
         lv = (ListView) findViewById(R.id.news_lv);
 
         Button sendpostdata = (Button) findViewById(R.id.send_request);
-        sendpostdata.setOnClickListener(this);
+        sendpostdata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newsList.clear();
+                getID();
+            }
+        });
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
         progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
@@ -91,8 +97,6 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
             }
         };
         getID();
-        postdata();
-
     }
 
     private void getID() {
@@ -102,12 +106,9 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
 
         if(xuehao.length()==0){
             Toast.makeText(item4.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
         }
 
-    }
-
-
-    public void onClick(View v) {
         if(xuehao.length()==10&&mima.length()>=4){
             postdata();
         }
@@ -309,12 +310,8 @@ public class item4 extends AppCompatActivity implements View.OnClickListener {
         editor.commit();
     }
 
-    private void restoreInfo(String a1, String a2, String a3, String a4, String a5, String a6, String a7, String a8, String a9){
-        SharedPreferences sp=getSharedPreferences("chengji",0);
-    }
 
-
-    }
+}
 
 
 

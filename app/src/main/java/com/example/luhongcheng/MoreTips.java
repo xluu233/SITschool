@@ -1,19 +1,17 @@
 package com.example.luhongcheng;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.example.luhongcheng.Bmob.SWZL;
 import com.example.luhongcheng.Bmob.Tips;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class MoreTips extends Activity {
+public class MoreTips extends AppCompatActivity {
 
     ListView listView;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +29,16 @@ public class MoreTips extends Activity {
         listView = (ListView) findViewById(R.id.list_view);
         Bmob.initialize(getApplicationContext(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
         getText();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void getText() {

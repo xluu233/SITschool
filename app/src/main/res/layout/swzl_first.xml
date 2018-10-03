@@ -9,21 +9,11 @@
 
 
     <ListView
-        android:layout_marginBottom="160dp"
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#ffffff"
         android:dividerHeight="5sp"></ListView>
-
-
-
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
 
 
 
@@ -59,16 +49,19 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/teal_500"
             app:fab_colorPressed="@color/teal_500"
+            android:src="@drawable/jian"
             app:fab_size="mini"
             app:fab_label="发布丢失信息" />
 
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_preview"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/teal_500"
             app:fab_colorPressed="@color/teal_500"
+            android:src="@drawable/refresh2"
             app:fab_size="mini"
             app:fab_label="刷新" />
 

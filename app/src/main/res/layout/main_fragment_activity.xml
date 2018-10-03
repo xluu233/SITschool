@@ -1,132 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
-
+    android:layout_height="match_parent">
 
 
     <LinearLayout
-        android:background="#ffffff"
-        android:id="@+id/tab_menu"
+        android:layout_above="@+id/div_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
 
-        <LinearLayout
-            android:id="@+id/AAA"
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="32dp">
-
-
-            <ImageView
-                android:id="@+id/A"
-                android:src="@drawable/tab_menu_shouye"
-                android:layout_width="0dp"
-                android:text="首页"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <ImageView
-                android:id="@+id/B"
-                android:src="@drawable/tab_menu_message"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <ImageView
-                android:id="@+id/C"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_width="0dp"
-                android:src="@drawable/tab_menu_me"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <ImageView
-                android:id="@+id/D"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="2dp"
-                android:src="@drawable/tab_menu_class"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/BBB"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="15dp">
-
-            <TextView
-                android:id="@+id/A1"
-                android:text="首页"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:textSize="12dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/B1"
-                android:text="课表"
-                android:textSize="12dp"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/C1"
-                android:text="社区"
-                android:textSize="12dp"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/D1"
-                android:text="我的"
-                android:textSize="12dp"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-
-
-        </LinearLayout>
+            android:layout_height="match_parent">
+        </FrameLayout>
 
 
     </LinearLayout>
-
 
     <View
         android:id="@+id/div_tab_bar"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#DDDDDD"
-        android:layout_above="@id/tab_menu"/>
+        android:layout_above="@id/navigation"/>
 
-    <LinearLayout
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/div_tab_bar">
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-
-
-
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/navigation" />
 
 </RelativeLayout>
