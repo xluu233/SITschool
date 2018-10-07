@@ -34,7 +34,7 @@
             app:fab_colorNormal="@color/teal_500"
             app:fab_colorPressed="@color/teal_500"
             app:fab_size="mini"
-            android:src="@drawable/zhuan"
+            android:src="@drawable/zhuan2"
             app:fab_label="转到系统浏览器分享" />
 
 
@@ -45,7 +45,7 @@
             app:fab_colorNormal="@color/teal_500"
             app:fab_colorPressed="@color/teal_500"
             app:fab_size="mini"
-            android:src="@drawable/refresh2"
+            android:src="@drawable/refresh3"
             app:fab_label="刷新" />
 
 

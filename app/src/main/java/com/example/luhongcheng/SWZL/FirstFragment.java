@@ -8,15 +8,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.SQ.OneFragment;
+import com.example.luhongcheng.SQ.SSS;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -33,8 +36,15 @@ import cn.bmob.v3.listener.FindListener;
 
 
 public class FirstFragment extends Fragment {
+
+
     ListView listView;
     private static Bitmap bitmap;
+
+    public static FirstFragment newInstance() {
+        return new FirstFragment();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +91,7 @@ public class FirstFragment extends Fragment {
         });
 
 
+        get();
     }
 
     public void get(){
@@ -107,11 +118,12 @@ public class FirstFragment extends Fragment {
                                 adress[i] = list.get(i).getAdress();
                                 createtime[i] = list.get(i).getUpdatedAt();
                                 image[i] = list.get(i).getimageUrl();
-                                Log.d("imageURL",list.get(i).getimageUrl());
+                               // Log.d("imageURL",list.get(i).getimageUrl());
 
                             }
 
 
+                            /*
                             class MyAdapter extends BaseAdapter {
                                 private FindListener<com.example.luhongcheng.Bmob.SWZL> context ;
                                 public MyAdapter(FindListener<com.example.luhongcheng.Bmob.SWZL> context){
@@ -165,8 +177,85 @@ public class FirstFragment extends Fragment {
                                     TextView tv_adress;
                                     TextView create_time;
                                 }
+                            }*/
+
+
+                            class MyAdaper extends BaseAdapter {
+
+                                private FindListener<com.example.luhongcheng.Bmob.SWZL> context ;
+                                public MyAdaper(FindListener<com.example.luhongcheng.Bmob.SWZL> context){
+                                    this.context = context;
+                                }
+
+                                @Override
+                                public int getCount() {
+                                    return title.length;
+                                }
+
+                                @Override
+                                public Object getItem(int position) {
+                                    return title[position];
+                                }
+
+                                @Override
+                                public long getItemId(int position) {
+                                    return position;
+                                }
+
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    ViewHolder viewHolder;
+                                    if (convertView == null){
+                                        LayoutInflater inflater = LayoutInflater.from(getContext());
+                                        convertView = inflater.inflate(R.layout.swzl_first_item, null);//实例化一个布局文件
+                                        viewHolder = new ViewHolder();
+                                        viewHolder.tv_title = (TextView)convertView.findViewById(R.id.tv_title);
+                                        viewHolder.tv_content = (TextView)convertView.findViewById(R.id.tv_content);
+                                        viewHolder.tv_time = (TextView)convertView.findViewById(R.id.tv_time);
+                                        viewHolder.tv_adress = (TextView)convertView.findViewById(R.id.tv_adress);
+                                        viewHolder.create_time = (TextView) convertView.findViewById(R.id.create_time);
+                                        viewHolder.imageView = (ImageView) convertView.findViewById(R.id.iv);
+
+                                        convertView.setTag(viewHolder);
+                                    }else {
+                                        viewHolder = (ViewHolder) convertView.getTag();
+                                    }
+                                    viewHolder.tv_title.setText(title[position]);
+                                    viewHolder.tv_content.setText("内容："+content[position]);
+                                    viewHolder.tv_time.setText("时间地点："+time[position]);
+                                    viewHolder.tv_adress.setText("联系方式："+adress[position]);
+                                    viewHolder.create_time.setText("发布时间："+createtime[position]);
+
+                                    Glide.with(getContext())
+                                            .load(image[position])
+                                            .placeholder(R.drawable.loading)
+                                            .error(R.drawable.error)
+                                            //  .dontTransform()//不进行图片变换
+                                            .fitCenter()
+                                            // .centerCrop()
+                                            //.override(Target.SIZE_ORIGINAL, 1000)
+                                            .into(viewHolder.imageView);
+
+                                    return convertView;
+
+                                }
+
+                                class ViewHolder {
+                                    TextView tv_title;
+                                    TextView tv_content;
+                                    TextView tv_time;
+                                    TextView tv_adress;
+                                    TextView create_time;
+                                    ImageView imageView;
+                                }
+
+
                             }
-                            listView.setAdapter(new MyAdapter(this));
+
+
+
+
+                            listView.setAdapter(new MyAdaper(this));
                         }
 
 
@@ -178,6 +267,7 @@ public class FirstFragment extends Fragment {
 
 
     }
+
 
 
     //根据图片的url地址得到图片

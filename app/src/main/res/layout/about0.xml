@@ -47,7 +47,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".ScrollingActivity"
         tools:showIn="@layout/about0"
-
         android:background="@color/green_300">
 
         <ScrollView

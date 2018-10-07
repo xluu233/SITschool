@@ -43,7 +43,7 @@ public class ImageLunhuanAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         final ImageView image=data.get(position%data.size());
         //如果View已经在之前添加到了一个父组件，则必须先remove，否则会抛出IllegalStateException。
         ViewParent vp=image.getParent();
@@ -52,16 +52,23 @@ public class ImageLunhuanAdapter extends PagerAdapter {
             vg.removeView(image);
         }
         image.setOnClickListener(new OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                /*
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, "SITschool上应大学生助手集成OA系统部分查询及资讯功能，可在Android端实现查询成绩，查询电费，查询第二课堂，查询考试安排等等一系列功能，目前在酷安已发布，快来下载吧：https://www.coolapk.com/apk/187672");
-                intent.setType("text/plain");
-                context.startActivity(Intent.createChooser(intent, "分享到"));
-                */
+            public void onClick(View view) {
+               // System.out.println("第si个");
+                switch (position) {
+                    case 0:
+                       // System.out.println("第一个");
+                        break;
+                    case 1:
+                      //  System.out.println("第er个");
+                        break;
+                    case 2:
+                       // System.out.println("第san个");
+                        break;
+                    case 3:
+                       // System.out.println("第si个");
+                        break;
+                }
             }
         });
         container.addView(data.get(position%data.size()));

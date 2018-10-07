@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.luhongcheng.BBox.PeopleSay;
+import com.example.luhongcheng.MBox.MBoxItem;
 import com.example.luhongcheng.SWZL.swzlmain;
 
 /**
@@ -46,13 +46,16 @@ public class item0 extends Activity {
     }
 
     public  void question(View view){
-        Intent intent = new Intent(item0.this,PeopleSay.class);
+        Intent intent = new Intent(item0.this,MoreBox.class);
         startActivity(intent);
     }
 
+    /*
     public  void shequ(View view){
-        Toast.makeText(getApplicationContext(),"上应社区暂未开放，敬请期待",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(item0.this,MoreBox.class);
+        startActivity(intent);
     }
+    */
 
     public  void swzl(View view){
         Intent intent = new Intent(item0.this,swzlmain.class);

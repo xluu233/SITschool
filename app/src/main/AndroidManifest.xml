@@ -87,17 +87,10 @@
                 <category android:name="com.example.luhongcheng" />
             </intent-filter>
         </receiver>
-
-        <activity android:name=".BBox.ManyWorks"></activity>
-        <activity android:name=".BBox.EatFood"/>
-        <activity android:name=".BBox.AnLi"/>
-        <activity android:name=".BBox.Learning"/>
-        <activity android:name=".BBox.Love"/>
-        <activity android:name=".BBox.PeopleSay"/>
-        <activity android:name=".BBox.ToDayBest"/>
+        <activity android:name=".MBox.MBoxItem"></activity>
         <activity android:name=".MoreBox"/>
-
-
+        <activity android:name=".SQ.SS_ADD"></activity>
+        <activity android:name=".SQ.ssDisPlay"></activity>
 
     </application>
 

@@ -9,7 +9,8 @@
     <ImageView
         android:id="@+id/fruit_image"
         android:layout_width="140dp"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
         android:layout_gravity="center_horizontal" />
 
     <TextView

@@ -46,6 +46,7 @@ public class MainFragmentActivity extends AppCompatActivity{
     private OneFragment     fragment1;
     private TwoFragment     fragment2;
     private FourFragment    fragment3;
+    private SheQuFragment   fragment4;
     private Fragment[]      fragments;
     private int             lastShowFragment = 0;
 
@@ -75,6 +76,13 @@ public class MainFragmentActivity extends AppCompatActivity{
                     if (lastShowFragment != 2) {
                         switchFrament(lastShowFragment,2);
                         lastShowFragment = 2;
+                    }
+                    return true;
+                case R.id.navigation_shequ:
+                    // Toast.makeText(MainFragmentActivity.this,"第四个",Toast.LENGTH_SHORT).show();
+                    if (lastShowFragment != 3) {
+                        switchFrament(lastShowFragment,3);
+                        lastShowFragment = 3;
                     }
                     return true;
             }
@@ -127,7 +135,8 @@ public class MainFragmentActivity extends AppCompatActivity{
         fragment1 = new OneFragment("");
         fragment2 = new TwoFragment("");
         fragment3 = new FourFragment("");
-        fragments = new Fragment[]{fragment1, fragment2, fragment3};
+        fragment4 = new SheQuFragment();
+        fragments = new Fragment[]{fragment1, fragment2, fragment3,fragment4};
         lastShowFragment = 0;
       //  getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment1).show(fragment1).commit();
     }
@@ -143,7 +152,7 @@ public class MainFragmentActivity extends AppCompatActivity{
                     url = object.getapkUrl();
                     code1 = object.getCode();
                     text = object.getText();
-                    System.out.println("APK更新地址：" + url);
+                    //System.out.println("APK更新地址：" + url);
                     //System.out.println("版本号：" + code1);
                     //System.out.println("更新内容" + text);
                     check(code1);

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#1090A4AE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/green_300"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:layout_collapseMode="pin"
+        app:title="详情"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+    <ImageView
+        android:background="#4090A4AE"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <TextView
+                    android:id="@+id/nickname"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="Alex233" />
+
+                <TextView
+                    android:id="@+id/qm"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_below="@+id/nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:textSize="11dp"
+                    android:text="百鬼藏心中" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:background="#2090A4AE"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/content"
+                    android:text="这个是测试信息"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="20dp">
+
+                <TextView
+                    android:id="@+id/label"
+                    android:background="@drawable/button_shape1"
+                    android:textSize="10dp"
+                    android:gravity="center"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="100dp"
+                android:background="#5090A4AE"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <ListView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </ListView>
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

@@ -3,105 +3,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:id="@+id/iv"
-        android:layout_width="100dp"
-        android:layout_height="140dp"
-        android:src="@drawable/ic_launcher"/>
 
-    <LinearLayout
-        android:gravity="center"
-        android:layout_toRightOf="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:gravity="left"
-            android:textColor="@color/black"
-            android:text="标题" />
-        <View
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+    <RelativeLayout
+        android:layout_margin="15dp"
+        android:background="@drawable/button_shape1"
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+
+
+        <ImageView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/iv"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:src="@drawable/ic_launcher"/>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_toRightOf="@+id/iv"
             android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:background="@android:color/black"/>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="140dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:text="标题" />
+            <View
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:maxHeight="200dp"
+                    android:textColor="@color/black"
+                    android:text="内容" />
+
+            </ScrollView>
+
+            <View
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black"/>
             <TextView
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:id="@+id/tv_content"
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:text="时间" />
+            <View
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black"/>
+            <TextView
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:id="@+id/tv_adress"
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="地点" />
+            <View
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black"/>
+            <TextView
+                android:gravity="right"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:id="@+id/create_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
-                android:maxHeight="200dp"
                 android:textColor="@color/black"
-                android:text="内容" />
+                android:text="创建时间:" />
+            <View
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black"/>
+        </LinearLayout>
 
-        </ScrollView>
+    </RelativeLayout>
 
-        <View
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@android:color/black"/>
-        <TextView
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:id="@+id/tv_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="12dp"
-            android:text="时间" />
-        <View
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@android:color/black"/>
-        <TextView
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:id="@+id/tv_adress"
-            android:layout_width="match_parent"
-            android:textColor="@color/black"
-            android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:text="地点" />
-        <View
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@android:color/black"/>
-        <TextView
-            android:gravity="right"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:id="@+id/create_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:textColor="@color/black"
-            android:text="创建时间:" />
-        <View
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@android:color/black"/>
-    </LinearLayout>
 
 </RelativeLayout>

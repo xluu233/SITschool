@@ -42,10 +42,10 @@ public class zhuyeDisplayActvivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);//支持javascript
 
         webSettings.setSupportZoom(true);//支持缩放
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);//不显示缩放按钮
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);//自动适配
         webSettings.setLoadWithOverviewMode(true);
+
+        news.getSettings().setBlockNetworkImage(false);
 
         news.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         news.getSettings().setSupportMultipleWindows(true);

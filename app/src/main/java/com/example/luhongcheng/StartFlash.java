@@ -3,6 +3,7 @@ package com.example.luhongcheng;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.example.luhongcheng.Bmob.LOGO;
 import com.example.luhongcheng.Bmob.Tips;
+import com.example.luhongcheng.SWZL.SecondFragment;
+import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -31,10 +34,12 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 
 public class StartFlash extends Activity {
 
+    int n;
     private Intent intent;
     private static Bitmap bitmap;
     private static ImageButton mImageView;
@@ -51,7 +56,7 @@ public class StartFlash extends Activity {
         }
     };
     public String ImageUrl ;
-    String url;
+    String click_url;
     Button skip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,36 +73,39 @@ public class StartFlash extends Activity {
             localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
         }
 
-        //查找LOGO表里面id为Z2GB666E的数据
         BmobQuery<LOGO> bmobQuery = new BmobQuery<LOGO>();
-        /*
-        bmobQuery.getObject("BQpAHHHX", new  QueryListener<LOGO>() {
-            @Override
-            public void done(LOGO object,BmobException e) {
-                if(e==null){
-                    ImageUrl = object.getimageUrl();
-                    url = object.getUrl();
-                    //System.out.println("开机图片地址"+ImageUrl);
-                    postUrl(ImageUrl);
-                }else{
-                    Log.i("bmob图片","失败："+e.getMessage()+","+e.getErrorCode());
-                }
-            }
-        });
-        */
         bmobQuery.findObjects(new FindListener<LOGO>(){
             @Override
             public void done(List<LOGO> list, BmobException e) {
                 List<LOGO> lists = new ArrayList<>();
                 if (list != null) {
                     final String[] tip  =  new String[list.size()];
+                    final String[] url = new String[list.size()];
                     for(int i = 0;i<list.size();i++){
                         tip[i] = list.get(i).getimageUrl();
+                        url[i] = list.get(i).getUrl();
+
+                        String num = list.get(0).getLoginNum();
+                        n= Integer.parseInt(num);
                     }
+                   // click_url = url[list.size() - 1];
                     ImageUrl = tip[list.size() - 1];
                     postUrl(ImageUrl);
                 }else{
                     //Log.i("bmob图片","失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+        });
+
+        //登陆次数
+        n=n+1;
+        LOGO lalal = new LOGO();
+        lalal.setLoginNum(String.valueOf(n++));
+        lalal.update("BQpAHHHX", new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+                }else{
                 }
             }
         });
@@ -122,7 +130,9 @@ public class StartFlash extends Activity {
                 StartFlash.this.finish();
             }
         });
+
     }
+
 
     public void  postUrl(final String imageUrl){
         new Thread() {

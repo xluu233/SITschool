@@ -7,6 +7,11 @@
         android:title="主页" />
 
     <item
+        android:id="@+id/navigation_shequ"
+        android:icon="@drawable/ic_shequ"
+        android:title="社区" />
+
+    <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_icclass"
         android:title="课程表" />

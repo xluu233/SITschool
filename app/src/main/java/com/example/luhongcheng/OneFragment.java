@@ -29,22 +29,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.luhongcheng.BBox.AnLi;
-import com.example.luhongcheng.BBox.EatFood;
-import com.example.luhongcheng.BBox.Learning;
-import com.example.luhongcheng.BBox.Love;
-import com.example.luhongcheng.BBox.ManyWorks;
-import com.example.luhongcheng.BBox.PeopleSay;
-import com.example.luhongcheng.BBox.ToDayBest;
+
 import com.example.luhongcheng.Bmob.Tips;
 import com.example.luhongcheng.Bmob.lan;
+import com.example.luhongcheng.MBox.MBoxItem;
 import com.example.luhongcheng.about.about0;
-import com.example.luhongcheng.about.about1;
-import com.example.luhongcheng.about.about2;
-import com.example.luhongcheng.about.about3;
-import com.example.luhongcheng.about.about4;
 import com.example.luhongcheng.userCard.userCardinfo;
 import com.example.luhongcheng.zixun.news;
 import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
@@ -54,7 +44,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -66,11 +55,8 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -342,7 +328,7 @@ public class OneFragment extends Fragment{
                     */
 
                     String A2 = link.select("section.onePic__img-area").select("img").attr("original");
-                    System.out.println("图片链接:"+A2.toString());
+                    //System.out.println("图片链接:"+A2.toString());
 
                     URL myFileURL;
                     try {
@@ -364,11 +350,11 @@ public class OneFragment extends Fragment{
                     handler.sendMessage(msg);
 
                     String A3 = link.select("article.onePic__content").select("h4.feed__title").text();
-                    System.out.println("标题:"+A3.toString());
+                    //System.out.println("标题:"+A3.toString());
                     souhutitle.setText(A3);
 
                     String A4 = link.select("article.onePic__content").select("footer.feed__detail").select("span.time").text();
-                    System.out.println("时间:"+A4.toString());
+                    //System.out.println("时间:"+A4.toString());
                     souhusubtitle.setText(A4);
 
                     //天气
@@ -466,7 +452,6 @@ public class OneFragment extends Fragment{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.toolbar_action1:
-                //Toast.makeText(getActivity(),"更多功能敬请期待",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(),about0.class);
                 startActivity(intent);
                 return true;
@@ -610,19 +595,19 @@ public class OneFragment extends Fragment{
 
 
     private void initFruits() {
-        Box orange = new Box("#今日最佳#", R.drawable.best);
+        Box orange = new Box("#今日最佳#", R.drawable.best_min);
         fruitList.add(orange);
-        Box apple = new Box("#众话说#", R.drawable.talk);
+        Box apple = new Box("#众话说#", R.drawable.talk_min);
         fruitList.add(apple);
-        Box banana = new Box("#表白墙#", R.drawable.love);
+        Box banana = new Box("#表白墙#", R.drawable.love_min);
         fruitList.add(banana);
-        Box watermelon = new Box("#学习交流#", R.drawable.learn);
+        Box watermelon = new Box("#学习交流#", R.drawable.learn_min);
         fruitList.add(watermelon);
-        Box pear = new Box("#安利#", R.drawable.anli);
+        Box pear = new Box("#安利#", R.drawable.anli_min);
         fruitList.add(pear);
-        Box grape = new Box("#一日三餐#", R.drawable.food);
+        Box grape = new Box("#一日三餐#", R.drawable.food_min);
         fruitList.add(grape);
-        Box pineapple = new Box("#需求池#", R.drawable.xuqiu);
+        Box pineapple = new Box("#需求池#", R.drawable.xuqiu_min);
         fruitList.add(pineapple);
     }
 
@@ -656,37 +641,44 @@ public class OneFragment extends Fragment{
                     switch(position){
                         case 0:
                             //今日最佳
-                            Intent intent = new Intent(getActivity(), ToDayBest.class);
+                            Intent intent = new Intent(getActivity(),MBoxItem.class);
+                            intent.putExtra("flag","A1");
                             startActivity(intent);
                             break;
                         case 1:
                             //众话说
-                            Intent intent1 = new Intent(getActivity(), PeopleSay.class);
+                            Intent intent1 = new Intent(getActivity(), MBoxItem.class);
+                            intent1.putExtra("flag","A4");
                             startActivity(intent1);
                             break;
                         case 2:
                             //表白墙
-                            Intent intent2 = new Intent(getActivity(), Love.class);
+                            Intent intent2 = new Intent(getActivity(),MBoxItem.class);
+                            intent2.putExtra("flag","A3");
                             startActivity(intent2);
                             break;
                         case 3:
                             //学习交流
-                            Intent intent3 = new Intent(getActivity(), Learning.class);
+                            Intent intent3 = new Intent(getActivity(), MBoxItem.class);
+                            intent3.putExtra("flag","A6");
                             startActivity(intent3);
                             break;
                         case 4:
                             //安利
-                            Intent intent4 = new Intent(getActivity(), AnLi.class);
+                            Intent intent4 = new Intent(getActivity(),MBoxItem.class);
+                            intent4.putExtra("flag","A7");
                             startActivity(intent4);
                             break;
                         case 5:
                             //一日三餐
-                            Intent intent5 = new Intent(getActivity(), EatFood.class);
+                            Intent intent5 = new Intent(getActivity(), MBoxItem.class);
+                            intent5.putExtra("flag","A2");
                             startActivity(intent5);
                             break;
                         case 6:
                             //需求池
-                            Intent intent6 = new Intent(getActivity(), ManyWorks.class);
+                            Intent intent6 = new Intent(getActivity(), MBoxItem.class);
+                            intent6.putExtra("flag","A8");
                             startActivity(intent6);
                             break;
                         default:

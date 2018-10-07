@@ -160,18 +160,20 @@
                 <ScrollView
                     android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_height="70dp">
+                    android:layout_height="wrap_content">
                     <TextView
+                        android:gravity="left"
                         android:id="@+id/tips"
+                        android:minHeight="50dp"
+                        android:maxHeight="120dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:textSize="11dp"
-                        android:text="                              ( ♡˙︶˙♡ )"
-                        android:layout_gravity="center"
+                        android:text="
+                                           ( ♡˙︶˙♡ )"
                         android:background="@color/white"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
                 </ScrollView>
 
 
@@ -320,6 +322,7 @@
 
             <LinearLayout
                 android:id="@+id/recycler"
+                android:layout_marginBottom="100dp"
                 android:background="@color/white"
                 android:layout_below="@+id/moremore"
                 android:layout_width="match_parent"

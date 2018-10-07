@@ -1,84 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/teal_400"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/setIcon"
-        android:src="@drawable/fab_add"
-        android:scaleType="centerCrop"
-        android:layout_width="150dp"
-        android:layout_height="150dp" />
-
-    <Button
-        android:id="@+id/send1"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="提交头像"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/teal_600"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="45dp"
+        app:layout_collapseMode="pin"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:title="个人信息修改"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
 
     <LinearLayout
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textshape3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/setIcon"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/fab_add" />
+
+        <Button
+            android:id="@+id/send1"
+            android:layout_gravity="center"
+            android:background="@drawable/button_shape1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="提交头像"
+            android:layout_width="100dp"
+            android:layout_height="35dp" />
+
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:background="@drawable/textshape3"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="80dp"
+            android:gravity="right"
             android:layout_height="wrap_content"
             android:text="昵称："/>
 
         <EditText
             android:id="@+id/nk"
             android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content" />
 
+        <Button
+            android:id="@+id/send2"
+            android:layout_gravity="center"
+            android:background="@drawable/button_shape1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="更新1"
+            android:layout_width="100dp"
+            android:layout_height="35dp" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/send2"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="保存昵称" />
 
     <LinearLayout
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/textshape3"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="80dp"
+            android:gravity="right"
             android:layout_height="wrap_content"
             android:text="个性签名："/>
 
         <EditText
             android:id="@+id/qm"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/send3"
+            android:layout_gravity="center"
+            android:background="@drawable/button_shape1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="更新2"
+            android:layout_width="100dp"
+            android:layout_height="35dp" />
 
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/send3"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:text="保存签名"
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:background="@drawable/textshape3"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="注意：头像，昵称，个性签名只能设置一次！"/>
+        <TextView
+            android:layout_width="80dp"
+            android:gravity="right"
+            android:layout_height="wrap_content"
+            android:text="联系方式："/>
+
+        <EditText
+            android:id="@+id/QQ"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/send4"
+            android:layout_gravity="center"
+            android:background="@drawable/button_shape1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="更新3"
+            android:layout_width="100dp"
+            android:layout_height="35dp" />
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

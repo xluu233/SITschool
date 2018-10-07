@@ -1,45 +1,29 @@
 package com.example.luhongcheng;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.Bmob;
-import com.example.luhongcheng.Bmob.LOGO;
-import com.example.luhongcheng.Bmob._User;
+import com.example.luhongcheng.Bmob.UserInfo;
 import com.example.luhongcheng.FruitItem.Fruit;
-import com.example.luhongcheng.FruitItem.FruitAdapter;
 import com.example.luhongcheng.FruitItem.OneselfListAdapter;
-import com.example.luhongcheng.about.about0;
-import com.example.luhongcheng.about.about1;
-import com.example.luhongcheng.about.about2;
-import com.example.luhongcheng.about.about3;
-import com.example.luhongcheng.about.about4;
+import com.example.luhongcheng.MySelf.MyLove;
+import com.example.luhongcheng.MySelf.MySs;
 
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -49,9 +33,6 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
-
-import static com.example.luhongcheng.StartFlash.getHttpBitmap;
 
 public class OneSelf extends Activity{
     Button bianji;
@@ -91,14 +72,24 @@ public class OneSelf extends Activity{
                 //Toast.makeText(getActivity(), fruit.getImageId(), Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
+                        Intent intent1 = new Intent(OneSelf.this,MySs.class);
+                        startActivity(intent1);
                         break;
                     case 1:
+                        Intent intent2 = new Intent(OneSelf.this,MyLove.class);
+                        startActivity(intent2);
                         break;
                     case 2:
+                        //Intent intent3 = new Intent(OneSelf.this,MySs.class);
+                        //startActivity(intent3);
                         break;
                     case 3:
+                        //Intent intent4 = new Intent(OneSelf.this,MySs.class);
+                        //startActivity(intent4);
                         break;
                     case 4:
+                       // Intent intent5 = new Intent(OneSelf.this,MySs.class);
+                        //startActivity(intent5);
                         break;
                     default:
                         break;
@@ -136,13 +127,13 @@ public class OneSelf extends Activity{
         SharedPreferences sp=getSharedPreferences("userid",0);
         username = sp.getString("username","");
 
-        BmobQuery<_User> query = new BmobQuery<_User>();
-        query.addWhereEqualTo("username", username);
-        query.findObjects(new FindListener<_User>() {
+        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+        query.addWhereEqualTo("ID", username);
+        query.findObjects(new FindListener<UserInfo>() {
             @Override
-            public void done(List<_User> object, BmobException e) {
+            public void done(List<UserInfo> object, BmobException e) {
                 if(e==null){
-                    for (_User xixi : object) {
+                    for (UserInfo xixi : object) {
                         nickname.setText(xixi.getNickname());
 
                         name =  xixi.getName();
@@ -152,9 +143,10 @@ public class OneSelf extends Activity{
                             nickname.setText("你好，"+name);
                         }
 
-                        qianming.setText(xixi.getQianming());
+                        qianming.setText(xixi.getQM());
 
                         APPid.setText("ID:"+xixi.getObjectId());
+
                         //保存用户的ID
                         SharedPreferences.Editor editor=getSharedPreferences("personID",0).edit();
                         editor.putString("ID",xixi.getObjectId());
@@ -180,6 +172,8 @@ public class OneSelf extends Activity{
         });
 
     }
+
+
 
     private void postUrl(final String iconUrl) {
         new Thread() {

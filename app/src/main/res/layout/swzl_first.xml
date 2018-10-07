@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/teal_500"
             app:fab_colorPressed="@color/teal_500"
-            android:src="@drawable/refresh2"
+            android:src="@drawable/refresh3"
             app:fab_size="mini"
             app:fab_label="刷新" />
 

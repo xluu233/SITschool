@@ -139,6 +139,10 @@ public class FourFragment extends Fragment {
             public void onClick(View v) {
                 SharedPreferences.Editor editor = getActivity().getSharedPreferences("userid", 0).edit();
                 editor.clear().commit();
+
+                SharedPreferences.Editor editor2 = getActivity().getSharedPreferences("personID", 0).edit();
+                editor2.clear().commit();
+
                 Toast.makeText(getActivity(), "账号信息已清除", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(),LoginActivity.class);

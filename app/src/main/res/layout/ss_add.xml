@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        android:background="@color/bugray_500"
+        android:layout_width="match_parent"
+        app:title="发布"
+        android:layout_height="45dp">
+
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/img"
+        android:background="@drawable/layoutshape2"
+        android:src="@drawable/fab_add"
+        android:scaleType="center"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+    <LinearLayout
+        android:id="@+id/ss"
+        android:background="@drawable/layoutshape2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/img"
+        android:minHeight="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/content"
+            style="?android:attr/textViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxHeight="300dp"
+            android:textSize="12dp"
+            android:background="@null"
+            android:hint="这一刻，我想说"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:background="@drawable/layoutshape2"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/ss"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RadioGroup
+            android:id="@+id/RG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/A1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日最佳" />
+            <RadioButton
+                android:id="@+id/A2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一日三餐" />
+            <RadioButton
+                android:id="@+id/A3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="表白墙"/>
+            <RadioButton
+                android:id="@+id/A4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="众话说"/>
+            <RadioButton
+                android:id="@+id/A5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工具推荐"/>
+            <RadioButton
+                android:id="@+id/A6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学习交流"/>
+            <RadioButton
+                android:id="@+id/A7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="安利"/>
+            <RadioButton
+                android:id="@+id/A8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需求池"/>
+            <RadioButton
+                android:id="@+id/A9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="考研党"/>
+            <RadioButton
+                android:id="@+id/A10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="周边推荐"/>
+            <RadioButton
+                android:id="@+id/A11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="每日一听"/>
+            <RadioButton
+                android:id="@+id/A12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="晨读打卡"/>
+            <RadioButton
+                android:id="@+id/A13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="谈天说地"/>
+
+        </RadioGroup>
+
+    </ScrollView>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/send"
+        android:src="@drawable/ic_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp" />
+
+
+</RelativeLayout>

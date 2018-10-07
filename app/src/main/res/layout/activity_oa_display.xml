@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/title0"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/textshape2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/title1"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/title0"
         android:background="@drawable/textshape2"
         android:layout_width="match_parent"
@@ -23,11 +23,28 @@
         android:text="小标题:"
         android:textSize="10dp"/>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/xiazai"
+        android:layout_below="@+id/title1"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/lv"
+            android:maxHeight="160dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+
+    </LinearLayout>
+
 
     <RelativeLayout
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_below="@+id/title1"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/xiazai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -39,13 +56,11 @@
 
             <TextView
                 android:id="@+id/title2"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/textshape2"
-                android:text="内容:"
+                android:lineSpacingMultiplier="1.5"
+                android:textSize="15dp"
                 android:scrollbars="vertical"
-                android:textSize="15dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </ScrollView>
 

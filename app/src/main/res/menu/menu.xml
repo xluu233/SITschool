@@ -5,9 +5,5 @@
         android:id="@+id/toolbar_action1"
         android:title="关于App"/>
 
-    <item
-        android:id="@+id/flash"
-        android:title="开机Flash"/>
-
 
 </menu>

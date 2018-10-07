@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/title0"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/textshape"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/textshape2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="标题:"
@@ -16,9 +16,9 @@
 
     <TextView
         android:id="@+id/title1"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/title0"
-        android:background="@drawable/textshape"
+        android:background="@drawable/textshape2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="小标题:"
@@ -26,27 +26,25 @@
 
 
     <RelativeLayout
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_below="@+id/title1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ScrollView
             android:id="@+id/sc"
-            android:background="@drawable/textshape"
+            android:background="@drawable/textshape2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/title2"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/textshape"
-                android:text="内容:"
+                android:lineSpacingMultiplier="1.5"
+                android:textSize="15dp"
                 android:scrollbars="vertical"
-                android:textSize="15dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </ScrollView>
 
@@ -63,10 +61,10 @@
         <Button
             android:id="@+id/shenqing"
             android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
             android:layout_margin="5dip"
-            android:background="@drawable/rotate_layout_bg"
+            android:background="@drawable/button_shape1"
             android:textSize="15dp"
             android:textAllCaps="false"
             android:text="-申请-"
