@@ -125,6 +125,10 @@ public class FourFragment extends Fragment {
                         Intent intent4 = new Intent(getActivity(), about4.class);
                         startActivity(intent4);
                         break;
+                    case 5:
+                        Intent intent5 = new Intent(getActivity(), OneSelf.class);
+                        startActivity(intent5);
+                        break;
                     default:
                         break;
 
@@ -164,6 +168,8 @@ public class FourFragment extends Fragment {
         fruitList.add(watermelon);
         Fruit pear = new Fruit("捐赠开发者", R.drawable.juanzeng);
         fruitList.add(pear);
+        Fruit pear2 = new Fruit("个人中心", R.drawable.oneself);
+        fruitList.add(pear2);
     }
 
 

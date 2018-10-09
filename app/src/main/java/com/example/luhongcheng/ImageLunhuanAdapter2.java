@@ -60,41 +60,31 @@ public class ImageLunhuanAdapter2 extends PagerAdapter {
                 switch (position) {
                     case 0:
                         // System.out.println("第一个");
-                        if (click[0].length() != 0){
-                            Intent intent= new Intent();
-                            intent.setAction("android.intent.action.VIEW");
-                            intent.setData(Uri.parse(click[0]));
-                            //调用activity的上下文，在adapter中跳转
-                            context2.startActivity(intent);
-                        }
+                        Intent intent= new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        intent.setData(Uri.parse(click[0]));
+                        //调用activity的上下文，在adapter中跳转
+                        context2.startActivity(intent);
                         break;
                     case 1:
+                        Intent intent2= new Intent();
+                        intent2.setAction("android.intent.action.VIEW");
+                        intent2.setData(Uri.parse(click[1]));
+                        context2.startActivity(intent2);
                         //  System.out.println("第er个");
-                        if (click[1].length() != 0){
-                            Intent intent2= new Intent();
-                            intent2.setAction("android.intent.action.VIEW");
-                            intent2.setData(Uri.parse(click[1]));
-                            context2.startActivity(intent2);
-                        }
-
                         break;
                     case 2:
-                        if (click[2].length() != 0){
-                            Intent intent3= new Intent();
-                            intent3.setAction("android.intent.action.VIEW");
-                            intent3.setData(Uri.parse(click[2]));
-                            context2.startActivity(intent3);
-                        }
+                        Intent intent3= new Intent();
+                        intent3.setAction("android.intent.action.VIEW");
+                        intent3.setData(Uri.parse(click[2]));
+                        context2.startActivity(intent3);
                         // System.out.println("第san个");
-
                         break;
                     case 3:
-                        if (click[3].length() != 0){
-                            Intent intent4= new Intent();
-                            intent4.setAction("android.intent.action.VIEW");
-                            intent4.setData(Uri.parse(click[3]));
-                            context2.startActivity(intent4);
-                        }
+                        Intent intent4= new Intent();
+                        intent4.setAction("android.intent.action.VIEW");
+                        intent4.setData(Uri.parse(click[3]));
+                        context2.startActivity(intent4);
                         // System.out.println("第si个");
                         break;
                 }

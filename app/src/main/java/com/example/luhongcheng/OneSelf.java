@@ -37,7 +37,7 @@ import cn.bmob.v3.listener.FindListener;
 public class OneSelf extends Activity{
     Button bianji;
     TextView nickname,qianming,APPid,xueyuan;
-    static ImageButton icon;
+    static ImageView icon;
     String username;
     private List<Fruit> fruitList = new ArrayList<Fruit>();
 
@@ -55,7 +55,7 @@ public class OneSelf extends Activity{
 
         bianji = (Button)findViewById(R.id.bianji);
         cn.bmob.v3.Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
-        icon = (ImageButton) findViewById(R.id.myicon);
+        icon = (ImageView) findViewById(R.id.myicon);
         nickname = (TextView)findViewById(R.id.nickname);
         qianming = (TextView)findViewById(R.id.qianming);
         APPid = (TextView)findViewById(R.id.APPid);

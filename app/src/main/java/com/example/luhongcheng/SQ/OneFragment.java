@@ -32,11 +32,15 @@ import com.example.luhongcheng.Bmob.UserInfo;
 import com.example.luhongcheng.ImageLunhuanAdapter;
 import com.example.luhongcheng.ImageLunhuanAdapter2;
 import com.example.luhongcheng.R;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -204,8 +208,32 @@ public class OneFragment extends Fragment {
 
         //将Scrollview置顶
         ScrollView sv = (ScrollView)getActivity().findViewById(R.id.scr);
-        sv.smoothScrollTo(0, 0);
+        //sv.smoothScrollTo(0, 0);
 
+
+        RefreshLayout refreshLayout = (RefreshLayout)getActivity().findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                Page =1;
+                slist.clear();
+                lv.setAdapter(new SSAdaper(slist));
+                initData();
+                refreshlayout.finishRefresh(1000/*,false*/);//传入false表示刷新失败
+            }
+        });
+
+
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+             public void onLoadMore(RefreshLayout refreshlayout) {
+                Page = Page +1;
+              //  lv.setAdapter(new SSAdaper(slist));
+                initData();
+
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
 
 
     }
@@ -214,6 +242,8 @@ public class OneFragment extends Fragment {
     int i =0;
     String personID;
     String ssID2,label2;
+    String time2;
+    int Page = 1;//页数
     private void initData() {
         slist = new ArrayList<SSS>();
         /*
@@ -223,11 +253,14 @@ public class OneFragment extends Fragment {
         slist.add(new SSS("http://06.imgmini.eastday.com/mobile/20180422/43a9a7a27dfe05aaf09157cba82a37f0.jpeg", "as大无"));
         mHandler2.obtainMessage(0).sendToTarget();
         */
-
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
                 BmobQuery<com.example.luhongcheng.Bmob.SS> query = new BmobQuery<com.example.luhongcheng.Bmob.SS>();
+                query.order("createdAt");//时间降序查询
+                query.setLimit(3*Page);//查询前20条数据
+                //query.setSkip(3*(Page-1));//分页查询
+
                 query.findObjects(new FindListener<com.example.luhongcheng.Bmob.SS>(){
                     @Override
                     public void done(final List<com.example.luhongcheng.Bmob.SS> list, BmobException e) {
@@ -238,6 +271,7 @@ public class OneFragment extends Fragment {
                             String[] ID = new  String[list.size()+1];
                             final  String[]  ssID= new String[list.size()+1];
                             final  String[]  label= new String[list.size()+1];
+                            final  String[] time = new String[list.size()+1];
 
                             int n = list.size()+1;
 
@@ -247,13 +281,15 @@ public class OneFragment extends Fragment {
                                 ID[i] = list.get(i).getID();
                                 ssID[i] = list.get(i).getObjectId();
                                 label[i] = list.get(i).getLabel();
+                                time[i] = list.get(i).getCreatedAt();
 
                                 String image2 = image[i];
                                 String content2 = content[i];
                                 personID = ID[i];
                                 ssID2 = ssID[i];
                                 label2 = label[i];
-                                getssuerinfo(n,image2,content2,personID,ssID2,label2);
+                                time2 = time[i];
+                                getssuerinfo(n,image2,content2,personID,ssID2,label2,time2);
 
                                 //slist.add(new SSS(image[i],content[i],icon,qm,nickname));
                             }
@@ -275,7 +311,7 @@ public class OneFragment extends Fragment {
 
     }
 
-    private void getssuerinfo(final int n , final String img, final String content, final String personID, final String ssID2,final String label2) {
+    private void getssuerinfo(final int n , final String img, final String content, final String personID, final String ssID2,final String label2,final String time2) {
 
         final String[] nickname = new String[n];
         final String[] qm = new String[n];
@@ -311,8 +347,8 @@ public class OneFragment extends Fragment {
 
                // System.out.println("image:"+ img);
                // System.out.println("content:"+content);
-                slist.add(new SSS(img,content,icon[i],qm[i],nickname[i],personID,ssID2,label2));
-               // System.out.print(slist);
+                slist.add(new SSS(img,content,icon[i],qm[i],nickname[i],personID,ssID2,label2,time2));
+                // System.out.print(slist);
                 mHandler2.obtainMessage(0).sendToTarget();
 
             }
@@ -334,11 +370,13 @@ public class OneFragment extends Fragment {
 
         @Override
         public int getCount() {
+            /*
             if (list.size()>100){
                 return 100;
             }else {
-                return list.size();
-            }
+
+            }*/
+            return list.size();
             //主页最大数量100
         }
 

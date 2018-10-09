@@ -65,6 +65,7 @@ public class item1 extends FragmentActivity implements OnClickListener, OnPageCh
 	String mima;
 
 	List<String> cookies;
+	String URL1 ;
 
 
 
@@ -88,6 +89,9 @@ public class item1 extends FragmentActivity implements OnClickListener, OnPageCh
 
 		if(xuehao.length()==0){
 			Toast.makeText(item1.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+		}else {
+			URL1 = "http://sc.sit.edu.cn/j_spring_security_check?j_username="+xuehao+"&returnUrl=";
+			//http://sc.sit.edu.cn/j_spring_security_check?j_username=1510400642&returnUrl=
 		}
 
 	}
@@ -156,7 +160,7 @@ public class item1 extends FragmentActivity implements OnClickListener, OnPageCh
 
 
 					Request request3 = new Request.Builder()
-							.url("http://sc.sit.edu.cn/j_spring_security_check?j_username=1510400642&returnUrl=")
+							.url(URL1)
 							.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
 							.header("Accept-Language", "zh-CN,zh;q=0.9")
 							.header("Connection", "Keep-Alive")

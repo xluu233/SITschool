@@ -91,6 +91,9 @@
         <activity android:name=".MoreBox"/>
         <activity android:name=".SQ.SS_ADD"></activity>
         <activity android:name=".SQ.ssDisPlay"></activity>
+        <activity android:name=".SQ.SS_ADD2"></activity>
+        <activity android:name=".MySelf.MySs"></activity>
+        <activity android:name=".MySelf.MyLove"></activity>
 
     </application>
 

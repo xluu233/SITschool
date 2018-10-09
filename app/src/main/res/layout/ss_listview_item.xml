@@ -46,7 +46,6 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:orientation="vertical"
-        android:minHeight="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -64,14 +63,16 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxHeight="100dp"
             android:minHeight="30dp"/>
 
         <ImageView
             android:id="@+id/img"
             android:gravity="left"
-            android:maxHeight="200dp"
+            android:maxHeight="170dp"
+            android:layout_margin="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"/>
+            android:layout_height="170dp"/>
 
     </LinearLayout>
 

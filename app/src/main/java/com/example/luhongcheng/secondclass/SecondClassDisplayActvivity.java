@@ -193,16 +193,14 @@ public class SecondClassDisplayActvivity extends Activity {
                     //Element url = doc.getElementById("pf8271");   //依据ID取值
                     Elements link =  doc.getElementsByClass("box-1");
 
-                    for(int j = 0;j < link.size();j++){
-                        T0 = link.get(j).select("h1").text();
-                        //System.out.println("T0"+T0.toString());
+                    T0 = link.select("h1").text();
+                    //System.out.println("T0"+T0.toString());
 
-                        T1 = link.get(j).select("div").get(1).text();
-                        //System.out.println("T2"+T1.toString());
+                    T1 = link.select("div").get(1).text();
+                    //System.out.println("T2"+T1.toString());
 
-                        T2 = link.get(j).select("div").get(2).text();
-                        //System.out.println("T2"+T2.toString());
-                    }
+                    T2 = "       "+link.select("div").get(2).text();
+
 
 
                     Message msg = new Message();

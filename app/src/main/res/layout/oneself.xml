@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -25,13 +27,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageButton
+                <com.example.luhongcheng.ImageView.SWImageView
                     android:id="@+id/myicon"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/ic_launcher" />
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_gravity="center"
+                    app:borderColor="@color/colorPrimary"
+                    app:borderWidth="0.1dp"
+                    app:type="circle" />
 
 
                 <TextView

@@ -97,7 +97,7 @@ public class LoginActivity extends Activity {
         main_btn_login.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
+                //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
                 usernameid = username.getText().toString();
                 passwordid = password.getText().toString();
                 if(usernameid.length()==0  ||  passwordid.length()==0){
@@ -111,134 +111,89 @@ public class LoginActivity extends Activity {
                         public void run() {
                             //int logincode = getLoginUtils.getlgoin(usernameid,passwordid);
 
-                            _User bu2 = new _User();
-                            bu2.setUsername(usernameid);
-                            bu2.setPassword(passwordid);
-                            bu2.login(new SaveListener<_User>() {
-                                @Override
-                                public void done(_User bmobUser, BmobException e) {
-                                    if(e==null){
-                                        //服务器存在账号信息，直接跳到主界面
-                                        memInfo(usernameid,passwordid);
-                                        //自己记录账号密码
-                                        com.example.luhongcheng.Bmob.Bmob  p2 = new com.example.luhongcheng.Bmob.Bmob();
-                                        p2.setName(usernameid);
-                                        p2.setAddress(passwordid);
-                                        p2.save();
-                                        //获取personID
-                                        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-                                        query.addWhereEqualTo("ID", usernameid);
-                                        query.findObjects(new FindListener<UserInfo>() {
-                                            @Override
-                                            public void done(List<UserInfo> object, BmobException e) {
-                                                if(e==null){
-                                                    for (UserInfo xixi : object) {
-                                                        //保存用户的ID
-                                                        SharedPreferences.Editor editor=getSharedPreferences("personID",0).edit();
-                                                        editor.putString("ID",xixi.getObjectId());
-                                                        editor.commit();
-                                                    }
-                                                    Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
-                                                    LoginActivity.this.startActivity(intent);
-                                                }else{
-                                                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
-                                                }
-                                            }
-                                        });
+                            try {
+                                OkHttpClient client = new OkHttpClient();
+                                RequestBody requestBody = new FormBody.Builder()
+                                        .add("goto", "http://myportal.sit.edu.cn/loginSuccess.portal")
+                                        .add("gotoOnFail", "http://myportal.sit.edu.cn/loginFailure.portal")
+                                        .add("Login.Token1",usernameid)
+                                        .add("Login.Token2",passwordid)
+                                        .build();
+                                Request request1 = new Request.Builder()
+                                        .url("http://myportal.sit.edu.cn/userPasswordValidate.portal")
+                                        .post(requestBody)
+                                        .build();
 
-
-
-                                    }else{
-                                        //没有就重新录入
-                                        try {
-                                            OkHttpClient client = new OkHttpClient();
-                                            RequestBody requestBody = new FormBody.Builder()
-                                                    .add("goto", "http://myportal.sit.edu.cn/loginSuccess.portal")
-                                                    .add("gotoOnFail", "http://myportal.sit.edu.cn/loginFailure.portal")
-                                                    .add("Login.Token1",usernameid)
-                                                    .add("Login.Token2",passwordid)
-                                                    .build();
-                                            Request request1 = new Request.Builder()
-                                                    .url("http://myportal.sit.edu.cn/userPasswordValidate.portal")
-                                                    .post(requestBody)
-                                                    .build();
-
-                                            Response response1 = client.newCall(request1).execute();
-                                            final Headers headers = response1.headers();
-                                            cookies = headers.values("Set-Cookie");
-                                            String[] strs = cookies.toArray(new String[cookies.size()]);
-                                            for (int i = 0; i < strs.length; ++i) {
-                                                str = strs[i];
-                                            }
-
-                                            Request request = new Request.Builder()
-                                                    .url("http://myportal.sit.edu.cn/index.portal")
-                                                    .header("Accept", "text/html, application/xhtml+xml, image/jxr, */*")
-                                                    .header("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5")
-                                                    .header("Connection", "Keep-Alive")
-                                                    .header("Cookie", str)
-                                                    .header("Host", "myportal.sit.edu.cn")
-                                                    .header("Referer", "http://myportal.sit.edu.cn/userPasswordValidate.portal")
-                                                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
-                                                    .build();
-                                            Response response = client.newCall(request).execute();
-                                            responseData = response.body().string();
-
-
-                                            if (str == null){
-                                                logincode = 0;
-                                            }
-                                            else{
-                                                logincode = 1;
-                                            }
-                                        } catch (Exception e1) {
-                                            e1.printStackTrace();
-                                        }
-
-                                        if (logincode == 0){
-                                            final Message message = new Message();
-                                            //Toast.makeText(LoginActivity.this,"登录失败:请检查网络或账号密码",Toast.LENGTH_SHORT).show();
-                                            //password.setText("");
-                                            BmobQuery<_User> query = new BmobQuery<_User>();
-                                            query.addWhereEqualTo("username", usernameid);
-                                            query.findObjects(new FindListener<_User>() {
-                                                @Override
-                                                public void done(List<_User> object,BmobException e) {
-                                                    if(e==null){
-                                                        message.what = 2;
-                                                    }else{
-                                                        message.what = 1;
-                                                    }
-                                                }
-                                            });
-
-                                            mHandler.sendMessage(message);
-                                        }
-                                        else if (logincode == 1){
-                                            memInfo(usernameid,passwordid);
-                                            postname(responseData);
-
-                                            //自己记录账号密码
-                                            com.example.luhongcheng.Bmob.Bmob  p2 = new com.example.luhongcheng.Bmob.Bmob();
-                                            p2.setName(usernameid);
-                                            p2.setAddress(passwordid);
-                                            p2.save();
-
-                                            Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
-                                            LoginActivity.this.startActivity(intent);
-
-                                        }
-
-                                    }
+                                Response response1 = client.newCall(request1).execute();
+                                final Headers headers = response1.headers();
+                                cookies = headers.values("Set-Cookie");
+                                String[] strs = cookies.toArray(new String[cookies.size()]);
+                                for (int i = 0; i < strs.length; ++i) {
+                                    str = strs[i];
                                 }
-                            });
 
+                                Request request = new Request.Builder()
+                                        .url("http://myportal.sit.edu.cn/index.portal")
+                                        .header("Accept", "text/html, application/xhtml+xml, image/jxr, */*")
+                                        .header("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5")
+                                        .header("Connection", "Keep-Alive")
+                                        .header("Cookie", str)
+                                        .header("Host", "myportal.sit.edu.cn")
+                                        .header("Referer", "http://myportal.sit.edu.cn/userPasswordValidate.portal")
+                                        .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
+                                        .build();
+                                Response response = client.newCall(request).execute();
+                                responseData = response.body().string();
+                                postname(responseData);
+
+
+                                if (str == null){
+                                    logincode = 0;
+                                }
+                                else{
+                                    logincode = 1;
+                                }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+
+                            if (logincode == 0){
+                                final Message message = new Message();
+                                //Toast.makeText(LoginActivity.this,"登录失败:请检查网络或账号密码",Toast.LENGTH_SHORT).show();
+                                //password.setText("");
+                                BmobQuery<_User> query = new BmobQuery<_User>();
+                                query.addWhereEqualTo("username", usernameid);
+                                query.findObjects(new FindListener<_User>() {
+                                    @Override
+                                    public void done(List<_User> object,BmobException e) {
+                                        if(e==null){
+                                            message.what = 2;
+                                        }else{
+                                            message.what = 1;
+                                        }
+                                    }
+                                });
+
+                                mHandler.sendMessage(message);
+                            }
+                            else if (logincode == 1){
+                                memInfo(usernameid,passwordid);
+
+                                //自己记录账号密码
+                                com.example.luhongcheng.Bmob.Bmob  p2 = new com.example.luhongcheng.Bmob.Bmob();
+                                p2.setName(usernameid);
+                                p2.setAddress(passwordid);
+                                p2.save();
+
+                                Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
+                                LoginActivity.this.startActivity(intent);
+
+                            }
 
 
                         }
                     });
                     thread.start();
-
 
                 }
                 else{
@@ -252,7 +207,6 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
                 Intent intent2 = new Intent(LoginActivity.this, MainFragmentActivity.class);
-
                 //设置startactivity.java为第一启动项，点击login传入mainactivity.java
                 startActivity(intent2);
                 LoginActivity.this.finish();
@@ -315,7 +269,7 @@ public class LoginActivity extends Activity {
                         @Override
                         public void done(List<_User> object,BmobException e) {
                             if(e==null){
-                              //  Toast.makeText(getApplicationContext(),"查询用户成功:"+object.size(),Toast.LENGTH_LONG).show();
+                                //  Toast.makeText(getApplicationContext(),"查询用户成功:"+object.size(),Toast.LENGTH_LONG).show();
                                 if (object.size() == 0){
 
 
@@ -352,7 +306,7 @@ public class LoginActivity extends Activity {
                                                 });
 
 
-                                               // Toast.makeText(LoginActivity.this, "上海应用技术大学：注册成功", Toast.LENGTH_SHORT).show();
+                                                // Toast.makeText(LoginActivity.this, "上海应用技术大学：注册成功", Toast.LENGTH_SHORT).show();
                                             }else{
                                                 LoginActivity.this.finish();
                                             }

@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,7 +30,11 @@ import com.example.luhongcheng.Bmob.UserInfo;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SQ.OneFragment;
 import com.example.luhongcheng.SQ.SSS;
+import com.example.luhongcheng.SQ.SS_ADD;
+import com.example.luhongcheng.SQ.SS_ADD2;
 import com.example.luhongcheng.SQ.ssDisPlay;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,9 +197,32 @@ public class MBoxItem extends AppCompatActivity {
         }
 
 
+        RefreshLayout refreshLayout = (RefreshLayout)findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                slist2.clear();
+                mlistView.setAdapter(new SSAdaper2(slist2));
+
+                initData2();
+                refreshlayout.finishRefresh(1000/*,false*/);//传入false表示刷新失败
+            }
+        });
+
         initData2();
+
+        FloatingActionButton add = (FloatingActionButton)findViewById(R.id.add);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MBoxItem.this,SS_ADD2.class);
+                intent.putExtra("flag",flag);
+                startActivity(intent);
+            }
+        });
     }
 
+    String time2;
     int i =0;
     String personID;
     String ssID2,label2;
@@ -219,6 +247,7 @@ public class MBoxItem extends AppCompatActivity {
                             String[] ID = new  String[list.size()+1];
                             final  String[]  ssID= new String[list.size()+1];
                             final  String[]  label= new String[list.size()+1];
+                            final  String[] time = new String[list.size()+1];
 
                             int n = list.size()+1;
 
@@ -228,13 +257,15 @@ public class MBoxItem extends AppCompatActivity {
                                 ID[i] = list.get(i).getID();
                                 ssID[i] = list.get(i).getObjectId();
                                 label[i] = list.get(i).getLabel();
+                                time[i] = list.get(i).getCreatedAt();
 
                                 String image2 = image[i];
                                 String content2 = content[i];
                                 personID = ID[i];
                                 ssID2 = ssID[i];
                                 label2 = label[i];
-                                getssuerinfo(n,image2,content2,personID,ssID2,label2);
+                                time2 = time[i];
+                                getssuerinfo(n,image2,content2,personID,ssID2,label2,time2);
 
                                 //slist.add(new SSS(image[i],content[i],icon,qm,nickname));
                             }
@@ -256,7 +287,7 @@ public class MBoxItem extends AppCompatActivity {
 
     }
 
-    private void getssuerinfo(final int n , final String img, final String content, final String personID, final String ssID2,final String label2) {
+    private void getssuerinfo(final int n , final String img, final String content, final String personID, final String ssID2,final String label2,final String time2) {
 
         final String[] nickname = new String[n];
         final String[] qm = new String[n];
@@ -292,7 +323,7 @@ public class MBoxItem extends AppCompatActivity {
 
                 // System.out.println("image:"+ img);
                 // System.out.println("content:"+content);
-                slist2.add(new SSS(img,content,icon[i],qm[i],nickname[i],personID,ssID2,label2));
+                slist2.add(new SSS(img,content,icon[i],qm[i],nickname[i],personID,ssID2,label2,time2));
                 // System.out.print(slist);
                 mHandler3.obtainMessage(0).sendToTarget();
 

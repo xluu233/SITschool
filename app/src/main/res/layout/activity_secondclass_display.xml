@@ -16,13 +16,15 @@
 
     <TextView
         android:id="@+id/title1"
+        android:scrollbars="vertical"
         android:layout_marginTop="10dp"
+        android:lineSpacingMultiplier="1.5"
         android:layout_below="@id/title0"
         android:background="@drawable/textshape2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="小标题:"
-        android:textSize="10dp"/>
+        android:textSize="12dp"/>
 
 
     <RelativeLayout

@@ -11,6 +11,18 @@ public class SSS {
 	private String ssID;//人ID
 	private String label;//标签
 
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	private String time;
+
+
+
 
 	private String zan;
 	private String pinglun;
@@ -89,7 +101,7 @@ public class SSS {
 	}
 
 
-	public SSS(String imageUrl, String title, String iconUrl , String qm, String nickname,String ssID,String personID,String label) {
+	public SSS(String imageUrl, String title, String iconUrl , String qm, String nickname,String ssID,String personID,String label,String time) {
 		this.imageUrl = imageUrl;
 		this.title = title;
 		this.iconUrl = iconUrl;
@@ -98,6 +110,7 @@ public class SSS {
 		this.ssID = ssID;
 		this.personID = personID;
 		this.label =label;
+		this.time = time;
 	}
 
 	public SSS(String imageUrl, String title) {
