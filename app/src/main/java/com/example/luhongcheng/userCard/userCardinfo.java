@@ -176,9 +176,7 @@ public class userCardinfo extends Activity {
 
                             String aa = link.get(j).select("td").get(3).text();
 
-
-                            a1 = a1 +"   "+ aa;
-
+                            a1 = a1 +"  "+ aa;
 
                             String a2 = link.get(j).select("td").get(4).text();
                            // System.out.println("a2"+a2.toString());

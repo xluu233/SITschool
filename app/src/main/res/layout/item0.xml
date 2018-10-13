@@ -39,56 +39,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageButton
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:background="@color/blue_300"
-                    android:src="@drawable/person"
-                    android:onClick="wode"/>
-
-                <ImageButton
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:background="@color/blue_300"
-                    android:src="@drawable/tiwen"
-                    android:onClick="question"/>
-
-                <ImageButton
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@color/blue_300"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/shequ"
-                    android:onClick="shequ"/>
-
-                <ImageButton
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@color/blue_300"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/swzl"
-                    android:onClick="swzl"/>
 
 
-                <TextView
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:text="下滑关闭"/>
+
 
 
             </LinearLayout>

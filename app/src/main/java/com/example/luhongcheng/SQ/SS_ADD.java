@@ -47,7 +47,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 public class SS_ADD extends AppCompatActivity {
     String ID;
     RadioGroup radioGroup ;
-    String label = "A13";//标签
+    String label = "A1";//标签
     ImageView img;
     EditText content;
     FloatingActionButton send;

@@ -40,18 +40,18 @@ public class SheQuFragment extends Fragment {
     private void initFragment() {
         mFragments = new ArrayList<>();
 
-        com.example.luhongcheng.SQ.OneFragment retrofitFragment =  com.example.luhongcheng.SQ.OneFragment.newInstance();
-        com.example.luhongcheng.SQ.TwoFragment rxJavaFragment =  com.example.luhongcheng.SQ.TwoFragment.newInstance();
-        com.example.luhongcheng.SQ.ThreeFragment rxAndroidFragment =  com.example.luhongcheng.SQ.ThreeFragment.newInstance();
-        com.example.luhongcheng.SQ.FourFragment glideFragment =  com.example.luhongcheng.SQ.FourFragment.newInstance();
+        com.example.luhongcheng.SQ.OneFragment oneFragment =  com.example.luhongcheng.SQ.OneFragment.newInstance();
+        com.example.luhongcheng.SQ.TwoFragment twoFragment =  com.example.luhongcheng.SQ.TwoFragment.newInstance();
+        com.example.luhongcheng.SQ.ThreeFragment threeFragment =  com.example.luhongcheng.SQ.ThreeFragment.newInstance();
+        com.example.luhongcheng.SQ.FourFragment fourFragment =  com.example.luhongcheng.SQ.FourFragment.newInstance();
 
-        mFragments.add(retrofitFragment);
-        mFragments.add(rxJavaFragment);
-        mFragments.add(rxAndroidFragment);
-        mFragments.add(glideFragment);
+        mFragments.add(oneFragment);
+        mFragments.add(twoFragment);
+        mFragments.add(threeFragment);
+        mFragments.add(fourFragment);
     }
 
-    private static final String DOG_BREEDS[] = {"首页", "Box", "关注", "收藏"};
+    private static final String DOG_BREEDS[] = {"精选", "广场", "Box", "收藏"};
 
     private void initView() {
         final TabLayout tabLayout = getActivity().findViewById(R.id.tab_layout);

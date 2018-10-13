@@ -94,6 +94,7 @@
         <activity android:name=".SQ.SS_ADD2"></activity>
         <activity android:name=".MySelf.MySs"></activity>
         <activity android:name=".MySelf.MyLove"></activity>
+        <activity android:name=".ImageFullDisplay"></activity>
 
     </application>
 

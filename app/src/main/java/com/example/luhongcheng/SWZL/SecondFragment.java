@@ -1,5 +1,6 @@
 package com.example.luhongcheng.SWZL;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.luhongcheng.Bmob.SWZL;
 import com.example.luhongcheng.Bmob.diudiu;
+import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.R;
 
 import java.util.ArrayList;
@@ -109,7 +111,7 @@ public class SecondFragment extends Fragment {
 								}
 
 								@Override
-								public View getView(int position, View convertView, ViewGroup parent) {
+								public View getView(final int position, View convertView, ViewGroup parent) {
 									ViewHolder viewHolder;
 									if (convertView == null){
 										LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -127,6 +129,15 @@ public class SecondFragment extends Fragment {
 									viewHolder.tv_title.setText(title[position]);
 									viewHolder.tv_content.setText("内容："+content[position]);
 									viewHolder.tv_adress.setText("联系方式："+adress[position]);
+
+									viewHolder.img.setOnClickListener(new View.OnClickListener() {
+										@Override
+										public void onClick(View v) {
+											Intent intent = new Intent(getActivity(),ImageFullDisplay.class);
+											intent.putExtra("url2",image[position]);
+											startActivity(intent);
+										}
+									});
 
 									Glide.with(getContext())
 											.load(image[position])

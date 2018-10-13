@@ -386,9 +386,13 @@ public class LoginActivity extends Activity {
         SharedPreferences sp2=getSharedPreferences("personID",0);
         String personID =  sp2.getString("ID","");
 
-        if (username.length()==10 && password.length()>=4 && personID.length() != 0){
+
+        if (username.length()==10 && password.length()>=4 ){
             Intent intent3 = new Intent(LoginActivity.this,MainFragmentActivity.class);
             startActivity(intent3);
+            if (personID.length() == 0){
+                Toast.makeText(getApplicationContext(),"No PersonID,Please Go To OneSelfCenter",Toast.LENGTH_SHORT).show();
+            }
             LoginActivity.this.finish();
         }
     }

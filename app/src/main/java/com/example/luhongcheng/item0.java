@@ -29,7 +29,6 @@ public class item0 extends Activity {
     }
 
 
-
     @Override
     public void finish() {
         super.finish();
@@ -40,25 +39,5 @@ public class item0 extends Activity {
         this.finish();
     }
 
-    public  void wode(View view){
-        Intent intent  = new Intent(item0.this,OneSelf.class);
-        startActivity(intent);
-    }
 
-    public  void question(View view){
-        Intent intent = new Intent(item0.this,MoreBox.class);
-        startActivity(intent);
-    }
-
-    /*
-    public  void shequ(View view){
-        Intent intent = new Intent(item0.this,MoreBox.class);
-        startActivity(intent);
-    }
-    */
-
-    public  void swzl(View view){
-        Intent intent = new Intent(item0.this,swzlmain.class);
-        startActivity(intent);
-    }
 }

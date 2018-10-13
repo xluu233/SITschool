@@ -19,26 +19,93 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:clickable="true"
-            android:text="其他系统"
+            android:text="学院"
             android:textColor="@android:color/white"
             android:textSize="15dp"
             android:textStyle="bold"
             />
     </LinearLayout>
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_marginTop="10dp"
-        android:id="@+id/gridview"
-        android:background="#ffffff"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="20dp"
-        android:horizontalSpacing="10dp"
-        android:columnWidth="110dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        android:layout_below="@+id/cutelinear"
-        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_margin="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="学院："/>
+
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:background="@color/red_300"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/gridview"
+                    android:layout_margin="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:numColumns="auto_fit"
+                    android:verticalSpacing="20dp"
+                    android:horizontalSpacing="10dp"
+                    android:columnWidth="110dp"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"
+                    android:layout_below="@+id/cutelinear"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_margin="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="部门："/>
+
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:background="@color/red_300"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/gridview2"
+                    android:layout_margin="5dp"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:numColumns="auto_fit"
+                    android:verticalSpacing="20dp"
+                    android:horizontalSpacing="10dp"
+                    android:columnWidth="110dp"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"
+                    android:layout_below="@+id/cutelinear"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

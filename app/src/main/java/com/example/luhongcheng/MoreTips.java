@@ -46,6 +46,7 @@ public class MoreTips extends AppCompatActivity {
             @Override
             public void run() {
                 BmobQuery<Tips> query = new BmobQuery<Tips>();
+                query.order("-createdAt");//时间降序查询
                 query.findObjects(new FindListener<Tips>() {
                     @Override
                     public void done(List<Tips> list, BmobException e) {

@@ -34,6 +34,8 @@ import android.widget.TextView;
 import com.example.luhongcheng.Bmob.Tips;
 import com.example.luhongcheng.Bmob.lan;
 import com.example.luhongcheng.MBox.MBoxItem;
+import com.example.luhongcheng.SQ.ZoomOutPageTransformer;
+import com.example.luhongcheng.SWZL.swzlmain;
 import com.example.luhongcheng.about.about0;
 import com.example.luhongcheng.userCard.userCardinfo;
 import com.example.luhongcheng.zixun.news;
@@ -157,6 +159,7 @@ public class OneFragment extends Fragment{
         gridView = (GridView) getView().findViewById(R.id.gridview);
         initData();
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));//设置状态栏背景色
         }
@@ -240,16 +243,16 @@ public class OneFragment extends Fragment{
                         startActivity(intent4);
                         break;
                     case 5:
-                        Intent intent5=new Intent(getActivity(),item6.class);
-                        startActivity(intent5);
-                        break;
-                    case 6:
                         Intent intent6=new Intent(getActivity(),item7.class);
                         startActivity(intent6);
                         break;
-                    case 7:
+                    case 6:
                         Intent intent7 = new Intent(getActivity(),userCardinfo.class);
                         startActivity(intent7);
+                        break;
+                    case 7:
+                        Intent intent5 = new Intent(getActivity(),swzlmain.class);
+                        startActivity(intent5);
                         break;
                     case 8:
                         Intent intent8 = new Intent(getActivity(),item8.class);
@@ -464,12 +467,12 @@ public class OneFragment extends Fragment{
     void initData() {
         //图标
         int icno[] = { R.mipmap.g16,R.mipmap.g1,R.mipmap.g7,R.mipmap.g4,
-                        R.mipmap.g5,R.mipmap.g9,R.mipmap.g3,R.drawable.card,
+                        R.mipmap.g5,R.mipmap.g3,R.drawable.card,R.mipmap.swzl,
                         R.drawable.library,R.drawable.zixun,R.drawable.weixin,
                         R.mipmap.g15};
         //图标下的文字
-        String name[]={"部门","第二课堂","OA主页","成绩",
-                "电费","学院","考试","学生卡","读书馆","资讯","微信","更多"};
+        String name[]={"学院","第二课堂","OA主页","成绩",
+                "电费","考试","学生卡","失物招领","读书馆","资讯","微信","更多"};
 
         dataList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <icno.length; i++) {
@@ -485,6 +488,7 @@ public class OneFragment extends Fragment{
     private void init() {
         // TODO Auto-generated method stub
         vp=(ViewPager) getView().findViewById(R.id.vp);
+        vp.setPageTransformer(true, new ZoomOutPageTransformer());
         ll_tag=(LinearLayout) getView().findViewById(R.id.ll_tag);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 

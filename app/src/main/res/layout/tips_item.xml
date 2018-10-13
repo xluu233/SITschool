@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/tv"
-        android:gravity=""
+        android:gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:layout_marginRight="20dp"
         android:background="@color/red_300"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp" />
+        android:layout_height="1dp" />
 
 
 

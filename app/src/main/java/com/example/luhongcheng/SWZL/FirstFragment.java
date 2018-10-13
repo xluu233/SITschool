@@ -11,15 +11,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SQ.OneFragment;
 import com.example.luhongcheng.SQ.SSS;
+import com.example.luhongcheng.secondclass.SecondClass;
+import com.example.luhongcheng.secondclass.SecondClassDisplayActvivity;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -41,6 +45,8 @@ public class FirstFragment extends Fragment {
     ListView listView;
     private static Bitmap bitmap;
 
+    List<String> url = new ArrayList<>();
+
     public static FirstFragment newInstance() {
         return new FirstFragment();
     }
@@ -58,6 +64,14 @@ public class FirstFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         listView = (ListView) getActivity().findViewById(R.id.listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+            }
+        });
+
         Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
         get();
 
@@ -120,64 +134,9 @@ public class FirstFragment extends Fragment {
                                 image[i] = list.get(i).getimageUrl();
                                // Log.d("imageURL",list.get(i).getimageUrl());
 
+
+                                url.add(image[i]);
                             }
-
-
-                            /*
-                            class MyAdapter extends BaseAdapter {
-                                private FindListener<com.example.luhongcheng.Bmob.SWZL> context ;
-                                public MyAdapter(FindListener<com.example.luhongcheng.Bmob.SWZL> context){
-                                    this.context = context;
-                                }
-
-                                @Override
-                                public int getCount() {
-                                    return title.length;
-                                }
-
-                                @Override
-                                public Object getItem(int position) {
-                                    return title[position];
-                                }
-
-                                @Override
-                                public long getItemId(int position) {
-                                    return position;
-                                }
-
-                                @Override
-                                public View getView(int position, View convertView, ViewGroup parent) {
-                                    ViewHolder viewHolder;
-                                    if (convertView == null){
-                                        LayoutInflater inflater = LayoutInflater.from(getContext());
-                                        convertView = inflater.inflate(R.layout.swzl_first_item, null);//实例化一个布局文件
-                                        viewHolder = new ViewHolder();
-                                        viewHolder.tv_title = (TextView)convertView.findViewById(R.id.tv_title);
-                                        viewHolder.tv_content = (TextView)convertView.findViewById(R.id.tv_content);
-                                        viewHolder.tv_time = (TextView)convertView.findViewById(R.id.tv_time);
-                                        viewHolder.tv_adress = (TextView)convertView.findViewById(R.id.tv_adress);
-                                        viewHolder.create_time = (TextView) convertView.findViewById(R.id.create_time);
-
-                                        convertView.setTag(viewHolder);
-                                    }else {
-                                        viewHolder = (ViewHolder) convertView.getTag();
-                                    }
-                                    viewHolder.tv_title.setText(title[position]);
-                                    viewHolder.tv_content.setText("内容："+content[position]);
-                                    viewHolder.tv_time.setText("时间地点："+time[position]);
-                                    viewHolder.tv_adress.setText("联系方式："+adress[position]);
-                                    viewHolder.create_time.setText("发布时间："+createtime[position]);
-
-                                    return convertView;
-                                }
-                                class ViewHolder{
-                                    TextView tv_title;
-                                    TextView tv_content;
-                                    TextView tv_time;
-                                    TextView tv_adress;
-                                    TextView create_time;
-                                }
-                            }*/
 
 
                             class MyAdaper extends BaseAdapter {
@@ -203,7 +162,7 @@ public class FirstFragment extends Fragment {
                                 }
 
                                 @Override
-                                public View getView(int position, View convertView, ViewGroup parent) {
+                                public View getView(final int position, View convertView, ViewGroup parent) {
                                     ViewHolder viewHolder;
                                     if (convertView == null){
                                         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -226,6 +185,14 @@ public class FirstFragment extends Fragment {
                                     viewHolder.tv_adress.setText("联系方式："+adress[position]);
                                     viewHolder.create_time.setText("发布时间："+createtime[position]);
 
+                                    viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(getActivity(),ImageFullDisplay.class);
+                                            intent.putExtra("url2",image[position]);
+                                            startActivity(intent);
+                                        }
+                                    });
                                     Glide.with(getContext())
                                             .load(image[position])
                                             .placeholder(R.drawable.loading)
@@ -239,6 +206,8 @@ public class FirstFragment extends Fragment {
                                     return convertView;
 
                                 }
+
+
 
                                 class ViewHolder {
                                     TextView tv_title;

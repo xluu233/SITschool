@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.luhongcheng.Bmob.SS;
 import com.example.luhongcheng.Bmob.UserInfo;
+import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SQ.OneFragment;
 import com.example.luhongcheng.SQ.SSS;
@@ -44,7 +45,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
-import static com.example.luhongcheng.SQ.OneFragment.setListViewHeightBasedOnChildren;
 
 public class MBoxItem extends AppCompatActivity {
     String flag;
@@ -380,13 +380,32 @@ public class MBoxItem extends AppCompatActivity {
             }else{
                 holder = (SSAdaper2.ViewHolder) convertView.getTag();
             }
-            SSS news = list.get(position);
+            final SSS news2 = list.get(position);
             //  holder.img.setTag(news.getImageUrl());
-            holder.title.setText(news.getTitle());
-            holder.nk.setText(news.getNickname());
-            holder.qmm.setText(news.getQm());
+            holder.title.setText(news2.getTitle());
+            holder.nk.setText(news2.getNickname());
+            holder.qmm.setText(news2.getQm());
 
-            String label = news.getLabel();
+            holder.img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MBoxItem.this,ImageFullDisplay.class);
+                    intent.putExtra("url2",news2.getImageUrl());
+                    startActivity(intent);
+                }
+            });
+
+            holder.icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MBoxItem.this,ImageFullDisplay.class);
+                    intent.putExtra("url2",news2.getIconUrl());
+                    startActivity(intent);
+                }
+            });
+
+
+            String label = news2.getLabel();
             // System.out.println("label是什么"+label);
             if (label.equals("A1")){
                 holder.tv_label.setText("#今日最佳#");
@@ -417,7 +436,7 @@ public class MBoxItem extends AppCompatActivity {
             }
 
             Glide.with(getApplicationContext())
-                    .load(news.getImageUrl())
+                    .load(news2.getImageUrl())
                     .placeholder(R.drawable.loading)
                     .error(R.drawable.error)
                     //  .dontTransform()//不进行图片变换
@@ -427,7 +446,7 @@ public class MBoxItem extends AppCompatActivity {
                     .into(holder.img);
 
             Glide.with(getApplicationContext())
-                    .load(news.getIconUrl())
+                    .load(news2.getIconUrl())
                     .placeholder(R.drawable.loading)
                     .error(R.drawable.error)
                     //  .dontTransform()//不进行图片变换

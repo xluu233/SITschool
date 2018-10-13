@@ -11,15 +11,12 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
 
-    private static final String APP_ID = "2882303761517774950";
-    private static final String APP_KEY = "fake_app_key";
-    private static final String APP_TOKEN = "fake_app_token";
-
     @Override
     public void onCreate() {
         super.onCreate();
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-
     }
+
+
 }
