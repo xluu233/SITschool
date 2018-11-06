@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -40,6 +41,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class TwoFragment extends Fragment {
     public static TwoFragment newInstance() {
@@ -63,7 +66,7 @@ public class TwoFragment extends Fragment {
             switch (msg.what) {
                 case 0:
                     // SSAdaper adapter = new SSAdaper(slist);
-                    lv.setAdapter(new TwoFragment.SSAdaper(slist));
+                    lv.setAdapter(new TwoFragment.SSAdaper33(slist));
                     //setListViewHeightBasedOnChildren(lv);
 
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,6 +83,7 @@ public class TwoFragment extends Fragment {
                             intent.putExtra("nickname",news.getNickname());
                             intent.putExtra("qm",news.getQm());
                             intent.putExtra("label",news.getLabel());
+                            intent.putExtra("zan_nums",news.getZan());
                             startActivity(intent);
 
                         }
@@ -143,24 +147,31 @@ public class TwoFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                Page =1;
+
                 slist.clear();
-                lv.setAdapter(new TwoFragment.SSAdaper(slist));
+                lv.setAdapter(new TwoFragment.SSAdaper33(slist));
                 initData();
-                refreshlayout.finishRefresh(1000/*,false*/);//传入false表示刷新失败
+
+                refreshlayout.finishRefresh(1000/*,false*/);
             }
         });
 
+
+        /*
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
                 Page = Page +1;
-                //  lv.setAdapter(new SSAdaper(slist));
-                initData();
 
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                //刷新的时候一定要清空list，不然会产生数组越界
+                slist.clear();
+                lv.setAdapter(new TwoFragment.SSAdaper(slist));
+                initData();
+                refreshlayout.finishLoadMore(2000);
             }
         });
+        */
+
 
     }
 
@@ -169,7 +180,7 @@ public class TwoFragment extends Fragment {
     String personID;
     String ssID2,label2;
     String time2;
-    int Page = 1;//页数
+    int zan2 = 0;
     private void initData() {
         slist = new ArrayList<SSS>();
 
@@ -177,9 +188,8 @@ public class TwoFragment extends Fragment {
             @Override
             public void run() {
                 BmobQuery<SS> query = new BmobQuery<com.example.luhongcheng.Bmob.SS>();
-                query.order("-createdAt");//时间降序查询
-                query.setLimit(15*Page);//查询前20条数据
-                query.setSkip(15*(Page-1));//分页查询
+                query.order("-createdAt");
+                query.setLimit(500);
 
                 query.findObjects(new FindListener<SS>(){
                     @Override
@@ -192,6 +202,7 @@ public class TwoFragment extends Fragment {
                             final  String[]  ssID= new String[list.size()];
                             final  String[]  label= new String[list.size()];
                             final  String[] time = new String[list.size()];
+                            final  String[]  zan = new String[list.size()];
 
                             int n = list.size()+1;
 
@@ -202,6 +213,7 @@ public class TwoFragment extends Fragment {
                                 ssID[i] = list.get(i).getObjectId();
                                 label[i] = list.get(i).getLabel();
                                 time[i] = list.get(i).getCreatedAt();
+                                zan[i] = list.get(i).getZan();
 
                                 String image2 = image[i];
                                 String content2 = content[i];
@@ -209,7 +221,10 @@ public class TwoFragment extends Fragment {
                                 ssID2 = ssID[i];
                                 label2 = label[i];
                                 time2 = time[i];
-                                getssuerinfo(n,image2,content2,personID,ssID2,label2,time2);
+                                zan2= Integer.parseInt(zan[i]);
+
+                                //System.out.println("time:"+time2);
+                                getssuerinfo(n,image2,content2,personID,ssID2,label2,time2,zan2);
 
                             }
 
@@ -229,14 +244,15 @@ public class TwoFragment extends Fragment {
 
     }
 
-    private void getssuerinfo(final int n , final String img, final String content, final String personID, final String ssID2,final String label2,final String time2) {
+    private void getssuerinfo(final int n , final String img, final String content, final String personID, final String ssID2,final String label2,final String time2,final  int zan2) {
 
         final String[] nickname = new String[n];
         final String[] qm = new String[n];
         final String[] icon = new String[n];
 
-        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-        query.getObject(personID, new QueryListener<UserInfo>() {
+        BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
+        query2.order("-createdAt");//时间降序查询
+        query2.getObject(personID, new QueryListener<UserInfo>() {
             @Override
             public void done(UserInfo object, BmobException e) {
                 if(e==null){
@@ -251,11 +267,14 @@ public class TwoFragment extends Fragment {
                         nickname[i] = "无名人";
                     }
 
+
+                    slist.add(new SSS(img,content,icon[i],qm[i],nickname[i],personID,ssID2,label2,time2,zan2));
+
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
 
-                slist.add(new SSS(img,content,icon[i],qm[i],nickname[i],personID,ssID2,label2,time2));
+
                 mHandler2.obtainMessage(0).sendToTarget();
 
             }
@@ -264,21 +283,23 @@ public class TwoFragment extends Fragment {
 
     }
 
-    public class SSAdaper extends BaseAdapter {
-        private List<SSS> list;
-        public SSAdaper(List<SSS> list) {
+
+
+    public class SSAdaper33 extends BaseAdapter {
+        private List<SSS> list33;
+        public SSAdaper33(List<SSS> list) {
             super();
-            this.list = list;
+            this.list33 = list;
         }
 
         @Override
         public int getCount() {
-            return list.size();
+            return list33.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return list.get(position);
+            return list33.get(position);
         }
 
         @Override
@@ -292,6 +313,9 @@ public class TwoFragment extends Fragment {
             if(convertView==null){
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ss_listview_item, null);
                 holder = new ViewHolder();
+                holder.pinglun =(ImageView)convertView.findViewById(R.id.pinglun);
+                holder.zan_nums = (TextView)convertView.findViewById(R.id.zan_nums);
+                holder.zan = (ImageView) convertView.findViewById(R.id.zan);
                 holder.img = (ImageView) convertView.findViewById(R.id.img);
                 holder.icon = (ImageView) convertView.findViewById(R.id.icon);
                 holder.title = (TextView) convertView.findViewById(R.id.content);
@@ -302,10 +326,48 @@ public class TwoFragment extends Fragment {
             }else{
                 holder = (ViewHolder) convertView.getTag();
             }
-            final SSS news = list.get(position);
+            final SSS news = list33.get(position);
             holder.title.setText(news.getTitle());
             holder.nk.setText(news.getNickname());
             holder.qmm.setText(news.getQm());
+
+            holder.zan_nums.setText(String.valueOf(news.getZan()));
+
+            final ViewHolder finalHolder = holder;
+            final ViewHolder finalHolder1 = holder;
+            holder.zan.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint({"ResourceAsColor", "NewApi"})
+                @Override
+                public void onClick(View v) {
+                    finalHolder.zan.setImageResource(R.drawable.zan2);
+                    finalHolder1.zan_nums.setText(String.valueOf(news.getZan()+1));
+                    String zan3 = String.valueOf(news.getZan()+1);
+
+                    SS gameScore = new SS();
+                    gameScore.setZan(zan3);
+                    gameScore.update(news.getPersonID(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                               // Log.i("bmob","更新成功");
+                            }else{
+                               // Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+                            }
+                        }
+                    });
+
+
+                }
+            });
+
+            holder.pinglun.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(),PingLun.class);
+                    intent.putExtra("pinglun",news.getPersonID());
+                    startActivity(intent);
+                }
+            });
 
             holder.img.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -378,6 +440,9 @@ public class TwoFragment extends Fragment {
         class ViewHolder {
             ImageView img,icon;
             TextView title,nk,qmm,tv_label;
+            ImageView zan;
+            TextView zan_nums;
+            ImageView pinglun;
         }
 
     }

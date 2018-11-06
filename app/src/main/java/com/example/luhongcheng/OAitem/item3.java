@@ -1,4 +1,4 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.OAitem;
 
 
 import android.content.SharedPreferences;
@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,6 +23,7 @@ import com.example.luhongcheng.OA.OAFragmentPagerAdapter;
 import com.example.luhongcheng.OA.SevenOAFragment;
 import com.example.luhongcheng.OA.SixOAFragment;
 import com.example.luhongcheng.OA.ThirdOAFragment;
+import com.example.luhongcheng.R;
 
 import java.util.ArrayList;
 import java.util.List;

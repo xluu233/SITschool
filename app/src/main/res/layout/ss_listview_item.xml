@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <RelativeLayout
         android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="17dp"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/qm"
-            android:layout_margin="3dp"
+            android:layout_marginLeft="3dp"
             android:layout_toRightOf="@+id/icon"
             android:layout_below="@+id/nickname"
             android:layout_width="wrap_content"
@@ -43,16 +43,11 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <ImageView
-            android:background="#5090A4AE"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
 
         <TextView
             android:layout_marginTop="7dp"
@@ -63,14 +58,13 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="100dp"
-            android:minHeight="30dp"/>
+            android:maxHeight="150dp"/>
 
         <ImageView
             android:id="@+id/img"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:scaleType="center"
-            android:layout_margin="5dp"
             android:layout_width="200dp"
             android:layout_height="200dp"/>
 
@@ -78,22 +72,58 @@
 
 
     <LinearLayout
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="35dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
-        android:layout_height="20dp">
+        android:layout_height="30dp">
 
         <TextView
             android:id="@+id/label"
+            android:layout_gravity="center"
             android:background="@drawable/button_shape1"
             android:textSize="10dp"
             android:gravity="center"
             android:layout_width="80dp"
             android:layout_height="wrap_content" />
 
+        <ImageView
+            android:id="@+id/zan"
+            android:layout_gravity="center"
+            android:layout_marginLeft="170dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:src="@drawable/zan1" />
+
+        <TextView
+            android:id="@+id/zan_nums"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/pinglun"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:src="@drawable/pinglun"
+            android:layout_width="22dp"
+            android:layout_height="22dp" />
+
     </LinearLayout>
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:background="#4090A4AE"
+        android:layout_width="match_parent"
+        android:layout_height="1sp" />
+
+
 
 
 </LinearLayout>

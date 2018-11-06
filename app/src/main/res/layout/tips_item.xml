@@ -6,6 +6,8 @@
 
     <TextView
         android:id="@+id/tv"
+        android:lineSpacingMultiplier="1.5"
+        android:textColor="@color/black"
         android:gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -19,13 +21,15 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="2018-09-12 13:18:17"
+        android:lineSpacingMultiplier="1.5"
         android:textSize="12dp"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <ImageView
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@color/red_300"
         android:layout_width="match_parent"
         android:layout_height="1dp" />

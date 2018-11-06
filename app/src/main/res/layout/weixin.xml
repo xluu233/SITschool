@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -12,58 +13,25 @@
         android:background="?attr/colorPrimary"
         app:title="微信资讯"
         app:titleTextAppearance="@style/Toolbar.TitleText">
-
-
     </android.support.v7.widget.Toolbar>
 
 
-    <WebView
-        android:id="@+id/webview"
-        android:layout_below="@+id/toolbar"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="45dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/colorAccent">
+    </android.support.design.widget.TabLayout>
 
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/fab"
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:paddingRight="10dp"
-        android:paddingBottom="30dp"
-        android:paddingLeft="10dp"
-        app:menu_colorNormal="@color/colorAccent"
-        app:menu_colorPressed="@color/teal_500"
-        app:menu_icon="@drawable/fab_add"
-        app:menu_labels_ellipsize="end"
-        app:menu_labels_singleLine="true"
-        app:menu_backgroundColor="#00000000">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/zhuan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/teal_500"
-            app:fab_colorPressed="@color/teal_500"
-            app:fab_size="mini"
-            android:src="@drawable/zhuan2"
-            app:fab_label="转到系统浏览器分享" />
-
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/teal_500"
-            app:fab_colorPressed="@color/teal_500"
-            app:fab_size="mini"
-            android:src="@drawable/refresh3"
-            app:fab_label="刷新" />
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
 
 
 
-    </com.github.clans.fab.FloatingActionMenu>
-
-
-
-</RelativeLayout>
+</LinearLayout>

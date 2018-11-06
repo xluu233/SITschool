@@ -1,6 +1,8 @@
 package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.LongDef;
+import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,10 +13,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -31,11 +36,23 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.luhongcheng.Bmob.Tips;
 import com.example.luhongcheng.Bmob.lan;
 import com.example.luhongcheng.MBox.MBoxItem;
+import com.example.luhongcheng.OAitem.item0;
+import com.example.luhongcheng.OAitem.item1;
+import com.example.luhongcheng.OAitem.item2;
+import com.example.luhongcheng.OAitem.item3;
+import com.example.luhongcheng.OAitem.item4;
+import com.example.luhongcheng.OAitem.item5;
+import com.example.luhongcheng.OAitem.item7;
+import com.example.luhongcheng.OAitem.item8;
+import com.example.luhongcheng.OAitem.item9;
 import com.example.luhongcheng.SQ.ZoomOutPageTransformer;
 import com.example.luhongcheng.SWZL.swzlmain;
+import com.example.luhongcheng.WeiXin.Weixin_more;
 import com.example.luhongcheng.about.about0;
 import com.example.luhongcheng.userCard.userCardinfo;
 import com.example.luhongcheng.zixun.news;
@@ -46,6 +63,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -57,6 +75,7 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -76,8 +95,13 @@ public class OneFragment extends Fragment{
     private List<Map<String, Object>> dataList;
     private SimpleAdapter adapter;
 
+    String souhu_url;
+    SwipeRefreshLayout refresh;
+    //天气
+    ImageButton weather_icon;
+    TextView weather_t1,weather_t2,weather_t3,weather_t4;
+
     private List<Box> fruitList = new ArrayList<Box>();
-    TextView weather;
     /*轮换图片定义的*/
     //统计下载了几张图片
     int n=0;
@@ -134,10 +158,16 @@ public class OneFragment extends Fragment{
 
     private Toolbar mToolbar;
     Button more,more2;
-    TextView tips,QQ,AA;
+    TextView tips,QQ;
 
     ImageButton souhuiv;
     TextView souhutitle,souhusubtitle;
+
+    ImageView swzl_iv;
+    TextView swzl_title,swzl_subtitle,swzl_time;
+
+    private OkHttpClient okHttpClient;
+    private OkHttpClient.Builder builder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -153,20 +183,26 @@ public class OneFragment extends Fragment{
         return  view;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         gridView = (GridView) getView().findViewById(R.id.gridview);
         initData();
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));//设置状态栏背景色
         }
 
-        weather = (TextView)getActivity().findViewById(R.id.weather);
-
-        weather.setOnClickListener(new View.OnClickListener() {
+        refresh = (SwipeRefreshLayout)getActivity().findViewById(R.id.refresh_one);
+        refresh.setColorSchemeColors(R.color.red_300);
+        weather_icon = (ImageButton) getActivity().findViewById(R.id.weather_icon);
+        weather_t1 = (TextView)getActivity().findViewById(R.id.weather_t1);
+        weather_t2 = (TextView)getActivity().findViewById(R.id.weather_t2);
+        weather_t3 = (TextView)getActivity().findViewById(R.id.weather_t3);
+        weather_t4 = (TextView)getActivity().findViewById(R.id.weather_t4);
+        more = (Button) getActivity().findViewById(R.id.more);
+        more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),zhuyeDisplayActvivity.class);
@@ -174,6 +210,21 @@ public class OneFragment extends Fragment{
                 startActivity(intent);
             }
         });
+
+        more2 = (Button) getActivity().findViewById(R.id.more2);
+        more2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),Weixin_more.class);
+                startActivity(intent);
+            }
+        });
+
+        swzl_iv = (ImageView) getActivity().findViewById(R.id.swzl_iv);
+        swzl_title = (TextView)getActivity().findViewById(R.id.swzl_title);
+        swzl_subtitle = (TextView)getActivity().findViewById(R.id.swzl_subtitle);
+        swzl_time = (TextView)getActivity().findViewById(R.id.swzl_time);
+
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.inflateMenu(R.menu.menu);
@@ -188,19 +239,15 @@ public class OneFragment extends Fragment{
             }
         });
 
-
         Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
-        gettip();
         tips = (TextView) getActivity().findViewById(R.id.tips);
-        more = (Button) getActivity().findViewById(R.id.more);
-        more.setOnClickListener(new View.OnClickListener() {
+        tips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MoreTips.class);
                 startActivity(intent);
             }
         });
-
 
         ImageButton one = (ImageButton) getActivity().findViewById(R.id.OneSelf);
         one.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +264,102 @@ public class OneFragment extends Fragment{
         gridView.setAdapter(adapter);
 
 
-   /* 给item设置点击事件*/
+        souhuiv = (ImageButton) getActivity().findViewById(R.id.souhu_iv);
+        souhutitle = (TextView)getActivity().findViewById(R.id.souhu_title);
+        souhusubtitle =(TextView)getActivity().findViewById(R.id.souhu_subtitle);
+
+        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+        BoxAdapter adapter = new BoxAdapter(fruitList);
+        recyclerView.setAdapter(adapter);
+
+        initOnClick();
+
+        initSet();
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void initOnClick() {
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        //加载数据
+                        initSet();
+                        //关闭刷新
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refresh.setRefreshing(false);
+                            }
+                        });
+
+                    }
+                }).start();
+
+            }
+        });
+
+
+
+        souhuiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),SouHuNews.class);
+                startActivity(intent);
+            }
+        });
+
+        souhutitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),SouHuNews.class);
+                intent.putExtra("url",souhu_url);
+                startActivity(intent);
+            }
+        });
+
+        souhusubtitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),SouHuNews.class);
+                intent.putExtra("url",souhu_url);
+                startActivity(intent);
+            }
+        });
+
+        swzl_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),swzlmain.class);
+                startActivity(intent);
+            }
+        });
+        swzl_subtitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),swzlmain.class);
+                startActivity(intent);
+            }
+        });
+        swzl_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),swzlmain.class);
+                startActivity(intent);
+            }
+        });
+
+        /* 给item设置点击事件*/
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
@@ -276,34 +418,41 @@ public class OneFragment extends Fragment{
             }
         });
         /*点击事件设置完毕*/
-        init();
-        getlan();
-
-
-        souhuiv = (ImageButton) getActivity().findViewById(R.id.souhu_iv);
-        souhutitle = (TextView)getActivity().findViewById(R.id.souhu_title);
-        souhusubtitle =(TextView)getActivity().findViewById(R.id.souhu_subtitle);
-        souhuiv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),SouHuNews.class);
-                startActivity(intent);
-            }
-        });
-        getsouhu();
-
-        initFruits();
-        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
-        BoxAdapter adapter = new BoxAdapter(fruitList);
-        recyclerView.setAdapter(adapter);
 
     }
 
+    private void initSet() {
+        getsouhu();
+        init();
+        getlan();
+        gettip();
+        initFruits();
+        getWeather();
+        getSwzl();
+    }
+
+
+    void initData() {
+        //图标
+        int icno[] = { R.mipmap.g16,R.mipmap.g1,R.mipmap.g7,R.mipmap.g4,
+                R.mipmap.g5,R.mipmap.g3,R.drawable.card,R.mipmap.swzl,
+                R.drawable.library,R.drawable.zixun,R.drawable.weixin,
+                R.mipmap.g15};
+        //图标下的文字
+        String name[]={"学院","第二课堂","OA主页","成绩",
+                "电费","考试","学生卡","失物招领","读书馆","资讯","微信","更多"};
+
+        dataList = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i <icno.length; i++) {
+            Map<String, Object> map=new HashMap<String, Object>();
+            map.put("ItemImage", icno[i]);
+            map.put("ItemText",name[i]);
+            dataList.add(map);
+        }
+    }
 
     Bitmap bitmap;
+    int num =0;
     private void getsouhu() {
         new Thread(new Runnable() {
             @Override
@@ -322,55 +471,63 @@ public class OneFragment extends Fragment{
 
                     Document doc = Jsoup.parse(responseData);
                     Elements url = doc.select("ul.feed-list-area");
-                    Element link =  url.select("li").get(0);
+                    Element link =  url.select("li").get(num);
 
-                    /*
-                    String A1 = link.select("a.onePic").attr("href");
-                    A1 = " http://m.sohu.com"+A1+"&spm=smwp.media.fd-s.1.1537437360311dAYraYh";
-                    System.out.println("文章链接:"+A1.toString());
-                    */
+
+                    souhu_url = link.select("a.onePic").attr("href");
+                    souhu_url = " http://m.sohu.com"+souhu_url+"&spm=smwp.media.fd-s.1.1537437360311dAYraYh";
+                    //System.out.println("文章链接:"+souhu_url.toString());
 
                     String A2 = link.select("section.onePic__img-area").select("img").attr("original");
-                    //System.out.println("图片链接:"+A2.toString());
+                   // System.out.println("图片链接:"+A2.toString());
+
+                    /*
+                    if (A2.length() != 0){
+                        Glide.with(getContext())
+                                .load(A2)
+                                .placeholder(R.drawable.loading)
+                                .error(R.drawable.error)
+                                .fitCenter()
+                                .into(souhuiv);
+                    }*/
 
                     URL myFileURL;
-                    try {
-                        myFileURL = new URL(A2);
-                        HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
-                        conn.setConnectTimeout(3000);
-                        conn.setDoInput(true);
-                        conn.setUseCaches(false);
-                        conn.connect();
-                        InputStream is = conn.getInputStream();
-                        bitmap = BitmapFactory.decodeStream(is);
-                        is.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (A2.length() !=0){
+                        try {
+                            myFileURL = new URL(A2);
+                            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
+                            conn.setConnectTimeout(3000);
+                            conn.setDoInput(true);
+                            conn.setUseCaches(false);
+                            conn.connect();
+                            InputStream is = conn.getInputStream();
+                            bitmap = BitmapFactory.decodeStream(is);
+                            is.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Message msg = handler.obtainMessage();
+                        msg.obj = bitmap;
+                        msg.what = 1;
+                        handler.sendMessage(msg);
+                    }else {
+                        num = num +1;
+                        getsouhu();
                     }
-                    Message msg = handler.obtainMessage();
-                    msg.obj = bitmap;
-                    msg.what = 1;
-                    handler.sendMessage(msg);
 
-                    String A3 = link.select("article.onePic__content").select("h4.feed__title").text();
-                    //System.out.println("标题:"+A3.toString());
-                    souhutitle.setText(A3);
+                    final String A3 = link.select("article.onePic__content").select("h4.feed__title").text();
+                   // System.out.println("标题:"+A3.toString());
 
-                    String A4 = link.select("article.onePic__content").select("footer.feed__detail").select("span.time").text();
+                    final String A4 = link.select("article.onePic__content").select("footer.feed__detail").select("span.time").text();
                     //System.out.println("时间:"+A4.toString());
-                    souhusubtitle.setText(A4);
 
-                    //天气
-                    Request request2 = new Request.Builder()
-                            .url("https://www.tianqi.com/fengxian/")
-                            .build();
-                    Response response2 = client.newCall(request2).execute();
-                    String responseData2 = response2.body().string();
-
-                    Document doc2 = Jsoup.parse(responseData2);
-                    Elements url2 = doc2.getElementsByClass("weather");
-                    String t1 = url2.select("span").text();
-                    weather.setText("今日天气："+t1);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            souhutitle.setText(A3);
+                            souhusubtitle.setText(A4);
+                        }
+                    });
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -392,8 +549,6 @@ public class OneFragment extends Fragment{
             }
         }
     };
-
-
 
     public void gettip(){
         Thread thread = new Thread(new Runnable() {
@@ -417,7 +572,6 @@ public class OneFragment extends Fragment{
         }); //子线程
         thread.start();
     }
-
 
     public void getlan(){
         Thread thread = new Thread(new Runnable() {
@@ -461,28 +615,6 @@ public class OneFragment extends Fragment{
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-    void initData() {
-        //图标
-        int icno[] = { R.mipmap.g16,R.mipmap.g1,R.mipmap.g7,R.mipmap.g4,
-                        R.mipmap.g5,R.mipmap.g3,R.drawable.card,R.mipmap.swzl,
-                        R.drawable.library,R.drawable.zixun,R.drawable.weixin,
-                        R.mipmap.g15};
-        //图标下的文字
-        String name[]={"学院","第二课堂","OA主页","成绩",
-                "电费","考试","学生卡","失物招领","读书馆","资讯","微信","更多"};
-
-        dataList = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i <icno.length; i++) {
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("ItemImage", icno[i]);
-            map.put("ItemText",name[i]);
-            dataList.add(map);
-        }
-    }
-
 
     /*轮换图片*/
     private void init() {
@@ -708,6 +840,149 @@ public class OneFragment extends Fragment{
         }
     }
 
+    private void getWeather() {
+        Thread threadx = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient client = new OkHttpClient().newBuilder()
+                            .build();
+
+                    Request request = new Request.Builder()
+                            .url("https://www.tianqi.com/fengxian/")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    Document doc = Jsoup.parse(response.body().string());
+
+                    Elements url2 = doc.getElementsByClass("weather");
+                    final String t1= url2.select("p").text();
+                    final String t2 = url2.select("span").text();
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @SuppressLint("NewApi")
+                        @Override
+                        public void run() {
+                            weather_t1.setText(t1);
+                            weather_t2.setText(t2);
+                            weather_icon.setBackground(getResources().getDrawable(R.drawable.b1));
+                        }
+                    });
+
+
+                    Message message=new Message();
+                    String tt = url2.select("span").select("b").text();
+                    if (tt.contains("晴")){
+                        message.what=0;
+                        handler_weather.sendMessage(message);
+                    }
+                    if (tt.contains("多云")){
+                        message.what=1;
+                        handler_weather.sendMessage(message);
+                    }
+                    if (tt.contains("阴")){
+                        message.what=2;
+                        handler_weather.sendMessage(message);
+                    }
+                    if (tt.contains("小雨")){
+                        message.what=7;
+                        handler_weather.sendMessage(message);
+                    }
+                    if (tt.contains("中雨") || tt.contains("暴雨")){
+                        message.what=8;
+                        handler_weather.sendMessage(message);
+                    }
+
+                    Elements url3 = doc.getElementsByClass("shidu");
+                    String t3 = url3.get(0).text();
+                    weather_t3.setText(t3);
+
+                    Elements url4 = doc.getElementsByClass("kongqi").select("h5");
+                    String t4= url4.text();
+                    weather_t4.setText(t4);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        threadx.start();
+    }
+
+
+    @SuppressLint("HandlerLeak")
+    Handler handler_weather = new Handler() {
+        @SuppressLint("NewApi")
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    weather_icon.setBackgroundResource(0);
+                    weather_icon.setBackground(getResources().getDrawable(R.drawable.b0));
+                    break;
+                case 1:
+                    weather_icon.setBackgroundResource(0);
+                    weather_icon.setBackground(getResources().getDrawable(R.drawable.b1));
+                    break;
+                case 2:
+                    weather_icon.setBackgroundResource(0);
+                    weather_icon.setBackground(getResources().getDrawable(R.drawable.b2));
+                    break;
+                case 7:
+                    weather_icon.setBackgroundResource(0);
+                    weather_icon.setBackground(getResources().getDrawable(R.drawable.b7));
+                    break;
+                case 8:
+                    weather_icon.setBackgroundResource(0);
+                    weather_icon.setBackground(getResources().getDrawable(R.drawable.b8));
+                    break;
+            }
+        }
+    };
+
+
+    private void getSwzl() {
+        Thread swzl = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BmobQuery<com.example.luhongcheng.Bmob.SWZL> query = new BmobQuery<com.example.luhongcheng.Bmob.SWZL>();
+                query.setLimit(1);
+                query.order("-createdAt");//时间降序查询
+                query.findObjects(new FindListener<com.example.luhongcheng.Bmob.SWZL>(){
+                    @Override
+                    public void done(List<com.example.luhongcheng.Bmob.SWZL> list, BmobException e) {
+                        if(e==null){
+                            String title = list.get(0).getTitle();
+                            String subtitle = list.get(0).getContent();
+                            String time = list.get(0).getCreatedAt();
+                            String image = list.get(0).getimageUrl();
+
+                            if (title.length() != 0){
+                                swzl_title.setText(title);
+                                swzl_subtitle.setText(subtitle);
+                                swzl_time.setText(time);
+                                Glide.with(getContext())
+                                        .load(image)
+                                        .placeholder(R.drawable.loading)
+                                        .error(R.drawable.error)
+                                        .fitCenter()
+                                        .into(swzl_iv);
+                            }
+
+
+                        }else{
+                            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                        }
+
+                    }
+                });
+
+
+            }
+        });
+        swzl.start();
+
+    }
 
 
 }

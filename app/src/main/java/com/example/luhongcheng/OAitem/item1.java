@@ -1,4 +1,4 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.OAitem;
 
 
 import android.content.SharedPreferences;
@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.luhongcheng.R;
 import com.example.luhongcheng.secondclass.EightFragment;
 import com.example.luhongcheng.secondclass.FifthFragment;
 import com.example.luhongcheng.secondclass.FourFragment;

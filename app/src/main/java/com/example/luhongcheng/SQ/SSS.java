@@ -1,5 +1,7 @@
 package com.example.luhongcheng.SQ;
 
+import java.sql.Array;
+
 public class SSS {
 
 	private String iconUrl;//头像链接
@@ -10,6 +12,17 @@ public class SSS {
 	private String personID;//说说ID
 	private String ssID;//人ID
 	private String label;//标签
+	private String time;
+
+	public int getZan() {
+		return zan;
+	}
+
+	public void setZan(int zan) {
+		this.zan = zan;
+	}
+
+	private  int zan;
 
 	public String getTime() {
 		return time;
@@ -19,13 +32,6 @@ public class SSS {
 		this.time = time;
 	}
 
-	private String time;
-
-
-
-
-	private String zan;
-	private String pinglun;
 
 
 
@@ -101,7 +107,7 @@ public class SSS {
 	}
 
 
-	public SSS(String imageUrl, String title, String iconUrl , String qm, String nickname,String ssID,String personID,String label,String time) {
+	public SSS(String imageUrl, String title, String iconUrl , String qm, String nickname,String ssID,String personID,String label,String time,int zan) {
 		this.imageUrl = imageUrl;
 		this.title = title;
 		this.iconUrl = iconUrl;
@@ -111,6 +117,7 @@ public class SSS {
 		this.personID = personID;
 		this.label =label;
 		this.time = time;
+		this.zan =zan;
 	}
 
 	public SSS(String imageUrl, String title) {

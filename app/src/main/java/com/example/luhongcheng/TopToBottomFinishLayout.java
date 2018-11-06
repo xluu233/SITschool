@@ -85,36 +85,6 @@ public class TopToBottomFinishLayout extends RelativeLayout {
 		return super.onInterceptTouchEvent(ev);
 	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_MOVE:
-			int moveY = (int) event.getRawY();// 触摸点相对于屏幕的位置
-			int deltaY = tempY - moveY;
-			tempY = moveY;
-			if (Math.abs(moveY - downY) > mTouchSlop
-					&& Math.abs((int) event.getRawX() - downX) < mTouchSlop) {
-				isSilding = true;
-			}
-
-			if (moveY - downY >= 0 && isSilding) {
-				mParentView.scrollBy(0, deltaY);
-			}
-			break;
-		case MotionEvent.ACTION_UP:
-			isSilding = false;
-			if (mParentView.getScrollY() <= -viewHeight / 3) {
-				isFinish = true;
-				scrollBottom();
-			} else {
-				scrollOrigin();
-				isFinish = false;
-			}
-			break;
-		}
-
-		return true;
-	}
 
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {

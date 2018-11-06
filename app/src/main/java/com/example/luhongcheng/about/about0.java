@@ -1,6 +1,8 @@
 package com.example.luhongcheng.about;
 
 import android.annotation.SuppressLint;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.luhongcheng.R;
 
@@ -16,6 +20,7 @@ import com.example.luhongcheng.R;
  */
 
 public class about0 extends AppCompatActivity {
+
     @SuppressLint("NewApi")
     @Override
     protected  void onCreate (Bundle savedInstanceState){
@@ -32,9 +37,17 @@ public class about0 extends AppCompatActivity {
         }
 
 
+        ImageView myweixin = (ImageView) findViewById(R.id.my_weixin);
+        myweixin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager cmb = (ClipboardManager)getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                cmb.setText("IMAlex");
+                Toast.makeText(getApplicationContext(),"已复制到剪切板",Toast.LENGTH_SHORT);
+            }
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

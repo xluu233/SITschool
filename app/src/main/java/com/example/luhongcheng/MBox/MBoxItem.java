@@ -30,9 +30,11 @@ import com.example.luhongcheng.Bmob.UserInfo;
 import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SQ.OneFragment;
+import com.example.luhongcheng.SQ.PingLun;
 import com.example.luhongcheng.SQ.SSS;
 import com.example.luhongcheng.SQ.SS_ADD;
 import com.example.luhongcheng.SQ.SS_ADD2;
+import com.example.luhongcheng.SQ.TwoFragment;
 import com.example.luhongcheng.SQ.ssDisPlay;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -44,6 +46,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 
 public class MBoxItem extends AppCompatActivity {
@@ -75,6 +78,8 @@ public class MBoxItem extends AppCompatActivity {
                             intent.putExtra("nickname",news.getNickname());
                             intent.putExtra("qm",news.getQm());
                             intent.putExtra("label",news.getLabel());
+
+                            intent.putExtra("zan_nums",news.getZan());
                             startActivity(intent);
 
                         }
@@ -220,12 +225,17 @@ public class MBoxItem extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
-    String time2;
+
     int i =0;
     String personID;
     String ssID2,label2;
+    String time2;
+    int Page = 1;//页数
+    int zan2 = 0;
     private void initData2() {
         slist2 = new ArrayList<SSS>();
 
@@ -233,21 +243,21 @@ public class MBoxItem extends AppCompatActivity {
             @Override
             public void run() {
                 BmobQuery<SS> query = new BmobQuery<com.example.luhongcheng.Bmob.SS>();
-                //查询playerName叫“比目”的数据
+                query.order("-createdAt");
+                query.setLimit(100);
                 query.addWhereEqualTo("label", flag.toString());
-                //返回50条数据，如果不加上这条语句，默认返回10条数据
-                query.setLimit(50);
                 query.findObjects(new FindListener<SS>(){
                     @Override
-                    public void done(final List<SS> list, BmobException e) {
+                    public void done(final List<com.example.luhongcheng.Bmob.SS> list, BmobException e) {
                         List<com.example.luhongcheng.Bmob.SS> lists = new ArrayList<>();
                         if (list != null) {
-                            final String[] content  =  new String[list.size()+1];
-                            final String[] image = new String[list.size()+1];
-                            String[] ID = new  String[list.size()+1];
-                            final  String[]  ssID= new String[list.size()+1];
-                            final  String[]  label= new String[list.size()+1];
-                            final  String[] time = new String[list.size()+1];
+                            final String[] content  =  new String[list.size()];
+                            final String[] image = new String[list.size()];
+                            String[] ID = new  String[list.size()];
+                            final  String[]  ssID= new String[list.size()];
+                            final  String[]  label= new String[list.size()];
+                            final  String[] time = new String[list.size()];
+                            final  String[]  zan = new String[list.size()];
 
                             int n = list.size()+1;
 
@@ -258,6 +268,7 @@ public class MBoxItem extends AppCompatActivity {
                                 ssID[i] = list.get(i).getObjectId();
                                 label[i] = list.get(i).getLabel();
                                 time[i] = list.get(i).getCreatedAt();
+                                zan[i] = list.get(i).getZan();
 
                                 String image2 = image[i];
                                 String content2 = content[i];
@@ -265,12 +276,13 @@ public class MBoxItem extends AppCompatActivity {
                                 ssID2 = ssID[i];
                                 label2 = label[i];
                                 time2 = time[i];
-                                getssuerinfo(n,image2,content2,personID,ssID2,label2,time2);
+                                zan2= Integer.parseInt(zan[i]);
 
-                                //slist.add(new SSS(image[i],content[i],icon,qm,nickname));
+                                //System.out.println("time:"+time2);
+                                getssuerinfo(n,image2,content2,personID,ssID2,label2,time2,zan2);
+
                             }
 
-                            //mHandler2.obtainMessage(0).sendToTarget();
                         }
 
                     }
@@ -287,18 +299,18 @@ public class MBoxItem extends AppCompatActivity {
 
     }
 
-    private void getssuerinfo(final int n , final String img, final String content, final String personID, final String ssID2,final String label2,final String time2) {
+    private void getssuerinfo(final int n , final String img, final String content, final String personID, final String ssID2,final String label2,final String time2,final  int zan2) {
 
         final String[] nickname = new String[n];
         final String[] qm = new String[n];
         final String[] icon = new String[n];
 
-        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-        query.getObject(personID, new QueryListener<UserInfo>() {
+        BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
+        query2.order("-createdAt");//时间降序查询
+        query2.getObject(personID, new QueryListener<UserInfo>() {
             @Override
             public void done(UserInfo object, BmobException e) {
                 if(e==null){
-                    // String nickname,qm,icon;
                     nickname[i] = object.getNickname();
                     qm[i] = object.getQM();
                     icon[i] = object.geticonUrl();
@@ -310,21 +322,13 @@ public class MBoxItem extends AppCompatActivity {
                         nickname[i] = "无名人";
                     }
 
-                    // System.out.println("nickname:"+nickname[i]);
-                    // System.out.println("icon:"+icon[i]);
-                    // System.out.println("qm:"+qm[i]);
-                    //System.out.println("image:"+image[i]);
-                    //System.out.println("content:"+content[i]);
+
+                    slist2.add(new SSS(img,content,icon[i],qm[i],nickname[i],personID,ssID2,label2,time2,zan2));
 
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
 
-
-                // System.out.println("image:"+ img);
-                // System.out.println("content:"+content);
-                slist2.add(new SSS(img,content,icon[i],qm[i],nickname[i],personID,ssID2,label2,time2));
-                // System.out.print(slist);
                 mHandler3.obtainMessage(0).sendToTarget();
 
             }
@@ -333,25 +337,18 @@ public class MBoxItem extends AppCompatActivity {
 
     }
 
+
+
     public class SSAdaper2 extends BaseAdapter {
-
         private List<SSS> list;
-        private ListView listview;
-
         public SSAdaper2(List<SSS> list) {
             super();
             this.list = list;
-
         }
 
         @Override
         public int getCount() {
-            if (list.size()>100){
-                return 100;
-            }else {
-                return list.size();
-            }
-            //主页最大数量100
+            return list.size();
         }
 
         @Override
@@ -365,11 +362,14 @@ public class MBoxItem extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            SSAdaper2.ViewHolder holder = null;
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
             if(convertView==null){
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ss_listview_item, null);
-                holder = new SSAdaper2.ViewHolder();
+                holder = new ViewHolder();
+                holder.pinglun =(ImageView)convertView.findViewById(R.id.pinglun);
+                holder.zan_nums = (TextView)convertView.findViewById(R.id.zan_nums);
+                holder.zan = (ImageView) convertView.findViewById(R.id.zan);
                 holder.img = (ImageView) convertView.findViewById(R.id.img);
                 holder.icon = (ImageView) convertView.findViewById(R.id.icon);
                 holder.title = (TextView) convertView.findViewById(R.id.content);
@@ -378,19 +378,47 @@ public class MBoxItem extends AppCompatActivity {
                 holder.tv_label = (TextView) convertView.findViewById(R.id.label);
                 convertView.setTag(holder);
             }else{
-                holder = (SSAdaper2.ViewHolder) convertView.getTag();
+                holder = (ViewHolder) convertView.getTag();
             }
-            final SSS news2 = list.get(position);
-            //  holder.img.setTag(news.getImageUrl());
-            holder.title.setText(news2.getTitle());
-            holder.nk.setText(news2.getNickname());
-            holder.qmm.setText(news2.getQm());
+            final SSS news = list.get(position);
+            holder.title.setText(news.getTitle());
+            holder.nk.setText(news.getNickname());
+            holder.qmm.setText(news.getQm());
+
+            holder.zan_nums.setText(String.valueOf(news.getZan()));
+
+            final ViewHolder finalHolder = holder;
+            holder.zan.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint({"ResourceAsColor", "NewApi"})
+                @Override
+                public void onClick(View v) {
+                    finalHolder.zan.setImageResource(R.drawable.zan2);
+                    finalHolder.zan_nums.setText(String.valueOf(news.getZan()+1));
+                    String zan3 = String.valueOf(news.getZan()+1);
+
+                    SS gameScore = new SS();
+                    gameScore.setZan(zan3);
+                    gameScore.update(news.getPersonID(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                // Log.i("bmob","更新成功");
+                            }else{
+                                // Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+                            }
+                        }
+                    });
+
+
+                }
+            });
+
 
             holder.img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MBoxItem.this,ImageFullDisplay.class);
-                    intent.putExtra("url2",news2.getImageUrl());
+                    Intent intent = new Intent(getApplicationContext(),ImageFullDisplay.class);
+                    intent.putExtra("url2",news.getImageUrl());
                     startActivity(intent);
                 }
             });
@@ -398,74 +426,80 @@ public class MBoxItem extends AppCompatActivity {
             holder.icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MBoxItem.this,ImageFullDisplay.class);
-                    intent.putExtra("url2",news2.getIconUrl());
+                    Intent intent = new Intent(getApplicationContext(),ImageFullDisplay.class);
+                    intent.putExtra("url2",news.getIconUrl());
                     startActivity(intent);
                 }
             });
 
+            holder.pinglun.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(),PingLun.class);
+                    intent.putExtra("pinglun",news.getPersonID());
+                    startActivity(intent);
+                }
+            });
 
-            String label = news2.getLabel();
-            // System.out.println("label是什么"+label);
-            if (label.equals("A1")){
-                holder.tv_label.setText("#今日最佳#");
-            }else if (label.equals("A2")){
-                holder.tv_label.setText("#一日三餐#");
-            }else if (label.equals("A3")){
-                holder.tv_label.setText("#表白墙#");
-            } else if (label.equals("A4")){
-                holder.tv_label.setText("#众话说#");
-            } else if (label.equals("A5")){
-                holder.tv_label.setText("#工具推荐#");
-            } else if (label.equals("A6")){
-                holder.tv_label.setText("#学习交流#");
-            } else if (label.equals("A7")){
-                holder.tv_label.setText("#安利#");
-            } else if (label.equals("A8")){
-                holder.tv_label.setText("#需求池#");
-            } else if (label.equals("A9")){
-                holder.tv_label.setText("#考研党#");
-            } else if (label.equals("A10")){
-                holder.tv_label.setText("#周边推荐#");
-            } else if (label.equals("A11")){
-                holder.tv_label.setText("#每日一听#");
-            }else if (label.equals("A12")){
-                holder.tv_label.setText("#晨读打卡#");
-            } else if (label.equals("A13")){
-                holder.tv_label.setText("#谈天说地#");
+            String label = news.getLabel();
+            if (label != null){
+                if (label.equals("A1")){
+                    holder.tv_label.setText("#今日最佳#");
+                }else if (label.equals("A2")){
+                    holder.tv_label.setText("#一日三餐#");
+                }else if (label.equals("A3")){
+                    holder.tv_label.setText("#表白墙#");
+                } else if (label.equals("A4")){
+                    holder.tv_label.setText("#众话说#");
+                } else if (label.equals("A5")){
+                    holder.tv_label.setText("#工具推荐#");
+                } else if (label.equals("A6")){
+                    holder.tv_label.setText("#学习交流#");
+                } else if (label.equals("A7")){
+                    holder.tv_label.setText("#安利#");
+                } else if (label.equals("A8")){
+                    holder.tv_label.setText("#需求池#");
+                } else if (label.equals("A9")){
+                    holder.tv_label.setText("#考研党#");
+                } else if (label.equals("A10")){
+                    holder.tv_label.setText("#周边推荐#");
+                } else if (label.equals("A11")){
+                    holder.tv_label.setText("#每日一听#");
+                }else if (label.equals("A12")){
+                    holder.tv_label.setText("#晨读打卡#");
+                } else if (label.equals("A13")){
+                    holder.tv_label.setText("#谈天说地#");
+                }
             }
 
             Glide.with(getApplicationContext())
-                    .load(news2.getImageUrl())
+                    .load(news.getImageUrl())
                     .placeholder(R.drawable.loading)
                     .error(R.drawable.error)
-                    //  .dontTransform()//不进行图片变换
-                    .fitCenter()
-                    // .centerCrop()
-                    //.override(Target.SIZE_ORIGINAL, 1000)
+                    .override(600, 200)
                     .into(holder.img);
 
+
             Glide.with(getApplicationContext())
-                    .load(news2.getIconUrl())
+                    .load(news.getIconUrl())
                     .placeholder(R.drawable.loading)
                     .error(R.drawable.error)
-                    //  .dontTransform()//不进行图片变换
                     .fitCenter()
-                    // .centerCrop()
-                    //.override(Target.SIZE_ORIGINAL, 1000)
                     .into(holder.icon);
 
             return convertView;
-
         }
 
         class ViewHolder {
             ImageView img,icon;
             TextView title,nk,qmm,tv_label;
+            ImageView zan;
+            TextView zan_nums;
+            ImageView pinglun;
         }
 
-
     }
+
 
 
 }

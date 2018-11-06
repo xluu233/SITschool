@@ -122,27 +122,7 @@ public class SS_ADD2 extends AppCompatActivity {
                 ID = sp.getString("ID","");
 
                 if (ID.length() == 0){
-                    SharedPreferences sp2=getSharedPreferences("userid",0);
-                    String username = sp2.getString("username","");
-                    if (username.length() == 0){
-                        Toast.makeText(getApplicationContext(),"本地获取personID失败，可能你还没登录哦，请更新到最新版本并清除登录信息重新登录",Toast.LENGTH_LONG);
-                    }else {
-                        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-                        query.addWhereEqualTo("ID", username);
-                        query.findObjects(new FindListener<UserInfo>() {
-                            @Override
-                            public void done(List<UserInfo> object, BmobException e) {
-                                if(e==null){
-                                    for (UserInfo xixi : object) {
-                                        ID = xixi.getObjectId();
-                                    }
-                                }else{
-                                    Toast.makeText(getApplicationContext(),"获取personID失败,新版本重建服务器账号信息，请尝试清楚账号信息后重新登录",Toast.LENGTH_LONG);
-                                }
-                            }
-                        });
-                    }
-
+                    Toast.makeText(getApplicationContext(),"获取personID失败,请转到个人中心查看",Toast.LENGTH_LONG).show();
                 }else {
                     final String neirong,biaoqian,personID,icon_path;
                     neirong = content.getText().toString();
@@ -162,6 +142,7 @@ public class SS_ADD2 extends AppCompatActivity {
                                     object.setID(personID);
                                     object.setImg(bmobfile);
                                     object.setLabel(biaoqian);
+                                    object.setZan("0");
                                     object.save(new SaveListener<String>() {
                                         @Override
                                         public void done(String s, BmobException e) {

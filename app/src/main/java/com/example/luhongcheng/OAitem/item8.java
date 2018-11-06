@@ -1,4 +1,4 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.OAitem;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.luhongcheng.R;
 import com.example.luhongcheng.SWZL.send;
 import com.example.luhongcheng.SWZL.send2;
 import com.github.clans.fab.FloatingActionButton;

@@ -70,7 +70,6 @@ public class MoreBox extends AppCompatActivity {
         fruitList.add(A6);
         Box A7 = new Box("#谈天说地#", R.drawable.talk_lala_min);
         fruitList.add(A7);
-
     }
 
      class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.ViewHolder>{

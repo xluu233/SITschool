@@ -16,8 +16,8 @@ android {
         applicationId "com.example.luhongcheng"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 122
-        versionName "2.9.9.3"
+        versionCode 126
+        versionName "2.9.9.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -74,4 +74,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     //下拉刷新框架
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+
+
 }

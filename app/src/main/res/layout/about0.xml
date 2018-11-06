@@ -120,7 +120,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="        上应社区：还没做出来=.="/>
+                        android:text="        上应社区：热门模块正在完善中"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -167,6 +167,13 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="        —Glide"/>
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="        —极光推送"/>
 
                     <TextView
@@ -188,6 +195,7 @@
                 </LinearLayout>
 
                 <ImageButton
+                    android:id="@+id/my_weixin"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"

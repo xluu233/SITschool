@@ -42,16 +42,14 @@ public class SheQuFragment extends Fragment {
 
         com.example.luhongcheng.SQ.OneFragment oneFragment =  com.example.luhongcheng.SQ.OneFragment.newInstance();
         com.example.luhongcheng.SQ.TwoFragment twoFragment =  com.example.luhongcheng.SQ.TwoFragment.newInstance();
-        com.example.luhongcheng.SQ.ThreeFragment threeFragment =  com.example.luhongcheng.SQ.ThreeFragment.newInstance();
         com.example.luhongcheng.SQ.FourFragment fourFragment =  com.example.luhongcheng.SQ.FourFragment.newInstance();
 
         mFragments.add(oneFragment);
         mFragments.add(twoFragment);
-        mFragments.add(threeFragment);
         mFragments.add(fourFragment);
     }
 
-    private static final String DOG_BREEDS[] = {"精选", "广场", "Box", "收藏"};
+    private static final String DOG_BREEDS[] = {"精选", "广场", "收藏"};
 
     private void initView() {
         final TabLayout tabLayout = getActivity().findViewById(R.id.tab_layout);

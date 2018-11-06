@@ -239,47 +239,5 @@ public class FirstFragment extends Fragment {
 
 
 
-    //根据图片的url地址得到图片
-    public void getImage(final String path){
-        new Thread() {
-            public void run() {
-                bitmap = getHttpBitmap(path);
-                Message msg = handler.obtainMessage();
-                msg.obj = bitmap;
-                msg.what = 1;
-                handler.sendMessage(msg);
-            };
-        }.start();
-    }
-
-    public static Bitmap getHttpBitmap(String url) {
-        URL myFileURL;
-        try {
-            myFileURL = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
-            conn.setConnectTimeout(6000);
-            conn.setDoInput(true);
-            conn.setUseCaches(false);
-            conn.connect();
-            InputStream is = conn.getInputStream();
-            bitmap = BitmapFactory.decodeStream(is);
-            is.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bitmap;
-    }
-
-    private static Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-                    break;
-            }
-        }
-    };
-
 
 }

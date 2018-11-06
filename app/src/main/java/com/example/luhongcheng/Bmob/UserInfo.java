@@ -1,5 +1,7 @@
 package com.example.luhongcheng.Bmob;
 
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -86,4 +88,44 @@ public class UserInfo extends BmobObject {
     }
 
     String xueyuan;
+
+    public List<String> getFensi() {
+        return fensi;
+    }
+
+    public void setFensi(List<String> fensi) {
+        this.fensi = fensi;
+    }
+
+    List<String> fensi;//粉丝列表
+
+    public List<String> getGuanzhu() {
+        return guanzhu;
+    }
+
+    public void setGuanzhu(List<String> guanzhu) {
+        this.guanzhu = guanzhu;
+    }
+
+    List<String> guanzhu;//关注列表
+
+    public String getJifen() {
+        return jifen;
+    }
+
+    public void setJifen(String jifen) {
+        this.jifen = jifen;
+    }
+
+    String jifen;//积分
+
+    public List<String> getShuishui() {
+        return shuishui;
+    }
+
+    public void setShuishui(List<String> shuishui) {
+        this.shuishui = shuishui;
+    }
+
+    List<String> shuishui;//说说
 }

@@ -32,17 +32,20 @@
         <activity android:name=".MainFragmentActivity"/>
         <activity android:name=".OA.OADisplayActvivity"/>
         <activity
-            android:name=".item0"
+            android:name=".OAitem.item0"
             android:theme="@style/myTransparent">
         </activity>
-        <activity android:name=".item1"> </activity>
-        <activity android:name=".item2"> </activity>
-        <activity android:name=".item3"> </activity>
-        <activity android:name=".item4"> </activity>
-        <activity android:name=".item5"> </activity>
-        <activity android:name=".item6"> </activity>
-        <activity android:name=".item7"> </activity>
-        <activity android:name=".item8"/>
+        <activity android:name=".OAitem.item1"> </activity>
+        <activity android:name=".OAitem.item2"> </activity>
+        <activity android:name=".OAitem.item3"> </activity>
+        <activity android:name=".OAitem.item4"> </activity>
+        <activity android:name=".OAitem.item5"> </activity>
+        <activity android:name=".OAitem.item6"> </activity>
+        <activity android:name=".OAitem.item7"> </activity>
+        <activity android:name=".OAitem.item8"/>
+        <activity android:name=".OAitem.more_item0"/>
+        <activity android:name=".OAitem.more_item1"/>
+        <activity android:name=".OAitem.more_item2"/>
         <activity android:name=".TuisongActivity"/>
         <activity android:name=".TuisongActivity"
             tools:ignore="DuplicateActivity" />
@@ -54,7 +57,7 @@
         <activity android:name=".about.about3"></activity>
         <activity android:name=".about.about4"></activity>
         <activity android:name=".SWZL.send"/>
-        <activity android:name="item9"/>
+        <activity android:name=".OAitem.item9"/>
         <activity android:name=".secondclass.SecondClassDisplayActvivity"/>
         <activity android:name=".zixun.news"/>
         <activity android:name=".zixun.zhuyeDisplayActvivity"/>
@@ -95,6 +98,8 @@
         <activity android:name=".MySelf.MySs"></activity>
         <activity android:name=".MySelf.MyLove"></activity>
         <activity android:name=".ImageFullDisplay"></activity>
+        <activity android:name=".SQ.PingLun" android:theme="@style/myTransparent"/>
+        <activity android:name=".WeiXin.Weixin_more"/>
 
     </application>
 

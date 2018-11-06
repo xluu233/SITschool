@@ -16,10 +16,10 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 public class ssDisPlay extends AppCompatActivity {
-    String personID,objectID,iconUrl,imageUrl,content,nickname,qm;
+    String personID,objectID,iconUrl,imageUrl,content,nickname,qm,zan_nums;
     String label;
     ImageView im_image,im_icon;
-    TextView tv_content,tv_nickname,tv_qm,tv_label;
+    TextView tv_content,tv_nickname,tv_qm,tv_label,zan;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +46,11 @@ public class ssDisPlay extends AppCompatActivity {
 
         content = getIntent().getStringExtra("content");
         nickname = getIntent().getStringExtra("nickname");
+        zan_nums =getIntent().getStringExtra("zan_nums");
         qm = getIntent().getStringExtra("qm");
         label = getIntent().getStringExtra("label");
 
+        zan = (TextView)findViewById(R.id.zan_nums);
         tv_content =(TextView)findViewById(R.id.content);
         tv_nickname =(TextView)findViewById(R.id.nickname);
         tv_qm =(TextView)findViewById(R.id.qm);
@@ -57,6 +59,7 @@ public class ssDisPlay extends AppCompatActivity {
         im_image = (ImageView)findViewById(R.id.img);
         im_icon = (ImageView)findViewById(R.id.icon);
 
+        zan.setText(zan_nums);
         tv_content.setText(content);
         tv_qm.setText(qm);
         tv_nickname.setText(nickname);

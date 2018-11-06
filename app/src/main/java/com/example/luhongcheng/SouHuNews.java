@@ -1,5 +1,6 @@
 package com.example.luhongcheng;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,10 +24,17 @@ import static android.view.KeyEvent.KEYCODE_BACK;
 public class SouHuNews extends AppCompatActivity {
     private WebView webview;
     String URL2= "http://m.sohu.com/media/694346?spm=smwp.content.author-info.1.1537437344995hk1YAuY";
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.souhu_news);
+
+        String url = getIntent().getStringExtra("url");
+        if (url != null){
+            URL2 = url;
+        }
+
         webview = (WebView) findViewById(R.id.webview);
         webview.getSettings().setAllowFileAccessFromFileURLs(true);
         webview.loadUrl(URL2);

@@ -34,12 +34,14 @@ import com.example.luhongcheng.R;
 import com.example.luhongcheng.setMy;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
@@ -144,27 +146,7 @@ public class SS_ADD extends AppCompatActivity {
                 ID = sp.getString("ID","");
 
                 if (ID.length() == 0){
-                    SharedPreferences sp2=getSharedPreferences("userid",0);
-                    String username = sp2.getString("username","");
-                    if (username.length() == 0){
-                        Toast.makeText(getApplicationContext(),"本地获取personID失败，可能你还没登录哦，请更新到最新版本并清除登录信息重新登录",Toast.LENGTH_LONG);
-                    }else {
-                        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-                        query.addWhereEqualTo("ID", username);
-                        query.findObjects(new FindListener<UserInfo>() {
-                            @Override
-                            public void done(List<UserInfo> object, BmobException e) {
-                                if(e==null){
-                                    for (UserInfo xixi : object) {
-                                        ID = xixi.getObjectId();
-                                    }
-                                }else{
-                                    Toast.makeText(getApplicationContext(),"获取personID失败,新版本重建服务器账号信息，请尝试清楚账号信息后重新登录",Toast.LENGTH_LONG);
-                                }
-                            }
-                        });
-                    }
-
+                    Toast.makeText(getApplicationContext(),"获取personID失败,请转到个人中心查看",Toast.LENGTH_LONG).show();
                 }else {
                     final String neirong,biaoqian,personID,icon_path;
                     neirong = content.getText().toString();
@@ -184,16 +166,28 @@ public class SS_ADD extends AppCompatActivity {
                                     object.setID(personID);
                                     object.setImg(bmobfile);
                                     object.setLabel(biaoqian);
+                                    object.setZan(String.valueOf(0));
                                     object.save(new SaveListener<String>() {
                                         @Override
                                         public void done(String s, BmobException e) {
                                             if(e==null){
                                                 // Log.i("bmob","更新成功");
                                                 Toast.makeText(SS_ADD.this, "恭喜你，发布成功", Toast.LENGTH_SHORT).show();
+
+                                                /*
+                                                SharedPreferences sp2=getSharedPreferences("jifen",0);
+                                                String jifen = sp2.getString("ji","");
+                                                int i = Integer.parseInt(jifen)+20;
+
+                                                SharedPreferences.Editor editor=getSharedPreferences("jifen",0).edit();
+                                                editor.putString("ji", String.valueOf(i));
+                                                editor.commit();
+                                                */
+
                                                 SS_ADD.this.finish();
                                             }else{
                                                 Toast.makeText(SS_ADD.this, "失败", Toast.LENGTH_SHORT).show();
-                                                Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+                                               // Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
                                             }
                                         }
                                     });
@@ -201,7 +195,7 @@ public class SS_ADD extends AppCompatActivity {
 
                                 } else {
                                     Toast.makeText(SS_ADD.this, "文件上传失败", Toast.LENGTH_SHORT).show();
-                                    System.out.println("文件上传失败");
+                                  //  System.out.println("文件上传失败");
                                 }
                             }
                         });

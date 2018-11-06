@@ -7,7 +7,7 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class SS extends BmobObject {
     Array pinglun;
-    Number zan;
+    String zan;
     BmobFile img;
     String label;
     String ID;
@@ -15,6 +15,15 @@ public class SS extends BmobObject {
 
     public BmobFile getImg() {
         return img;
+    }
+
+
+    public String getZan() {
+        return zan;
+    }
+
+    public void setZan(String zan) {
+        this.zan = zan;
     }
 
     public void setImg(BmobFile img) {
