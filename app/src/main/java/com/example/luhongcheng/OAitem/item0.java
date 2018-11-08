@@ -2,14 +2,17 @@ package com.example.luhongcheng.OAitem;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.TopToBottomFinishLayout;
+import com.example.luhongcheng.connect_vpn;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +61,19 @@ public class item0 extends Activity {
                         Intent intent2=new Intent(item0.this,more_item2.class);
                         startActivity(intent2);
                         break;
+                    case 3:
+                        PackageManager packageManager = getPackageManager();
+                        Intent intent3 = new Intent();
+                        intent3 = packageManager.getLaunchIntentForPackage("com.topsec.topsap");
+                        if(intent3==null){
+                            Toast.makeText(getApplicationContext(), "未安装VPN软件", Toast.LENGTH_LONG).show();
+                            Intent intent4= new Intent(item0.this,connect_vpn.class);
+                            startActivity(intent4);
+                        }else{
+                            startActivity(intent3);
+                        }
+
+                        break;
                     default:
                         break;
                 }
@@ -68,8 +84,8 @@ public class item0 extends Activity {
     }
 
     void initData() {
-        int icno[] = { R.mipmap.jidian,R.mipmap.jihua,R.mipmap.abc};
-        String name[]={"绩点","教学计划","校外考试成绩"};
+        int icno[] = { R.mipmap.jidian,R.mipmap.jihua,R.mipmap.abc,R.drawable.vpn};
+        String name[]={"绩点","教学计划","校外考试成绩","VPN"};
 
         dataList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <icno.length; i++) {

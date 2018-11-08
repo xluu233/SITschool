@@ -16,8 +16,8 @@ android {
         applicationId "com.example.luhongcheng"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 126
-        versionName "2.9.9.6"
+        versionCode 127
+        versionName "2.9.9.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {

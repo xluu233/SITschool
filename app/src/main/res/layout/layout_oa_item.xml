@@ -17,13 +17,21 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"/>
 
-		<ListView
+		<android.support.v4.widget.SwipeRefreshLayout
+			android:id="@+id/oa_refresh"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:id="@+id/news_lv"
-			android:dividerHeight="2dp"
-			android:divider="#dcdcdc">
-		</ListView>
+			android:layout_height="match_parent">
+
+			<ListView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/news_lv"
+				android:dividerHeight="2dp"
+				android:divider="#dcdcdc">
+			</ListView>
+
+		</android.support.v4.widget.SwipeRefreshLayout>
+
 
 	</RelativeLayout>
 </LinearLayout>

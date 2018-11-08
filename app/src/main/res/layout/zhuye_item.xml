@@ -10,20 +10,19 @@
         android:layout_weight="5"
         android:layout_height="70dp"
         android:id="@+id/A1"
-        android:gravity="left"
+        android:gravity="center_vertical"
         android:textColor="#000"
-        android:textSize="14sp"
         android:text="测试标题"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_weight="15"
+        android:layout_weight="20"
         android:layout_height="70dp"
         android:id="@+id/A3"
-        android:gravity="right"
+        android:gravity="center_vertical"
         android:textColor="#000"
-        android:textSize="12sp"
-        android:text="2018"/>
+        android:textSize="13sp"
+        android:text="2018-11-07"/>
 
 
 </LinearLayout>

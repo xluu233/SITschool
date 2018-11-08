@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class FourFragment extends Fragment implements View.OnClickListener {
+public class FourFragment extends Fragment {
 
 	private List<SecondClass> newsList;
 	private SecondClassAdapter adapter;
@@ -57,13 +58,25 @@ public class FourFragment extends Fragment implements View.OnClickListener {
 		newsList = new ArrayList<>();
 		lv = (ListView) getView().findViewById(R.id.news_lv);
 
-		Button sendpostdata = (Button) getView().findViewById(R.id.send_request);
-		sendpostdata.setOnClickListener(this);
 		builder = new OkHttpClient.Builder();
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
 
-		Button button = (Button) getActivity().findViewById(R.id.send_request);
+		final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.secondclass_refresh);
+		refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				newsList.clear();
+				adapter = new SecondClassAdapter(getActivity(),newsList);
+				lv.setAdapter(adapter);
+
+				refreshLayout.setRefreshing(false);
+
+				getCookies();
+				postdata();
+
+			}
+		});
 
 		handler = new Handler(){
 			@Override
@@ -102,12 +115,6 @@ public class FourFragment extends Fragment implements View.OnClickListener {
 		str = spCount.getString("cookie", "");
 	}
 
-	public void onClick(View v) {
-		if (v.getId() == R.id.send_request) {
-			postdata();
-		}
-	}
-
 	public void postdata() {
 		// 开启线程来发起网络请求
 		new Thread(new Runnable() {
@@ -136,18 +143,6 @@ public class FourFragment extends Fragment implements View.OnClickListener {
 					String responseData4 = response4.body().string();
 					getNews(responseData4);
 
-
-
-
-					okHttpClient.newCall(request4).enqueue(new Callback() {
-						@Override
-						public void onFailure(okhttp3.Call call, IOException e) {
-						}
-						@Override
-						public void onResponse(okhttp3.Call call, Response response) throws IOException {
-							//Log.d("源代码", "onResponse: " + response.body().string().toString());
-						}
-					});
 
 				} catch (Exception e) {
 					e.printStackTrace();

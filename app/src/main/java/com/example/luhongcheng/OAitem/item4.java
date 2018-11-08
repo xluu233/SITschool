@@ -74,6 +74,7 @@ public class item4 extends AppCompatActivity {
                 getID();
             }
         });
+
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
         progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;

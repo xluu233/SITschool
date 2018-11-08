@@ -173,17 +173,6 @@ public class SecondFragment extends Fragment {
 
 
 
-
-					okHttpClient.newCall(request4).enqueue(new Callback() {
-						@Override
-						public void onFailure(okhttp3.Call call, IOException e) {
-						}
-						@Override
-						public void onResponse(okhttp3.Call call, Response response) throws IOException {
-							//Log.d("源代码", "onResponse: " + response.body().string().toString());
-						}
-					});
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

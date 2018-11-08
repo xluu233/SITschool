@@ -1,15 +1,18 @@
 package com.example.luhongcheng.OA;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -46,7 +49,8 @@ public class FourOAFragment extends Fragment {
 	}
 
 
-	@Override
+	@SuppressLint("HandlerLeak")
+    @Override
 	public void onActivityCreated( Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
@@ -58,6 +62,16 @@ public class FourOAFragment extends Fragment {
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
 
+		final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.oa_refresh);
+		refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				lv.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1));
+				refreshLayout.setRefreshing(false);
+				getData();
+
+			}
+		});
 
 
 		handler = new Handler(){
@@ -74,19 +88,12 @@ public class FourOAFragment extends Fragment {
 							Intent intent = new Intent(getActivity(),OADisplayActvivity.class);
 							intent.putExtra("news_url",news.getA2());
 							startActivity(intent);
-							//Intent intent = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-							//intent.putExtra("news_url",news.getNewsUrl());
-							//startActivity(intent);
-
-							//Intent intent2 = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-							//intent2.putExtra("COOKIE",str);
-							//startActivity(intent2);
-							//此处不能传递COOKIE，可能会混淆
 						}
 					});
 				}
 			}
 		};
+
 		getData();
 	}
 

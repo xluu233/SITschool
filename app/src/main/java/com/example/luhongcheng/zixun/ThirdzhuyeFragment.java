@@ -49,15 +49,12 @@ public class ThirdzhuyeFragment extends Fragment{
 	@Override
 	public void onActivityCreated( Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
 		newsList = new ArrayList<>();
 		lv = (ListView) getView().findViewById(R.id.news_lv);
-
 
 		builder = new OkHttpClient.Builder();
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
-
 
 
 		handler = new Handler(){

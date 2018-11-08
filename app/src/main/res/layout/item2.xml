@@ -47,7 +47,6 @@
                     android:text="学院："/>
 
                 <ImageView
-                    android:layout_margin="5dp"
                     android:background="@color/red_300"
                     android:layout_width="match_parent"
                     android:layout_height="1dp" />
@@ -81,7 +80,6 @@
                     android:text="部门："/>
 
                 <ImageView
-                    android:layout_margin="5dp"
                     android:background="@color/red_300"
                     android:layout_width="match_parent"
                     android:layout_height="1dp" />

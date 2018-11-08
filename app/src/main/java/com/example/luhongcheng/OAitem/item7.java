@@ -81,17 +81,6 @@ public class  item7 extends Activity implements View.OnClickListener {
                     progressBar.setVisibility(View.GONE);
                     adapter = new TestAdapter(item7.this,newsList);
                     lv.setAdapter(adapter);
-                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Test news = newsList.get(position);
-
-                            //Intent intent2 = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-                            //intent2.putExtra("COOKIE",str);
-                            //startActivity(intent2);
-                            //此处不能传递COOKIE，可能会混淆
-                        }
-                    });
                 }
             }
         };
@@ -145,9 +134,9 @@ public class  item7 extends Activity implements View.OnClickListener {
                     Response response1 = client.newCall(request1).execute();
                     String responseData1 = response1.body().string();
                     final Headers headers1 = response1.headers();
-                    //Log.d("头信息11", "header " + headers1);
+                    Log.i("头信息11", "header " + headers1);
                     cookies = headers1.values("Set-Cookie"); //这是另一种获取cookie的方法
-                    //Log.d("JSESSIONID11", "onResponse-size: " + cookies);
+                    Log.i("JSESSIONID11", "onResponse-size: " + cookies);
 
                     String[] aa = cookies.toArray(new String[cookies.size()]);
                     String str1 = null;
@@ -187,9 +176,9 @@ public class  item7 extends Activity implements View.OnClickListener {
                     Response response2 = client.newCall(request2).execute();
                     String responseData2 = response2.body().string();
                     final Headers headers2 = response2.headers();
-                    //Log.d("头信息22", "header " + headers2);
+                    Log.i("头信息22", "header " + headers2);
                     cookies = headers2.values("Set-Cookie"); //这是另一种获取cookie的方法
-                    //Log.d("cookie22", "onResponse-size: " + cookies);
+                    Log.i("cookie22", "onResponse-size: " + cookies);
 
                     String[] bb = cookies.toArray(new String[cookies.size()]);
                     String str3 = null;
@@ -201,13 +190,11 @@ public class  item7 extends Activity implements View.OnClickListener {
 
                     String str = str1+";"+str2+";"+str3+";"+str4;
 
-                    String classtablecookie = str;
-                    savecookie(classtablecookie);
+                    Log.i("str", " " + str);
 
                     Request request3 = new Request.Builder()
                             .url("http://ems.sit.edu.cn:85/student/main.jsp")
                             .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
-                            // .header("Accept-Encoding", "gzip, deflate")
                             .header("Accept-Language", "zh-CN,zh;q=0.9")
                             .header("Cache-Control","max-age=0")
                             .header("Connection", "Keep-Alive")
@@ -215,7 +202,7 @@ public class  item7 extends Activity implements View.OnClickListener {
                             .header("Host", "ems.sit.edu.cn:85")
                             .header("Referer", "http://ems.sit.edu.cn:85/")
                             .header("Upgrade-Insecure-Requests","1")
-                            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
+                            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.10 Safari/537.36")
                             .build();
                     Response response3 = client.newCall(request3).execute();
                     String responseData3 = response3.body().string();
@@ -225,10 +212,11 @@ public class  item7 extends Activity implements View.OnClickListener {
                     okHttpClient.newCall(request3).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            Log.i("源代码", "获取失败 ");
                         }
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
-                            Log.d("源代码", "onResponse: " + response.body().string().toString());
+                            Log.i("源代码", "onResponse: " + response.body().string());
                         }
                     });
 
@@ -239,13 +227,6 @@ public class  item7 extends Activity implements View.OnClickListener {
                 }
             }
         }).start();
-    }
-
-    private void savecookie(String classtablecookie) {
-        SharedPreferences.Editor editor=getSharedPreferences("classtable",0).edit();
-        editor.clear();
-        editor.putString("cookie",classtablecookie);
-        editor.commit();
     }
 
 

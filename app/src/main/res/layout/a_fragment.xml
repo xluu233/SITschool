@@ -83,7 +83,6 @@
 
     </FrameLayout>
 
-    //可爱的分割线
     <LinearLayout
         android:id="@+id/cutelinear"
         android:layout_width="match_parent"

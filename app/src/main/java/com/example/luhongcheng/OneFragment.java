@@ -1,6 +1,7 @@
 package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.support.annotation.LongDef;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
@@ -34,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -159,6 +161,8 @@ public class OneFragment extends Fragment{
     private Toolbar mToolbar;
     Button more,more2;
     TextView tips,QQ;
+    Button box;
+    ImageButton one;
 
     ImageButton souhuiv;
     TextView souhutitle,souhusubtitle;
@@ -195,30 +199,13 @@ public class OneFragment extends Fragment{
         }
 
         refresh = (SwipeRefreshLayout)getActivity().findViewById(R.id.refresh_one);
-        refresh.setColorSchemeColors(R.color.red_300);
         weather_icon = (ImageButton) getActivity().findViewById(R.id.weather_icon);
         weather_t1 = (TextView)getActivity().findViewById(R.id.weather_t1);
         weather_t2 = (TextView)getActivity().findViewById(R.id.weather_t2);
         weather_t3 = (TextView)getActivity().findViewById(R.id.weather_t3);
         weather_t4 = (TextView)getActivity().findViewById(R.id.weather_t4);
         more = (Button) getActivity().findViewById(R.id.more);
-        more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),zhuyeDisplayActvivity.class);
-                intent.putExtra("news_url","https://m.sm.cn/s?q=%E4%B8%8A%E6%B5%B7%E5%A5%89%E8%B4%A4%E5%A4%A9%E6%B0%94&by=submit&snum=6");
-                startActivity(intent);
-            }
-        });
-
         more2 = (Button) getActivity().findViewById(R.id.more2);
-        more2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),Weixin_more.class);
-                startActivity(intent);
-            }
-        });
 
         swzl_iv = (ImageView) getActivity().findViewById(R.id.swzl_iv);
         swzl_title = (TextView)getActivity().findViewById(R.id.swzl_title);
@@ -230,39 +217,16 @@ public class OneFragment extends Fragment{
         mToolbar.inflateMenu(R.menu.menu);
         mToolbar.setTitle("SITschool");
         mToolbar.setSubtitle("明德、明学、明事");
-        Button box =(Button) getActivity().findViewById(R.id.moreBox);
-        box.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),MoreBox.class);
-                startActivity(intent);
-            }
-        });
+        box =(Button) getActivity().findViewById(R.id.moreBox);
 
         Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
         tips = (TextView) getActivity().findViewById(R.id.tips);
-        tips.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),MoreTips.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageButton one = (ImageButton) getActivity().findViewById(R.id.OneSelf);
-        one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(getActivity(),OneSelf.class);
-                startActivity(intent);
-            }
-        });
+        one = (ImageButton) getActivity().findViewById(R.id.OneSelf);
 
         String[] from={"ItemImage","ItemText"};
         int[] to={R.id.ItemImage,R.id.ItemText};
         adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
         gridView.setAdapter(adapter);
-
 
         souhuiv = (ImageButton) getActivity().findViewById(R.id.souhu_iv);
         souhutitle = (TextView)getActivity().findViewById(R.id.souhu_title);
@@ -275,8 +239,8 @@ public class OneFragment extends Fragment{
         BoxAdapter adapter = new BoxAdapter(fruitList);
         recyclerView.setAdapter(adapter);
 
-        initOnClick();
 
+        initOnClick();
         initSet();
     }
 
@@ -309,7 +273,42 @@ public class OneFragment extends Fragment{
             }
         });
 
-
+        one.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent  = new Intent(getActivity(),OneSelf.class);
+                startActivity(intent);
+            }
+        });
+        tips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MoreTips.class);
+                startActivity(intent);
+            }
+        });
+        box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),MoreBox.class);
+                startActivity(intent);
+            }
+        });
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),zhuyeDisplayActvivity.class);
+                intent.putExtra("news_url","https://m.sm.cn/s?q=%E4%B8%8A%E6%B5%B7%E5%A5%89%E8%B4%A4%E5%A4%A9%E6%B0%94&by=submit&snum=6");
+                startActivity(intent);
+            }
+        });
+        more2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),Weixin_more.class);
+                startActivity(intent);
+            }
+        });
 
         souhuiv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -611,6 +610,19 @@ public class OneFragment extends Fragment{
             case R.id.toolbar_action1:
                 Intent intent = new Intent(getActivity(),about0.class);
                 startActivity(intent);
+                return true;
+            case R.id.connect_vpn:
+                PackageManager packageManager = getActivity().getPackageManager();
+                Intent intent2=new Intent();
+                intent2 = packageManager.getLaunchIntentForPackage("com.topsec.topsap");
+                if(intent2==null){
+                    Toast.makeText(getActivity(), "未安装VPN软件", Toast.LENGTH_LONG).show();
+                    Intent intent3= new Intent(getActivity(),connect_vpn.class);
+                    startActivity(intent3);
+                }else{
+                    startActivity(intent2);
+                }
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

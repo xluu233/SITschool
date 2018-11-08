@@ -27,6 +27,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:background="#dcdcdc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/top_title"
@@ -36,22 +37,23 @@
         android:paddingTop="@dimen/activity_vertical_margin">
 
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/news_lv"
+            android:background="@drawable/textshape3"
+            android:dividerHeight="2dp"
+            android:divider="#dcdcdc">
+        </ListView>
+
         <ProgressBar
             android:id="@+id/progressBarNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/news_lv"
-            android:dividerHeight="4dp"
-            android:divider="#dcdcdc">
-        </ListView>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:gravity="center"
             android:layout_alignParentBottom= "true"
             >

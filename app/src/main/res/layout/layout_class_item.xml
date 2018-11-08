@@ -17,33 +17,20 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"/>
 
-		<ListView
+		<android.support.v4.widget.SwipeRefreshLayout
+			android:id="@+id/secondclass_refresh"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:id="@+id/news_lv"
-			android:dividerHeight="2dp"
-			android:divider="#dcdcdc">
-		</ListView>
+			android:layout_height="match_parent">
 
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="right"
-			android:layout_alignParentBottom= "true">
+			<ListView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/news_lv"
+				android:dividerHeight="2dp"
+				android:divider="#dcdcdc">
+			</ListView>
 
-			<Button
-				android:id="@+id/send_request"
-				android:gravity="center"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_margin="5dip"
-				android:background="@drawable/rotate_layout_bg"
-				android:textSize="15dp"
-				android:textAllCaps="false"
-				android:text="-Didi-"
-				/>
-
-		</LinearLayout>
+		</android.support.v4.widget.SwipeRefreshLayout>
 
 
 	</RelativeLayout>

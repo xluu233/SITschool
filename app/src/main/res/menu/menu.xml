@@ -5,5 +5,9 @@
         android:id="@+id/toolbar_action1"
         android:title="关于App"/>
 
+    <item
+        android:id="@+id/connect_vpn"
+        android:title="连接内网"/>
+
 
 </menu>

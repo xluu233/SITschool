@@ -35,12 +35,12 @@
             android:name=".OAitem.item0"
             android:theme="@style/myTransparent">
         </activity>
+        <activity android:name=".connect_vpn"/>
         <activity android:name=".OAitem.item1"> </activity>
         <activity android:name=".OAitem.item2"> </activity>
         <activity android:name=".OAitem.item3"> </activity>
         <activity android:name=".OAitem.item4"> </activity>
         <activity android:name=".OAitem.item5"> </activity>
-        <activity android:name=".OAitem.item6"> </activity>
         <activity android:name=".OAitem.item7"> </activity>
         <activity android:name=".OAitem.item8"/>
         <activity android:name=".OAitem.more_item0"/>
