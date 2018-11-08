@@ -78,6 +78,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/moren"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:text="        SITschool是一款为应技大学生服务的Android移动端软件，由个人开发，集成了校园OA系统的大部分查询功能，例如：成绩查询，课表查询，电费查询，学生卡服务，考试安排查询等，更多功能将在后续版本更新。"/>
@@ -86,6 +87,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        第二课堂：需要连接i-SIT，可以直接申请活动。"/>
@@ -96,6 +98,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/moren"
                         android:text="        考试安排：没有考试的时候是刷新不出来的。"/>
 
                     <TextView
@@ -103,6 +106,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
+                        android:textColor="@color/moren"
                         android:layout_height="wrap_content"
                         android:text="        你问我答：有什么关于学校的问题可以在上面提问"/>
 
@@ -110,6 +114,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        失物招领：方便大家，可以在上面发布信息。"/>
@@ -118,6 +123,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        上应社区：热门模块正在完善中"/>
@@ -136,6 +142,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        致谢："/>
@@ -144,6 +151,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        —okhttp3"/>
@@ -151,6 +159,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        —Jsoup"/>
@@ -158,6 +167,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        —Bmob"/>
@@ -165,6 +175,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        —Glide"/>
@@ -172,6 +183,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        —极光推送"/>
@@ -180,6 +192,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        —com.github.clans:fab:1.6.4"/>
@@ -188,6 +201,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="        —Iconfont+阿里巴巴矢量图库"/>
@@ -203,6 +217,7 @@
                     android:background="@drawable/wodegongzhonghao" />
                 <TextView
                     android:gravity="center"
+                    android:textColor="@color/moren"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="我的公众号"

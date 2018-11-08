@@ -2,29 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="25dp"
-    android:layout_marginRight="25dp">
+    android:background="@drawable/textshape2">
+
 
     <EditText
         android:id="@+id/content"
-        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:background="@drawable/textshape3"
+        android:layout_marginTop="20dp"
         android:hint="请输入遇到的问题或者建议......"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
     <EditText
         android:id="@+id/cell"
+        android:background="@drawable/textshape3"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:hint="联系方式：QQ或者微信"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-
     <Button
         android:id="@+id/send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_shape1"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:text="提交" />
 
 </LinearLayout>

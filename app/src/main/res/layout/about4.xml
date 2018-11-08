@@ -20,9 +20,12 @@
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:background="@drawable/zhifubao"/>
+
+
     <TextView
         android:text="点击跳转"
         android:textSize="12dp"
+        android:textColor="@color/moren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

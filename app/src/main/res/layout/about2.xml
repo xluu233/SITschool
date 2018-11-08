@@ -7,12 +7,14 @@
 
     <TextView
         android:layout_gravity="center"
+        android:textColor="@color/moren"
         android:text="若更新出现错误，请转到网页下载："
         android:layout_width="wrap_content"
         android:layout_height="50dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/moren"
         android:text="酷安"/>
 
     <ImageButton
@@ -22,6 +24,7 @@
         android:layout_height="100dp" />
     <TextView
         android:gravity="center"
+        android:textColor="@color/moren"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:text="Bmob:"/>

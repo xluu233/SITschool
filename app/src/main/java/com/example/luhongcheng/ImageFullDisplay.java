@@ -39,8 +39,8 @@ public class ImageFullDisplay extends AppCompatActivity {
 
         n = 1;
         num = 1;
-        n = getIntent().getIntExtra("n",0)+1;
-        num = getIntent().getIntExtra("nums",0);
+        // n = getIntent().getIntExtra("n",0)+1;
+       // num = getIntent().getIntExtra("nums",0);
         url = getIntent().getStringExtra("url2");
 
 

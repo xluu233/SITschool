@@ -53,6 +53,7 @@
 
         <TextView
             android:id="@+id/a"
+            android:textColor="@color/moren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tips：查询结果为每天定时更新数据，与实际数据会有误差。如需查询实时信息请至多媒体机查询。如对查询结果有疑问，请致电一卡通中心咨询，联系电话021-60873113。"
@@ -60,6 +61,7 @@
 
         <TextView
             android:id="@+id/b"
+            android:textColor="@color/moren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="

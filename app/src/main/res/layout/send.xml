@@ -27,55 +27,67 @@
             />
     </LinearLayout>
 
+
     <LinearLayout
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:background="@drawable/layoutshape2"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/title"
-            android:hint="标题"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/content"
-            android:hint="内容描述"
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:background="@drawable/textshape3"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/title"
+                android:hint="标题"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/time"
-            android:hint="时间地点"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/content"
+                android:hint="内容描述"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
 
-        <EditText
-            android:id="@+id/adress"
-            android:hint="联系方式"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/time"
+                android:hint="时间地点"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <EditText
+                android:id="@+id/adress"
+                android:hint="联系方式"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_gravity="center"
+            android:id="@+id/image"
+            android:src="@drawable/fab_add"
+            android:scaleType="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_gravity="center"
+            android:background="@drawable/button_shape1"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:text="提交"
+            android:onClick="post"/>
 
 
     </LinearLayout>
-
-    <ImageButton
-        android:layout_gravity="center"
-        android:id="@+id/image"
-        android:src="@drawable/fab_add"
-        android:scaleType="centerCrop"
-        android:layout_width="150dp"
-        android:layout_height="150dp" />
-
-    <Button
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:id="@+id/send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="提交"
-        android:onClick="post"/>
 
 </LinearLayout>

@@ -15,6 +15,7 @@
     <!-- 布局中第一个控件TextView -->
     <TextView
         android:id="@+id/ItemText"
+        android:textColor="@color/moren"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ItemImage"

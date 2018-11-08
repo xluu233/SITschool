@@ -26,11 +26,13 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:text="QQ"
+            android:textColor="@color/moren"
             tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/subtitle"
             android:gravity="center"
+            android:textColor="@color/moren"
             android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
             android:layout_height="40dp"

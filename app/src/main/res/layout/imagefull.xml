@@ -11,7 +11,7 @@
         android:id="@+id/nums"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="1/45"
+        android:text="1/1"
         android:textColor="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

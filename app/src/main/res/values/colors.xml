@@ -5,7 +5,13 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFF</color>
     <color name="white_100">#f7f4f4</color>
-    <!-- red-->
+
+    <!--默认背景颜色-->
+    <color name="moren_back">#ebebeb</color>
+    <color name="moren">#8A000000</color>
+
+    <!--red-->
+
     <color name="black">#000000</color>
     <color name="black_primary">#8a000000</color>
     <color name="red_200">#f0a9a9</color>

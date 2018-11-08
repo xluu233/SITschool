@@ -104,8 +104,6 @@ public class FirstFragment extends Fragment {
             }
         });
 
-
-        get();
     }
 
     public void get(){

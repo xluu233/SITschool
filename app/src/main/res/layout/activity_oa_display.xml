@@ -6,6 +6,7 @@
 
     <TextView
         android:id="@+id/title0"
+        android:textColor="@color/moren"
         android:layout_marginTop="10dp"
         android:background="@drawable/textshape2"
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
 
     <TextView
         android:id="@+id/title1"
+        android:textColor="@color/moren"
         android:layout_marginTop="10dp"
         android:layout_below="@id/title0"
         android:background="@drawable/textshape2"
@@ -56,6 +58,7 @@
 
             <TextView
                 android:id="@+id/title2"
+                android:textColor="@color/moren"
                 android:lineSpacingMultiplier="1.5"
                 android:textSize="15dp"
                 android:scrollbars="vertical"

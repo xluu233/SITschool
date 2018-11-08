@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -56,12 +57,14 @@
 
             <TextView
                 android:id="@+id/a"
+                android:textColor="@color/moren"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="上海应用技术大学" />
             <TextView
                 android:layout_gravity="center"
+                android:textColor="@color/moren"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="        学生助手"
@@ -78,6 +81,7 @@
 
             <TextView
                 android:id="@+id/version"
+                android:textColor="@color/moren"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +114,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
-                android:gravity="center">
+                android:gravity="center"
+                tools:ignore="RtlCompat">
 
                 <Button
                     android:id="@+id/clear"

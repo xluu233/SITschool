@@ -17,6 +17,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:textSize="14sp"
+            android:textColor="@color/moren"
             android:text="学生事务"/>
         <Button 
             android:id="@+id/btn_four"
@@ -24,6 +25,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:textSize="14sp"
+            android:textColor="@color/moren"
             android:text="学习课堂"/>
         <Button 
             android:id="@+id/btn_fifth"
@@ -31,6 +33,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:textSize="14sp"
+            android:textColor="@color/moren"
             android:text="校园文化"/>
         <Button
             android:id="@+id/btn_six"
@@ -38,6 +41,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:textSize="14sp"
+            android:textColor="@color/moren"
             android:text="公告信息"/>
         <Button
             android:id="@+id/btn_seven"
@@ -45,6 +49,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:textSize="14sp"
+            android:textColor="@color/moren"
             android:text="学院通知"/>
         <Button
             android:id="@+id/btn_eight"
@@ -52,6 +57,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:textSize="14sp"
+            android:textColor="@color/moren"
             android:text="文件下载"/>
         
     </LinearLayout>

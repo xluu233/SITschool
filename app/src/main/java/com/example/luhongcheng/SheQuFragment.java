@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+
 import java.util.ArrayList;
 
 public class SheQuFragment extends Fragment {
@@ -80,18 +82,18 @@ public class SheQuFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabSelected: ");
+               // Log.d(TAG, "onTabSelected: ");
                 viewPager.setCurrentItem(tabLayout.getSelectedTabPosition(), true);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabUnselected: ");
+               // Log.d(TAG, "onTabUnselected: ");
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabReselected: ");
+               // Log.d(TAG, "onTabReselected: ");
             }
         });
     }

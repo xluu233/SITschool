@@ -7,6 +7,7 @@
         android:id="@+id/title"
         android:gravity="left"
         android:textSize="12dp"
+        android:textColor="@color/moren"
         android:layout_margin="10dp"
         android:text="附件3：校优秀学生、优秀学生干部、先进集体汇总表.xls"
         android:layout_width="match_parent"

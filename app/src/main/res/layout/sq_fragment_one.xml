@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refreshLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -46,34 +47,53 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/A"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/choose_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="35dp"
+        android:src="@drawable/fab_add"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:background="@color/moren_back"
+        android:id="@+id/news_refresh"
         android:layout_below="@+id/lunhuan"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="-Box-" />
-
-        <ImageView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="1sp"
-            android:layout_marginTop="10dp"
-            android:background="#4090A4AE" />
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view2"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:background="@color/moren"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
 
-    </LinearLayout>
+            <ListView
+                android:id="@+id/my_news"
+                android:layout_marginTop="5dp"
+                android:dividerHeight="1px"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+
+        </LinearLayout>
+
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
 
 
 

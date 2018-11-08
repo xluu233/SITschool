@@ -14,7 +14,7 @@ public class SSS {
 	private String label;//标签
 	private String time;
 
-	public int getZan() {
+    public int getZan() {
 		return zan;
 	}
 
@@ -118,6 +118,17 @@ public class SSS {
 		this.label =label;
 		this.time = time;
 		this.zan =zan;
+	}
+
+	public SSS(String s, String s1, String s2,String s3) {
+
+		//title[i],time[i],image[i]
+		this.title =s;
+		this.time = s1;
+		this.imageUrl = s2;
+		this.iconUrl = s3;
+
+
 	}
 
 	public SSS(String imageUrl, String title) {

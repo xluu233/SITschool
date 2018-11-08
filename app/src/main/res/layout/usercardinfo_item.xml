@@ -21,7 +21,7 @@
                 android:id="@+id/A1"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textColor="#708090"
+                android:textColor="@color/moren"
                 android:gravity="left"/>
 
 
@@ -29,7 +29,7 @@
                 android:id="@+id/A3"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textColor="#708090"
+                android:textColor="@color/moren"
                 android:text="xixixi"
                 android:gravity="left"/>
 

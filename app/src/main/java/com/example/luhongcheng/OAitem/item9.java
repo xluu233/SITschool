@@ -57,7 +57,7 @@ public class item9 extends AppCompatActivity {
         mFragments.add(threeFragment);
     }
 
-    private static final String DOG_BREEDS[] = {"1", "2", "3"};
+    private static final String DOG_BREEDS[] = {"SIT1", "SIT2", "SIT3"};
 
     private void initView() {
         final TabLayout tabLayout = findViewById(R.id.tab_layout);
