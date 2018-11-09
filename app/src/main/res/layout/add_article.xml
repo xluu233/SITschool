@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        android:background="@color/red_300"
+        android:layout_width="match_parent"
+        app:title="分享文章"
+        android:layout_height="45dp">
+
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/img"
+        android:background="@drawable/layoutshape2"
+        android:src="@drawable/fab_add"
+        android:scaleType="center"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+
+    <LinearLayout
+        android:id="@+id/ss"
+        android:background="@drawable/layoutshape2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/title"
+            style="?android:attr/textViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="标题"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ssss"
+        android:background="@drawable/layoutshape2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/ss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/url"
+            style="?android:attr/textViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="链接"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip" />
+
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/send"
+        android:src="@drawable/ic_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp" />
+
+
+
+
+</RelativeLayout>

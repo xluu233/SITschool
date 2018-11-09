@@ -188,8 +188,8 @@ public class TwoFragment extends Fragment {
             @Override
             public void run() {
                 BmobQuery<SS> query = new BmobQuery<com.example.luhongcheng.Bmob.SS>();
-                query.order("-createdAt");
-                query.setLimit(500);
+                query.order("createdAt");
+                query.setLimit(100);
 
                 query.findObjects(new FindListener<SS>(){
                     @Override

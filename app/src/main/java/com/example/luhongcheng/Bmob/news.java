@@ -35,6 +35,14 @@ public class news extends BmobObject {
 
     String url;
 
+    public BmobFile getImage() {
+        return image;
+    }
+
+    public void setImage(BmobFile image) {
+        this.image = image;
+    }
+
     BmobFile image;
 
 

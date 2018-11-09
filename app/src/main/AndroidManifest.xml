@@ -100,6 +100,7 @@
         <activity android:name=".ImageFullDisplay"></activity>
         <activity android:name=".SQ.PingLun" android:theme="@style/myTransparent"/>
         <activity android:name=".WeiXin.Weixin_more"/>
+        <activity android:name=".SQ.Article_Add"/>
 
     </application>
 

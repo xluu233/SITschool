@@ -16,15 +16,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.Resource;
 import com.example.luhongcheng.Bmob.SQVP;
 import com.example.luhongcheng.Bmob.news;
 import com.example.luhongcheng.ImageLunhuanAdapter2;
@@ -41,7 +40,6 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
 
 
 public class OneFragment extends Fragment {
@@ -104,7 +102,7 @@ public class OneFragment extends Fragment {
     SwipeRefreshLayout refresh;
     ListView listView;
     List<SSS> mlist;
-    List<String> news_url;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,8 +125,6 @@ public class OneFragment extends Fragment {
         ll_tag=(LinearLayout) getView().findViewById(R.id.ll_tag);
         choose_box = (FloatingActionButton)getActivity().findViewById(R.id.choose_box);
         Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
-        // 设置页面间距
-        //vp.setPageMargin(20);
         vp.setPageTransformer(true, new ZoomOutPageTransformer());
         listView = (ListView)getActivity().findViewById(R.id.my_news);
         refresh = (SwipeRefreshLayout)getActivity().findViewById(R.id.news_refresh);
@@ -143,11 +139,30 @@ public class OneFragment extends Fragment {
         choose_box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
+                Intent intent = new Intent(getActivity(),Article_Add.class);
+                startActivity(intent);
             }
         });
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                boolean enable = false;
+                if (listView != null && listView.getChildCount() > 0) {
+                    boolean firstItemVisible = listView.getFirstVisiblePosition() == 0;
+                    boolean topOfFirstItemVisible = listView.getChildAt(0).getTop() == 0;
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                refresh.setEnabled(enable);
+            }
+        });
+
+
 
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -163,6 +178,7 @@ public class OneFragment extends Fragment {
                         }
                         //加载数据
                         getArticle();
+                        getUrl();
                         //关闭刷新
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -177,6 +193,9 @@ public class OneFragment extends Fragment {
 
             }
         });
+
+
+
     }
 
     private void getArticle() {
@@ -186,11 +205,9 @@ public class OneFragment extends Fragment {
         Thread getnews = new Thread(new Runnable() {
             @Override
             public void run() {
-
                 BmobQuery<news> query = new BmobQuery<news>();
-                //query.order("-createdAt");
-                //query.setLimit(500);
-
+                query.order("-createdAt");
+                query.setLimit(100);
                 query.findObjects(new FindListener<news>(){
                     @Override
                     public void done(final List<news> list, BmobException e) {
@@ -311,7 +328,6 @@ public class OneFragment extends Fragment {
         }
 
     }
-
 
 
     public void getUrl(){
