@@ -43,7 +43,7 @@ public class about0 extends AppCompatActivity {
             public void onClick(View v) {
                 ClipboardManager cmb = (ClipboardManager)getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText("IMAlex");
-                Toast.makeText(getApplicationContext(),"已复制到剪切板",Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),"已复制到剪切板",Toast.LENGTH_SHORT).show();
             }
         });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

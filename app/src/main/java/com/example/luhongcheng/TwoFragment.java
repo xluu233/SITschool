@@ -63,6 +63,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
     private  List<String> table = new ArrayList<String>();
 
     String str;
+    Button zong,bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt10,bt11,bt12,bt13,bt14,bt15,bt16,bt17,bt18,bt19,bt20;
 
 
 
@@ -79,27 +80,27 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         wb.setWebChromeClient(new WebChromeClient());
         wb.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
-        Button zong = (Button) getActivity().findViewById(R.id.zong);
-        Button bt1 = (Button) getActivity().findViewById(R.id.zhou1);
-        Button bt2 = (Button) getActivity().findViewById(R.id.zhou2);
-        Button bt3 = (Button) getActivity().findViewById(R.id.zhou3);
-        Button bt4 = (Button) getActivity().findViewById(R.id.zhou4);
-        Button bt5 = (Button) getActivity().findViewById(R.id.zhou5);
-        Button bt6 = (Button) getActivity().findViewById(R.id.zhou6);
-        Button bt7 = (Button) getActivity().findViewById(R.id.zhou7);
-        Button bt8 = (Button) getActivity().findViewById(R.id.zhou8);
-        Button bt9 = (Button) getActivity().findViewById(R.id.zhou9);
-        Button bt10 = (Button) getActivity().findViewById(R.id.zhou10);
-        Button bt11 = (Button) getActivity().findViewById(R.id.zhou11);
-        Button bt12 = (Button) getActivity().findViewById(R.id.zhou12);
-        Button bt13 = (Button) getActivity().findViewById(R.id.zhou13);
-        Button bt14 = (Button) getActivity().findViewById(R.id.zhou14);
-        Button bt15 = (Button) getActivity().findViewById(R.id.zhou15);
-        Button bt16 = (Button) getActivity().findViewById(R.id.zhou16);
-        Button bt17 = (Button) getActivity().findViewById(R.id.zhou17);
-        Button bt18 = (Button) getActivity().findViewById(R.id.zhou18);
-        Button bt19 = (Button) getActivity().findViewById(R.id.zhou19);
-        Button bt20= (Button) getActivity().findViewById(R.id.zhou20);
+        zong = (Button) getActivity().findViewById(R.id.zong);
+        bt1 = (Button) getActivity().findViewById(R.id.zhou1);
+        bt2 = (Button) getActivity().findViewById(R.id.zhou2);
+        bt3 = (Button) getActivity().findViewById(R.id.zhou3);
+        bt4 = (Button) getActivity().findViewById(R.id.zhou4);
+        bt5 = (Button) getActivity().findViewById(R.id.zhou5);
+        bt6 = (Button) getActivity().findViewById(R.id.zhou6);
+        bt7 = (Button) getActivity().findViewById(R.id.zhou7);
+        bt8 = (Button) getActivity().findViewById(R.id.zhou8);
+        bt9 = (Button) getActivity().findViewById(R.id.zhou9);
+        bt10 = (Button) getActivity().findViewById(R.id.zhou10);
+        bt11 = (Button) getActivity().findViewById(R.id.zhou11);
+        bt12 = (Button) getActivity().findViewById(R.id.zhou12);
+        bt13 = (Button) getActivity().findViewById(R.id.zhou13);
+        bt14 = (Button) getActivity().findViewById(R.id.zhou14);
+        bt15 = (Button) getActivity().findViewById(R.id.zhou15);
+        bt16 = (Button) getActivity().findViewById(R.id.zhou16);
+        bt17 = (Button) getActivity().findViewById(R.id.zhou17);
+        bt18 = (Button) getActivity().findViewById(R.id.zhou18);
+        bt19 = (Button) getActivity().findViewById(R.id.zhou19);
+        bt20= (Button) getActivity().findViewById(R.id.zhou20);
 
 
         zong.setOnClickListener(this);
@@ -129,6 +130,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
         getID();//学号密码
         getCookie();//获取cookie
+
 
     }
 
@@ -211,6 +213,9 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
                     }
                     str = str1+";"+str2+";"+str3+";"+str4;
 
+                    URL = "http://ems1.sit.edu.cn:85/student/selCourse/syllabuslist.jsp";
+                    postdata0();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -220,6 +225,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View whichbtn) {
         // TODO Auto-generated method stub
@@ -228,7 +234,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
             case R.id.zong:
                 //URL = "http://ems.sit.edu.cn:85/student/selCourse/syllabuslist.jsp?yearTerm=2018%C7%EF&yearTerm2=2018-2019%B5%DA1%D1%A7%C6%DA&cType=1";
                 URL = "http://ems1.sit.edu.cn:85/student/selCourse/syllabuslist.jsp";
-
                 postdata0();
                 break;
             /*

@@ -1,6 +1,8 @@
 package com.example.luhongcheng.OA;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +57,9 @@ public class Downloadadapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.A1.setText(newsList.get(position).getTitle());
-
+        AssetManager mgr = mContext.getAssets();
+        Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
+        viewHolder.A1.setTypeface(tf);
 
         return view;
     }

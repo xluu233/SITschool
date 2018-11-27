@@ -6,46 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/lunhuan"
-        android:layout_width="fill_parent"
-        android:layout_height="160dip"
-        android:layout_below="@+id/tt">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true">
-            </android.support.v4.view.ViewPager>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="15dip"
-                android:orientation="vertical"
-                android:layout_gravity="bottom"
-                android:layout_alignParentBottom="true"
-                android:gravity="center">
-
-                <LinearLayout
-                    android:id="@+id/ll_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    >
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/choose_box"
@@ -62,7 +22,6 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:background="@color/moren_back"
         android:id="@+id/news_refresh"
-        android:layout_below="@+id/lunhuan"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -71,15 +30,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:background="@color/moren"
-                android:layout_width="match_parent"
-                android:layout_height="1px" />
 
             <ListView
                 android:id="@+id/my_news"
                 android:layout_marginTop="5dp"
-                android:dividerHeight="1px"
+                android:dividerHeight="0dp"
+                android:divider="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

@@ -11,4 +11,12 @@
 		<attr name="borderWidth" format="dimension" />
 		<attr name="borderColor" format="integer" />
 	</declare-styleable>
+
+	//圆形ImageView
+	<declare-styleable name="CircleImageView">
+		<attr name="border_width" format="dimension" />
+		<attr name="border_color" format="color" />
+	</declare-styleable>
+
+
 </resources>

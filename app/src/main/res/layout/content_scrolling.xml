@@ -23,9 +23,9 @@
 
             <ListView
                 android:id="@+id/list_view_ss"
-                android:divider="#4090A4AE"
-                android:dividerHeight="5dp"
                 android:layout_marginBottom="50dp"
+                android:divider="@color/white"
+                android:dividerHeight="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

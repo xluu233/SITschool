@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -80,6 +82,12 @@ public class OADisplayActvivity extends AppCompatActivity {
                     title0.setText(getT0(T0));
                     title1.setText(getT1(T1));
                     title2.setText(getT2(T2));
+
+                    AssetManager mgr = getAssets();
+                    Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
+                    title0.setTypeface(tf);
+                    title1.setTypeface(tf);
+                    title2.setTypeface(tf);
 
                 }
             }

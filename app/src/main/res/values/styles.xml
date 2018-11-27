@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/red_300</item>
         <item name="colorPrimaryDark">@color/red_300</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
 

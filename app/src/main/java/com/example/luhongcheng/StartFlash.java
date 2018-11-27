@@ -39,10 +39,10 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class StartFlash extends Activity {
 
-    int n;
+
     private Intent intent;
     private static Bitmap bitmap;
-    private static ImageButton mImageView;
+    private static ImageView mImageView;
     private static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -63,9 +63,8 @@ public class StartFlash extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.startflash);
-        mImageView = (ImageButton) findViewById(R.id.kaiji);
+        mImageView = (ImageView) findViewById(R.id.kaiji);
         skip = (Button)findViewById(R.id.skip);
-        //bmob sdk
         Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -85,27 +84,12 @@ public class StartFlash extends Activity {
                         tip[i] = list.get(i).getimageUrl();
                         url[i] = list.get(i).getUrl();
 
-                        String num = list.get(0).getLoginNum();
-                        n= Integer.parseInt(num);
                     }
                    // click_url = url[list.size() - 1];
                     ImageUrl = tip[list.size() - 1];
                     postUrl(ImageUrl);
                 }else{
                     //Log.i("bmob图片","失败："+e.getMessage()+","+e.getErrorCode());
-                }
-            }
-        });
-
-        //登陆次数
-        n=n+1;
-        LOGO lalal = new LOGO();
-        lalal.setLoginNum(String.valueOf(n++));
-        lalal.update("BQpAHHHX", new UpdateListener() {
-            @Override
-            public void done(BmobException e) {
-                if(e==null){
-                }else{
                 }
             }
         });

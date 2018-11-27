@@ -84,6 +84,7 @@ public class FourFragment extends Fragment {
 
     class BoxAdapter2 extends RecyclerView.Adapter<BoxAdapter2.ViewHolder>{
         private List<Box> mFruitList;
+
         class ViewHolder extends RecyclerView.ViewHolder {
             View fruitView;
             ImageView fruitImage;

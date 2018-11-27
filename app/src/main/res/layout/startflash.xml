@@ -19,7 +19,7 @@
         android:layout_alignParentRight="true" />
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/kaiji"
         android:background="@color/white"
         android:layout_gravity="center"

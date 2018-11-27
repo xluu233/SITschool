@@ -28,7 +28,7 @@
                 android:lineSpacingMultiplier="1.2"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="20dp"
-                android:textSize="13dp"
+                android:textSize="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 

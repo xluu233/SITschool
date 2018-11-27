@@ -5,14 +5,22 @@
     android:layout_height="match_parent"
     android:background="#7adfb8" >
 
-    <include
-        android:id="@+id/main_title"
-        layout="@layout/title_layout" />
+    <ImageView
+        android:id="@+id/shareapp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_share" />
 
     <LinearLayout
+        android:id="@+id/title"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_title"
+        android:layout_below="@+id/shareapp"
         android:orientation="vertical" >
 
 
@@ -26,11 +34,11 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="上海应用技术大学"
             android:textColor="#ffffff"
-            android:textSize="28sp" />
+            android:textSize="26sp" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -38,21 +46,98 @@
             android:gravity="center"
             android:text="学生助手"
             android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/xiix"
+        android:layout_below="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" >
 
-        <include
-            android:id="@+id/input_layout"
+        <RelativeLayout
+            android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            layout="@layout/input_layout" />
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/radius_drawable_bg"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+
+            <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/ProgressBar2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+
+            <LinearLayout
+                android:id="@+id/input_layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:src="@drawable/paw_code" />
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dip"
+                    android:background="#00000000"
+                    android:hint="学号"
+                    android:padding="5dip"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_below="@+id/input_layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="5dip"
+                android:background="#eeeeee" />
+
+            <LinearLayout
+                android:id="@+id/input_layout_psw"
+                android:layout_below="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:src="@drawable/paw_left" />
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="10dip"
+                    android:background="#00000000"
+                    android:hint="密码"
+                    android:inputType="textPassword"
+                    android:padding="5dip"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
 
 
 
@@ -60,7 +145,7 @@
             android:id="@+id/main_btn_login"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:layout_below="@+id/input_layout"
+            android:layout_below="@+id/user"
             android:layout_centerInParent="true"
             android:layout_marginTop="15dip"
             android:background="@drawable/text_bg"
@@ -101,7 +186,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="12dp"
+        tools:ignore="RtlCompat">
 
         <TextView
             android:id="@+id/version"

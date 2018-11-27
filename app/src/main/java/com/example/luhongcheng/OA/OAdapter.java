@@ -1,6 +1,8 @@
 package com.example.luhongcheng.OA;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,12 @@ public class OAdapter extends BaseAdapter {
         viewHolder.A1.setText(newsList.get(position).getA1());
         //viewHolder.A2.setText(" "+newsList.get(position).getA2());
         viewHolder.A3.setText(newsList.get(position).getA3());
+
+        AssetManager mgr = mContext.getAssets();
+        Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
+        viewHolder.A1.setTypeface(tf);
+        viewHolder.A3.setTypeface(tf);
+
         return view;
     }
 

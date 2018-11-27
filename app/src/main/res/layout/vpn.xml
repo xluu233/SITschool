@@ -10,7 +10,7 @@
         android:textColor="@color/moren"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="手机连接VPN请下载天融信“安全接入”app" />
+        android:text="手机连接内网请下载天融信“安全接入”app" />
 
     <TextView
         android:gravity="center"
@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/down_vpn"
-        android:text="下载VPN软件"
+        android:text="下载软件"
         android:layout_gravity="center"
         android:background="@drawable/button_shape1"
         android:layout_width="150dp"

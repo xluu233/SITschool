@@ -34,6 +34,8 @@ public class Article_Add extends AppCompatActivity {
     FloatingActionButton send;
     public static final int CHOOSE_PHOTO = 1;
     Toolbar toolbar;
+    int select = 0;//发送-点击次数；
+    Uri uri;//图片地址
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,42 @@ public class Article_Add extends AppCompatActivity {
 
         onClick();
 
+        /*
+        *
+        *         // 获取启动这个activity的Intent
+        Intent intent = getIntent();
+        Uri data = intent.getData();
+
+        url.setText((CharSequence) data);
+
+        // 根据intent的类型决定做什么
+        if (intent.getType().indexOf("image/") != -1) {
+           uri = data;
+        } else if (intent.getType().equals("text/plain")) {
+           url.setText((CharSequence) data);
+        }
+        * */
+
+
+        Intent intent = getIntent();
+        if(intent == null)
+            return;
+        Bundle extras = intent.getExtras();
+
+        if(extras == null)
+            return;
+
+        switch (intent.getType()) {
+            case "text/plain"://分享的内容类型，如果png图片：image/png 
+                title.setText((CharSequence) extras.get(Intent.EXTRA_TITLE));
+                url.setText((CharSequence) extras.get(Intent.EXTRA_TEXT));
+                break;
+            case "image/png":
+                Toast.makeText(getApplicationContext(),"分享的是图片",Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
     }
 
     private void onClick() {
@@ -78,47 +116,52 @@ public class Article_Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String news_title,news_url,icon_path;
-                news_title = title.getText().toString();
-                news_url = url.getText().toString();
-                icon_path = imagePath;
-                if (icon_path == null){
-                    Toast.makeText(Article_Add.this,"请选择图片",Toast.LENGTH_SHORT).show();
-                }else if (news_title == null  || news_url ==null){
-                    Toast.makeText(Article_Add.this,"请输入完整信息",Toast.LENGTH_SHORT).show();
-                }else if (!news_url.contains("http")){
-                    Toast.makeText(Article_Add.this,"请输入正确链接地址",Toast.LENGTH_SHORT).show();
-                }else {
-                    final BmobFile bmobfile = new BmobFile(new File(icon_path));
-                    bmobfile.upload(new UploadFileListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if (e == null) {
-                                news object = new  news();
-                                object.setTitle(news_title);
-                                object.setUrl(news_url);
-                                object.setImage(bmobfile);
+                if (select == 0){
+                    final String news_title,news_url,icon_path;
+                    news_title = title.getText().toString();
+                    news_url = url.getText().toString();
+                    icon_path = imagePath;
+                    if (icon_path == null){
+                        Toast.makeText(Article_Add.this,"请选择图片",Toast.LENGTH_SHORT).show();
+                    }else if (news_title == null  || news_url ==null){
+                        Toast.makeText(Article_Add.this,"请输入完整信息",Toast.LENGTH_SHORT).show();
+                    }else if (!news_url.contains("http")){
+                        Toast.makeText(Article_Add.this,"请输入正确链接地址",Toast.LENGTH_SHORT).show();
+                    }else {
+                        final BmobFile bmobfile = new BmobFile(new File(icon_path));
+                        bmobfile.upload(new UploadFileListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if (e == null) {
+                                    news object = new  news();
+                                    object.setTitle(news_title);
+                                    object.setUrl(news_url);
+                                    object.setImage(bmobfile);
 
-                                object.save(new SaveListener<String>() {
-                                    @Override
-                                    public void done(String s, BmobException e) {
-                                        if(e==null){
-                                            Toast.makeText(Article_Add.this, "恭喜你，发布成功", Toast.LENGTH_SHORT).show();
-                                            Article_Add.this.finish();
-                                        }else{
-                                            Toast.makeText(Article_Add.this, "失败", Toast.LENGTH_SHORT).show();
-                                            // Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+                                    object.save(new SaveListener<String>() {
+                                        @Override
+                                        public void done(String s, BmobException e) {
+                                            if(e==null){
+                                                Toast.makeText(Article_Add.this, "恭喜你，发布成功", Toast.LENGTH_SHORT).show();
+                                                Article_Add.this.finish();
+                                            }else{
+                                                Toast.makeText(Article_Add.this, "失败", Toast.LENGTH_SHORT).show();
+                                                // Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+                                            }
                                         }
-                                    }
-                                });
+                                    });
 
 
-                            } else {
-                                Toast.makeText(Article_Add.this, "文件上传失败", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Article_Add.this, "文件上传失败", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
 
+                    }
+                    select ++;
+                }else {
+                    Toast.makeText(getApplicationContext(),"正在发布，请不要重复点击",Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -154,7 +197,7 @@ public class Article_Add extends AppCompatActivity {
     String imagePath = null;
     @SuppressLint("NewApi")
     private void handleIMageOnKitKat(Intent data) {
-        Uri uri = data.getData();
+        uri = data.getData();
         if (DocumentsContract.isDocumentUri(this , uri)){
             //如果是document类型的URI，则使用document id处理
             String docId = DocumentsContract.getDocumentId(uri);

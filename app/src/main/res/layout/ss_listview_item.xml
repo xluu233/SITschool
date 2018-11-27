@@ -2,95 +2,119 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/textshape2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <RelativeLayout
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="17dp"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_launcher"
-            android:layout_width="50dp"
-            android:layout_height="40dp" />
-
-        <TextView
-            android:id="@+id/nickname"
-            android:layout_margin="3dp"
-            android:textColor="@color/black"
-            android:layout_toRightOf="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text="Alex233" />
-
-        <TextView
-            android:id="@+id/qm"
-            android:layout_marginLeft="3dp"
-            android:layout_toRightOf="@+id/icon"
-            android:layout_below="@+id/nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:textSize="10dp"
-            android:text="百鬼藏心中" />
-
-    </RelativeLayout>
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_marginTop="7dp"
-            android:id="@+id/content"
-            android:text="这个是测试信息"
-            android:textColor="@color/black"
-            android:lineSpacingMultiplier="1.3"
-            android:scrollbars="vertical"
+        <LinearLayout
+            android:background="@drawable/textshape1"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="150dp"/>
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/img"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:scaleType="center"
-            android:layout_width="200dp"
-            android:layout_height="200dp"/>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.example.luhongcheng.CircleImageView
+                    android:id="@+id/icon"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp" />
+
+                <TextView
+                    android:id="@+id/nickname"
+                    android:layout_margin="3dp"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="Alex233" />
+
+                <TextView
+                    android:id="@+id/qm"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_below="@+id/nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:textSize="10dp"
+                    android:text="百鬼藏心中" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:background="#4090A4AE"
+                android:layout_width="match_parent"
+                android:layout_height="1sp" />
+
+            <LinearLayout
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="7dp"
+                    android:id="@+id/content"
+                    android:text="这个是测试信息"
+                    android:textColor="@color/black"
+                    android:lineSpacingMultiplier="1.3"
+                    android:scrollbars="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="150dp"/>
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:scaleType="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:background="@drawable/textshape1"
+        android:layout_marginTop="3dp"
         android:layout_width="match_parent"
         android:layout_height="30dp">
 
         <TextView
             android:id="@+id/label"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center"
             android:background="@drawable/button_shape1"
             android:textSize="10dp"
             android:gravity="center"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="70dp"
+            android:layout_height="23dp" />
 
         <ImageView
             android:id="@+id/zan"
             android:layout_gravity="center"
-            android:layout_marginLeft="170dp"
+            android:layout_marginLeft="210dp"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerInParent="true"
@@ -99,7 +123,7 @@
 
         <TextView
             android:id="@+id/zan_nums"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_gravity="center"
             android:text="0"
             android:layout_width="wrap_content"
@@ -108,7 +132,7 @@
         <ImageView
             android:id="@+id/pinglun"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_centerInParent="true"
             android:clickable="true"
             android:src="@drawable/pinglun"
@@ -117,11 +141,7 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_marginTop="10dp"
-        android:background="#4090A4AE"
-        android:layout_width="match_parent"
-        android:layout_height="1sp" />
+
 
 
 

@@ -112,10 +112,10 @@ public class OneFragment extends Fragment{
     private ViewPager vp;
     //准备好三张网络图片的地址
     private String imageUrl[]=new String[]
-            {"http://www.sit.edu.cn/page/main297/images/1.jpg",
-                    "http://www.sit.edu.cn/page/main297/images/2.jpg",
-                    "http://www.sit.edu.cn/page/main297/images/3.jpg",
-                    "http://www.sit.edu.cn/page/main297/images/4.jpg"};
+            {"http://www.sit.edu.cn/_upload/article/images/fd/24/913fa2ae4dc88bf724a71a530894/bb653676-1b6c-4e50-bd30-c0213af59eb9.jpg",
+                    "http://www.sit.edu.cn/_upload/article/images/a9/d3/76e681a242adbbebb4535280a80b/c2b923c4-d810-414f-a4be-9488f7cf399e.jpg",
+                    "http://www.sit.edu.cn/_upload/article/images/fa/92/ba956995444ab5d9949e0c4a9e9e/32ecaf27-6854-4fa3-9a22-fb57e9b207fc.jpg",
+                    "http://www.sit.edu.cn/_upload/article/images/5a/ce/852e2e394bee8d00cca59870d5de/0267dfee-8ff9-4ea5-be0f-d6bbd89d68d4.jpg"};
     //装载下载图片的集合
     private List<ImageView> data;
     //控制图片是否开始轮播的开关,默认关的
@@ -439,7 +439,7 @@ public class OneFragment extends Fragment{
                 R.mipmap.g15};
         //图标下的文字
         String name[]={"学院","第二课堂","OA主页","成绩",
-                "电费","考试","学生卡","失物招领","读书馆","资讯","微信","更多"};
+                "电费","考试","学生卡","失物招领","读书馆","公告","微信","更多"};
 
         dataList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <icno.length; i++) {
@@ -616,7 +616,7 @@ public class OneFragment extends Fragment{
                 Intent intent2=new Intent();
                 intent2 = packageManager.getLaunchIntentForPackage("com.topsec.topsap");
                 if(intent2==null){
-                    Toast.makeText(getActivity(), "未安装VPN软件", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "未安装！！", Toast.LENGTH_LONG).show();
                     Intent intent3= new Intent(getActivity(),connect_vpn.class);
                     startActivity(intent3);
                 }else{

@@ -6,15 +6,6 @@ import cn.bmob.v3.datatype.BmobFile;
 public class LOGO extends BmobObject {
 
 
-    public String getLoginNum() {
-        return LoginNum;
-    }
-
-    public void setLoginNum(String loginNum) {
-        LoginNum = loginNum;
-    }
-
-    String LoginNum;
     public BmobFile getImage() {
         return image;
     }

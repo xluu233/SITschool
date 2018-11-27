@@ -19,9 +19,9 @@
             android:id="@+id/shareapp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/share"/>
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_share"/>
 
     </RelativeLayout>
 
@@ -104,7 +104,7 @@
             <ListView
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"/>
+                android:layout_height="280dp"/>
 
             <RelativeLayout
                 android:id="@+id/clear1"

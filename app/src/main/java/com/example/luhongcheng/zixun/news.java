@@ -64,7 +64,7 @@ public class news extends Activity implements OnClickListener, OnPageChangeListe
 				try {
 					OkHttpClient client = new OkHttpClient();
 					Request request1 = new Request.Builder()
-							.url("http://www.sit.edu.cn/s/97/t/300/main.htm")
+							.url("http://www.sit.edu.cn/")
 							.build();
 
 					Response response1 = client.newCall(request1).execute();

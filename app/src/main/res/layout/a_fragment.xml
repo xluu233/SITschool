@@ -188,7 +188,7 @@
                         <TextView
                             android:id="@+id/weather"
                             android:text="今日天气："
-                            android:textSize="11dp"
+                            android:textSize="13dp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             android:layout_width="200dp"
@@ -197,11 +197,12 @@
                         <Button
                             android:id="@+id/more"
                             android:gravity="right"
+                            android:textColor="@color/colorAccent"
                             android:background="@color/transparent"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
-                            android:text="更多"
-                            android:textSize="11dp"/>
+                            android:text="更多>"
+                            android:textSize="10dp"/>
 
                     </LinearLayout>
 
@@ -232,7 +233,7 @@
                             android:gravity="center"
                             android:layout_toRightOf="@+id/weather_icon"
                             android:layout_width="80dp"
-                            android:text="19℃"
+                            android:text="--℃"
                             android:layout_height="match_parent"
                             android:textSize="32dp"
                             android:textStyle="bold"/>
@@ -297,7 +298,7 @@
                         android:layout_height="20dp">
                         <TextView
                             android:text="News:"
-                            android:textSize="11dp"
+                            android:textSize="13dp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             android:layout_width="200dp"
@@ -309,8 +310,9 @@
                             android:background="@color/transparent"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
-                            android:text="更多"
-                            android:textSize="11dp"/>
+                            android:text="更多>"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="10dp"/>
 
                     </LinearLayout>
 
@@ -387,7 +389,7 @@
                         <Button
                             android:background="@color/white"
                             android:text="热门话题"
-                            android:textSize="11dp"
+                            android:textSize="13dp"
                             android:gravity="left"
                             android:textStyle="bold"
                             android:layout_width="200dp"
@@ -396,8 +398,9 @@
                         <Button
                             android:id="@+id/moreBox"
                             android:background="@color/white"
-                            android:textSize="11dp"
-                            android:text="更多"
+                            android:textSize="10dp"
+                            android:text="更多>"
+                            android:textColor="@color/colorAccent"
                             android:gravity="right"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
@@ -454,7 +457,7 @@
                         android:layout_height="20dp">
                         <TextView
                             android:text="招领信息:"
-                            android:textSize="11dp"
+                            android:textSize="13dp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             android:layout_width="200dp"

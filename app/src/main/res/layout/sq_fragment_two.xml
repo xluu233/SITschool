@@ -12,10 +12,10 @@
 
         <ListView
             android:id="@+id/ss_listView"
+            android:dividerHeight="0dp"
+            android:divider="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="#4090A4AE"
-            android:dividerHeight="5sp">
+            android:layout_height="match_parent">
 
         </ListView>
 

@@ -164,6 +164,7 @@ public class SixFragment extends Fragment {
 
 					for(int j = 2;j < link.size();j++){
 						String A1 = link.get(j).select("a").text();
+						A1 = A1.replace("·","");
 						//System.out.println("A1"+A1.toString());
 
 						String A2 = link.get(j).select("a").attr("href");

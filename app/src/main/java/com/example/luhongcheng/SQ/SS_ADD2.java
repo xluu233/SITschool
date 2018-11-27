@@ -45,6 +45,7 @@ public class SS_ADD2 extends AppCompatActivity {
     EditText content;
     FloatingActionButton send;
     public static final int CHOOSE_PHOTO = 1;
+    int select =0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +124,8 @@ public class SS_ADD2 extends AppCompatActivity {
 
                 if (ID.length() == 0){
                     Toast.makeText(getApplicationContext(),"获取personID失败,请转到个人中心查看",Toast.LENGTH_LONG).show();
+                }else if (select !=0){
+                    Toast.makeText(getApplicationContext(),"正在发布，请不要重复点击",Toast.LENGTH_SHORT).show();
                 }else {
                     final String neirong,biaoqian,personID,icon_path;
                     neirong = content.getText().toString();
@@ -164,6 +167,7 @@ public class SS_ADD2 extends AppCompatActivity {
                                 }
                             }
                         });
+                        select++;
 
                     }
 

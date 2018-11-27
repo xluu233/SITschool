@@ -1,6 +1,8 @@
 package com.example.luhongcheng;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -98,6 +100,12 @@ public class MoreTips extends AppCompatActivity {
                                     }
                                     viewHolder.tv_title.setText(title[position]);
                                     viewHolder.time.setText(time[position]);
+
+                                    AssetManager mgr = getAssets();
+                                    Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
+                                    viewHolder.time.setTypeface(tf);
+                                    viewHolder.tv_title.setTypeface(tf);
+
                                     return convertView;
                                 }
                                 class ViewHolder{

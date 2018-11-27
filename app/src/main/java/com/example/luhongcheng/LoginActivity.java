@@ -55,7 +55,6 @@ public class LoginActivity extends Activity {
 
     private EditText username,password;
     private TextView main_btn_login,main_btn_nologin;
-    private View mInputLayout;
     String usernameid;
     String passwordid;
     ProgressBar progressBar;
@@ -74,7 +73,6 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_main_startflash);
         main_btn_login = (TextView) findViewById(R.id.main_btn_login);
         main_btn_nologin=(TextView) findViewById(R.id.main_btn_nologin);
-        mInputLayout = findViewById(R.id.input_layout);
         username=(EditText)findViewById(R.id.username);
         password=(EditText)findViewById(R.id.password);
         progressBar = (ProgressBar)findViewById(R.id.ProgressBar2);

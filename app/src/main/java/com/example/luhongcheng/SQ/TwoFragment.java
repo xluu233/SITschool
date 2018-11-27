@@ -76,7 +76,6 @@ public class TwoFragment extends Fragment {
                             Intent intent = new Intent(getActivity(),ssDisPlay.class);
                             intent.putExtra("objectID",news.getSsID());
                             intent.putExtra("personID",news.getPersonID());
-
                             intent.putExtra("iconUrl",news.getIconUrl());
                             intent.putExtra("imageUrl",news.getImageUrl());
                             intent.putExtra("content",news.getTitle());
@@ -274,7 +273,6 @@ public class TwoFragment extends Fragment {
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
 
-
                 mHandler2.obtainMessage(0).sendToTarget();
 
             }
@@ -282,7 +280,6 @@ public class TwoFragment extends Fragment {
 
 
     }
-
 
 
     public class SSAdaper33 extends BaseAdapter {
