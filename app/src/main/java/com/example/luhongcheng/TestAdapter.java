@@ -1,6 +1,8 @@
 package com.example.luhongcheng;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +49,6 @@ public class TestAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.a1 = (TextView) view.findViewById(R.id.A1);
             viewHolder.a2 = (TextView)view.findViewById(R.id.A2);
-            viewHolder.a3 = (TextView)view.findViewById(R.id.A3);
-            viewHolder.a4 = (TextView)view.findViewById(R.id.A4);
-            viewHolder.a5 = (TextView)view.findViewById(R.id.A5);
             view.setTag(viewHolder);
         } else {
             view = convertView;
@@ -57,18 +56,17 @@ public class TestAdapter extends BaseAdapter {
         }
         viewHolder.a1.setText(" "+newsList.get(position).geta1());
         viewHolder.a2.setText(" "+newsList.get(position).geta2());
-        viewHolder.a3.setText(" "+newsList.get(position).geta3());
-        viewHolder.a4.setText(" "+newsList.get(position).geta4());
-        viewHolder.a5.setText(" "+newsList.get(position).geta5());
+
+        AssetManager mgr = mContext.getAssets();
+        Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
+        viewHolder.a2.setTypeface(tf);
+
         return view;
     }
 
     class ViewHolder{
         TextView a1;
         TextView a2;
-        TextView a3;
-        TextView a4;
-        TextView a5;
     }
 
 }

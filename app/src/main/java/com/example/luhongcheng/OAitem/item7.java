@@ -48,9 +48,7 @@ public class  item7 extends Activity implements View.OnClickListener {
     List<String> cookies;
     String b = "http://ems.sit.edu.cn/";
     String a2;
-    String a3;
-    String a4;
-    String a5;
+
 
     String xuehao;
     String mima;
@@ -134,9 +132,9 @@ public class  item7 extends Activity implements View.OnClickListener {
                     Response response1 = client.newCall(request1).execute();
                     String responseData1 = response1.body().string();
                     final Headers headers1 = response1.headers();
-                    Log.i("头信息11", "header " + headers1);
+                    //Log.d("头信息11", "header " + headers1);
                     cookies = headers1.values("Set-Cookie"); //这是另一种获取cookie的方法
-                    Log.i("JSESSIONID11", "onResponse-size: " + cookies);
+                    //Log.d("JSESSIONID11", "onResponse-size: " + cookies);
 
                     String[] aa = cookies.toArray(new String[cookies.size()]);
                     String str1 = null;
@@ -176,25 +174,30 @@ public class  item7 extends Activity implements View.OnClickListener {
                     Response response2 = client.newCall(request2).execute();
                     String responseData2 = response2.body().string();
                     final Headers headers2 = response2.headers();
-                    Log.i("头信息22", "header " + headers2);
+                    //Log.d("头信息22", "header " + headers2);
                     cookies = headers2.values("Set-Cookie"); //这是另一种获取cookie的方法
-                    Log.i("cookie22", "onResponse-size: " + cookies);
+                    //Log.d("cookie22", "onResponse-size: " + cookies);
 
                     String[] bb = cookies.toArray(new String[cookies.size()]);
                     String str3 = null;
                     String str4 = null;
+                    String str5 = null;
                     for (int i = 0; i < bb.length; ++i) {
                         str3 = bb[i=0];
                         str4 = bb[i=1];
+                        str5 = bb[i=2];
                     }
+                    //System.out.println("3:"+str3.toString());
+                    //System.out.println("4:"+str4.toString());
+                    //System.out.println("5:"+str5.toString());
 
                     String str = str1+";"+str2+";"+str3+";"+str4;
-
-                    Log.i("str", " " + str);
+                    //System.out.println("总共的cookies:"+str.toString());
 
                     Request request3 = new Request.Builder()
                             .url("http://ems.sit.edu.cn:85/student/main.jsp")
                             .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
+                            // .header("Accept-Encoding", "gzip, deflate")
                             .header("Accept-Language", "zh-CN,zh;q=0.9")
                             .header("Cache-Control","max-age=0")
                             .header("Connection", "Keep-Alive")
@@ -202,7 +205,7 @@ public class  item7 extends Activity implements View.OnClickListener {
                             .header("Host", "ems.sit.edu.cn:85")
                             .header("Referer", "http://ems.sit.edu.cn:85/")
                             .header("Upgrade-Insecure-Requests","1")
-                            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.10 Safari/537.36")
+                            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
                             .build();
                     Response response3 = client.newCall(request3).execute();
                     String responseData3 = response3.body().string();
@@ -211,12 +214,11 @@ public class  item7 extends Activity implements View.OnClickListener {
 
                     okHttpClient.newCall(request3).enqueue(new Callback() {
                         @Override
-                        public void onFailure(Call call, IOException e) {
-                            Log.i("源代码", "获取失败 ");
+                        public void onFailure(okhttp3.Call call, IOException e) {
                         }
                         @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            Log.i("源代码", "onResponse: " + response.body().string());
+                        public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                           // Log.e("源代码", "onResponse: " + response.body().string().toString());
                         }
                     });
 
@@ -229,7 +231,6 @@ public class  item7 extends Activity implements View.OnClickListener {
         }).start();
     }
 
-
     private void getNews(final String responseData3){
         new Thread(new Runnable() {
             @Override
@@ -241,21 +242,18 @@ public class  item7 extends Activity implements View.OnClickListener {
                         int a1 = j-1;
 
                         a2 = link.get(j).select("td").text();
-                        System.out.println("a2："+a2.toString());
+                        System.out.println("考试安排："+a2.toString());
+                        a2 = a2.replaceAll("第","\n 第");
 
-                        a3="";
-                        a4="";
-                        a5="";
-
-                        Test news = new Test(a1,a2,a3,a4,a5);
-                        newsList.add(news);
-
+                        Test ne  = new Test(a1,a2);
+                        newsList.add(ne);
                     }
 
 
                     Message msg = new Message();
                     msg.what = 1;
                     handler.sendMessage(msg);
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -264,6 +262,8 @@ public class  item7 extends Activity implements View.OnClickListener {
     }
 
 }
+
+
 
 
 

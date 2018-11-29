@@ -114,13 +114,14 @@
 
 
 
-                <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+                <GridView
                     android:id="@+id/gridview"
-                    android:background="#ffffff"
-                    android:layout_width="fill_parent"
-                    android:layout_height="170dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
                     android:numColumns="4"
                     android:gravity="center"
+                    android:verticalSpacing="10dp"
                     android:layout_below="@+id/cutelinear"
                     tools:ignore="NotSibling" />
 

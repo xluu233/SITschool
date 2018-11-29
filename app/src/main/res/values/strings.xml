@@ -3,4 +3,17 @@
     <string name="open">打开</string>
     <string name="close">关闭</string>
 
+    <string name="A1">#今日最佳#</string>
+    <string name="A2">#众话说#</string>
+    <string name="A3">#表白墙#</string>
+    <string name="A4">#学习交流#</string>
+    <string name="A5">#安利#</string>
+    <string name="A6">#一日三餐#</string>
+    <string name="A7">#需求池#</string>
+    <string name="A8">#工具推荐#</string>
+    <string name="A9">#考研党#</string>
+    <string name="A10">#周边推荐#</string>
+    <string name="A11">#每日一听#</string>
+    <string name="A12">#晨读打卡#</string>
+
 </resources>

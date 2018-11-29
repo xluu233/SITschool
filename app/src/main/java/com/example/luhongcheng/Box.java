@@ -2,16 +2,18 @@ package com.example.luhongcheng;
 
 public class Box {
 
-    private String name;
+    private int name;
 
     private int imageId;
 
-    public Box(String name, int imageId) {
+    public Box(int name, int imageId) {
         this.name = name;
         this.imageId = imageId;
     }
 
-    public String getName() {
+
+
+    public int getName() {
         return name;
     }
 

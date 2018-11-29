@@ -67,29 +67,29 @@ public class ssDisPlay extends AppCompatActivity {
         if (label != null){
 
             if (label.equals("A1")){
-                tv_label.setText("#今日最佳#");
+                tv_label.setText(R.string.A1);
             }else if (label.equals("A2")){
-                tv_label.setText("#一日三餐#");
+                tv_label.setText(R.string.A6);
             }else if (label.equals("A3")){
-                tv_label.setText("#表白墙#");
+                tv_label.setText(R.string.A3);
             } else if (label.equals("A4")){
-                tv_label.setText("#众话说#");
+                tv_label.setText(R.string.A2);
             } else if (label.equals("A5")){
-                tv_label.setText("#工具推荐#");
+                tv_label.setText(R.string.A8);
             } else if (label.equals("A6")){
-                tv_label.setText("#学习交流#");
+                tv_label.setText(R.string.A4);
             } else if (label.equals("A7")){
-                tv_label.setText("#安利#");
+                tv_label.setText(R.string.A5);
             } else if (label.equals("A8")){
-                tv_label.setText("#需求池#");
+                tv_label.setText(R.string.A7);
             } else if (label.equals("A9")){
-                tv_label.setText("#考研党#");
+                tv_label.setText(R.string.A9);
             } else if (label.equals("A10")){
-                tv_label.setText("#周边推荐#");
+                tv_label.setText(R.string.A10);
             } else if (label.equals("A11")){
-                tv_label.setText("#每日一听#");
+                tv_label.setText(R.string.A11);
             }else if (label.equals("A12")){
-                tv_label.setText("#晨读打卡#");
+                tv_label.setText(R.string.A12);
             } else if (label.equals("A13")){
                 tv_label.setText("#谈天说地#");
             }

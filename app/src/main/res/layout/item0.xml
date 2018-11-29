@@ -42,9 +42,10 @@
                 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/gridview2"
                     android:layout_marginTop="15dp"
-                    android:background="#ffffff"
-                    android:layout_width="fill_parent"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
                     android:layout_height="170dp"
+                    android:verticalSpacing="10dp"
                     android:numColumns="3"
                     android:gravity="center" />
 

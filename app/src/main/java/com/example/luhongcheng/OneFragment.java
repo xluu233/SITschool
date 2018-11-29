@@ -743,19 +743,19 @@ public class OneFragment extends Fragment{
 
 
     private void initFruits() {
-        Box orange = new Box("#今日最佳#", R.drawable.best_min);
+        Box orange = new Box(R.string.A1, R.drawable.best_min);
         fruitList.add(orange);
-        Box apple = new Box("#众话说#", R.drawable.talk_min);
+        Box apple = new Box(R.string.A2, R.drawable.talk_min);
         fruitList.add(apple);
-        Box banana = new Box("#表白墙#", R.drawable.love_min);
+        Box banana = new Box(R.string.A3, R.drawable.love_min);
         fruitList.add(banana);
-        Box watermelon = new Box("#学习交流#", R.drawable.learn_min);
+        Box watermelon = new Box(R.string.A4, R.drawable.learn_min);
         fruitList.add(watermelon);
-        Box pear = new Box("#安利#", R.drawable.anli_min);
+        Box pear = new Box(R.string.A5, R.drawable.anli_min);
         fruitList.add(pear);
-        Box grape = new Box("#一日三餐#", R.drawable.food_min);
+        Box grape = new Box(R.string.A6, R.drawable.food_min);
         fruitList.add(grape);
-        Box pineapple = new Box("#需求池#", R.drawable.xuqiu_min);
+        Box pineapple = new Box(R.string.A7, R.drawable.xuqiu_min);
         fruitList.add(pineapple);
     }
 
