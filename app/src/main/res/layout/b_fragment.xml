@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red_300"
+        android:background="@drawable/background_main"
         android:gravity="center"
         android:minHeight="45dp"
         android:orientation="horizontal">
@@ -27,20 +28,19 @@
 
     <ScrollView
         android:id="@+id/bt"
+        android:scrollbars="none"
         android:layout_below="@+id/title"
         android:layout_width="55dp"
-        android:background="@color/blue_300"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
-            android:background="@color/blue_300"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/zong"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
@@ -48,7 +48,7 @@
 
             <Button
                 android:id="@+id/zhou1"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
@@ -56,7 +56,7 @@
 
             <Button
                 android:id="@+id/zhou2"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
@@ -64,7 +64,7 @@
 
             <Button
                 android:id="@+id/zhou3"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
@@ -72,7 +72,7 @@
 
             <Button
                 android:id="@+id/zhou4"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
 
             <Button
                 android:id="@+id/zhou5"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:textSize="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
 
             <Button
                 android:id="@+id/zhou6"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:textSize="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,14 +97,14 @@
             <Button
                 android:id="@+id/zhou7"
                 android:textSize="12dp"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="第七周"/>
 
             <Button
                 android:id="@+id/zhou8"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
@@ -112,7 +112,7 @@
 
             <Button
                 android:id="@+id/zhou9"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
 
             <Button
                 android:id="@+id/zhou10"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
 
             <Button
                 android:id="@+id/zhou11"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:textSize="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
 
             <Button
                 android:id="@+id/zhou12"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
 
             <Button
                 android:id="@+id/zhou13"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
 
             <Button
                 android:id="@+id/zhou14"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
 
             <Button
                 android:id="@+id/zhou15"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
 
             <Button
                 android:id="@+id/zhou16"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
 
             <Button
                 android:id="@+id/zhou17"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
@@ -184,7 +184,7 @@
 
             <Button
                 android:id="@+id/zhou18"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
@@ -192,7 +192,7 @@
 
             <Button
                 android:id="@+id/zhou19"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
@@ -200,7 +200,7 @@
 
             <Button
                 android:id="@+id/zhou20"
-                android:background="@drawable/button_style"
+                android:background="@color/moren_back"
                 android:layout_width="match_parent"
                 android:textSize="12dp"
                 android:layout_height="wrap_content"

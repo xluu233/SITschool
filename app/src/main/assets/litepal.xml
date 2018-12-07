@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="SITschoolDB" ></dbname>
+    <version value="1" ></version>
+
+    <list>
+        <mapping class="com.example.luhongcheng.DataBase.Person_Data"></mapping>
+    </list>
+
+    <list>
+        <mapping class="com.example.luhongcheng.DataBase.Class_Schedule"></mapping>
+    </list>
+
+
+</litepal>

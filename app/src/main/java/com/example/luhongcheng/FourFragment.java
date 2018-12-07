@@ -2,6 +2,7 @@ package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.pm.PackageManager;
 import android.support.v4.app.Fragment;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -80,15 +81,24 @@ public class FourFragment extends Fragment {
         //@SuppressLint({"NewApi", "LocalSuppress"}) String versionName = APKVersionCodeUtils.getVerName(this.getContext());
         String versionName = APKVersionCodeUtils.getVerName(getActivity());
         vv.setText("V" + versionName);
+
         RedBag = (Button)getActivity().findViewById(R.id.RedBag);
         RedBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClipboardManager cmb = (ClipboardManager)getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText("540942228");
-                Toast.makeText(getApplicationContext(),"已复制到剪切板,在搜索框中搜索即可",Toast.LENGTH_LONG).show();
-                Intent intent = getApplicationContext().getPackageManager() .getLaunchIntentForPackage("com.eg.android.AlipayGphone");
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(),"已复制到剪切板,在支付宝中搜索即可",Toast.LENGTH_LONG).show();
+
+                PackageManager packageManager = getActivity().getPackageManager();
+                Intent intent4=new Intent();
+                intent4 = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
+                if(intent4==null){
+                    Toast.makeText(getActivity(), "未安装支付宝", Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(intent4);
+                }
+
             }
         });
 

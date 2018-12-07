@@ -10,17 +10,14 @@
     <LinearLayout
         android:id="@+id/tt"
         android:gravity="center"
-        android:background="@color/red_300"
+        android:background="@drawable/background_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:background="@color/red_300"
-            android:layout_width="12dp"
-            android:layout_height="45dp" />
 
         <ImageButton
             android:id="@+id/OneSelf"
+            android:layout_marginLeft="12dp"
             android:background="@drawable/ic_launcher"
             android:layout_width="32dp"
             android:layout_height="32dp" />
@@ -29,7 +26,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/red_300"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:subtitleTextAppearance="@style/Toolbar.subTitleText"
             app:titleTextAppearance="@style/Toolbar.TitleText">
@@ -103,6 +99,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
+            android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">

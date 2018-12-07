@@ -14,6 +14,24 @@ public class SSS {
 	private String label;//标签
 	private String time;
 
+	public SSS(String s, String s1, String s2, String s3, String s4, String s5) {
+		//content[i],image[i],ssID[i],label[i],time[i],zan[i])
+		this.title = s;
+		this.imageUrl = s1;
+		this.ssID = s2;
+		this.label = s3;
+		this.time = s4;
+		this.zan = Integer.getInteger(s5);
+	}
+
+    public SSS(String image2, String content2, String personID, String label2, int zan2) {
+		this.imageUrl = image2;
+		this.title  =content2;
+		this.personID = personID;
+		this.label = label2;
+		this.zan = zan2;
+    }
+
     public int getZan() {
 		return zan;
 	}

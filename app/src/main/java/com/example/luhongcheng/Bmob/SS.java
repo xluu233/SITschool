@@ -1,12 +1,10 @@
 package com.example.luhongcheng.Bmob;
 
-import java.lang.reflect.Array;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
 
 public class SS extends BmobObject {
-    Array pinglun;
     String zan;
     BmobFile img;
     String label;

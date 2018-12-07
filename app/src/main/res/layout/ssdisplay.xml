@@ -49,7 +49,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.example.luhongcheng.CircleImageView
+                            <com.example.luhongcheng.ImageView.CircleImageView
                                 android:id="@+id/icon"
                                 android:layout_marginTop="5dp"
                                 android:src="@drawable/ic_launcher"

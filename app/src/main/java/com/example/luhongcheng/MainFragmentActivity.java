@@ -9,23 +9,28 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.example.luhongcheng.Bmob.UserInfo;
 import com.example.luhongcheng.Bmob.update;
 import com.example.luhongcheng.utils.APKVersionCodeUtils;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
 import android.os.Bundle;
@@ -34,6 +39,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import java.util.List;
 
 public class MainFragmentActivity extends AppCompatActivity{
 
@@ -120,7 +127,11 @@ public class MainFragmentActivity extends AppCompatActivity{
         transaction.show(fragments[0]).commitAllowingStateLoss();
         //switchFrament(lastShowFragment,0);
 
+
+
+
     }
+
 
     public void switchFrament(int lastIndex, int index) {
         android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

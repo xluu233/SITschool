@@ -16,8 +16,8 @@ android {
         applicationId "com.example.luhongcheng"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 128
-        versionName "2.9.9.8"
+        versionCode 300
+        versionName "3.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -53,21 +53,13 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     testImplementation 'junit:junit:4.12'
-    implementation('com.squareup.okhttp3:okhttp:3.10.0') {
-        exclude group: 'com.squareup.okhttp3'
-        exclude group: 'com.squareup.okio'
-    }
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation files('libs/jsoup-1.11.3.jar')
     implementation files('libs/android-async-http-1.4.9.jar')
     implementation 'cn.jiguang.sdk:jpush:3.1.1'
     // 此处以JPush 3.1.1 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.1.9'
     // 此处以JCore 1.1.9 版本为例。
-    implementation('cn.bmob.android:bmob-sdk:3.6.3') {
-        exclude group: 'com.squareup.okhttp3'
-        exclude group: 'com.squareup.okio'
-        exclude group: 'com.google.gson.JsonElement'
-    }
     //floatactionbutton
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.android.support:cardview-v7:27.1.1'
@@ -75,6 +67,14 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     //下拉刷新框架
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    //litepal数据库3.0
+    implementation 'org.litepal.android:java:3.0.0'
+    //Bmob
+    implementation 'cn.bmob.android:bmob-sdk:3.6.8-rc4'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.2"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.squareup.okio:okio:2.1.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
 
 }

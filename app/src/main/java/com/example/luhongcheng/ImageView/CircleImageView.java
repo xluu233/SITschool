@@ -1,4 +1,4 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.ImageView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,6 +17,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import com.example.luhongcheng.R;
 
 @SuppressLint("AppCompatCustomView")
 public class CircleImageView extends ImageView {

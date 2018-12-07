@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.luhongcheng.ImageView.CircleImageView
+            android:id="@+id/icon"
+            android:layout_weight="2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="5"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="200dp"
+            android:layout_height="60dp">
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_weight="1"
+                android:textSize="13dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/qm"
+                android:layout_weight="1"
+                android:textSize="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/fensi"
+                android:layout_weight="1"
+                android:textSize="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/check"
+            android:background="@drawable/textshape2"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:text="关注"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="100dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/moren_back"
+        android:layout_marginLeft="80dp"/>
+
+
+
+
+</LinearLayout>

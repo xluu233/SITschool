@@ -62,9 +62,7 @@
         <activity android:name=".zixun.news"/>
         <activity android:name=".zixun.zhuyeDisplayActvivity"/>
         <activity android:name=".MoreTips"/>
-        <activity android:name=".OneSelf"
-            android:theme="@style/myTransparent">
-        </activity>
+        <activity android:name=".OneSelf"/>
         <activity android:name=".KB2"></activity>
         <activity android:name=".SWZL.send2"/>
         <activity android:name=".SWZL.swzlmain"/>
@@ -116,6 +114,7 @@
                 <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
+        <activity android:name=".Find"/>
 
     </application>
 

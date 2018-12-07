@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/red_300"
+        app:title="我的好友"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:subtitleTextAppearance="@style/Toolbar.subTitleText"
+        app:titleTextAppearance="@style/Toolbar.TitleText"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:gravity="center"
+                android:text="我的关注"
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:background="@color/moren"
+                android:layout_width="match_parent"
+                android:layout_height="1sp" />
+
+
+
+            <ListView
+                android:id="@+id/guanzhu"
+
+                android:scrollbars="none"
+                android:layout_width="match_parent"
+                android:divider="@color/white"
+                android:dividerHeight="2sp"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:background="@color/moren"
+            android:layout_width="1sp"
+            android:layout_height="match_parent" />
+
+
+        <LinearLayout
+
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:gravity="center"
+                android:text="关注我的"
+
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:background="@color/moren"
+                android:layout_width="match_parent"
+                android:layout_height="1sp" />
+
+            <ListView
+                android:id="@+id/fensi"
+                android:scrollbars="none"
+                android:layout_width="match_parent"
+                android:divider="@color/white"
+                android:dividerHeight="2sp"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

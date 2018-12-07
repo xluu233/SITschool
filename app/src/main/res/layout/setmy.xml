@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/teal_400"
+    android:background="@drawable/background_oneself"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="@color/teal_600"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         app:layout_collapseMode="pin"

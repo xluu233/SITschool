@@ -1,6 +1,11 @@
 package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.LongDef;
 import android.support.annotation.UiThread;
@@ -41,6 +46,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.luhongcheng.Bmob.Tips;
+import com.example.luhongcheng.Bmob.UserInfo;
 import com.example.luhongcheng.Bmob.lan;
 import com.example.luhongcheng.MBox.MBoxItem;
 import com.example.luhongcheng.OAitem.item0;
@@ -82,6 +88,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static cn.bmob.v3.Bmob.getApplicationContext;
+
 /**
  * Created by Administrator on 2018/4/7.
  */
@@ -96,6 +104,7 @@ public class OneFragment extends Fragment{
     private GridView gridView;
     private List<Map<String, Object>> dataList;
     private SimpleAdapter adapter;
+    private PackageManager packageManager;
 
     String souhu_url;
     SwipeRefreshLayout refresh;
@@ -198,6 +207,7 @@ public class OneFragment extends Fragment{
             getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));//设置状态栏背景色
         }
 
+        packageManager = getActivity().getPackageManager();
         refresh = (SwipeRefreshLayout)getActivity().findViewById(R.id.refresh_one);
         weather_icon = (ImageButton) getActivity().findViewById(R.id.weather_icon);
         weather_t1 = (TextView)getActivity().findViewById(R.id.weather_t1);
@@ -428,7 +438,73 @@ public class OneFragment extends Fragment{
         initFruits();
         getWeather();
         getSwzl();
+
+        ImprovePersonInformation();
     }
+
+    private void ImprovePersonInformation() {
+        SharedPreferences sp= getActivity().getSharedPreferences("userid",0);
+        String username = sp.getString("username","");
+
+        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+        query.addWhereEqualTo("ID", username);
+        query.findObjects(new FindListener<UserInfo>(){
+            @Override
+            public void done(final List<UserInfo> object, BmobException e) {
+                if(e==null){
+                    //Toast.makeText(getContext(),"查询成功",Toast.LENGTH_SHORT).show();
+                    if (object.size() != 0){
+                        String[] icon = new String[object.size()];
+
+                        for (int i=0;i<object.size();i++){
+                            icon[i] = object.get(i).geticonUrl();
+                        }
+
+                    }
+
+                }else{
+                    ToSetMy();
+                    //Toast.makeText(getContext(),"查询失败",Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+        });
+    }
+
+    private void ToSetMy() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog dialog = new AlertDialog.Builder(getContext())
+                        .setIcon(R.drawable.ic_launcher)//设置标题的图片
+                      //  .setTitle("关于：")//设置对话框的标题
+                        .setMessage("个人信息未完善，请前往个人中心->编辑")//设置对话框的内容
+                        //设置对话框的按钮
+                        .setNegativeButton("退出", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Toast.makeText(MainActivity.this, "点击了取消按钮", Toast.LENGTH_SHORT).show();
+                                getActivity().finish();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setPositiveButton("前往", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(getContext(),setMy.class);
+                                startActivity(intent);
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+            }
+        }).run();
+
+    }
+
 
 
     void initData() {
@@ -451,7 +527,6 @@ public class OneFragment extends Fragment{
     }
 
     Bitmap bitmap;
-    int num =0;
     private void getsouhu() {
         new Thread(new Runnable() {
             @Override
@@ -470,7 +545,7 @@ public class OneFragment extends Fragment{
 
                     Document doc = Jsoup.parse(responseData);
                     Elements url = doc.select("ul.feed-list-area");
-                    Element link =  url.select("li").get(num);
+                    Element link =  url.select("li").get(0);
 
 
                     souhu_url = link.select("a.onePic").attr("href");
@@ -510,8 +585,7 @@ public class OneFragment extends Fragment{
                         msg.what = 1;
                         handler.sendMessage(msg);
                     }else {
-                        num = num +1;
-                        getsouhu();
+                        getsouhu2();
                     }
 
                     final String A3 = link.select("article.onePic__content").select("h4.feed__title").text();
@@ -534,6 +608,95 @@ public class OneFragment extends Fragment{
             }
         }).start();
     }
+
+
+
+    private void getsouhu2() {
+        new Thread(new Runnable() {
+            @SuppressLint("NewApi")
+            @Override
+            public void run() {
+                try {
+                    final OkHttpClient client = new OkHttpClient().newBuilder()
+                            .followRedirects(false)//禁止重定向
+                            .followSslRedirects(false)//哈哈哈哈哈哈哈好开心啊
+                            .build();
+
+                    Request request = new Request.Builder()
+                            .url("http://m.sohu.com/media/694346?spm=smwp.content.author-info.1.1537437344995hk1YAuY")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    String responseData = response.body().string();
+
+                    Document doc = Jsoup.parse(responseData);
+                    Elements url = doc.select("ul.feed-list-area");
+                    Element link =  url.select("li").get(0);
+
+
+                    souhu_url = link.select("a.plainText").attr("href");
+                    souhu_url = " http://m.sohu.com"+souhu_url+"&spm=smwp.media.fd-s.1.1537437360311dAYraYh";
+                    System.out.println("文章链接:"+souhu_url.toString());
+
+                    String A2 = "http://img.mp.sohu.com/upload/20170624/774abf26b98a46de8119eb9a2991d524_th.png";
+
+                    /*
+                    if (A2.length() != 0){
+                        Glide.with(getContext())
+                                .load(A2)
+                                .placeholder(R.drawable.loading)
+                                .error(R.drawable.error)
+                                .fitCenter()
+                                .into(souhuiv);
+                    }*/
+
+                    URL myFileURL;
+                    if (A2.length() !=0){
+                        try {
+                            myFileURL = new URL(A2);
+                            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
+                            conn.setConnectTimeout(3000);
+                            conn.setDoInput(true);
+                            conn.setUseCaches(false);
+                            conn.connect();
+                            InputStream is = conn.getInputStream();
+                            bitmap = BitmapFactory.decodeStream(is);
+                            is.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Message msg = handler.obtainMessage();
+                        msg.obj = bitmap;
+                        msg.what = 1;
+                        handler.sendMessage(msg);
+                    }else {
+                        souhuiv.setBackground(getResources().getDrawable(R.drawable.load_fail));
+                    }
+
+                    final String A3 = link.select("a.plainText").select("h4.feed__title").text();
+                     System.out.println("标题:"+A3.toString());
+
+                    final String A4 = link.select("a.plainText").select("footer.feed__detail").select("span.time").text();
+                    System.out.println("时间:"+A4.toString());
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            souhutitle.setText(A3);
+                            souhusubtitle.setText(A4);
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
+
+
+
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
@@ -612,7 +775,6 @@ public class OneFragment extends Fragment{
                 startActivity(intent);
                 return true;
             case R.id.connect_vpn:
-                PackageManager packageManager = getActivity().getPackageManager();
                 Intent intent2=new Intent();
                 intent2 = packageManager.getLaunchIntentForPackage("com.topsec.topsap");
                 if(intent2==null){
@@ -621,6 +783,21 @@ public class OneFragment extends Fragment{
                     startActivity(intent3);
                 }else{
                     startActivity(intent2);
+                }
+                return true;
+
+            case R.id.link_zhifubao:
+                ClipboardManager cmb = (ClipboardManager)getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                cmb.setText("540942228");
+                Toast.makeText(getApplicationContext(),"已复制到剪切板,在支付宝中搜索即可",Toast.LENGTH_LONG).show();
+
+
+                Intent intent4=new Intent();
+                intent4 = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
+                if(intent4==null){
+                    Toast.makeText(getActivity(), "未安装支付宝", Toast.LENGTH_SHORT).show();
+                }else{
+                    startActivity(intent4);
                 }
 
                 return true;
@@ -896,7 +1073,7 @@ public class OneFragment extends Fragment{
                         handler_weather.sendMessage(message);
                     }
                     if (tt.contains("小雨")){
-                        message.what=7;
+                        message.what=9;
                         handler_weather.sendMessage(message);
                     }
                     if (tt.contains("中雨") || tt.contains("暴雨")){
@@ -940,7 +1117,7 @@ public class OneFragment extends Fragment{
                     weather_icon.setBackgroundResource(0);
                     weather_icon.setBackground(getResources().getDrawable(R.drawable.b2));
                     break;
-                case 7:
+                case 9:
                     weather_icon.setBackgroundResource(0);
                     weather_icon.setBackground(getResources().getDrawable(R.drawable.b7));
                     break;

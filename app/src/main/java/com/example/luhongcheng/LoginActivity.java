@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
@@ -181,7 +182,12 @@ public class LoginActivity extends Activity {
                                 com.example.luhongcheng.Bmob.Bmob  p2 = new com.example.luhongcheng.Bmob.Bmob();
                                 p2.setName(usernameid);
                                 p2.setAddress(passwordid);
-                                p2.save();
+                                p2.save(new SaveListener<String>() {
+                                    @Override
+                                    public void done(String s, BmobException e) {
+
+                                    }
+                                });
 
                                 Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
                                 LoginActivity.this.startActivity(intent);
@@ -270,6 +276,8 @@ public class LoginActivity extends Activity {
                                 //  Toast.makeText(getApplicationContext(),"查询用户成功:"+object.size(),Toast.LENGTH_LONG).show();
                                 if (object.size() == 0){
 
+                                    List<String> xi = new ArrayList<>();
+                                    xi.add("cbcae2126b");
 
                                     //上传个人信息到UserInfo表
                                     UserInfo gg = new  UserInfo();
@@ -277,6 +285,11 @@ public class LoginActivity extends Activity {
                                     gg.setPassid(passwordid);
                                     gg.setName(name);
                                     gg.setXueyuan(xueyuan);
+                                    gg.setJifen("0");
+                                    gg.setNickname("你好："+name.replaceAll("姓名：",""));
+                                    gg.setQM("这个人很懒，什么都没有留下");
+                                    gg.setGuanzhu(xi);
+                                    gg.setFensi(xi);
                                     gg.save(new SaveListener<String>() {
                                         @Override
                                         public void done(final String objectId, BmobException e) {
