@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
     useLibrary 'org.apache.http.legacy'
 
@@ -15,9 +15,9 @@ android {
     defaultConfig {
         applicationId "com.example.luhongcheng"
         minSdkVersion 15
-        targetSdkVersion 27
-        versionCode 300
-        versionName "3.0.0"
+        targetSdkVersion 28
+        versionCode 310
+        versionName "3.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -50,8 +50,8 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation files('libs/jsoup-1.11.3.jar')
@@ -62,7 +62,7 @@ dependencies {
     // 此处以JCore 1.1.9 版本为例。
     //floatactionbutton
     implementation 'com.github.clans:fab:1.6.4'
-    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:28.0.0'
     //图片加载glide
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     //下拉刷新框架
