@@ -124,7 +124,7 @@ public class item5 extends Activity implements View.OnClickListener {
             if(xuehao.length()==10&&mima.length()>=4){
                 postdata();
                 classroomid = chaxun.getText().toString();
-                if (classroomid.length()==6){
+                if (classroomid.contains("10")){
                     memInfo(classroomid);
                 }
                 else{
