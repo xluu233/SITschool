@@ -12,11 +12,10 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:background="@color/transparent"
-        android:textColor="@color/material_orange"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/text_bg"
         android:text="跳过"
-        android:layout_alignParentRight="true" />
+        android:textColor="@color/material_orange" />
 
 
     <ImageView
@@ -28,6 +27,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/moren"/>
 
     <ImageView
         android:id="@+id/logo"
