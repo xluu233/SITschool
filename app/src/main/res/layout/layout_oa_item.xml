@@ -26,8 +26,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:id="@+id/news_lv"
-				android:dividerHeight="2dp"
-				android:divider="#dcdcdc">
+				android:dividerHeight="1sp"
+				android:divider="@color/moren">
 			</ListView>
 
 		</android.support.v4.widget.SwipeRefreshLayout>

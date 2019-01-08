@@ -8,7 +8,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.luhongcheng.FruitItem.Fruit;
 import com.example.luhongcheng.FruitItem.FruitAdapter;
+import com.example.luhongcheng.Login.LoginActivity;
 import com.example.luhongcheng.about.about0;
 import com.example.luhongcheng.about.about1;
 import com.example.luhongcheng.about.about2;
@@ -31,7 +31,6 @@ import com.example.luhongcheng.about.about3;
 import com.example.luhongcheng.about.about4;
 import com.example.luhongcheng.utils.APKVersionCodeUtils;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +44,8 @@ public class FourFragment extends Fragment {
     private String context;
     TextView vv;
     ViewGroup container;
-    Button RedBag;
 
+    
     private List<Fruit> fruitList = new ArrayList<Fruit>();
 
     @SuppressLint("ValidFragment")
@@ -82,25 +81,6 @@ public class FourFragment extends Fragment {
         String versionName = APKVersionCodeUtils.getVerName(getActivity());
         vv.setText("V" + versionName);
 
-        RedBag = (Button)getActivity().findViewById(R.id.RedBag);
-        RedBag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClipboardManager cmb = (ClipboardManager)getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                cmb.setText("540942228");
-                Toast.makeText(getApplicationContext(),"已复制到剪切板,在支付宝中搜索即可",Toast.LENGTH_LONG).show();
-
-                PackageManager packageManager = getActivity().getPackageManager();
-                Intent intent4=new Intent();
-                intent4 = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
-                if(intent4==null){
-                    Toast.makeText(getActivity(), "未安装支付宝", Toast.LENGTH_SHORT).show();
-                }else{
-                    startActivity(intent4);
-                }
-
-            }
-        });
 
         initFruits(); // 初始化水果数据
         ListView listView = (ListView) getView().findViewById(R.id.list_view);
@@ -161,6 +141,7 @@ public class FourFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(),LoginActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
         bindView();

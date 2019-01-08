@@ -204,7 +204,7 @@ public class OneFragment extends Fragment{
         initData();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));//设置状态栏背景色
+            getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));//设置状态栏背景色
         }
 
         packageManager = getActivity().getPackageManager();
@@ -446,31 +446,33 @@ public class OneFragment extends Fragment{
         SharedPreferences sp= getActivity().getSharedPreferences("userid",0);
         String username = sp.getString("username","");
 
-        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-        query.addWhereEqualTo("ID", username);
-        query.findObjects(new FindListener<UserInfo>(){
-            @Override
-            public void done(final List<UserInfo> object, BmobException e) {
-                if(e==null){
-                    //Toast.makeText(getContext(),"查询成功",Toast.LENGTH_SHORT).show();
-                    if (object.size() != 0){
-                        String[] icon = new String[object.size()];
+        if (username.length() == 10){
+            BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+            query.addWhereEqualTo("ID", username);
+            query.findObjects(new FindListener<UserInfo>(){
+                @Override
+                public void done(final List<UserInfo> object, BmobException e) {
+                    if(e==null){
+                        //Toast.makeText(getContext(),"查询成功",Toast.LENGTH_SHORT).show();
+                        if (object.size() != 0){
+                            String[] icon = new String[object.size()];
 
-                        for (int i=0;i<object.size();i++){
-                            icon[i] = object.get(i).geticonUrl();
+                            for (int i=0;i<object.size();i++){
+                                icon[i] = object.get(i).geticonUrl();
+                            }
+
                         }
 
+                    }else{
+                        ToSetMy();
+                        //Toast.makeText(getContext(),"查询失败",Toast.LENGTH_SHORT).show();
                     }
-
-                }else{
-                    ToSetMy();
-                    //Toast.makeText(getContext(),"查询失败",Toast.LENGTH_SHORT).show();
 
                 }
 
-            }
+            });
+        }
 
-        });
     }
 
     private void ToSetMy() {

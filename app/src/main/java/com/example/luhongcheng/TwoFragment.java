@@ -54,12 +54,12 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
 
     WebView wb;
-    private static HttpClient client = new DefaultHttpClient();
+    //private static HttpClient client = new DefaultHttpClient();
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
     List<String> cookies = null;
 
-    String URL;
+  //  String URL;
     String xuehao;
     String mima;
     String A;//第A周
@@ -70,7 +70,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
     Button zong,bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt10,bt11,bt12,bt13,bt14,bt15,bt16,bt17,bt18,bt19,bt20;
 
 
-    ProgressDialog waitingDialog;
+   // ProgressDialog waitingDialog;
 
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {

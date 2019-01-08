@@ -2,84 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <LinearLayout 
-        android:id="@+id/bottomlinear"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/secondclass_tab"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            app:tabGravity="center"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/teal_500"
+            app:tabIndicatorColor="@color/teal_500">
+        </android.support.design.widget.TabLayout>
 
 
-        <Button 
-            android:id="@+id/btn_second"
-            android:layout_width="0dp"
-            android:textColor="@color/moren"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:text="我的"/>
-        <Button 
-            android:id="@+id/btn_third"
-            android:layout_width="0dp"
-            android:textColor="@color/moren"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:text="讲座"/>
-        <Button 
-            android:id="@+id/btn_four"
-            android:layout_width="0dp"
-            android:textColor="@color/moren"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:text="公益"/>
-        <Button 
-            android:id="@+id/btn_fifth"
-            android:layout_width="0dp"
-            android:textColor="@color/moren"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:text="三创"/>
-        <Button
-            android:id="@+id/btn_six"
-            android:layout_width="0dp"
-            android:textColor="@color/moren"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.5"
-            android:textSize="15sp"
-            android:text="校园文化"/>
-        <Button
-            android:id="@+id/btn_seven"
-            android:layout_width="0dp"
-            android:textColor="@color/moren"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:text="社团"/>
-        <Button
-            android:id="@+id/btn_eight"
-            android:layout_width="0dp"
-            android:textColor="@color/moren"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.5"
-            android:textSize="15sp"
-            android:text="社会实践"/>
-        
-    </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="@color/moren_back"/>
 
-    <LinearLayout 
-        android:id="@+id/cursorarea"
-        android:layout_width="fill_parent"
-        android:orientation="horizontal"
-        android:layout_height="2dp">
-      	<ImageView
-      	    android:id="@+id/cursor_btn"
-      	    android:layout_width="fill_parent"
-      	    android:layout_height="fill_parent">
-      	</ImageView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/secondclass_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:background="@color/white"
+            android:scrollbars="none" />
+
+
     </LinearLayout>
 
      

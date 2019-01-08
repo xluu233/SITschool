@@ -47,7 +47,7 @@ public class SecondClassAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.secondclass_item, null);
+            view = LayoutInflater.from(mContext).inflate(R.layout.oa_item, null);
             viewHolder = new ViewHolder();
             viewHolder.A1 = (TextView) view.findViewById(R.id.A1);
             //viewHolder.A2 = (TextView) view.findViewById(R.id.A2);

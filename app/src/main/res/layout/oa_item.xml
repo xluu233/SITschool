@@ -5,26 +5,21 @@
     android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/A1"
+        android:textSize="14dp"
         android:gravity="center_vertical"
-        android:text="xixi"
-        android:textSize="14.5dp"
         android:textColor="@color/moren"/>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content"
         android:id="@+id/A3"
         android:gravity="right"
+        android:layout_marginBottom="5dp"
         android:textColor="@color/moren"
-        android:textSize="12.5dp"/>
+        android:textSize="12dp"/>
 
 
 </LinearLayout>

@@ -124,7 +124,7 @@ public class item5 extends Activity implements View.OnClickListener {
             if(xuehao.length()==10&&mima.length()>=4){
                 postdata();
                 classroomid = chaxun.getText().toString();
-                if (classroomid.contains("10")){
+                if (classroomid.contains("10") && classroomid.length() >=6){
                     memInfo(classroomid);
                 }
                 else{
@@ -137,7 +137,7 @@ public class item5 extends Activity implements View.OnClickListener {
         }
     }
 
-    /*保存密码-嘻嘻*/
+    /*保存-嘻嘻*/
     private void memInfo(String classroomid){
         SharedPreferences.Editor editor = getSharedPreferences("data1", 0).edit();
         editor.putString("classroomid",classroomid);

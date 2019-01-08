@@ -3,25 +3,19 @@ package com.example.luhongcheng;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.example.luhongcheng.Bmob.LOGO;
-import com.example.luhongcheng.Bmob.Tips;
-import com.example.luhongcheng.SWZL.SecondFragment;
-import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
+import com.example.luhongcheng.Login.LoginActivity;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -33,8 +27,6 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 
 public class StartFlash extends Activity {

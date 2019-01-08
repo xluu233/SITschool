@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.fankui;
-import com.example.luhongcheng.LoginActivity;
 import com.example.luhongcheng.R;
 
 import cn.bmob.v3.Bmob;
@@ -38,19 +36,24 @@ public class about3  extends AppCompatActivity {
             public void onClick(View v) {
                 String call = mCall.getText().toString();
                 String content = mContent.getText().toString();
-                com.example.luhongcheng.Bmob.fankui p2 = new com.example.luhongcheng.Bmob.fankui();
-                p2.setCall(call);
-                p2.setContent(content);
-                p2.save(new SaveListener<String>() {
-                    @Override
-                    public void done(String objectId, BmobException e) {
-                        if(e==null){
-                            Toast.makeText(about3.this,"反馈发送成功",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(about3.this,"反馈发送失败，请检查网络",Toast.LENGTH_SHORT).show();
+                if (call.length() != 0 && content.length() != 0){
+                    com.example.luhongcheng.Bmob.fankui p2 = new com.example.luhongcheng.Bmob.fankui();
+                    p2.setCall(call);
+                    p2.setContent(content);
+                    p2.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String objectId, BmobException e) {
+                            if(e==null){
+                                Toast.makeText(about3.this,"反馈发送成功",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(about3.this,"反馈发送失败，请检查网络",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }else {
+                    Toast.makeText(about3.this,"请输入完整信息",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

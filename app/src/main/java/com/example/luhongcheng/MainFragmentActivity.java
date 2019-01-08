@@ -115,7 +115,7 @@ public class MainFragmentActivity extends AppCompatActivity{
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -126,9 +126,6 @@ public class MainFragmentActivity extends AppCompatActivity{
         transaction.add(R.id.fragment_container, fragments[0]);
         transaction.show(fragments[0]).commitAllowingStateLoss();
         //switchFrament(lastShowFragment,0);
-
-
-
 
     }
 

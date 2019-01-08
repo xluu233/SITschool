@@ -19,7 +19,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="SIT学生助手"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".StartFlash"
             android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
@@ -27,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".setMy"></activity>
         <activity android:name=".MainFragmentActivity"/>
         <activity android:name=".OA.OADisplayActvivity"/>

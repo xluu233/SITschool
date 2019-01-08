@@ -65,7 +65,7 @@ public class KB2 extends Activity {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.red_300));//设置状态栏背景色
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));//设置状态栏背景色
         }
 
         spinner= (Spinner) findViewById(R.id.spinner);

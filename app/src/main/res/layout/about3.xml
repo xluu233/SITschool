@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/textshape2">
+    android:background="@color/moren_back">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/toolbar"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="反馈帮助"
+        app:titleTextAppearance="@style/Toolbar.TitleText">
+    </android.support.v7.widget.Toolbar>
 
     <EditText
         android:id="@+id/content"
         android:gravity="center"
         android:background="@drawable/textshape3"
-        android:layout_marginTop="20dp"
+        android:layout_margin="10dp"
         android:hint="请输入遇到的问题或者建议......"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
@@ -17,7 +28,7 @@
     <EditText
         android:id="@+id/cell"
         android:background="@drawable/textshape3"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:hint="联系方式：QQ或者微信"
         android:layout_width="match_parent"

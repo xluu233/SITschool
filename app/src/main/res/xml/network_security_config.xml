@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    //Android 8以上不容许http连接了
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

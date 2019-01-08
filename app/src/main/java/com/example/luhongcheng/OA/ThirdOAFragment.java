@@ -111,8 +111,6 @@ public class ThirdOAFragment extends Fragment {
 
 	}
 
-
-
 	private void getNews(final String data){
 		new Thread(new Runnable() {
 			@Override
