@@ -8,14 +8,17 @@
 
     <Button
         android:id="@+id/skip"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="110dp"
+        android:layout_marginRight="10dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/text_bg"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_shape2"
         android:text="跳过"
-        android:textColor="@color/material_orange" />
+        android:textColor="@color/moren_back"
+        android:textSize="12dp"
+        android:layout_alignParentRight="true" />
 
 
     <ImageView
@@ -31,7 +34,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1sp"
-        android:background="@color/moren"/>
+        android:layout_below="@+id/kaiji"
+        android:background="@color/moren_back"/>
 
     <ImageView
         android:id="@+id/logo"

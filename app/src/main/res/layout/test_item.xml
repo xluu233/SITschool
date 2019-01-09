@@ -14,7 +14,6 @@
             android:layout_height="100dp"
             android:layout_margin="5dp"
             android:id="@+id/A1"
-            android:text="1"
             android:gravity="center"
             android:background="@drawable/button_shape1"
             android:textSize="60sp"/>
@@ -30,7 +29,8 @@
             android:lineSpacingMultiplier="1.5"
             android:id="@+id/A2"
             android:gravity="center"
-            android:textSize="15sp"/>
+            android:textStyle="bold"
+            android:textSize="17sp"/>
 
     </RelativeLayout>
 

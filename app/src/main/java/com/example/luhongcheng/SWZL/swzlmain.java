@@ -25,7 +25,7 @@ public class swzlmain extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swzl);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.teal_500));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
         initFragment();
         initView();
@@ -43,7 +43,7 @@ public class swzlmain extends FragmentActivity {
     private static final String DOG_BREEDS[] = {"丢失物件","寻找物件"};
 
     private void initView() {
-        final TabLayout tabLayout = findViewById(R.id.tab_layout);
+        final TabLayout tabLayout = findViewById(R.id.swzl_tab);
         final ViewPager viewPager = findViewById(R.id.viewpager);
 
         tabLayout.setupWithViewPager(viewPager);

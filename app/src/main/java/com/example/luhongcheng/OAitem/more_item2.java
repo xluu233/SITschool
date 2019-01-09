@@ -30,7 +30,6 @@ import okhttp3.Response;
 
 //教学计划
 public class more_item2 extends Activity {
-    private static HttpClient client = new DefaultHttpClient();
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
     List<String> cookies = null;

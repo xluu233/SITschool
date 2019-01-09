@@ -59,7 +59,7 @@ public class ThirdOAFragment extends Fragment {
 		builder = new OkHttpClient.Builder();
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
-
+		CheckAndChangeProgressBar();
 
 		final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.oa_refresh);
 		refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -109,6 +109,15 @@ public class ThirdOAFragment extends Fragment {
 		data = spCount.getString("data", "");
 		getNews(data);
 
+	}
+
+	private void CheckAndChangeProgressBar() {
+		SharedPreferences spCount = getActivity().getSharedPreferences("userid", 0);
+		String xuehao= spCount.getString("username", "");
+
+		if(xuehao.length()==0){
+			progressBar.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	private void getNews(final String data){

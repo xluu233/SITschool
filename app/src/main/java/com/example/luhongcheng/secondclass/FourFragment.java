@@ -61,7 +61,7 @@ public class FourFragment extends Fragment {
 		builder = new OkHttpClient.Builder();
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
-
+		CheckAndChangeProgressBar();
 		final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.secondclass_refresh);
 		refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
@@ -109,6 +109,14 @@ public class FourFragment extends Fragment {
 		postdata();
 	}
 
+	private void CheckAndChangeProgressBar() {
+		SharedPreferences spCount = getActivity().getSharedPreferences("userid", 0);
+		String xuehao= spCount.getString("username", "");
+
+		if(xuehao.length()==0){
+			progressBar.setVisibility(View.INVISIBLE);
+		}
+	}
 	private void getCookies() {
 		SharedPreferences spCount = getActivity().getSharedPreferences("SecondCookie", 0);
 		//在fragment中用share方法要getActivity（）

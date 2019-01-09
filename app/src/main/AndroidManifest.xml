@@ -31,7 +31,9 @@
         </activity>
         <activity android:name=".Login.LoginActivity"/>
         <activity android:name=".setMy"></activity>
-        <activity android:name=".MainFragmentActivity"/>
+        <activity android:name=".MainFragmentActivity"
+            android:launchMode="singleTask"/>
+
         <activity android:name=".OA.OADisplayActvivity"/>
         <activity
             android:name=".OAitem.item0"

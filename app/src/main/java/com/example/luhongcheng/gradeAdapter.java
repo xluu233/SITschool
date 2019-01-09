@@ -58,7 +58,7 @@ public class gradeAdapter extends BaseAdapter {
 
 
             viewHolder.a7.setTextColor(Color.RED);
-            viewHolder.a2.setTextColor(Color.BLUE);
+            //viewHolder.a2.setTextColor(Color.BLUE);
             //tv.setTextColor(0xff000000);
 
             view.setTag(viewHolder);
@@ -67,7 +67,7 @@ public class gradeAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.a1.setText("课程代码："+newsList.get(position).geta1());
-        viewHolder.a2.setText("名称："+newsList.get(position).geta2());
+        viewHolder.a2.setText(""+newsList.get(position).geta2());
         viewHolder.a3.setText("学分："+newsList.get(position).geta3());
         viewHolder.a4.setText("平时分："+newsList.get(position).geta4());
         viewHolder.a5.setText("期中："+newsList.get(position).geta5());

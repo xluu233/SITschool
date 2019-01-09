@@ -62,17 +62,8 @@ public class item0 extends Activity {
                         startActivity(intent2);
                         break;
                     case 3:
-                        PackageManager packageManager = getPackageManager();
-                        Intent intent3 = new Intent();
-                        intent3 = packageManager.getLaunchIntentForPackage("com.topsec.topsap");
-                        if(intent3==null){
-                            Toast.makeText(getApplicationContext(), "未安装！", Toast.LENGTH_LONG).show();
-                            Intent intent4= new Intent(item0.this,connect_vpn.class);
-                            startActivity(intent4);
-                        }else{
-                            startActivity(intent3);
-                        }
-
+                        Intent intent4= new Intent(item0.this,connect_vpn.class);
+                        startActivity(intent4);
                         break;
                     default:
                         break;

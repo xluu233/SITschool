@@ -17,17 +17,24 @@
 
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+        android:id="@+id/weixin_tab"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:background="@color/white"
         app:tabGravity="fill"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorAccent">
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabIndicatorColor="@color/colorAccent">
     </android.support.design.widget.TabLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/moren_back"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"

@@ -14,7 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.example.luhongcheng.OAitem.item3;
 import com.example.luhongcheng.R;
 
 import org.jsoup.Jsoup;
@@ -59,6 +61,7 @@ public class EightOAFragment extends Fragment {
 		builder = new OkHttpClient.Builder();
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
+		CheckAndChangeProgressBar();
 
 
 		handler = new Handler(){
@@ -101,6 +104,17 @@ public class EightOAFragment extends Fragment {
 		});
 		getData();
 	}
+
+	private void CheckAndChangeProgressBar() {
+		SharedPreferences spCount = getActivity().getSharedPreferences("userid", 0);
+		String xuehao= spCount.getString("username", "");
+
+		if(xuehao.length()==0){
+			progressBar.setVisibility(View.INVISIBLE);
+		}
+	}
+
+
 
 	private void getData() {
 		SharedPreferences spCount = getActivity().getSharedPreferences("OAData", 0);

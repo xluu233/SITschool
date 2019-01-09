@@ -61,7 +61,6 @@ public class item1 extends AppCompatActivity {
 	private ArrayList<Fragment> mFragments;
 
 
-//     "我的","讲座","公益","三创","校园文化","社团","社会实践"
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -41,7 +41,6 @@ public class more_item0  extends Activity {
     Button get;
     String A,B;
 
-    private static HttpClient client = new DefaultHttpClient();
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
     List<String> cookies = null;

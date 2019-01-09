@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/moren_back"
     android:orientation="vertical">
 
 
@@ -104,12 +105,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-
 
                 <GridView
                     android:id="@+id/gridview"
@@ -124,12 +123,10 @@
 
 
                 <ImageView
-                    android:id="@+id/huabian"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="12dp"
                     android:layout_below="@+id/gridview"
+                    android:background="@color/white"
                     android:src="@drawable/huabian" />
 
 
@@ -137,42 +134,34 @@
                 <LinearLayout
                     android:id="@+id/tip"
                     android:background="@color/white"
-                    android:layout_below="@+id/huabian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
 
-
                     <TextView
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:id="@+id/tips"
                         android:minHeight="50dp"
                         android:maxHeight="120dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:textSize="11dp"
+                        android:textSize="12dp"
                         android:text="( ♡˙︶˙♡ )"
-                        android:background="@color/white"
+                        android:background="@drawable/button_shape2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/div"
-                    android:layout_below="@+id/tip"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
 
 
                 <LinearLayout
                     android:id="@+id/tianqi"
-                    android:background="@color/white"
-                    android:layout_below="@+id/div"
+                    android:background="@drawable/textshape3"
+                    android:layout_margin="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -185,7 +174,7 @@
                         android:layout_height="20dp">
                         <TextView
                             android:id="@+id/weather"
-                            android:text="今日天气："
+                            android:text="天气："
                             android:textSize="13dp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
@@ -274,16 +263,12 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/div_2"
-                    android:layout_below="@+id/tianqi"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
 
                 <LinearLayout
                     android:id="@+id/souhu"
-                    android:background="@color/white"
-                    android:layout_below="@+id/div_2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/textshape3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -330,8 +315,10 @@
                             android:layout_marginTop="8dp"
                             android:id="@+id/souhu_title"
                             android:layout_marginLeft="30dp"
-                            android:layout_width="160dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="60dp"
+                            android:gravity="center_vertical"
                             android:text="暂无信息"
                             android:textSize="12dp"/>
 
@@ -340,39 +327,35 @@
                             android:layout_marginLeft="30dp"
                             android:textSize="12dp"
                             android:text="暂无信息"
+                            android:layout_marginRight="30dp"
                             android:layout_below="@+id/souhu_title"
-                            android:layout_width="160dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:gravity="left"/>
+                            android:gravity="center_vertical"/>
 
                         <ImageButton
                             android:id="@+id/souhu_iv"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="35dp"
-                            android:layout_toRightOf="@+id/souhu_title"
-                            android:scaleType="centerCrop"
-                            android:layout_width="match_parent"
+                            android:layout_width="150dp"
                             android:layout_height="match_parent"
-                            android:background="@color/white"/>
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/white"
+                            android:scaleType="centerCrop"
+                            android:layout_alignParentRight="true" />
 
                     </RelativeLayout>
                 </LinearLayout>
 
 
 
-                <ImageView
-                    android:id="@+id/div2"
-                    android:layout_below="@+id/souhu"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-
 
                 <LinearLayout
-                    android:background="@color/white"
+                    android:background="@drawable/textshape3"
                     android:id="@+id/moremore"
-                    android:layout_below="@+id/div2"
+                    android:layout_margin="10dp"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -433,16 +416,12 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/div_3"
-                    android:layout_below="@+id/moremore"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-
                 <LinearLayout
                     android:id="@+id/swzl"
-                    android:background="@color/white"
-                    android:layout_below="@+id/div_3"
+                    android:background="@drawable/textshape3"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -492,7 +471,7 @@
                             android:layout_below="@+id/swzl_title"
                             android:layout_width="180dp"
                             android:layout_height="45dp"
-                            android:gravity="left"/>
+                            android:gravity="center_vertical"/>
 
                         <TextView
                             android:id="@+id/swzl_time"
@@ -525,7 +504,7 @@
 
 
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </ScrollView>
 

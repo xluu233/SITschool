@@ -33,6 +33,7 @@ public class StartFlash extends Activity {
 
 
     private Intent intent;
+    private Thread flash;
     private static Bitmap bitmap;
     private static ImageView mImageView;
     private static Handler handler = new Handler() {
@@ -47,8 +48,9 @@ public class StartFlash extends Activity {
             }
         }
     };
+
+    
     public String ImageUrl ;
-    String click_url;
     Button skip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +87,7 @@ public class StartFlash extends Activity {
                 }
             }
         });
-
-
+        /*
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -95,7 +96,10 @@ public class StartFlash extends Activity {
                 StartFlash.this.startActivity(intent);
                 StartFlash.this.finish();
             }
-        }, 3000);
+        }, 10000);
+        */
+
+        StartNewThread();
 
 
         skip.setOnClickListener(new View.OnClickListener() {
@@ -103,11 +107,30 @@ public class StartFlash extends Activity {
             public void onClick(View v) {
                 Intent intent2 = new Intent(StartFlash.this, LoginActivity.class);
                 startActivity(intent2);
-                StartFlash.this.finish();
+                finish();
             }
         });
 
     }
+
+    private void StartNewThread() {
+        flash = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //Toast.makeText(TransitionActivity.this, "First log", Toast.LENGTH_SHORT).show();
+                intent = new Intent(StartFlash.this, LoginActivity.class);
+                StartFlash.this.startActivity(intent);
+                StartFlash.this.finish();
+            }
+        });
+        flash.start();
+    }
+
 
 
     public void  postUrl(final String imageUrl){

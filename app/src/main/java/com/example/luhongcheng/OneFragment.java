@@ -31,6 +31,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -121,10 +124,10 @@ public class OneFragment extends Fragment{
     private ViewPager vp;
     //准备好三张网络图片的地址
     private String imageUrl[]=new String[]
-            {"http://www.sit.edu.cn/_upload/article/images/fd/24/913fa2ae4dc88bf724a71a530894/bb653676-1b6c-4e50-bd30-c0213af59eb9.jpg",
-                    "http://www.sit.edu.cn/_upload/article/images/a9/d3/76e681a242adbbebb4535280a80b/c2b923c4-d810-414f-a4be-9488f7cf399e.jpg",
-                    "http://www.sit.edu.cn/_upload/article/images/fa/92/ba956995444ab5d9949e0c4a9e9e/32ecaf27-6854-4fa3-9a22-fb57e9b207fc.jpg",
-                    "http://www.sit.edu.cn/_upload/article/images/5a/ce/852e2e394bee8d00cca59870d5de/0267dfee-8ff9-4ea5-be0f-d6bbd89d68d4.jpg"};
+            {"http://www.sit.edu.cn/_upload/article/images/c6/3e/df91e46b4a8083a1b0c2cbdafbe8/fd2d7992-66ef-4dd9-9928-ea553069cbf6.jpg",
+                    "http://www.sit.edu.cn/_upload/article/images/f0/7a/3aaa64b545d188421217fa71a951/599056ec-bfb8-4b32-b1c2-99bd8d908133.jpg",
+                    "http://www.sit.edu.cn/_upload/article/images/9c/52/982be4674f648e2a397adf306a55/b329497e-6b62-448a-9308-fbdd30fe99dd.jpg",
+                    "http://www.sit.edu.cn/_upload/article/images/e4/ff/87fa034c4ea1aabc372a4d86ecd7/fbf82f21-e111-4b69-805a-50eaff6c7f82.jpg"};
     //装载下载图片的集合
     private List<ImageView> data;
     //控制图片是否开始轮播的开关,默认关的
@@ -179,6 +182,7 @@ public class OneFragment extends Fragment{
     ImageView swzl_iv;
     TextView swzl_title,swzl_subtitle,swzl_time;
 
+
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
 
@@ -201,6 +205,7 @@ public class OneFragment extends Fragment{
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         gridView = (GridView) getView().findViewById(R.id.gridview);
+
         initData();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -432,7 +437,7 @@ public class OneFragment extends Fragment{
 
     private void initSet() {
         getsouhu();
-        init();
+        init(); //轮换图
         getlan();
         gettip();
         initFruits();
@@ -441,6 +446,7 @@ public class OneFragment extends Fragment{
 
         ImprovePersonInformation();
     }
+
 
     private void ImprovePersonInformation() {
         SharedPreferences sp= getActivity().getSharedPreferences("userid",0);
@@ -636,53 +642,23 @@ public class OneFragment extends Fragment{
 
 
                     souhu_url = link.select("a.plainText").attr("href");
-                    souhu_url = " http://m.sohu.com"+souhu_url+"&spm=smwp.media.fd-s.1.1537437360311dAYraYh";
-                    System.out.println("文章链接:"+souhu_url.toString());
+                    souhu_url = " http://m.sohu.com"+souhu_url+"?spm=smwp.media.fd-s.1.1547014372361QHJEKjY";
+                    //System.out.println("文章链接:"+souhu_url.toString());
 
-                    String A2 = "http://img.mp.sohu.com/upload/20170624/774abf26b98a46de8119eb9a2991d524_th.png";
-
-                    /*
-                    if (A2.length() != 0){
-                        Glide.with(getContext())
-                                .load(A2)
-                                .placeholder(R.drawable.loading)
-                                .error(R.drawable.error)
-                                .fitCenter()
-                                .into(souhuiv);
-                    }*/
-
-                    URL myFileURL;
-                    if (A2.length() !=0){
-                        try {
-                            myFileURL = new URL(A2);
-                            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
-                            conn.setConnectTimeout(3000);
-                            conn.setDoInput(true);
-                            conn.setUseCaches(false);
-                            conn.connect();
-                            InputStream is = conn.getInputStream();
-                            bitmap = BitmapFactory.decodeStream(is);
-                            is.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        Message msg = handler.obtainMessage();
-                        msg.obj = bitmap;
-                        msg.what = 1;
-                        handler.sendMessage(msg);
-                    }else {
-                        souhuiv.setBackground(getResources().getDrawable(R.drawable.load_fail));
-                    }
+                    //http://m.sohu.com/a/287399973_694346&spm=smwp.media.fd-s.1.1537437360311dAYraYh
+                    //http://m.sohu.com/a/287399973_694346?spm=smwp.media.fd-s.1.1547014372361QHJEKjY
+                    //链接经常会变化
 
                     final String A3 = link.select("a.plainText").select("h4.feed__title").text();
-                     System.out.println("标题:"+A3.toString());
+                    //System.out.println("标题:"+A3.toString());
 
                     final String A4 = link.select("a.plainText").select("footer.feed__detail").select("span.time").text();
-                    System.out.println("时间:"+A4.toString());
+                    //System.out.println("时间:"+A4.toString());
 
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            souhuiv.setVisibility(View.INVISIBLE);
                             souhutitle.setText(A3);
                             souhusubtitle.setText(A4);
                         }
@@ -777,15 +753,8 @@ public class OneFragment extends Fragment{
                 startActivity(intent);
                 return true;
             case R.id.connect_vpn:
-                Intent intent2=new Intent();
-                intent2 = packageManager.getLaunchIntentForPackage("com.topsec.topsap");
-                if(intent2==null){
-                    Toast.makeText(getActivity(), "未安装！！", Toast.LENGTH_LONG).show();
-                    Intent intent3= new Intent(getActivity(),connect_vpn.class);
-                    startActivity(intent3);
-                }else{
-                    startActivity(intent2);
-                }
+                Intent intent3= new Intent(getActivity(),connect_vpn.class);
+                startActivity(intent3);
                 return true;
 
             case R.id.link_zhifubao:
@@ -1082,6 +1051,10 @@ public class OneFragment extends Fragment{
                         message.what=8;
                         handler_weather.sendMessage(message);
                     }
+                    if (tt.contains("雪")){
+                        message.what=10;
+                        handler_weather.sendMessage(message);
+                    }
 
                     Elements url3 = doc.getElementsByClass("shidu");
                     String t3 = url3.get(0).text();
@@ -1126,6 +1099,10 @@ public class OneFragment extends Fragment{
                 case 8:
                     weather_icon.setBackgroundResource(0);
                     weather_icon.setBackground(getResources().getDrawable(R.drawable.b8));
+                    break;
+                case 10:
+                    weather_icon.setBackgroundResource(0);
+                    weather_icon.setBackground(getResources().getDrawable(R.drawable.b15));
                     break;
             }
         }

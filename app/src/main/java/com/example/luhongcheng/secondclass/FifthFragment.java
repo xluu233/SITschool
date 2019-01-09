@@ -61,7 +61,7 @@ public class FifthFragment extends Fragment{
 		builder = new OkHttpClient.Builder();
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
-
+		CheckAndChangeProgressBar();
 		final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.secondclass_refresh);
 		refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
@@ -115,6 +115,14 @@ public class FifthFragment extends Fragment{
 		str = spCount.getString("cookie", "");
 	}
 
+	private void CheckAndChangeProgressBar() {
+		SharedPreferences spCount = getActivity().getSharedPreferences("userid", 0);
+		String xuehao= spCount.getString("username", "");
+
+		if(xuehao.length()==0){
+			progressBar.setVisibility(View.INVISIBLE);
+		}
+	}
 
 	public void postdata() {
 		// 开启线程来发起网络请求
