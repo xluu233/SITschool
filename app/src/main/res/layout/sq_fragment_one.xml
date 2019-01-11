@@ -34,7 +34,6 @@
             <ListView
                 android:scrollbars="none"
                 android:id="@+id/my_news"
-                android:layout_marginTop="5dp"
                 android:dividerHeight="0dp"
                 android:divider="@color/white"
                 android:layout_width="match_parent"

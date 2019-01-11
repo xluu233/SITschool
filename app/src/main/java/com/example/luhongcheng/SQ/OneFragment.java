@@ -272,9 +272,10 @@ public class OneFragment extends Fragment {
             if (news.getImageUrl().length()>0){
                 Glide.with(getContext())
                         .load(news.getImageUrl())
+                        .centerCrop()
+                        //.fitCenter()
                         .placeholder(R.drawable.loading)
                         .error(R.drawable.error)
-                        .override(600, 200)
                         .into(holder.img);
             }
 

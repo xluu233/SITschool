@@ -6,10 +6,10 @@
 
     <LinearLayout
         android:background="@drawable/textshape1"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="90dp">
@@ -27,8 +27,8 @@
                 android:textColor="@color/moren"
                 android:lineSpacingMultiplier="1.2"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="20dp"
-                android:textSize="14dp"
+                android:layout_marginRight="10dp"
+                android:textSize="13dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 
@@ -44,11 +44,11 @@
 
 
         <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_margin="10dp"
             android:id="@+id/article_image"
-            android:layout_width="150dp"
-            android:layout_height="match_parent" />
+            android:scaleType="centerCrop"
+            android:layout_width="130dp"
+            android:layout_height="70dp" />
 
 
     </LinearLayout>
