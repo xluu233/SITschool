@@ -175,9 +175,9 @@ public class MainFragmentActivity extends AppCompatActivity{
     public void check(String code1) {
         code = APKVersionCodeUtils.getVersionCode(this);    //当前版本号
         int i = Integer.valueOf(this.code1).intValue();     //最新版本
-        if (i >code && i-code<=2) {
+        if (i >code && i-code<=20) {
             showDialog();
-        }else if (i-code >=3){
+        }else if (i-code >=30){
             showDialog2();
         }else {
             shareAPP();
