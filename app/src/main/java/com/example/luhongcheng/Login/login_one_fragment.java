@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,8 @@ public class login_one_fragment extends Fragment {
     String str = null;
     String responseData;
 
+    RelativeLayout layout;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,7 +107,8 @@ public class login_one_fragment extends Fragment {
         main_btn_nologin=(TextView) getActivity().findViewById(R.id.main_btn_nologin);
         username=(EditText)getActivity().findViewById(R.id.username);
         password=(EditText)getActivity().findViewById(R.id.password);
-        progressBar = (ProgressBar)getActivity().findViewById(R.id.ProgressBar2);
+        progressBar = (ProgressBar)getActivity().findViewById(R.id.login_progressbar);
+        layout = (RelativeLayout)getActivity().findViewById(R.id.user);
 
         //设置版本号
         TextView vv = (TextView) getActivity().findViewById(R.id.version);
@@ -126,7 +130,10 @@ public class login_one_fragment extends Fragment {
                 Toast.makeText(getActivity(),"请输入学号和密码",Toast.LENGTH_SHORT).show();
             }
             else if (usernameid.length()==10 & passwordid.length()>=4){
+                //隐藏登录界面，显示progressbar
                 progressBar.setVisibility(View.VISIBLE);
+                layout.setVisibility(View.INVISIBLE);
+
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -220,6 +227,9 @@ public class login_one_fragment extends Fragment {
             }
             else{
                 Toast.makeText(getActivity(),"格式错误，请重试",Toast.LENGTH_SHORT).show();
+
+                progressBar.setVisibility(View.INVISIBLE);
+                layout.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -369,6 +379,7 @@ public class login_one_fragment extends Fragment {
             {
                 case 1:
                     progressBar.setVisibility(View.INVISIBLE);
+                    layout.setVisibility(View.VISIBLE);
                     Toast.makeText(getActivity(),"登录失败:请检查网络或账号密码",Toast.LENGTH_SHORT).show();
                     break;
 
