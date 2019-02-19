@@ -1,13 +1,17 @@
 package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.luhongcheng.Bmob.Tips;
@@ -56,9 +61,8 @@ public class One_first_fragment  extends Fragment {
 
     private List<Box> fruitList = new ArrayList<Box>();
 
-
+    Context mContext;
     Button more,more2;
-    Button box;
 
     ImageButton souhuiv;
     TextView souhutitle,souhusubtitle;
@@ -82,6 +86,7 @@ public class One_first_fragment  extends Fragment {
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mContext = getActivity();
 
         weather_icon = (ImageButton) getActivity().findViewById(R.id.weather_icon);
         weather_t1 = (TextView)getActivity().findViewById(R.id.weather_t1);
@@ -101,23 +106,14 @@ public class One_first_fragment  extends Fragment {
         souhutitle = (TextView)getActivity().findViewById(R.id.souhu_title);
         souhusubtitle =(TextView)getActivity().findViewById(R.id.souhu_subtitle);
 
-        box =(Button) getActivity().findViewById(R.id.moreBox);
 
-        RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
-        BoxAdapter adapter = new BoxAdapter(fruitList);
-        recyclerView.setAdapter(adapter);
-
-
+        registerLoginBroadcast();//注册广播
         initOnClick();
         initSet();
 
     }
     private void initSet() {
         getsouhu();
-        initFruits();
         getWeather();
         getSwzl();
     }
@@ -127,13 +123,6 @@ public class One_first_fragment  extends Fragment {
     @SuppressLint("ResourceAsColor")
     private void initOnClick() {
 
-        box.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),MoreBox.class);
-                startActivity(intent);
-            }
-        });
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -340,8 +329,6 @@ public class One_first_fragment  extends Fragment {
     }
 
 
-
-
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
@@ -356,116 +343,6 @@ public class One_first_fragment  extends Fragment {
         }
     };
 
-
-    private void initFruits() {
-        Box orange = new Box(R.string.A1, R.drawable.best_min);
-        fruitList.add(orange);
-        Box apple = new Box(R.string.A2, R.drawable.talk_min);
-        fruitList.add(apple);
-        Box banana = new Box(R.string.A3, R.drawable.love_min);
-        fruitList.add(banana);
-        Box watermelon = new Box(R.string.A4, R.drawable.learn_min);
-        fruitList.add(watermelon);
-        Box pear = new Box(R.string.A5, R.drawable.anli_min);
-        fruitList.add(pear);
-        Box grape = new Box(R.string.A6, R.drawable.food_min);
-        fruitList.add(grape);
-        Box pineapple = new Box(R.string.A7, R.drawable.xuqiu_min);
-        fruitList.add(pineapple);
-    }
-
-    class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.ViewHolder> {
-        private List<Box> mFruitList;
-        class ViewHolder extends RecyclerView.ViewHolder {
-            View fruitView;
-            ImageView fruitImage;
-            TextView fruitName;
-            public ViewHolder(View view) {
-                super(view);
-                fruitView = view;
-                fruitImage = (ImageView) view.findViewById(R.id.fruit_image);
-                fruitName = (TextView) view.findViewById(R.id.fruit_name);
-            }
-        }
-
-        public BoxAdapter(List<Box> fruitList) {
-            mFruitList = fruitList;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.box_item, parent, false);
-            final BoxAdapter.ViewHolder holder = new BoxAdapter.ViewHolder(view);
-            holder.fruitView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = holder.getAdapterPosition();
-                    Box fruit = mFruitList.get(position);
-                    switch(position){
-                        case 0:
-                            //今日最佳
-                            Intent intent = new Intent(getActivity(),MBoxItem.class);
-                            intent.putExtra("flag","A1");
-                            startActivity(intent);
-                            break;
-                        case 1:
-                            //众话说
-                            Intent intent1 = new Intent(getActivity(), MBoxItem.class);
-                            intent1.putExtra("flag","A4");
-                            startActivity(intent1);
-                            break;
-                        case 2:
-                            //表白墙
-                            Intent intent2 = new Intent(getActivity(),MBoxItem.class);
-                            intent2.putExtra("flag","A3");
-                            startActivity(intent2);
-                            break;
-                        case 3:
-                            //学习交流
-                            Intent intent3 = new Intent(getActivity(), MBoxItem.class);
-                            intent3.putExtra("flag","A6");
-                            startActivity(intent3);
-                            break;
-                        case 4:
-                            //安利
-                            Intent intent4 = new Intent(getActivity(),MBoxItem.class);
-                            intent4.putExtra("flag","A7");
-                            startActivity(intent4);
-                            break;
-                        case 5:
-                            //一日三餐
-                            Intent intent5 = new Intent(getActivity(), MBoxItem.class);
-                            intent5.putExtra("flag","A2");
-                            startActivity(intent5);
-                            break;
-                        case 6:
-                            //需求池
-                            Intent intent6 = new Intent(getActivity(), MBoxItem.class);
-                            intent6.putExtra("flag","A8");
-                            startActivity(intent6);
-                            break;
-                        default:
-                            break;
-                    }
-
-                }
-            });
-
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            Box fruit = mFruitList.get(position);
-            holder.fruitImage.setImageResource(fruit.getImageId());
-            holder.fruitName.setText(fruit.getName());
-        }
-
-        @Override
-        public int getItemCount() {
-            return mFruitList.size();
-        }
-    }
 
     private void getWeather() {
         Thread threadx = new Thread(new Runnable() {
@@ -619,6 +496,32 @@ public class One_first_fragment  extends Fragment {
 
     }
 
+    /**
+     * 自定义广播接受器,用来处理登录广播
+     */
+    private class LoginBroadcastReceiver extends BroadcastReceiver {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //处理我们具体的逻辑,更新UI
+            Toast.makeText(mContext,"xiix",Toast.LENGTH_SHORT).show();
+            initSet();
+        }
 
+    }
+
+    //广播接收器
+    private LoginBroadcastReceiver mReceiver = new LoginBroadcastReceiver();
+
+    //注册广播方法
+    private void registerLoginBroadcast(){
+        IntentFilter intentFilter = new IntentFilter(OneFragment.REFRESH_ACTION);
+        LocalBroadcastManager.getInstance(mContext).registerReceiver(mReceiver,intentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mReceiver);
+    }
 }

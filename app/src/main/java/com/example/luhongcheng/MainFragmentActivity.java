@@ -175,13 +175,18 @@ public class MainFragmentActivity extends AppCompatActivity{
     public void check(String code1) {
         code = APKVersionCodeUtils.getVersionCode(this);    //当前版本号
         int i = Integer.valueOf(this.code1).intValue();     //最新版本
-        if (i >code && i-code<=20) {
+        if (i>code){
+            showDialog();
+        }else {
+            shareAPP();
+        }
+        /*if (i >code && i-code<=20) {
             showDialog();
         }else if (i-code >=30){
             showDialog2();
         }else {
             shareAPP();
-        }
+        }*/
     }
 
     private void shareAPP() {
@@ -191,7 +196,7 @@ public class MainFragmentActivity extends AppCompatActivity{
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setIcon(R.drawable.ic_launcher)//设置标题的图片
                     .setTitle("分享")//设置对话框的标题
-                    .setMessage("你是首次登陆，是否愿意将APP分享给其他同学")//设置对话框的内容
+                    .setMessage("开发不易，分享给更多人吧!")//设置对话框的内容
                     //设置对话框的按钮
                     .setNegativeButton("不愿意", new DialogInterface.OnClickListener() {
                         @Override
@@ -216,6 +221,7 @@ public class MainFragmentActivity extends AppCompatActivity{
                             dialog.dismiss();
                         }
                     }).create();
+            dialog.setCancelable(false);
             dialog.show();
         }
     }
@@ -232,6 +238,7 @@ public class MainFragmentActivity extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         //Toast.makeText(MainActivity.this, "点击了取消按钮", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
+                        finish();
                     }
                 })
                 .setPositiveButton("更新", new DialogInterface.OnClickListener() {
@@ -244,10 +251,11 @@ public class MainFragmentActivity extends AppCompatActivity{
                         dialog.dismiss();
                     }
                 }).create();
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 
-    private void showDialog2() {
+   /* private void showDialog2() {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_launcher)//设置标题的图片
                 .setTitle("你已经太久没更新了哦")//设置对话框的标题
@@ -273,6 +281,8 @@ public class MainFragmentActivity extends AppCompatActivity{
                 }).create();
         dialog.show();
     }
+*/
+
 
     // 用来计算返回键的点击间隔时间
     private long exitTime = 0;

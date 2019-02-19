@@ -187,6 +187,15 @@ public class login_one_fragment extends Fragment {
                             final Message message = new Message();
                             //Toast.makeText(LoginActivity.this,"登录失败:请检查网络或账号密码",Toast.LENGTH_SHORT).show();
                             //password.setText("");
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    layout.setVisibility(View.VISIBLE);
+                                }
+                            });
+
                             BmobQuery<_User> query = new BmobQuery<_User>();
                             query.addWhereEqualTo("username", usernameid);
                             query.findObjects(new FindListener<_User>() {
@@ -200,6 +209,7 @@ public class login_one_fragment extends Fragment {
                                 }
                             });
                             mHandler.sendMessage(message);
+
                         }
                         else if (logincode == 1){
                             memInfo(usernameid,passwordid);
@@ -232,7 +242,9 @@ public class login_one_fragment extends Fragment {
                 layout.setVisibility(View.VISIBLE);
             }
         }
+
     }
+
 
     private class nologin implements View.OnClickListener {
         @Override
@@ -384,7 +396,6 @@ public class login_one_fragment extends Fragment {
                     break;
 
                 case 2:
-                    progressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(getActivity(),"OA连接失败",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), MainFragmentActivity.class);
                     getActivity().startActivity(intent);

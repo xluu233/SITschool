@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -433,7 +434,9 @@ public class OneFragment extends Fragment{
         init(); //轮换图
         getlan();
         gettip();
-        ImprovePersonInformation();
+        ImprovePersonInformation();//完善个人信息
+
+        sendBroadcast();//发送刷新广播
     }
 
 
@@ -723,7 +726,19 @@ public class OneFragment extends Fragment{
         }
     }
 
+    /**
+     * 自定义广播
+     */
+    public static final String REFRESH_ACTION = "sit.action.REFRESH_ACTION";
 
+    /**
+     * 发送我们的局部广播
+     */
+    private void sendBroadcast(){
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
+                new Intent(REFRESH_ACTION)
+        );
+    }
 
 }
 

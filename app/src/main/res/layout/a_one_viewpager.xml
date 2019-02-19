@@ -216,78 +216,10 @@
                 </LinearLayout>
 
 
-
-
-                <LinearLayout
-                    android:background="@drawable/textshape3"
-                    android:id="@+id/moremore"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp">
-
-                        <Button
-                            android:background="@color/white"
-                            android:text="热门话题"
-                            android:textSize="13dp"
-                            android:gravity="left"
-                            android:textStyle="bold"
-                            android:layout_width="200dp"
-                            android:layout_height="match_parent" />
-
-                        <Button
-                            android:id="@+id/moreBox"
-                            android:background="@color/white"
-                            android:textSize="10dp"
-                            android:text="更多>"
-                            android:textColor="@color/colorAccent"
-                            android:gravity="right"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/div_tab_bar2"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#DDDDDD"/>
-
-                    <LinearLayout
-                        android:id="@+id/recycler"
-                        android:background="@color/white"
-                        android:layout_below="@+id/moremore"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.RecyclerView
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
-                            android:id="@+id/recycler_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
                 <LinearLayout
                     android:id="@+id/swzl"
                     android:background="@drawable/textshape3"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_margin="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">

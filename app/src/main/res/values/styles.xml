@@ -60,10 +60,24 @@
 
 
     <style name="about0" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
         <item name="colorPrimary">@color/green_300</item>
         <item name="colorPrimaryDark">@color/transparent</item>
         <item name="colorAccent">@color/transparent</item>
+    </style>
+
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/moren</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Theme.imgFullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">false</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/transparent</item>
+        <!--底部黑色，状态栏透明-->
     </style>
 
 </resources>

@@ -94,7 +94,6 @@
             </intent-filter>
         </receiver>
         <activity android:name=".MBox.MBoxItem"></activity>
-        <activity android:name=".MoreBox"/>
         <activity android:name=".SQ.SS_ADD"></activity>
         <activity android:name=".SQ.ssDisPlay"></activity>
         <activity android:name=".SQ.SS_ADD2"></activity>

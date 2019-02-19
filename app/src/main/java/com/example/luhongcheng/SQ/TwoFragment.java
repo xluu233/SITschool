@@ -2,46 +2,31 @@ package com.example.luhongcheng.SQ;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.example.luhongcheng.Bmob.SS;
 import com.example.luhongcheng.Bmob.UserInfo;
-import com.example.luhongcheng.Box;
 import com.example.luhongcheng.ImageFullDisplay;
-import com.example.luhongcheng.MBox.MBoxItem;
-import com.example.luhongcheng.MoreBox;
 import com.example.luhongcheng.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
