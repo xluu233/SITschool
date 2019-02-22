@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/moren_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/statusBarView"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
+        android:layout_below="@+id/statusBarView"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/colorPrimary"
         app:tabGravity="center"
         app:tabMode="fixed"
+        app:tabTextAppearance="@style/TabLayoutTextAppearance"
         app:tabIndicatorColor="@color/white"
         app:tabSelectedTextColor="@color/white">
     </android.support.design.widget.TabLayout>
@@ -20,10 +28,11 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
+        android:layout_below="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
         android:scrollbars="none" />
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -211,9 +212,12 @@ public class OneFragment extends Fragment{
 
         initData();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));//设置状态栏背景色
-        }
+
+        View statusBar = getView().findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight(getActivity());
+
+
 
         packageManager = getActivity().getPackageManager();
         refresh = (SwipeRefreshLayout)getActivity().findViewById(R.id.refresh_one);
@@ -254,6 +258,21 @@ public class OneFragment extends Fragment{
 
         mFragments.add(one_first_fragment);
         mFragments.add(one_second_fragment);
+    }
+
+    /**
+     * 利用反射获取状态栏高度
+     * @return
+     * @param activity
+     */
+    public int getStatusBarHeight(Activity activity) {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
 

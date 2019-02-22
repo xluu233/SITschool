@@ -93,7 +93,7 @@ public class item0 extends Activity {
         overridePendingTransition(R.anim.bottom_silent,R.anim.bottom_out);
     }
 
-    public void close(View view) {
+    public void close(View view)             {
         this.finish();
     }
 

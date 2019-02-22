@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -64,9 +65,8 @@ public class KB2 extends Activity {
         webSettings.setLoadWithOverviewMode(true);
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));//设置状态栏背景色
-        }
+
+
 
         spinner= (Spinner) findViewById(R.id.spinner);
         //将可选内容与ArrayAdapter连接起来
@@ -116,6 +116,8 @@ public class KB2 extends Activity {
         firstpanduan();
 
     }
+
+
 
     private void firstpanduan() {
         String xixi = null;

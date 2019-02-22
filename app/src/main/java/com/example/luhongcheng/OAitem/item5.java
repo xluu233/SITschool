@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +56,7 @@ public class item5 extends Activity implements View.OnClickListener {
     String a3;
     String a4;
 
-
+    RelativeLayout layout;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -63,13 +64,13 @@ public class item5 extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item5);
 
-
         Button sendpostdata = (Button) findViewById(R.id.send_request);
         chaxun = (EditText) findViewById(R.id.chaxun);
         sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
-        progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
+        progressBar = (ProgressBar) findViewById(R.id.result_progressBar) ;
+        layout = (RelativeLayout)findViewById(R.id.result);
 
         final TextView title0 = (TextView) findViewById(R.id.room1);
         final TextView title1 = (TextView) findViewById(R.id.A1) ;
@@ -122,10 +123,12 @@ public class item5 extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.send_request) {
             if(xuehao.length()==10&&mima.length()>=4){
-                postdata();
                 classroomid = chaxun.getText().toString();
                 if (classroomid.contains("10") && classroomid.length() >=6){
+                    postdata();
                     memInfo(classroomid);
+                    layout.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                 }
                 else{
                     Toast.makeText(item5.this,"格式错误",Toast.LENGTH_SHORT).show();
@@ -217,10 +220,11 @@ public class item5 extends Activity implements View.OnClickListener {
                     okHttpClient.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(okhttp3.Call call, IOException e) {
+                            Toast.makeText(getApplicationContext(),"查询失败",Toast.LENGTH_SHORT).show();
                         }
                         @Override
                         public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                            //Log.d("源代码", "onResponse: " + response.body().string().toString());
+
                         }
                     });
                 } catch (Exception e) {
@@ -235,6 +239,9 @@ public class item5 extends Activity implements View.OnClickListener {
             @Override
             public void run() {
                 try{
+                    layout.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+
                     Document doc = Jsoup.parse(responseData);
                     Element url = doc.getElementById("table");   //依据ID取值
                     Elements link =  url.getElementsByTag("tr");

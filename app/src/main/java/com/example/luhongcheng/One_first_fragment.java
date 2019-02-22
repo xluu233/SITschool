@@ -232,6 +232,7 @@ public class One_first_fragment  extends Fragment {
 
                     URL myFileURL;
                     if (A2.length() !=0){
+                        souhutitle.setWidth(600);
                         try {
                             myFileURL = new URL(A2);
                             HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();

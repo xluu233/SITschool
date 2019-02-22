@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/button_shape2"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv"
-        android:layout_marginTop="10dp"
-        android:lineSpacingMultiplier="1.5"
+        android:lineSpacingMultiplier="1.25"
         android:textColor="@color/black"
         android:gravity="center_vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="50dp"/>
@@ -19,22 +20,14 @@
     <TextView
         android:id="@+id/time"
         android:gravity="right"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:text="2018-09-12 13:18:17"
-        android:lineSpacingMultiplier="1.5"
         android:textSize="12dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <ImageView
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/red_300"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-
-
+        android:layout_height="20dp"/>
 
 
 </LinearLayout>

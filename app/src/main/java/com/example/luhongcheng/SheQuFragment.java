@@ -1,5 +1,6 @@
 package com.example.luhongcheng;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,6 +37,10 @@ public class SheQuFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initFragment();
         initView();
+
+        View statusBar = getView().findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight(getActivity());
 
     }
 
@@ -98,6 +103,19 @@ public class SheQuFragment extends Fragment {
         });
     }
 
-
+    /**
+     * 利用反射获取状态栏高度
+     * @return
+     * @param activity
+     */
+    public int getStatusBarHeight(Activity activity) {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
 }

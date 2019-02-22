@@ -8,9 +8,18 @@
     android:orientation="vertical">
 
 
+    <View
+        android:id="@+id/statusBarView"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+
     <LinearLayout
         android:id="@+id/tt"
         android:gravity="center"
+        android:layout_below="@+id/statusBarView"
         android:background="@drawable/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -29,7 +29,7 @@
         android:layout_height="30dp">
 
         <TextView
-            android:layout_weight="1"
+            android:layout_weight="1.7"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -37,10 +37,6 @@
             android:text="课程代码：B3042257"
             android:textSize="12sp"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent" />
 
         <TextView
             android:layout_width="0dp"

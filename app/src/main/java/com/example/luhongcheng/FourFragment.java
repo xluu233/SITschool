@@ -2,6 +2,7 @@ package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -73,11 +75,20 @@ public class FourFragment extends Fragment {
         initFragment();
         initView();
 
-        if (Build.VERSION.SDK_INT >= 21){
+/*        if (Build.VERSION.SDK_INT >= 21){
             View decorView = getActivity().getWindow().getDecorView();
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+        }*/
+
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getActivity().getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+        }*/
+
+        View statusBar = getView().findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight(getActivity());
 
     }
 
@@ -139,7 +150,20 @@ public class FourFragment extends Fragment {
     }
 
 
-
+    /**
+     * 利用反射获取状态栏高度
+     * @return
+     * @param activity
+     */
+    public int getStatusBarHeight(Activity activity) {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
 }
 

@@ -34,8 +34,8 @@
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="20dp">
                         <TextView
@@ -62,8 +62,8 @@
 
                     <View
                         android:id="@+id/div33"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#DDDDDD"
@@ -75,7 +75,7 @@
 
                         <ImageButton
                             android:id="@+id/weather_icon"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="20dp"
                             android:background="@color/white"
                             android:scaleType="centerCrop"
                             android:layout_width="90dp"
@@ -85,15 +85,15 @@
                             android:id="@+id/weather_t1"
                             android:gravity="center"
                             android:layout_toRightOf="@+id/weather_icon"
-                            android:layout_width="80dp"
+                            android:layout_width="70dp"
                             android:text="--℃"
                             android:layout_height="match_parent"
                             android:textSize="32dp"
                             android:textStyle="bold"/>
 
                         <LinearLayout
-                            android:layout_marginRight="25dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@+id/weather_t1"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
@@ -141,8 +141,8 @@
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="20dp">
                         <TextView
@@ -166,8 +166,8 @@
                     </LinearLayout>
 
                     <View
-                        android:layout_marginRight="30dp"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#DDDDDD"
@@ -180,9 +180,9 @@
                         <TextView
                             android:layout_marginTop="8dp"
                             android:id="@+id/souhu_title"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
-                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_marginRight="145dp"
                             android:layout_height="60dp"
                             android:gravity="center_vertical"
                             android:text="暂无信息"
@@ -190,22 +190,22 @@
 
                         <TextView
                             android:id="@+id/souhu_subtitle"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="20dp"
                             android:textSize="12dp"
                             android:text="暂无信息"
                             android:layout_marginRight="30dp"
                             android:layout_below="@+id/souhu_title"
-                            android:layout_width="wrap_content"
+                            android:layout_width="150dp"
                             android:layout_height="40dp"
                             android:gravity="center_vertical"/>
 
-                        <ImageButton
+                          <ImageButton
                             android:id="@+id/souhu_iv"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="match_parent"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginRight="30dp"
+                            android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:background="@color/white"
@@ -226,8 +226,8 @@
 
                     <LinearLayout
                         android:orientation="horizontal"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="20dp">
                         <TextView
@@ -241,8 +241,8 @@
                     </LinearLayout>
 
                     <View
-                        android:layout_marginRight="30dp"
-                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#DDDDDD"
@@ -256,7 +256,7 @@
                             android:text="暂无信息"
                             android:gravity="center_vertical"
                             android:id="@+id/swzl_title"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="20dp"
                             android:layout_width="180dp"
                             android:layout_height="35dp"
                             android:textSize="11dp"/>
@@ -264,7 +264,7 @@
                         <TextView
                             android:text="暂无信息"
                             android:id="@+id/swzl_subtitle"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="20dp"
                             android:textSize="11dp"
                             android:layout_below="@+id/swzl_title"
                             android:layout_width="180dp"
@@ -273,7 +273,7 @@
 
                         <TextView
                             android:id="@+id/swzl_time"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="20dp"
                             android:textSize="11dp"
                             android:layout_below="@+id/swzl_subtitle"
                             android:layout_width="180dp"
@@ -285,7 +285,7 @@
                             android:layout_marginBottom="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginRight="35dp"
+                            android:layout_marginRight="20dp"
                             android:layout_toRightOf="@+id/swzl_title"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

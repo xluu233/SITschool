@@ -1,6 +1,7 @@
 package com.example.luhongcheng;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
@@ -141,10 +142,27 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getContext(),"你还没有登录哦",Toast.LENGTH_SHORT);
         }
 
-
+        View statusBar = getView().findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight(getActivity());
 
     }
 
+
+    /**
+     * 利用反射获取状态栏高度
+     * @return
+     * @param activity
+     */
+    public int getStatusBarHeight(Activity activity) {
+        int result = 0;
+        //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
 
     private void getCookie() {
         // 开启线程来发起网络请求

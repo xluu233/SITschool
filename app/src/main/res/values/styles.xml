@@ -67,7 +67,7 @@
     </style>
 
     <style name="TabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/moren</item>
         <item name="android:textAllCaps">false</item>
     </style>

@@ -50,28 +50,37 @@
             android:textColor="@color/moren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.25"
             android:text="Tips：查询结果为每天定时更新数据，与实际数据会有误差。如需查询实时信息请至多媒体机查询。如对查询结果有疑问，请致电一卡通中心咨询，联系电话021-60873113。"
             android:textSize="14dp"/>
 
         <TextView
             android:id="@+id/b"
+            android:layout_marginTop="40dp"
             android:textColor="@color/moren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="
-
-Tips：学校服务器不稳定，连接内网查询成功几率更高哟，若等待10s后还没有信息，请刷新重试"
+            android:lineSpacingMultiplier="1.25"
+            android:text="Tips：学校服务器不稳定，连接内网查询成功几率更高哟，若等待10s后还没有信息，请刷新重试"
             android:layout_below="@+id/a"
             android:textSize="14dp"/>
 
 
     </RelativeLayout>
 
+    <ProgressBar
+        android:visibility="invisible"
+        android:id="@+id/result_progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <RelativeLayout
+        android:id="@+id/result"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="180dp">
+
 
         <TextView
             android:id="@+id/room"
@@ -153,13 +162,12 @@ Tips：学校服务器不稳定，连接内网查询成功几率更高哟，若�
 
     </RelativeLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_alignParentBottom= "true">
-
-
 
         <Button
             android:id="@+id/send_request"

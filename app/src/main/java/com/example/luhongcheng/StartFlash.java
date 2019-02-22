@@ -3,6 +3,7 @@ package com.example.luhongcheng;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -14,6 +15,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.example.luhongcheng.Bmob.LOGO;
 import com.example.luhongcheng.Login.LoginActivity;
 
@@ -49,6 +52,7 @@ public class StartFlash extends Activity {
         }
     };
 
+    private Boolean hasCode;
     
     public String ImageUrl ;
     Button skip;
@@ -60,6 +64,8 @@ public class StartFlash extends Activity {
         mImageView = (ImageView) findViewById(R.id.kaiji);
         skip = (Button)findViewById(R.id.skip);
         Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
+
+        test();//检查密码
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
@@ -105,12 +111,32 @@ public class StartFlash extends Activity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(StartFlash.this, LoginActivity.class);
-                startActivity(intent2);
-                finish();
+                if (hasCode){
+                    Intent intent2 = new Intent(StartFlash.this, MainFragmentActivity.class);
+                    startActivity(intent2);
+                    finish();
+                }else {
+                    Intent intent2 = new Intent(StartFlash.this, LoginActivity.class);
+                    startActivity(intent2);
+                    finish();
+                }
+
             }
         });
 
+    }
+
+    private void test() {
+        SharedPreferences sp= getSharedPreferences("userid",0);
+        String username = sp.getString("username","");
+        String password = sp.getString("password","");
+
+
+        if (username.length()>=10 && password.length()>=4 ){
+            hasCode = true;
+        }else {
+            hasCode = false;
+        }
     }
 
     private void StartNewThread() {
@@ -122,9 +148,17 @@ public class StartFlash extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                //Toast.makeText(TransitionActivity.this, "First log", Toast.LENGTH_SHORT).show();
-                intent = new Intent(StartFlash.this, LoginActivity.class);
-                StartFlash.this.startActivity(intent);
+
+                if (hasCode){
+                    Intent intent2 = new Intent(StartFlash.this, MainFragmentActivity.class);
+                    startActivity(intent2);
+                    finish();
+                }else {
+                    Intent intent2 = new Intent(StartFlash.this, LoginActivity.class);
+                    startActivity(intent2);
+                    finish();
+                }
+
                 StartFlash.this.finish();
             }
         });
