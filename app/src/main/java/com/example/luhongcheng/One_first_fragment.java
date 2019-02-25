@@ -107,7 +107,7 @@ public class One_first_fragment  extends Fragment {
         souhusubtitle =(TextView)getActivity().findViewById(R.id.souhu_subtitle);
 
 
-        registerLoginBroadcast();//注册广播
+       // registerLoginBroadcast();//注册广播
         initOnClick();
         initSet();
 
@@ -497,32 +497,34 @@ public class One_first_fragment  extends Fragment {
 
     }
 
-    /**
-     * 自定义广播接受器,用来处理登录广播
-     */
-    private class LoginBroadcastReceiver extends BroadcastReceiver {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //处理我们具体的逻辑,更新UI
-            Toast.makeText(mContext,"xiix",Toast.LENGTH_SHORT).show();
-            initSet();
-        }
-
-    }
-
-    //广播接收器
+/*    //广播接收器
     private LoginBroadcastReceiver mReceiver = new LoginBroadcastReceiver();
-
-    //注册广播方法
+    //注册广播
     private void registerLoginBroadcast(){
         IntentFilter intentFilter = new IntentFilter(OneFragment.REFRESH_ACTION);
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mReceiver,intentFilter);
+    }
+    *//**
+     * 自定义广播接受器,用来处理登录广播
+     *//*
+    private class LoginBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //处理我们具体的逻辑,更新UI
+            initSet();
+            //unregisterBroadcast();
+        }
+
+    }
+    *//*取消注册广播*//*
+    private void unregisterBroadcast(){
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mReceiver);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mReceiver);
-    }
+    }*/
 }

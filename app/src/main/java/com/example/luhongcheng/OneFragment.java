@@ -8,39 +8,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.support.annotation.LongDef;
-import android.support.annotation.UiThread;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -51,12 +39,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.luhongcheng.Bmob.Tips;
 import com.example.luhongcheng.Bmob.UserInfo;
 import com.example.luhongcheng.Bmob.lan;
-import com.example.luhongcheng.MBox.MBoxItem;
 import com.example.luhongcheng.OAitem.item0;
 import com.example.luhongcheng.OAitem.item1;
 import com.example.luhongcheng.OAitem.item2;
@@ -66,20 +51,13 @@ import com.example.luhongcheng.OAitem.item5;
 import com.example.luhongcheng.OAitem.item7;
 import com.example.luhongcheng.OAitem.item8;
 import com.example.luhongcheng.OAitem.item9;
+import com.example.luhongcheng.OneSelf.setMy;
 import com.example.luhongcheng.SQ.ZoomOutPageTransformer;
 import com.example.luhongcheng.SWZL.swzlmain;
-import com.example.luhongcheng.WeiXin.Weixin_more;
 import com.example.luhongcheng.about.about0;
 import com.example.luhongcheng.userCard.userCardinfo;
 import com.example.luhongcheng.zixun.news;
-import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -91,10 +69,7 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import static cn.bmob.v3.Bmob.getApplicationContext;
 
@@ -174,7 +149,6 @@ public class OneFragment extends Fragment{
 
     TextView tips,QQ;
     Button box;
-    ImageButton one;
 
     ImageButton souhuiv;
     TextView souhutitle,souhusubtitle;
@@ -235,7 +209,6 @@ public class OneFragment extends Fragment{
 
         Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
         tips = (TextView) getActivity().findViewById(R.id.tips);
-        one = (ImageButton) getActivity().findViewById(R.id.OneSelf);
 
         String[] from={"ItemImage","ItemText"};
         int[] to={R.id.ItemImage,R.id.ItemText};
@@ -371,13 +344,6 @@ public class OneFragment extends Fragment{
         });
 
 
-        one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent  = new Intent(getActivity(),OneSelf.class);
-                startActivity(intent);
-            }
-        });
         tips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -455,7 +421,8 @@ public class OneFragment extends Fragment{
         gettip();
         ImprovePersonInformation();//完善个人信息
 
-        sendBroadcast();//发送刷新广播
+     //   sendBroadcast();//发送刷新广播
+        Intent intent = new Intent();
     }
 
 
@@ -745,19 +712,18 @@ public class OneFragment extends Fragment{
         }
     }
 
-    /**
-     * 自定义广播
-     */
-    public static final String REFRESH_ACTION = "sit.action.REFRESH_ACTION";
+
+
 
     /**
-     * 发送我们的局部广播
+     * 发送本地广播 刷新首页
      */
+/*    public static final String REFRESH_ACTION = "sit.action.REFRESH_ACTION";
     private void sendBroadcast(){
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(
                 new Intent(REFRESH_ACTION)
         );
-    }
+    }*/
 
 }
 

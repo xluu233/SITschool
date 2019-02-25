@@ -27,10 +27,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main_startflash);
+        setContentView(R.layout.login);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.login));//设置状态栏背景色
         }
+
         initFragment();
         initView();
         ImageView share = (ImageView) findViewById(R.id.shareapp) ;

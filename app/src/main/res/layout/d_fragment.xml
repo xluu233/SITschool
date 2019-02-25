@@ -2,9 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/guidao"
+    android:background="@drawable/background_oneself"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
     <View
@@ -23,7 +22,7 @@
         app:tabMode="fixed"
         app:tabIndicator="@color/transparent"
         app:tabTextAppearance="@style/TabLayoutTextAppearance"
-        app:tabSelectedTextColor="@color/white">
+        app:tabSelectedTextColor="@color/black">
     </android.support.design.widget.TabLayout>
 
 

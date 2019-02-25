@@ -21,10 +21,10 @@ import com.example.luhongcheng.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FourFragment extends Fragment {
+public class ThreeFragment extends Fragment {
 
-    public static FourFragment newInstance() {
-        return new FourFragment();
+    public static ThreeFragment newInstance() {
+        return new ThreeFragment();
     }
     private List<Box> fruitList = new ArrayList<Box>();
 

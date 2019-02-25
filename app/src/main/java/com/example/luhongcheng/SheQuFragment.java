@@ -1,19 +1,17 @@
 package com.example.luhongcheng;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.example.luhongcheng.SQ.ThreeFragment;
 
 import java.util.ArrayList;
 
@@ -49,11 +47,11 @@ public class SheQuFragment extends Fragment {
 
         com.example.luhongcheng.SQ.OneFragment oneFragment =  com.example.luhongcheng.SQ.OneFragment.newInstance();
         com.example.luhongcheng.SQ.TwoFragment twoFragment =  com.example.luhongcheng.SQ.TwoFragment.newInstance();
-        com.example.luhongcheng.SQ.FourFragment fourFragment =  com.example.luhongcheng.SQ.FourFragment.newInstance();
+        com.example.luhongcheng.SQ.ThreeFragment threeFragment =  com.example.luhongcheng.SQ.ThreeFragment.newInstance();
 
         mFragments.add(oneFragment);
         mFragments.add(twoFragment);
-        mFragments.add(fourFragment);
+        mFragments.add(threeFragment);
     }
 
     private static final String DOG_BREEDS[] = {"精选", "广场", "收藏"};

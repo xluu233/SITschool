@@ -109,15 +109,6 @@ public class UserInfo extends BmobObject {
 
     List<String> guanzhu;//关注列表
 
-    public String getJifen() {
-        return jifen;
-    }
-
-    public void setJifen(String jifen) {
-        this.jifen = jifen;
-    }
-
-    String jifen;//积分
 
     public List<String> getShuishui() {
         return shuishui;

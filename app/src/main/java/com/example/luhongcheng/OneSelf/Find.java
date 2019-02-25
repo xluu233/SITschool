@@ -1,12 +1,9 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.OneSelf;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,23 +28,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.luhongcheng.Bmob.UserInfo;
-import com.example.luhongcheng.Bmob.news;
-import com.example.luhongcheng.FruitItem.Fruit;
-import com.example.luhongcheng.FruitItem.OneselfListAdapter;
 import com.example.luhongcheng.ImageView.CircleImageView;
-import com.example.luhongcheng.SQ.OneFragment;
-import com.example.luhongcheng.SQ.SSS;
-import com.example.luhongcheng.zixun.OA;
-import com.example.luhongcheng.zixun.OAdapter;
-import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
+import com.example.luhongcheng.R;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.b.name;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -75,6 +61,8 @@ public class Find extends Activity {
 
     String GZ_Status = "0";//关注状态
     String You_Statue;//你的状态，代表是否获取到关注和粉丝列表
+
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +73,6 @@ public class Find extends Activity {
         mlistview = (ListView)findViewById(R.id.search_friends);
         refreshLayout  =(SwipeRefreshLayout)findViewById(R.id.refresh);
         progressBar = (ProgressBar)findViewById(R.id.ProgressBar);
-
         cn.bmob.v3.Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
 
         //状态栏颜色
@@ -93,7 +80,7 @@ public class Find extends Activity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.teal_300));
         }
 
-        onClick();
+
 
         handler = new Handler(){
             @Override
@@ -137,6 +124,7 @@ public class Find extends Activity {
             }
         });
 
+        onClick();
         getOneInfo();
     }
 
@@ -163,10 +151,7 @@ public class Find extends Activity {
 
                     }else{
                         Toast.makeText(getApplicationContext(),"查询你的粉丝列表失败",Toast.LENGTH_SHORT).show();
-
-                        //you_guanzhu = null;
-                        //you_fensi = null;
-                        Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                        //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                     }
                 }
             });
@@ -186,8 +171,13 @@ public class Find extends Activity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Start_Search();
-                progressBar.setVisibility(View.VISIBLE);
+                String output = text.getText().toString();
+                if (output.length() == 10){
+                    progressBar.setVisibility(View.VISIBLE);
+                    Start_Search();
+                }else {
+                    Toast.makeText(getApplicationContext(),"请输入正确学号",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -197,11 +187,11 @@ public class Find extends Activity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
                     String output = text.getText().toString();
-                    if (output.length() != 0){
+                    if (output.length() == 10){
                         progressBar.setVisibility(View.VISIBLE);
                         Start_Search();
                     }else {
-                        Toast.makeText(getApplicationContext(),"请输入",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"请输入正确学号",Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -241,7 +231,7 @@ public class Find extends Activity {
                 query.addWhereEqualTo("ID", mText);
                 //query.addWhereContains("ID",mText);
                 query.order("-createdAt");
-                query.setLimit(100);
+                query.setLimit(10);
                 query.findObjects(new FindListener<UserInfo>(){
                     @Override
                     public void done(final List<UserInfo> object, BmobException e) {
@@ -262,22 +252,31 @@ public class Find extends Activity {
 
                                 for (int i=0;i<object.size();i++){
                                     id[i] = object.get(i).getObjectId();
-                                    nickname[i] = object.get(i).getNickname();
-                                    qm[i] = object.get(i).getQM();
-                                    fs[i] = String.valueOf(object.get(i).getFensi().size());
-                                    icon[i] = object.get(i).geticonUrl();
-                                    if (nickname[i].length() == 0){
-                                        nickname[i] = object.get(i).getName();
+
+                                    if (object.get(i).getNickname() != null){
+                                        nickname[i] = object.get(i).getNickname();
+                                    }else {
+                                        nickname[i] = "  ";
                                     }
-                                    if (qm[i].length() == 0){
-                                        qm[i] = "这个人很懒，什么都没有留下";
+
+                                    if (object.get(i).getQM() != null){
+                                        qm[i] = object.get(i).getQM();
+                                    }else {
+                                        qm[i] = "这个人很懒，什么都木有";
                                     }
-                                    if(fs[i].length() ==0){
+
+                                    if (object.get(i).getFensi() != null){
+                                        fs[i] = String.valueOf(object.get(i).getFensi().size());
+                                    }else {
                                         fs[i] = "0";
                                     }
-                                    if (icon[i].length() ==0){
+
+                                    if (object.get(i).geticonUrl() != null){
+                                        icon[i] = object.get(i).geticonUrl();
+                                    }else {
                                         icon[i] = "https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=4a48b3ac4f10b912bfc1f1f8fbc69b3e/500fd9f9d72a6059a274150d2034349b033bba45.jpg";
                                     }
+
                                     mlist.add(new Friends(nickname[i],qm[i],fs[i],icon[i],id[i]));
 
                                     //Toast.makeText(getApplicationContext(),"查询成功",Toast.LENGTH_SHORT).show();
@@ -292,9 +291,9 @@ public class Find extends Activity {
                             }
 
                         }else{
-                            progressBar.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(getApplicationContext(),"没有找到这位同学哦，快把App分享给她吧",Toast.LENGTH_SHORT).show();
-                            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                           // Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                         }
 
                     }
@@ -408,7 +407,7 @@ public class Find extends Activity {
             }
             if (you_id.equals(news.getPerson_id())){
                 GZ_Status = "4";
-                holder.check.setText("  ");
+                holder.check.setVisibility(View.INVISIBLE);
             }
 
             final ViewHolder finalHolder = holder;
@@ -417,16 +416,9 @@ public class Find extends Activity {
                 public void onClick(View v) {
 
 
-                    if (GZ_Status == "4"){
-                        Toast.makeText(getApplicationContext(), "你还想关注自己咋地？", Toast.LENGTH_SHORT).show();
-                    }
 
-                    if (GZ_Status == "1" ||  GZ_Status =="3"){
-                        Toast.makeText(getApplicationContext(), "暂不支持取消关注", Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (GZ_Status == "0" || GZ_Status =="2"){
-                        finalHolder.check.setText("已关注");
+                    if (GZ_Status == "0"){
+                        progressBar.setVisibility(View.VISIBLE);
                         if (you_guanzhu != null){
                             you_guanzhu.add(news.getPerson_id());
 
@@ -437,6 +429,9 @@ public class Find extends Activity {
                                 public void done(BmobException e1) {
                                     if(e1==null){
                                         Toast.makeText(getApplicationContext(), "关注成功", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        finalHolder.check.setText("已关注");
+                                        GZ_Status = "1";
                                     }else{
                                         //Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
                                         Toast.makeText(getApplicationContext(), "关注失败", Toast.LENGTH_SHORT).show();
@@ -446,13 +441,102 @@ public class Find extends Activity {
                             });
 
                         }else {
-                            Toast.makeText(getApplicationContext(), "获取关注列表失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "关注列表为空", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    if (GZ_Status == "1"){
+                        //Toast.makeText(getApplicationContext(), "暂不支持取消关注", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.VISIBLE);
+                        if (you_guanzhu != null){
+                            you_guanzhu.remove(news.getPerson_id());
+
+                            UserInfo object = new  UserInfo();
+                            object.setGuanzhu(you_guanzhu);
+                            object.update(you_id, new UpdateListener() {
+                                @Override
+                                public void done(BmobException e1) {
+                                    if(e1==null){
+                                        Toast.makeText(getApplicationContext(), "取消关注成功", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        finalHolder.check.setText("未关注");
+                                        GZ_Status = "0";
+                                    }else{
+                                        Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
+                                        Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                                    }
+                                }
+                            });
+
+                        }else {
+                            Toast.makeText(getApplicationContext(), "关注列表为空", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    if (GZ_Status =="2"){
+                        progressBar.setVisibility(View.VISIBLE);
+                        if (you_guanzhu != null){
+                            you_guanzhu.add(news.getPerson_id());
+
+                            UserInfo object = new  UserInfo();
+                            object.setGuanzhu(you_guanzhu);
+                            object.update(you_id, new UpdateListener() {
+                                @Override
+                                public void done(BmobException e1) {
+                                    if(e1==null){
+                                        Toast.makeText(getApplicationContext(), "关注成功", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        finalHolder.check.setText("已关注");
+                                        GZ_Status = "3";
+                                    }else{
+                                        //Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "关注失败", Toast.LENGTH_SHORT).show();
+                                        Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                                    }
+                                }
+                            });
+
+                        }else {
+                            Toast.makeText(getApplicationContext(), "关注列表为空", Toast.LENGTH_SHORT).show();
                         }
 
                     }
 
 
+                    if (GZ_Status == "3"){
+                        //Toast.makeText(getApplicationContext(), "暂不支持取消关注", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.VISIBLE);
+                        if (you_guanzhu != null){
+                            you_guanzhu.remove(news.getPerson_id());
 
+                            UserInfo object = new  UserInfo();
+                            object.setGuanzhu(you_guanzhu);
+                            object.update(you_id, new UpdateListener() {
+                                @Override
+                                public void done(BmobException e1) {
+                                    if(e1==null){
+                                        Toast.makeText(getApplicationContext(), "取消关注成功", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        finalHolder.check.setText("未关注");
+                                        GZ_Status = "2";
+                                    }else{
+                                        Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
+                                        Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                                    }
+                                }
+                            });
+
+                        }else {
+                            Toast.makeText(getApplicationContext(), "关注列表为空", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    if (GZ_Status == "4"){
+                        Toast.makeText(getApplicationContext(), "你还想关注自己咋地？", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             });

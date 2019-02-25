@@ -37,7 +37,7 @@ public class One_second_fragment extends Fragment {
 
         initFruits();
         RecyclerView recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view222);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         BoxAdapter adapter = new BoxAdapter(fruitList);
         recyclerView.setAdapter(adapter);

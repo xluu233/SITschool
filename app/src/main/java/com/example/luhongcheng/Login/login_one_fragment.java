@@ -321,8 +321,7 @@ public class login_one_fragment extends Fragment {
                                     gg.setPassid(passwordid);
                                     gg.setName(name);
                                     gg.setXueyuan(xueyuan);
-                                    gg.setJifen("0");
-                                    gg.setNickname("你好："+name.replaceAll("姓名：",""));
+                                    gg.setNickname(name.replaceAll("姓名：",""));
                                     gg.setQM("这个人很懒，什么都没有留下");
                                     gg.setGuanzhu(xi);
                                     gg.setFensi(xi);

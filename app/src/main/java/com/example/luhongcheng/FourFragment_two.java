@@ -41,14 +41,12 @@ public class FourFragment_two extends Fragment {
     TextView vv;
     ViewGroup container;
 
-
     private List<Fruit> fruitList = new ArrayList<Fruit>();
 
     @SuppressLint("ValidFragment")
     public FourFragment_two(String context){
         this.context = context;
     }
-
 
     //打包问题，在这里加入无参构造函数
     public FourFragment_two() {
@@ -112,8 +110,7 @@ public class FourFragment_two extends Fragment {
                         startActivity(intent4);
                         break;
                     case 5:
-                        Intent intent5 = new Intent(getActivity(), OneSelf.class);
-                        startActivity(intent5);
+                        get_out();
                         break;
                     default:
                         break;
@@ -123,26 +120,24 @@ public class FourFragment_two extends Fragment {
             }
         });
 
-        Button clear = (Button) getView().findViewById(R.id.clear);
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences("userid", 0).edit();
-                editor.clear().commit();
-
-                SharedPreferences.Editor editor2 = getActivity().getSharedPreferences("personID", 0).edit();
-                editor2.clear().commit();
-
-                Toast.makeText(getActivity(), "账号信息已清除", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
         bindView();
 
     }
+
+    private void get_out(){
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("userid", 0).edit();
+        editor.clear().commit();
+
+        SharedPreferences.Editor editor2 = getActivity().getSharedPreferences("personID", 0).edit();
+        editor2.clear().commit();
+
+        Toast.makeText(getActivity(), "账号信息已清除", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getActivity(),LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
 
     private void initFruits() {
         Fruit apple = new Fruit("功能介绍", R.drawable.jieshao);
@@ -155,8 +150,8 @@ public class FourFragment_two extends Fragment {
         fruitList.add(watermelon);
         Fruit pear = new Fruit("捐赠开发者", R.drawable.juanzeng);
         fruitList.add(pear);
-        Fruit pear2 = new Fruit("个人中心", R.drawable.oneself);
-        fruitList.add(pear2);
+        Fruit out = new Fruit("退出登录",R.drawable.get_out);
+        fruitList.add(out);
     }
 
 

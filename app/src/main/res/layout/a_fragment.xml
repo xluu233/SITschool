@@ -182,7 +182,7 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/a_viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"
+                    android:layout_height="450dp"
                     android:overScrollMode="never"
                     android:scrollbars="none" />
 

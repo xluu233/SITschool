@@ -1,4 +1,4 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.OneSelf;
 
 public class Friends {
     public Friends(String nk, String qm, String fs, String icon,String id) {

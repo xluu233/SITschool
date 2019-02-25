@@ -1,8 +1,6 @@
-package com.example.luhongcheng;
+package com.example.luhongcheng.OneSelf;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,18 +23,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.luhongcheng.Bmob.UserInfo;
-import com.example.luhongcheng.Bmob._User;
+import com.example.luhongcheng.R;
 
 
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
