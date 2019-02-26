@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.example.luhongcheng.Bmob.Tips;
+import com.example.luhongcheng.Bmob_bean.Tips;
 import java.util.ArrayList;
 import java.util.List;
 

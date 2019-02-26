@@ -22,7 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.UserInfo;
+import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
 
 

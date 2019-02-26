@@ -55,19 +55,19 @@
         <activity android:name=".TuisongActivity"
             tools:ignore="DuplicateActivity" />
         <activity android:name=".userCard.userCardinfo"/>
-        <activity android:name=".about.about0"
+        <activity android:name=".setting.about0"
             android:theme="@style/about0"></activity>
-        <activity android:name=".about.about1"></activity>
-        <activity android:name=".about.about2"></activity>
-        <activity android:name=".about.about3"></activity>
-        <activity android:name=".about.about4"></activity>
+        <activity android:name=".setting.about1"></activity>
+        <activity android:name=".setting.about2"></activity>
+        <activity android:name=".setting.about3"></activity>
+        <activity android:name=".setting.about4"></activity>
         <activity android:name=".SWZL.send"/>
         <activity android:name=".OAitem.item9"/>
         <activity android:name=".secondclass.SecondClassDisplayActvivity"/>
         <activity android:name=".zixun.news"/>
         <activity android:name=".zixun.zhuyeDisplayActvivity"/>
         <activity android:name=".MoreTips"/>
-        <activity android:name=".KB2"></activity>
+        <activity android:name=".MainFragment_three.KB2"></activity>
         <activity android:name=".SWZL.send2"/>
         <activity android:name=".SWZL.swzlmain"/>
         <activity android:name=".SouHuNews"></activity>
@@ -96,8 +96,8 @@
         <activity android:name=".SQ.SS_ADD"></activity>
         <activity android:name=".SQ.ssDisPlay"></activity>
         <activity android:name=".SQ.SS_ADD2"></activity>
-        <activity android:name=".MySelf.MySs"></activity>
-        <activity android:name=".MySelf.MyLove"></activity>
+        <activity android:name=".OneSelf.MySs"></activity>
+        <activity android:name=".OneSelf.MyLove"></activity>
         <activity android:name=".ImageFullDisplay"></activity>
         <activity android:name=".SQ.PingLun" android:theme="@style/myTransparent"/>
         <activity android:name=".WeiXin.Weixin_more"/>

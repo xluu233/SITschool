@@ -13,8 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.grade;
-import com.example.luhongcheng.gradeAdapter;
+import com.example.luhongcheng.bean.grade;
+import com.example.luhongcheng.Adapter.gradeAdapter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

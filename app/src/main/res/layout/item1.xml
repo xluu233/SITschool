@@ -16,7 +16,7 @@
             android:layout_height="45dp"
             android:background="@color/white"
             app:tabGravity="center"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/colorAccent"
             app:tabIndicatorColor="@color/colorAccent">
         </android.support.design.widget.TabLayout>

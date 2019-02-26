@@ -15,7 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.luhongcheng.Adapter.OAdapter;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.bean.OA;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -6,17 +6,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.Test;
-import com.example.luhongcheng.TestAdapter;
+import com.example.luhongcheng.bean.Test;
+import com.example.luhongcheng.Adapter.TestAdapter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Headers;

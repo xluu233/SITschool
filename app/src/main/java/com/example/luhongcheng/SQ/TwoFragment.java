@@ -20,8 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.luhongcheng.Bmob.SS;
-import com.example.luhongcheng.Bmob.UserInfo;
+import com.example.luhongcheng.Bmob_bean.SS;
+import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -171,14 +171,14 @@ public class TwoFragment extends Fragment {
         Thread thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<SS> query = new BmobQuery<com.example.luhongcheng.Bmob.SS>();
+                BmobQuery<SS> query = new BmobQuery<com.example.luhongcheng.Bmob_bean.SS>();
                 query.order("createdAt");
                 query.setLimit(100);
 
                 query.findObjects(new FindListener<SS>(){
                     @Override
-                    public void done(final List<com.example.luhongcheng.Bmob.SS> list, BmobException e) {
-                        List<com.example.luhongcheng.Bmob.SS> lists = new ArrayList<>();
+                    public void done(final List<com.example.luhongcheng.Bmob_bean.SS> list, BmobException e) {
+                        List<com.example.luhongcheng.Bmob_bean.SS> lists = new ArrayList<>();
                         if (list != null) {
                             final String[] content  =  new String[list.size()];
                             final String[] image = new String[list.size()];

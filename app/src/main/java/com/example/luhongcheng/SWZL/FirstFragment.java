@@ -2,10 +2,7 @@ package com.example.luhongcheng.SWZL;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,16 +17,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.SQ.OneFragment;
-import com.example.luhongcheng.SQ.SSS;
-import com.example.luhongcheng.secondclass.SecondClass;
-import com.example.luhongcheng.secondclass.SecondClassDisplayActvivity;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,11 +100,11 @@ public class FirstFragment extends Fragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<com.example.luhongcheng.Bmob.SWZL> query = new BmobQuery<com.example.luhongcheng.Bmob.SWZL>();
-                query.findObjects(new FindListener<com.example.luhongcheng.Bmob.SWZL>(){
+                BmobQuery<com.example.luhongcheng.Bmob_bean.SWZL> query = new BmobQuery<com.example.luhongcheng.Bmob_bean.SWZL>();
+                query.findObjects(new FindListener<com.example.luhongcheng.Bmob_bean.SWZL>(){
                     @Override
-                    public void done(List<com.example.luhongcheng.Bmob.SWZL> list, BmobException e) {
-                        List<com.example.luhongcheng.Bmob.SWZL> lists = new ArrayList<>();
+                    public void done(List<com.example.luhongcheng.Bmob_bean.SWZL> list, BmobException e) {
+                        List<com.example.luhongcheng.Bmob_bean.SWZL> lists = new ArrayList<>();
                         if (list != null) {
                             //System.out.println("查询成功"+list.get(0).getTitle()+list.get(0).getContent()+list.get(0).getTime()+list.get(0).getAdress()+list.get(0).getIconUrl());
                             final String[] title  =  new String[list.size()];
@@ -139,8 +129,8 @@ public class FirstFragment extends Fragment {
 
                             class MyAdaper extends BaseAdapter {
 
-                                private FindListener<com.example.luhongcheng.Bmob.SWZL> context ;
-                                public MyAdaper(FindListener<com.example.luhongcheng.Bmob.SWZL> context){
+                                private FindListener<com.example.luhongcheng.Bmob_bean.SWZL> context ;
+                                public MyAdaper(FindListener<com.example.luhongcheng.Bmob_bean.SWZL> context){
                                     this.context = context;
                                 }
 

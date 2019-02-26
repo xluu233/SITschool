@@ -20,21 +20,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.SS;
-import com.example.luhongcheng.Bmob.UserInfo;
+import com.example.luhongcheng.Bmob_bean.SS;
 import com.example.luhongcheng.R;
 
 import java.io.File;
-import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 

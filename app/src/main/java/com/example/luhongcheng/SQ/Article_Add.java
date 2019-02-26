@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.example.luhongcheng.Bmob.news;
+import com.example.luhongcheng.Bmob_bean.news;
 import com.example.luhongcheng.R;
 import java.io.File;
 import cn.bmob.v3.datatype.BmobFile;

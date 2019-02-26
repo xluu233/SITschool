@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.update;
-import com.example.luhongcheng.OAitem.item0;
+import com.example.luhongcheng.Bmob_bean.update;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;

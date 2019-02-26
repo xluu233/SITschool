@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.diudiu;
+import com.example.luhongcheng.Bmob_bean.diudiu;
 import com.example.luhongcheng.R;
 
 import java.io.File;

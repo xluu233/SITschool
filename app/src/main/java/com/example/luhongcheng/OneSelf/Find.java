@@ -27,9 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.luhongcheng.Bmob.UserInfo;
+import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.ImageView.CircleImageView;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.bean.Friends;
 
 import java.util.ArrayList;
 import java.util.List;

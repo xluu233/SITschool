@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.luhongcheng.Box;
+import com.example.luhongcheng.bean.Box;
 import com.example.luhongcheng.MBox.MBoxItem;
 import com.example.luhongcheng.R;
 

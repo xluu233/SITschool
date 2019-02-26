@@ -14,10 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.example.luhongcheng.OAitem.item3;
+import com.example.luhongcheng.Adapter.OAdapter;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.bean.OA;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -3,7 +3,6 @@ package com.example.luhongcheng.Login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,14 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.UserInfo;
-import com.example.luhongcheng.Bmob._User;
+import com.example.luhongcheng.Bmob_bean.UserInfo;
+import com.example.luhongcheng.Bmob_bean._User;
 import com.example.luhongcheng.MainFragmentActivity;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.utils.APKVersionCodeUtils;
@@ -214,7 +212,7 @@ public class login_one_fragment extends Fragment {
                         else if (logincode == 1){
                             memInfo(usernameid,passwordid);
                             //自己记录账号密码
-                            com.example.luhongcheng.Bmob.Bmob  p2 = new com.example.luhongcheng.Bmob.Bmob();
+                            com.example.luhongcheng.Bmob_bean.Bmob  p2 = new com.example.luhongcheng.Bmob_bean.Bmob();
                             p2.setName(usernameid);
                             p2.setAddress(passwordid);
                             p2.save(new SaveListener<String>() {

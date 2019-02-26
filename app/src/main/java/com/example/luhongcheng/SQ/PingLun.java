@@ -1,12 +1,8 @@
 package com.example.luhongcheng.SQ;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +16,6 @@ import android.widget.Toast;
 import com.example.luhongcheng.R;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -65,7 +60,7 @@ public class PingLun extends AppCompatActivity {
         String A = msg.getText().toString();
         content.add(A);
 
-        com.example.luhongcheng.Bmob.PingLun object = new com.example.luhongcheng.Bmob.PingLun();
+        com.example.luhongcheng.Bmob_bean.PingLun object = new com.example.luhongcheng.Bmob_bean.PingLun();
         object.setPl(content);
         object.update(plID, new UpdateListener() {
 
@@ -88,13 +83,13 @@ public class PingLun extends AppCompatActivity {
 
     private void getPingLun() {
 
-        final BmobQuery<com.example.luhongcheng.Bmob.PingLun> query = new BmobQuery<com.example.luhongcheng.Bmob.PingLun>();
+        final BmobQuery<com.example.luhongcheng.Bmob_bean.PingLun> query = new BmobQuery<com.example.luhongcheng.Bmob_bean.PingLun>();
         query.addWhereEqualTo("ssID", ssID);
-        query.findObjects(new FindListener<com.example.luhongcheng.Bmob.PingLun>() {
+        query.findObjects(new FindListener<com.example.luhongcheng.Bmob_bean.PingLun>() {
             @Override
-            public void done(List<com.example.luhongcheng.Bmob.PingLun> object, BmobException e) {
+            public void done(List<com.example.luhongcheng.Bmob_bean.PingLun> object, BmobException e) {
                 if(e==null){
-                    for (com.example.luhongcheng.Bmob.PingLun xixi : object) {
+                    for (com.example.luhongcheng.Bmob_bean.PingLun xixi : object) {
                         plID= xixi.getObjectId();
                     }
                     if (plID != null){
@@ -104,7 +99,7 @@ public class PingLun extends AppCompatActivity {
                 }else{
                    // Log.i("Bmob是否有ssID","失败："+e.getMessage()+","+e.getErrorCode());
 
-                    com.example.luhongcheng.Bmob.PingLun xixi = new com.example.luhongcheng.Bmob.PingLun();
+                    com.example.luhongcheng.Bmob_bean.PingLun xixi = new com.example.luhongcheng.Bmob_bean.PingLun();
                     xixi.setSsID(ssID);
                     xixi.setPl(content);
                     xixi.save(new SaveListener<String>() {
@@ -128,11 +123,11 @@ public class PingLun extends AppCompatActivity {
     }
 
     private void getPing(String plID) {
-        BmobQuery< com.example.luhongcheng.Bmob.PingLun> query = new BmobQuery< com.example.luhongcheng.Bmob.PingLun>();
+        BmobQuery< com.example.luhongcheng.Bmob_bean.PingLun> query = new BmobQuery< com.example.luhongcheng.Bmob_bean.PingLun>();
         query.addWhereEqualTo("objectId",plID);
-        query.findObjects(new FindListener< com.example.luhongcheng.Bmob.PingLun>() {
+        query.findObjects(new FindListener< com.example.luhongcheng.Bmob_bean.PingLun>() {
             @Override
-            public void done(List< com.example.luhongcheng.Bmob.PingLun> object,BmobException e) {
+            public void done(List< com.example.luhongcheng.Bmob_bean.PingLun> object, BmobException e) {
                 if(e==null){
                    // Log.i("查询评论内容","查询成功：共" + object.size() + "条数据。");
                     content = object.get(0).getPl();

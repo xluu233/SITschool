@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.SS;
+import com.example.luhongcheng.Bmob_bean.SS;
 import com.example.luhongcheng.R;
 
 import java.io.File;

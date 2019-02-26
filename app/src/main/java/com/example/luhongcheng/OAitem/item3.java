@@ -2,38 +2,22 @@ package com.example.luhongcheng.OAitem;
 
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.luhongcheng.OA.EightOAFragment;
 import com.example.luhongcheng.OA.FifthOAFragment;
 import com.example.luhongcheng.OA.FourOAFragment;
-import com.example.luhongcheng.OA.OAFragmentPagerAdapter;
 import com.example.luhongcheng.OA.SevenOAFragment;
 import com.example.luhongcheng.OA.SixOAFragment;
 import com.example.luhongcheng.OA.ThirdOAFragment;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.secondclass.EightFragment;
-import com.example.luhongcheng.secondclass.FifthFragment;
-import com.example.luhongcheng.secondclass.FourFragment;
-import com.example.luhongcheng.secondclass.SecondFragment;
-import com.example.luhongcheng.secondclass.SevenFragment;
-import com.example.luhongcheng.secondclass.SixFragment;
-import com.example.luhongcheng.secondclass.ThridFragment;
 
 import java.util.ArrayList;
 import java.util.List;

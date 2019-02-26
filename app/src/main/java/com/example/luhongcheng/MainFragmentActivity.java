@@ -6,46 +6,32 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.UserInfo;
-import com.example.luhongcheng.Bmob.update;
+import com.example.luhongcheng.Bmob_bean.update;
+import com.example.luhongcheng.MainFragment_One.OneFragment;
+import com.example.luhongcheng.MainFragment_four.FourFragment;
+import com.example.luhongcheng.MainFragment_three.TwoFragment;
+import com.example.luhongcheng.MainFragment_two.SheQuFragment;
 import com.example.luhongcheng.utils.APKVersionCodeUtils;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
-
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-
-import java.util.List;
 
 public class MainFragmentActivity extends AppCompatActivity{
 
@@ -55,10 +41,10 @@ public class MainFragmentActivity extends AppCompatActivity{
     private String text;
     public int code;
 
-    private OneFragment     fragment1;
-    private TwoFragment     fragment2;
-    private FourFragment    fragment3;
-    private SheQuFragment   fragment4;
+    private OneFragment fragment1;
+    private TwoFragment fragment2;
+    private FourFragment fragment3;
+    private SheQuFragment fragment4;
     private Fragment[]      fragments;
     private int             lastShowFragment = 0;
 

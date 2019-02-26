@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob.SWZL;
+import com.example.luhongcheng.Bmob_bean.SWZL;
 import com.example.luhongcheng.R;
 
 import java.io.File;
