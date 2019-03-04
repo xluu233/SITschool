@@ -10,9 +10,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,13 +22,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.luhongcheng.Bmob_bean.UserInfo;
+import com.example.luhongcheng.ImageView.CircleImageView;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.utils.UriTofilePath;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -34,23 +40,32 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 public class setMy extends AppCompatActivity {
-    ImageButton setIcon;
+    CircleImageView setIcon;
     Button send1,send2,send3 ,send4;
-    public static final int CHOOSE_PHOTO = 1;
+    public static final int CHOOSE_PHOTO = 1; //选择
+    private static final int CROP_PICTURE = 2; //裁剪
     EditText qianming,nickname,QQ;
     String ID;
     String username;
+    TextView status;
+
+    String pickedImagePath = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setmy);
-        setIcon = (ImageButton) findViewById(R.id.setIcon);
+        status = findViewById(R.id.status);
+        setIcon = findViewById(R.id.setIcon);
         setIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("android.intent.action.GET_CONTENT");
-                intent.setType("image/*");
+                Intent intent = new Intent(Intent.ACTION_PICK, null);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, CHOOSE_PHOTO);
+
+              /*  Intent intent = new Intent("android.intent.action.GET_CONTENT");
+                intent.setType("image/*");
+                startActivityForResult(intent, CHOOSE_PHOTO);*/
             }
         });
         qianming =(EditText)findViewById(R.id.qm);
@@ -89,10 +104,11 @@ public class setMy extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String  icon_path;
-                icon_path = imagePath;
+                icon_path = pickedImagePath;
                 if (icon_path == null){
                     Toast.makeText(setMy.this,"请选择图片",Toast.LENGTH_SHORT).show();
                 }else {
+                    status.setText("正在更新中...");
                     final BmobFile bmobfile = new BmobFile(new File(icon_path));
                     bmobfile.upload(new UploadFileListener() {
                         @Override
@@ -104,9 +120,11 @@ public class setMy extends AppCompatActivity {
                                     @Override
                                     public void done(BmobException e1) {
                                         if(e1==null){
+                                            status.setText("");
                                             // Log.i("bmob","更新成功");
                                             Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
                                         }else{
+                                            status.setText("");
                                             //Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
                                             Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
                                         }
@@ -114,6 +132,7 @@ public class setMy extends AppCompatActivity {
                                 });
 
                             } else {
+                                status.setText("");
                                 Toast.makeText(setMy.this, "文件上传失败", Toast.LENGTH_SHORT).show();
                                 System.out.println("文件上传失败");
                             }
@@ -134,15 +153,18 @@ public class setMy extends AppCompatActivity {
                 if (nk.length() ==0){
                     Toast.makeText(setMy.this,"请输入",Toast.LENGTH_SHORT).show();
                 }else {
+                    status.setText("正在更新中...");
                     UserInfo object = new  UserInfo();
                     object.setNickname(nk);
                     object.update(ID, new UpdateListener() {
                         @Override
                         public void done(BmobException e1) {
                             if(e1==null){
+                                status.setText("");
                                 // Log.i("bmob","更新成功");
                                 Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
                             }else{
+                                status.setText("");
                                 //Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(setMy.this, "更新失败", Toast.LENGTH_SHORT).show();
                                 Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
@@ -164,15 +186,18 @@ public class setMy extends AppCompatActivity {
                 if (qm.length() ==0){
                     Toast.makeText(setMy.this,"请输入",Toast.LENGTH_SHORT).show();
                 }else {
+                    status.setText("正在更新中...");
                     UserInfo object = new  UserInfo();
                     object.setQM(qm);
                     object.update(ID, new UpdateListener() {
                         @Override
                         public void done(BmobException e1) {
                             if(e1==null){
+                                status.setText("");
                                 // Log.i("bmob","更新成功");
                                 Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
                             }else{
+                                status.setText("");
                                 //Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(setMy.this, "更新失败", Toast.LENGTH_SHORT).show();
                                 Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
@@ -192,15 +217,18 @@ public class setMy extends AppCompatActivity {
                 if (qq.length() ==0){
                     Toast.makeText(setMy.this,"请输入",Toast.LENGTH_SHORT).show();
                 }else {
+                    status.setText("正在更新中...");
                     UserInfo object = new  UserInfo();
                     object.setQQ(qq);
                     object.update(ID, new UpdateListener() {
                         @Override
                         public void done(BmobException e1) {
                             if(e1==null){
+                                status.setText("");
                                 // Log.i("bmob","更新成功");
                                 Toast.makeText(setMy.this, "更新成功", Toast.LENGTH_SHORT).show();
                             }else{
+                                status.setText("");
                                 //Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
                                 Toast.makeText(setMy.this, "更新失败", Toast.LENGTH_SHORT).show();
                                 Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
@@ -218,6 +246,60 @@ public class setMy extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case CHOOSE_PHOTO:
+                    startPhotoZoom(data.getData());
+                    break;
+                case CROP_PICTURE: // 取得裁剪后的图片
+                    try {
+                        setIcon.setImageBitmap(BitmapFactory.decodeStream( getContentResolver().openInputStream(imageUri) ));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    pickedImagePath = UriTofilePath.getFilePathByUri(this,imageUri);
+                    Log.d("222path",pickedImagePath);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private static final String IMAGE_FILE_LOCATION = "file:///" + Environment.getExternalStorageDirectory().getPath() + "/temp.jpg";
+    private Uri imageUri = Uri.parse(IMAGE_FILE_LOCATION);
+
+
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+        intent.putExtra("crop", "true");
+        intent.putExtra("scale", true);
+
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
+
+        startActivityForResult(intent, CROP_PICTURE);
+
+
+
+    }
+
+
+
+/*
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -291,6 +373,7 @@ public class setMy extends AppCompatActivity {
     }
 
 
+*/
 
 
 }

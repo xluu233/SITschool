@@ -20,16 +20,16 @@
         android:layout_margin="10dp"
         android:background="@drawable/textshape3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="120dp">
 
-        <ImageButton
+        <com.example.luhongcheng.ImageView.CircleImageView
             android:id="@+id/setIcon"
             android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="120dp"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/fab_add" />
+            android:background="@color/moren_back"
+            android:src="@drawable/fab_add"/>
 
         <Button
             android:id="@+id/send1"
@@ -45,6 +45,14 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/status"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text=""/>
 
 
     <LinearLayout
@@ -143,6 +151,12 @@
 
     </LinearLayout>
 
-
+    <TextView
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Tip：建议完善全部信息"/>
 
 </LinearLayout>
