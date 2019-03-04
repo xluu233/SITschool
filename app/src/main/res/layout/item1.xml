@@ -5,49 +5,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/secondclass_tab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/secondclass_tab"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/white"
-            app:tabGravity="center"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabIndicatorColor="@color/colorAccent">
-        </android.support.design.widget.TabLayout>
+        android:layout_height="45dp"
+        android:background="@color/colorAccent"
+        app:tl_textBold="SELECT"
+        app:tl_indicator_color="#eeeeee"
+        app:tl_indicator_style="TRIANGLE" />
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1sp"
-            android:background="@color/moren_back"/>
+<!--    app:tl_indicator_corner_radius="2dp"
+    app:tl_indicator_height="4dp"
+    app:tl_indicator_width="4dp"-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/moren_back"/>
 
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/secondclass_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:background="@color/white"
-            android:scrollbars="none" />
-
-
-    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/secondclass_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:background="@color/white"
+        android:scrollbars="none" />
 
      
-    <android.support.v4.view.ViewPager
-        android:id="@+id/myviewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    </android.support.v4.view.ViewPager>
 
 
-
-    
 
 </LinearLayout>

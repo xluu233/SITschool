@@ -3,6 +3,7 @@ package com.example.luhongcheng.OneSelf;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,7 +41,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-public class Find extends Activity {
+public class Find2 extends Activity {
 
     ImageView back;
     ImageView search;
@@ -93,11 +94,11 @@ public class Find extends Activity {
                     mlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            //Friends news = mlist.get(position);
+                            Friends news = mlist.get(position);
 
-                            //Intent intent = new Intent(getApplicationContext(),ShowOnePerson.class);
-                            //intent.putExtra("person_id",news.getPerson_id());
-                            //startActivity(intent);
+                            Intent intent = new Intent(getApplicationContext(),ShowOnePerson.class);
+                            intent.putExtra("person_id",news.getPerson_id());
+                            startActivity(intent);
                         }
                     });
                 }
@@ -230,75 +231,49 @@ public class Find extends Activity {
             public void run() {
                 BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
                 query.addWhereEqualTo("ID", mText);
-                //query.addWhereContains("ID",mText);
-                query.order("-createdAt");
-                query.setLimit(10);
-                query.findObjects(new FindListener<UserInfo>(){
+                query.findObjects(new FindListener<UserInfo>() {
                     @Override
-                    public void done(final List<UserInfo> object, BmobException e) {
-                        if(e==null){
+                    public void done(List<UserInfo> list, BmobException e) {
+                        if (e == null){
+                            for (UserInfo userInfo : list){
+                                String name,qm,id,xueyuan;
 
-                            if (object.size() != 0){
-                                String[] id = new String[object.size()];
-                                String[] nickname = new String[object.size()];
-                                String[] qm = new String[object.size()];
-                                String[] fs = new String[object.size()];
-                                String[] icon = new String[object.size()];
+                                /*Log.d("信息-学号",userInfo.getID());
+                                Log.d("信息-关注",userInfo.getGuanzhu().toString());
+                                Log.d("信息-粉丝",userInfo.getFensi().toString());
+                                Log.d("信息-昵称",userInfo.getNickname());
+                                Log.d("信息-头像连接",userInfo.geticonUrl());
+                                Log.d("信息-签名",userInfo.getQM());*/
 
-                                for (UserInfo xixi : object) {
-                                    he_guanzhu = xixi.getGuanzhu();
-                                    he_fensi = xixi.getFensi();
-                                    // Toast.makeText(getApplicationContext(),"他的关注："+he_guanzhu.size()+"他的粉丝："+he_fensi.size(),Toast.LENGTH_SHORT).show();
+                                id = userInfo.getObjectId();
+
+                                name = userInfo.getName().replace("姓名：","");
+
+                                xueyuan = userInfo.getXueyuan().replace("院系：","");
+
+
+                                if (userInfo.getQM() != null){
+                                    qm = userInfo.getQM();
+                                }else {
+                                    qm = "这个人很懒，什么都没有留下";
                                 }
 
-                                for (int i=0;i<object.size();i++){
-                                    id[i] = object.get(i).getObjectId();
-
-                                    if (object.get(i).getNickname() != null){
-                                        nickname[i] = object.get(i).getNickname();
-                                    }else {
-                                        nickname[i] = "  ";
-                                    }
-
-                                    if (object.get(i).getQM() != null){
-                                        qm[i] = object.get(i).getQM();
-                                    }else {
-                                        qm[i] = "这个人很懒，什么都木有";
-                                    }
-
-                                    if (object.get(i).getFensi() != null){
-                                        fs[i] = String.valueOf(object.get(i).getFensi().size());
-                                    }else {
-                                        fs[i] = "0";
-                                    }
-
-                                    if (object.get(i).geticonUrl() != null){
-                                        icon[i] = object.get(i).geticonUrl();
-                                    }else {
-                                        icon[i] = "https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=4a48b3ac4f10b912bfc1f1f8fbc69b3e/500fd9f9d72a6059a274150d2034349b033bba45.jpg";
-                                    }
-
-                                    //mlist.add(new Friends(nickname[i],qm[i],fs[i],icon[i],id[i]));
-
-                                    //Toast.makeText(getApplicationContext(),"查询成功",Toast.LENGTH_SHORT).show();
-
-
-                                    Log.e("获得信息：", String.valueOf(mlist));
+                                if(userInfo.getGuanzhu() != null){
+                                    he_guanzhu = userInfo.getGuanzhu();
                                 }
+
+                                if (userInfo.getFensi() != null){
+                                    he_fensi = userInfo.getFensi();
+                                }
+
+                                mlist.add(new Friends(name,xueyuan,qm,id));
 
                                 Message msg = new Message();
                                 msg.what = 1;
                                 handler.sendMessage(msg);
                             }
-
-                        }else{
-                            progressBar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(getApplicationContext(),"没有找到这位同学哦，快把App分享给她吧",Toast.LENGTH_SHORT).show();
-                           // Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                         }
-
                     }
-
                 });
 
 
@@ -306,29 +281,6 @@ public class Find extends Activity {
         });
         getnews.start();
 
-
-
-        /*
-        BmobQuery<UserInfo> query3 = new BmobQuery<UserInfo>();
-        query3.addWhereEqualTo("ID", mText);
-        query3.findObjects(new FindListener<UserInfo>() {
-            @Override
-            public void done(List<UserInfo> object, BmobException e) {
-                if(e==null){
-                    for (UserInfo xixi : object) {
-                        he_guanzhu = xixi.getGuanzhu();
-                        he_fensi = xixi.getFensi();
-                       // Toast.makeText(getApplicationContext(),"他的关注："+he_guanzhu.size()+"他的粉丝："+he_fensi.size(),Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(getApplicationContext(),"查询它的粉丝列表失败",Toast.LENGTH_LONG).show();
-                    //he_fensi = null;
-                    //he_guanzhu = null;
-                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
-                }
-            }
-        });
-        */
 
     }
 
@@ -366,10 +318,10 @@ public class Find extends Activity {
             if(convertView==null){
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_item, null);
                 holder = new FriendAdaper.ViewHolder();
-                holder.nickname = (TextView)convertView.findViewById(R.id.nickname);
+                holder.name = (TextView)convertView.findViewById(R.id.nickname);
                 holder.icon = (CircleImageView) convertView.findViewById(R.id.icon);
                 holder.qm= (TextView) convertView.findViewById(R.id.qm);
-                holder.fensi= (TextView) convertView.findViewById(R.id.fensi);
+                holder.xueyuan = (TextView) convertView.findViewById(R.id.fensi);
                 holder.check = (TextView)convertView.findViewById(R.id.check);
 
 
@@ -378,17 +330,34 @@ public class Find extends Activity {
                 holder = (FriendAdaper.ViewHolder) convertView.getTag();
             }
             final Friends news = list.get(position);
-            holder.nickname.setText(news.getNickname());
+            holder.name.setText(news.getName());
             holder.qm.setText(news.getQm());
-            holder.fensi.setText(news.getFensi()+ "  粉丝");
+            holder.xueyuan.setText(news.getXueyuan());
 
+            String id = news.getPerson_id();
+            final String[] icon_url = new String[1];
 
-            if (news.getIcon_url().length()>0){
-                Glide.with(mContext)
-                        .load(news.getIcon_url())
-                        .error(R.drawable.error)
-                        .into(holder.icon);
-            }
+            BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+            query.addWhereEqualTo("ID", mText);
+            final ViewHolder finalHolder1 = holder;
+            query.findObjects(new FindListener<UserInfo>() {
+                @Override
+                public void done(List<UserInfo> list, BmobException e) {
+                    if (e == null){
+                        for (UserInfo userInfo : list){
+
+                            icon_url[0] = userInfo.geticonUrl();
+                            //Log.d("头像",icon_url[0]);
+                        }
+
+                        Glide.with(mContext)
+                                .load(icon_url[0])
+                                .error(R.drawable.error)
+                                .into(finalHolder1.icon);
+                    }
+                }
+            });
+
 
             if (he_guanzhu == null  && you_guanzhu ==null){
                 GZ_Status = "0";    //互不关注
@@ -435,6 +404,7 @@ public class Find extends Activity {
                                         GZ_Status = "1";
                                     }else{
                                         //Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(getApplicationContext(), "关注失败", Toast.LENGTH_SHORT).show();
                                         Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
                                     }
@@ -442,6 +412,7 @@ public class Find extends Activity {
                             });
 
                         }else {
+                            progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(getApplicationContext(), "关注列表为空", Toast.LENGTH_SHORT).show();
                         }
 
@@ -464,6 +435,7 @@ public class Find extends Activity {
                                         finalHolder.check.setText("未关注");
                                         GZ_Status = "0";
                                     }else{
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
                                         Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
                                     }
@@ -471,6 +443,7 @@ public class Find extends Activity {
                             });
 
                         }else {
+                            progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(getApplicationContext(), "关注列表为空", Toast.LENGTH_SHORT).show();
                         }
 
@@ -492,6 +465,7 @@ public class Find extends Activity {
                                         finalHolder.check.setText("已关注");
                                         GZ_Status = "3";
                                     }else{
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         //Toast.makeText(setMy.this, "你已经设置过了", Toast.LENGTH_SHORT).show();
                                         Toast.makeText(getApplicationContext(), "关注失败", Toast.LENGTH_SHORT).show();
                                         Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
@@ -500,6 +474,7 @@ public class Find extends Activity {
                             });
 
                         }else {
+                            progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(getApplicationContext(), "关注列表为空", Toast.LENGTH_SHORT).show();
                         }
 
@@ -523,6 +498,7 @@ public class Find extends Activity {
                                         finalHolder.check.setText("未关注");
                                         GZ_Status = "2";
                                     }else{
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
                                         Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
                                     }
@@ -530,6 +506,7 @@ public class Find extends Activity {
                             });
 
                         }else {
+                            progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(getApplicationContext(), "关注列表为空", Toast.LENGTH_SHORT).show();
                         }
 
@@ -547,7 +524,7 @@ public class Find extends Activity {
 
         class ViewHolder {
             CircleImageView icon;
-            TextView nickname,qm,fensi;
+            TextView name,qm,xueyuan;
             TextView check;
         }
 

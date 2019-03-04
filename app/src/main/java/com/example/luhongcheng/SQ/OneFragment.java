@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.example.luhongcheng.Bmob_bean.SQVP;
 import com.example.luhongcheng.Bmob_bean.news;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
@@ -53,7 +52,6 @@ public class OneFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getUrl();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -123,7 +121,6 @@ public class OneFragment extends Fragment {
                         }
                         //加载数据
                         getArticle();
-                        getUrl();
                         //关闭刷新
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -283,29 +280,6 @@ public class OneFragment extends Fragment {
 
 
 
-    public void getUrl(){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                BmobQuery<SQVP> query = new BmobQuery<SQVP>();
-                query.findObjects(new FindListener<SQVP>(){
-                    @Override
-                    public void done(List<SQVP> list, BmobException e) {
-                        List<SQVP> lists = new ArrayList<>();
-                        if (list != null) {
-                            for(int i = 0;i<list.size();i++){
-                                clickUrl[i] = list.get(i).getUrl();
-                                imageUrl[i] = list.get(i).getImgUrl();
-                                //Log.d("imageURL",list.get(i).getImgUrl());
-                                //Log.d("URL",list.get(i).getUrl());
-                            }
-                        }
-                    }
-                });
-            }
-        }); //声明一个子线程
-        thread.start();
-    }
 
 
 

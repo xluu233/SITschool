@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:gravity="center"
     android:background="@drawable/background_oneself"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,27 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <android.support.design.widget.TabLayout
-        android:layout_below="@+id/statusBarView"
+    <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/d_tab"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:background="@color/transparent"
-        app:tabGravity="center"
-        app:tabMode="fixed"
-        app:tabIndicator="@color/transparent"
-        app:tabTextAppearance="@style/TabLayoutTextAppearance"
-        app:tabSelectedTextColor="@color/black">
-    </android.support.design.widget.TabLayout>
+        app:tl_tab_width="60dp"
+        app:tl_textBold="SELECT"
+        app:tl_indicator_corner_radius="2dp"
+        app:tl_indicator_height="4dp"
+        app:tl_indicator_width="4dp"/>
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/d_viewpager"
-        android:layout_below="@+id/d_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
         android:scrollbars="none" />
 
 
-</RelativeLayout>
+</LinearLayout>

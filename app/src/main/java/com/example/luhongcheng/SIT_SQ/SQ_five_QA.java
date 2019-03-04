@@ -22,7 +22,7 @@ public class SQ_five_QA extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View v = inflater.inflate(R.layout.sq_fragment_three, container, false);
+        View v = inflater.inflate(R.layout.sq_five_qa, container, false);
         return v;
     }
 

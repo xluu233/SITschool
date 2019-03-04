@@ -18,6 +18,7 @@ import com.example.luhongcheng.OA.SevenOAFragment;
 import com.example.luhongcheng.OA.SixOAFragment;
 import com.example.luhongcheng.OA.ThirdOAFragment;
 import com.example.luhongcheng.R;
+import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class item3 extends AppCompatActivity {
 		getCookies();
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));//设置状态栏背景色
+			getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
 		}
 		initFragment();
 		initView();
@@ -155,10 +156,8 @@ public class item3 extends AppCompatActivity {
 	private static final String DOG_BREEDS[] = {"学生事务", "学习课堂","校园文化","公告信息","学院通知","文件下载"};
 
 	private void initView() {
-		final TabLayout tabLayout = findViewById(R.id.secondclass_tab);
-		final ViewPager viewPager = findViewById(R.id.secondclass_viewpager);
-
-		tabLayout.setupWithViewPager(viewPager);
+		SlidingTabLayout tabLayout = findViewById(R.id.secondclass_tab);
+		ViewPager viewPager = findViewById(R.id.secondclass_viewpager);
 
 		viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 			@Override
@@ -178,25 +177,7 @@ public class item3 extends AppCompatActivity {
 
 		});
 
-		viewPager.setOffscreenPageLimit(mFragments.size());
-		viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-		tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-			@Override
-			public void onTabSelected(TabLayout.Tab tab) {
-				// Log.d(TAG, "onTabSelected: ");
-				viewPager.setCurrentItem(tabLayout.getSelectedTabPosition(), true);
-			}
-
-			@Override
-			public void onTabUnselected(TabLayout.Tab tab) {
-				// Log.d(TAG, "onTabUnselected: ");
-			}
-
-			@Override
-			public void onTabReselected(TabLayout.Tab tab) {
-				// Log.d(TAG, "onTabReselected: ");
-			}
-		});
+		tabLayout.setViewPager(viewPager);
 	}
 
 

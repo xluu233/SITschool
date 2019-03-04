@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.luhongcheng.R;
+import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
 
@@ -79,10 +80,8 @@ public class FourFragment extends Fragment {
     private static final String DOG_BREEDS[] = {"   我的   ", "   设置   "};
 
     private void initView() {
-        final TabLayout tabLayout = getActivity().findViewById(R.id.d_tab);
-        final ViewPager viewPager = getActivity().findViewById(R.id.d_viewpager);
-
-        tabLayout.setupWithViewPager(viewPager);
+        SlidingTabLayout tabLayout = getActivity().findViewById(R.id.d_tab);
+        ViewPager viewPager = getActivity().findViewById(R.id.d_viewpager);
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
@@ -102,25 +101,7 @@ public class FourFragment extends Fragment {
 
         });
 
-        viewPager.setOffscreenPageLimit(mFragments.size());
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                // Log.d(TAG, "onTabSelected: ");
-                viewPager.setCurrentItem(tabLayout.getSelectedTabPosition(), true);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // Log.d(TAG, "onTabUnselected: ");
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // Log.d(TAG, "onTabReselected: ");
-            }
-        });
+        tabLayout.setViewPager(viewPager);
     }
 
 

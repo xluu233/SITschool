@@ -70,7 +70,8 @@
         <activity android:name=".MainFragment_three.KB2"></activity>
         <activity android:name=".SWZL.send2"/>
         <activity android:name=".SWZL.swzlmain"/>
-        <activity android:name=".SouHuNews"></activity>
+        <activity android:name=".SouHuNews"/>
+        <activity android:name=".OneSelf.Find2"/>
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" >
@@ -99,6 +100,7 @@
         <activity android:name=".OneSelf.MySs"></activity>
         <activity android:name=".OneSelf.MyLove"></activity>
         <activity android:name=".ImageFullDisplay"></activity>
+        <activity android:name=".OneSelf.ShowOnePerson"/>
         <activity android:name=".SQ.PingLun" android:theme="@style/myTransparent"/>
         <activity android:name=".WeiXin.Weixin_more"/>
         <activity android:name=".SQ.Article_Add">

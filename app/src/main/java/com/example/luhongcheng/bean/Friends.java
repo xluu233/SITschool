@@ -1,12 +1,13 @@
 package com.example.luhongcheng.bean;
 
 public class Friends {
-    public Friends(String nk, String qm, String fs, String icon,String id) {
-        this.nickname = nk;
+
+
+    public Friends(String name,String xueyuan, String qm, String id) {
+        this.name = name;
         this.qm = qm;
-        this.fensi = fs;
-        this.icon_url =  icon;
         this.person_id = id;
+        this.xueyuan = xueyuan;
     }
 
     public String getNickname() {
@@ -57,4 +58,24 @@ public class Friends {
     }
 
     String icon_url;
+
+    public String getXueyuan() {
+        return xueyuan;
+    }
+
+    public void setXueyuan(String xueyuan) {
+        this.xueyuan = xueyuan;
+    }
+
+    String xueyuan;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    String name;
 }

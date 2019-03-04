@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.DataBase.Person_Data;
+import com.example.luhongcheng.OneSelf.Find2;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.bean.Fruit;
 import com.example.luhongcheng.Adapter.FruitAdapter;
@@ -136,7 +137,7 @@ public class FourFragment_one extends Fragment {
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Find.class);
+                Intent intent = new Intent(getApplicationContext(), Find2.class);
                 startActivity(intent);
             }
         });

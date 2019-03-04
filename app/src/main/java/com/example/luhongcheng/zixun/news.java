@@ -3,6 +3,7 @@ package com.example.luhongcheng.zixun;
 
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.luhongcheng.R;
+import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,10 @@ public class news extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.item1);
 		getCookies();
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
+		}
 
 		initFragment();
 		initView();
@@ -78,10 +84,8 @@ public class news extends AppCompatActivity {
 	private static final String DOG_BREEDS[] = {"学校新闻","校园快讯","学术文化","通知公告"};
 
 	private void initView() {
-		final TabLayout tabLayout = findViewById(R.id.secondclass_tab);
-		final ViewPager viewPager = findViewById(R.id.secondclass_viewpager);
-
-		tabLayout.setupWithViewPager(viewPager);
+		SlidingTabLayout tabLayout = findViewById(R.id.secondclass_tab);
+		ViewPager viewPager = findViewById(R.id.secondclass_viewpager);
 
 		viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 			@Override
@@ -101,22 +105,7 @@ public class news extends AppCompatActivity {
 
 		});
 
-		viewPager.setOffscreenPageLimit(mFragments.size());
-		viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-		tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-			@Override
-			public void onTabSelected(TabLayout.Tab tab) {
-				viewPager.setCurrentItem(tabLayout.getSelectedTabPosition(), true);
-			}
-
-			@Override
-			public void onTabUnselected(TabLayout.Tab tab) {
-			}
-
-			@Override
-			public void onTabReselected(TabLayout.Tab tab) {
-			}
-		});
+		tabLayout.setViewPager(viewPager);
 	}
 
 

@@ -166,26 +166,10 @@
                 </LinearLayout>
 
 
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/a_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="7dp"
-                    android:background="@color/moren_back"
-                    app:tabGravity="center"
-                    app:tabMode="fixed"
-                    app:tabIndicatorColor="@color/colorAccent"
-                    app:tabSelectedTextColor="@color/white">
-                </android.support.design.widget.TabLayout>
-
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/a_viewpager"
-                    android:layout_width="match_parent"
+                <include
                     android:layout_height="450dp"
-                    android:overScrollMode="never"
-                    android:scrollbars="none" />
-
+                    android:layout_width="match_parent"
+                    layout="@layout/a_include" />
 
 
             </LinearLayout>

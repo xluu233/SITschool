@@ -22,7 +22,7 @@ public class SQ_four_vedio extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View v = inflater.inflate(R.layout.sq_fragment_three, container, false);
+        View v = inflater.inflate(R.layout.sq_four_vedio, container, false);
         return v;
     }
 
