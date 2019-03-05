@@ -3,6 +3,7 @@ package com.example.luhongcheng.SIT_SQ_other;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,10 +16,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.R;
 
 import java.io.File;
@@ -28,6 +32,10 @@ import java.util.List;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadBatchListener;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -39,12 +47,18 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
     BGASortableNinePhotoLayout Photos;
     List<String> Path = new ArrayList<>(); //选择图片的path地址集合
     int select_times = 0; //选择图片的次数
-    int send_times = 0; //发送的次数
+
+    LinearLayout  status_layout;
+    LinearLayout  pic_layout;
+    ProgressBar  progressBar;
+    TextView  status_text;
 
     private static final int PRC_PHOTO_PICKER = 1;
     private static final int RC_CHOOSE_PHOTO = 1;
     private static final int RC_PHOTO_PREVIEW = 2;
     private static final String EXTRA_MOMENT = "EXTRA_MOMENT";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,15 +94,107 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
             }
         });
 
+        status_layout = findViewById(R.id.qa_status);
+        progressBar = findViewById(R.id.qa_progress);
+        status_text = findViewById(R.id.qa_status_text);
+        pic_layout = findViewById(R.id.qa_layout);
+
     }
 
     private void onClick() {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("xixi", String.valueOf(Path));
+
+                if (Path.size() == 0 ){
+                    if (title.getText().toString() == null && content.getText().toString() == null){
+                        Toast.makeText(getApplicationContext(),"全部为空呢 =。=",Toast.LENGTH_SHORT).show();
+                    }else {
+                        status_layout.setVisibility(View.VISIBLE);
+                        pic_layout.setVisibility(View.INVISIBLE);
+                        Path = null;
+                        update_message(Path);
+                    }
+                }else {
+                    status_layout.setVisibility(View.VISIBLE);
+                    pic_layout.setVisibility(View.INVISIBLE);
+                    update_image();
+                }
+
+
+               // Log.d("xixi", String.valueOf(Path));
             }
         });
+    }
+
+    private void update_image() {
+        String[] list = new String[Path.size()];
+
+        for (int i=0;i<Path.size();i++ ){
+            list[i] = Path.get(i);
+        }
+
+        BmobFile.uploadBatch(list, new UploadBatchListener() {
+            @Override
+            public void onSuccess(List<BmobFile> files,List<String> urls) {
+                //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
+                //2、urls-上传文件的完整url地址
+                if(urls.size()==Path.size()){//如果数量相等，则代表文件全部上传完成
+                    Log.d("反馈url", String.valueOf(urls));
+                    update_message(urls);
+
+                }
+            }
+
+            @Override
+            public void onError(int statuscode, String errormsg) {
+                Log.d("反馈错误码:",statuscode +",错误描述："+errormsg);
+            }
+
+            @Override
+            public void onProgress(int curIndex, int curPercent, int total,int totalPercent) {
+                //1、curIndex--表示当前第几个文件正在上传
+                //2、curPercent--表示当前上传文件的进度值（百分比）
+                //3、total--表示总的上传文件数
+                //4、totalPercent--表示总的上传进度（百分比）
+  /*              Log.d("反馈", String.valueOf(curIndex));
+                Log.d("反馈", String.valueOf(curPercent));
+                Log.d("反馈", String.valueOf(total));*/
+                Log.d("反馈-总上传进度：", totalPercent+"%");
+                status_text.setText("上传中："+totalPercent+"%");
+            }
+        });
+
+    }
+
+    private void update_message(List<String> urls) {
+        QA qa = new QA();
+        qa.setTitle(title.getText().toString());
+        qa.setContent(content.getText().toString());
+
+        SharedPreferences sp=getSharedPreferences("personID",0);
+        String personID =  sp.getString("ID","");
+        qa.setUser_id(personID);
+        if (urls.size() != 0 ){
+            qa.setImage(urls);
+        }
+        qa.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e==null){
+                    //成功
+                    Log.d("反馈","成功");
+                    status_layout.setVisibility(View.INVISIBLE);
+                    pic_layout.setVisibility(View.VISIBLE);
+                    Toast.makeText(getApplicationContext(),"发布成功，积分+10",Toast.LENGTH_SHORT).show();
+                }else{
+                    //toast("创建数据失败：" + e.getMessage());
+                    status_layout.setVisibility(View.INVISIBLE);
+                    pic_layout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
     }
 
     private void init() {

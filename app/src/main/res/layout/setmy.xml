@@ -157,6 +157,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:text="Tip：建议完善全部信息"/>
+        android:text="Tip：建议完善 全部信息"/>
 
 </LinearLayout>
