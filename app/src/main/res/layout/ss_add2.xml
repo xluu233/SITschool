@@ -18,7 +18,7 @@
     <ImageView
         android:layout_below="@+id/toolbar"
         android:id="@+id/img"
-        android:background="@drawable/layoutshape2"
+        android:background="@drawable/textshape9"
         android:src="@drawable/fab_add"
         android:scaleType="center"
         android:layout_margin="20dp"
@@ -27,7 +27,7 @@
 
     <LinearLayout
         android:id="@+id/ss"
-        android:background="@drawable/layoutshape2"
+        android:background="@drawable/textshape9"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@+id/img"

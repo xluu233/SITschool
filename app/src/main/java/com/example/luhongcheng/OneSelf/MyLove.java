@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
 
@@ -152,7 +153,8 @@ public class MyLove extends AppCompatActivity {
                         finalHolder1.qm.setText(qianming);
                         Glide.with(getApplicationContext())
                                 .load(icon_url)
-                                .error(R.drawable.error)
+                                .apply(new RequestOptions().placeholder(R.drawable.loading))
+                                .apply(new RequestOptions() .error(R.drawable.error))
                                 .into(finalHolder1.icon);
 
                     } else {

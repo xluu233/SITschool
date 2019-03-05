@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -98,16 +99,16 @@ public class ssDisPlay extends AppCompatActivity {
 
         Glide.with(this)
                 .load(iconUrl)
-                .placeholder(R.drawable.loading)
-                .error(R.drawable.error)
-                .fitCenter()
+                .apply(new RequestOptions().placeholder(R.drawable.loading))
+                .apply(new RequestOptions() .error(R.drawable.error))
+                .apply(new RequestOptions() .fitCenter())
                 .into(im_icon);
 
         Glide.with(this)
                 .load(imageUrl)
-                .placeholder(R.drawable.loading)
-                .error(R.drawable.error)
-                .fitCenter()
+                .apply(new RequestOptions().placeholder(R.drawable.loading))
+                .apply(new RequestOptions() .error(R.drawable.error))
+                .apply(new RequestOptions() .fitCenter())
                 .into(im_image);
 
 

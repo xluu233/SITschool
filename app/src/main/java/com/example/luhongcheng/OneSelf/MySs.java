@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SQ.PingLun;
@@ -269,17 +270,17 @@ public class MySs extends AppCompatActivity {
 
             Glide.with(getApplicationContext())
                     .load(news.getImageUrl())
-                    .placeholder(R.drawable.loading)
-                    .error(R.drawable.error)
-                    .override(600, 200)
+                    .apply(new RequestOptions().placeholder(R.drawable.loading))
+                    .apply(new RequestOptions().error(R.drawable.error))
+                    .apply(new RequestOptions().override(600, 200))
                     .into(holder.img);
 
 
             Glide.with(getApplicationContext())
                     .load(icon_url)
-                    .placeholder(R.drawable.loading)
-                    .error(R.drawable.error)
-                    .fitCenter()
+                    .apply(new RequestOptions().placeholder(R.drawable.loading))
+                    .apply(new RequestOptions() .error(R.drawable.error))
+                    .apply(new RequestOptions() .fitCenter())
                     .into(holder.icon);
 
             return convertView;

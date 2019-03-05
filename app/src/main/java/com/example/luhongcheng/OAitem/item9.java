@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 
-
+//微信公众号
 public class item9 extends AppCompatActivity {
 
     FirstFragment oneFragment;

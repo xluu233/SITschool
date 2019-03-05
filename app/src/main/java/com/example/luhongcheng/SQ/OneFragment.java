@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.news;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
@@ -260,10 +261,9 @@ public class OneFragment extends Fragment {
             if (news.getImageUrl().length()>0){
                 Glide.with(getContext())
                         .load(news.getImageUrl())
-                        .centerCrop()
-                        //.fitCenter()
-                        .placeholder(R.drawable.loading)
-                        .error(R.drawable.error)
+                        .apply(new RequestOptions().placeholder(R.drawable.loading))
+                        .apply(new RequestOptions() .error(R.drawable.error))
+                        .apply(new RequestOptions() .centerCrop())
                         .into(holder.img);
             }
 

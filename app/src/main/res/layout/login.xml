@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:id="@+id/top"
-        android:background="@drawable/jianbian_back0"
+        android:background="@drawable/background_jianbian"
         android:layout_width="match_parent"
         android:layout_height="220dp">
 

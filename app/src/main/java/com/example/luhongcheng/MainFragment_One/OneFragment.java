@@ -41,11 +41,13 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.Tips;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.Bmob_bean.lan;
 import com.example.luhongcheng.Bmob_bean.vp_one;
 import com.example.luhongcheng.ImageLunhuanAdapter;
+import com.example.luhongcheng.MainFragment_three.TwoFragment;
 import com.example.luhongcheng.MoreTips;
 import com.example.luhongcheng.OAitem.item0;
 import com.example.luhongcheng.OAitem.item1;
@@ -97,9 +99,14 @@ import static cn.bmob.v3.Bmob.getApplicationContext;
 
 @SuppressLint("ValidFragment")
 public class OneFragment extends Fragment{
-    private String context;
-    public OneFragment(String context){
-        this.context = context;
+
+    public OneFragment(){
+        Context mContext = getActivity();
+    }
+
+    public static OneFragment newInstance(Context context) {
+        Context mContext = context;
+        return new OneFragment();
     }
 
     /*以下是GridView定义的*/
@@ -183,6 +190,8 @@ public class OneFragment extends Fragment{
 
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
+
+
 
 
     @Override
@@ -817,9 +826,9 @@ public class OneFragment extends Fragment{
                     if (A2.length() !=0){
                         Glide.with(getContext())
                                 .load(A2)
-                                .placeholder(R.drawable.loading)
-                                .error(R.drawable.error)
-                                .fitCenter()
+                                .apply(new RequestOptions().placeholder(R.drawable.loading))
+                                .apply(new RequestOptions() .error(R.drawable.error))
+                                .apply(new RequestOptions() .fitCenter())
                                 .into(souhuiv);
 
                         /*souhutitle.setWidth(600);
@@ -1071,9 +1080,9 @@ public class OneFragment extends Fragment{
                                 swzl_time.setText(time);
                                 Glide.with(getContext())
                                         .load(image)
-                                        .placeholder(R.drawable.loading)
-                                        .error(R.drawable.error)
-                                        .fitCenter()
+                                        .apply(new RequestOptions().placeholder(R.drawable.loading))
+                                        .apply(new RequestOptions() .error(R.drawable.error))
+                                        .apply(new RequestOptions() .fitCenter())
                                         .into(swzl_iv);
                             }
 

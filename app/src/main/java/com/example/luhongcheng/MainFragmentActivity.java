@@ -145,9 +145,9 @@ public class MainFragmentActivity extends AppCompatActivity{
     }
 
     private void initFragments() {
-        fragment1 = new OneFragment("");
-        fragment2 = new TwoFragment("");
-        fragment3 = new FourFragment("");
+        fragment1 = new OneFragment();
+        fragment2 = new TwoFragment();
+        fragment3 = new FourFragment();
         fragment4 = new SheQuFragment();
         fragments = new Fragment[]{fragment1, fragment2, fragment3,fragment4};
         lastShowFragment = 0;

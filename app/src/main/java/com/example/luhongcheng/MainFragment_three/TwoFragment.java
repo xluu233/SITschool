@@ -3,6 +3,7 @@ package com.example.luhongcheng.MainFragment_three;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.luhongcheng.DataBase.Class_Schedule;
+import com.example.luhongcheng.MainFragment_two.SheQuFragment;
 import com.example.luhongcheng.R;
 
 import org.apache.http.client.HttpClient;
@@ -42,9 +44,14 @@ import okhttp3.Response;
 
 @SuppressLint("ValidFragment")
 public class TwoFragment extends Fragment implements View.OnClickListener {
-    private String context;
-    public TwoFragment(String context){
-        this.context = context;
+
+    public TwoFragment(){
+        Context mContext = getActivity();
+    }
+
+    public static TwoFragment newInstance(Context context) {
+        Context mContext = context;
+        return new TwoFragment();
     }
 
     @Nullable

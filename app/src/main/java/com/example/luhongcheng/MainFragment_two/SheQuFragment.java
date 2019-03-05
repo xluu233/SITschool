@@ -1,6 +1,7 @@
 package com.example.luhongcheng.MainFragment_two;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.luhongcheng.MainFragment_four.FourFragment;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ.SQ_five_QA;
 import com.example.luhongcheng.SIT_SQ.SQ_four_vedio;
@@ -24,6 +26,15 @@ import java.util.ArrayList;
 public class SheQuFragment extends Fragment {
     private static final String TAG = SheQuFragment.class.getSimpleName();
     private ArrayList<Fragment> mFragments;
+
+    public SheQuFragment() {
+        Context mContext = getActivity();
+    }
+    public static SheQuFragment newInstance(Context context) {
+        Context mContext = context;
+        return new SheQuFragment();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

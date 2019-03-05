@@ -72,6 +72,8 @@
         <activity android:name=".SWZL.swzlmain"/>
         <activity android:name=".SouHuNews"/>
         <activity android:name=".OneSelf.Find2"/>
+        <activity android:name=".SIT_SQ_other.Add_QA"/>
+
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" >

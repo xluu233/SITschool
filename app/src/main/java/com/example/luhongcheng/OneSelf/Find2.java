@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.ImageView.CircleImageView;
 import com.example.luhongcheng.R;
@@ -352,7 +353,8 @@ public class Find2 extends Activity {
 
                         Glide.with(mContext)
                                 .load(icon_url[0])
-                                .error(R.drawable.error)
+                                .apply(new RequestOptions().placeholder(R.drawable.loading))
+                                .apply(new RequestOptions() .error(R.drawable.error))
                                 .into(finalHolder1.icon);
                     }
                 }

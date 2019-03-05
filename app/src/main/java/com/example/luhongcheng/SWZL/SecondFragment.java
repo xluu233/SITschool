@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.diudiu;
 import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.R;
@@ -139,12 +140,9 @@ public class SecondFragment extends Fragment {
 
 									Glide.with(getContext())
 											.load(image[position])
-											.placeholder(R.drawable.loading)
-											.error(R.drawable.error)
-											//  .dontTransform()//不进行图片变换
-											.fitCenter()
-											// .centerCrop()
-											//.override(Target.SIZE_ORIGINAL, 1000)
+											.apply(new RequestOptions().placeholder(R.drawable.loading))
+											.apply(new RequestOptions() .error(R.drawable.error))
+											.apply(new RequestOptions() .fitCenter())
 											.into(viewHolder.img);
 
 									return convertView;

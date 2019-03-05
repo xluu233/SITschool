@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +93,24 @@ public class login_one_fragment extends Fragment {
             Intent intent3 = new Intent(getActivity(),MainFragmentActivity.class);
             startActivity(intent3);
             if (personID.length() == 0){
-                Toast.makeText(getActivity(),"没有获取到PersonID,请前往个人中心",Toast.LENGTH_SHORT).show();
+                BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+                query.addWhereEqualTo("ID", username);
+                query.findObjects(new FindListener<UserInfo>() {
+                    @Override
+                    public void done(List<UserInfo> object, BmobException e) {
+                        if(e==null){
+                            for (UserInfo xixi : object) {
+                                //保存用户的ID
+                                SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
+                                editor.putString("ID",xixi.getObjectId());
+                                editor.commit();
+
+                            }
+                        }else{
+                            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                        }
+                    }
+                });
             }
             getActivity().finish();
         }

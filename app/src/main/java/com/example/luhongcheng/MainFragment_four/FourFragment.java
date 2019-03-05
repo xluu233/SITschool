@@ -22,12 +22,9 @@ import java.util.ArrayList;
  */
 
 public class FourFragment extends Fragment {
-    private String context;
+
     private ArrayList<Fragment> mFragments;
     @SuppressLint("ValidFragment")
-    public FourFragment(String context){
-        this.context = context;
-    }
 
     //打包问题，在这里加入无参构造函数
     public FourFragment() {

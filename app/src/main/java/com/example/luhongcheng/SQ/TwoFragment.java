@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.SS;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.ImageFullDisplay;
@@ -403,17 +404,17 @@ public class TwoFragment extends Fragment {
 
             Glide.with(getContext())
                     .load(news.getImageUrl())
-                    .placeholder(R.drawable.loading)
-                    .error(R.drawable.error)
-                    .override(600, 200)
+                    .apply(new RequestOptions().placeholder(R.drawable.loading))
+                    .apply(new RequestOptions() .error(R.drawable.error))
+                    .apply(new RequestOptions() .override(600, 200))
                     .into(holder.img);
 
 
             Glide.with(getContext())
                     .load(news.getIconUrl())
-                    .placeholder(R.drawable.loading)
-                    .error(R.drawable.error)
-                    .fitCenter()
+                    .apply(new RequestOptions().placeholder(R.drawable.loading))
+                    .apply(new RequestOptions() .error(R.drawable.error))
+                    .apply(new RequestOptions() .fitCenter())
                     .into(holder.icon);
 
             return convertView;
