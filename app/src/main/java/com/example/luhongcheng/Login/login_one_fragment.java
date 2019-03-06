@@ -43,6 +43,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -113,13 +114,13 @@ public class login_one_fragment extends Fragment {
     //读取密码，符合要求就跳过当前activity，并销毁当前activity
     private void test() {
         SharedPreferences sp=getActivity().getSharedPreferences("userid",0);
-        username.setText(sp.getString("username",""));
-        password.setText(sp.getString("password",""));
+        usernameid = sp.getString("username","");
+        passwordid = sp.getString("password","");
 
         SharedPreferences sp2=getActivity().getSharedPreferences("personID",0);
         String personID =  sp2.getString("ID","");
 
-        if (username.length()==10 && password.length()>=4 ){
+        if (usernameid.length()==10 && passwordid.length()>=4 ){
             Intent intent3 = new Intent(getActivity(),MainFragmentActivity.class);
             startActivity(intent3);
             if (personID.length() == 0){
@@ -137,7 +138,7 @@ public class login_one_fragment extends Fragment {
 
                             }
                         }else{
-                            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                            //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                         }
                     }
                 });
@@ -163,30 +164,32 @@ public class login_one_fragment extends Fragment {
                 //登录
                 final _User user = new _User();
                 //此处替换为你的用户名
-                user.setUsername("username");
+                user.setUsername(usernameid);
                 //此处替换为你的密码
-                user.setPassword("password");
+                user.setPassword(passwordid);
                 user.login(new SaveListener<_User>() {
                     @Override
                     public void done(_User bmobUser, BmobException e) {
                         if (e == null) {
                             _User user = BmobUser.getCurrentUser(_User.class);
-                            Snackbar.make(getView(), "登录成功" + user.getUsername(), Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(getView(), "登录成功:" + usernameid, Snackbar.LENGTH_LONG).show();
 
                             Intent intent = new Intent(getActivity(), MainFragmentActivity.class);
                             getActivity().startActivity(intent);
 
                             memInfo(usernameid,passwordid);
+
                             getActivity().finish();
 
                         } else {
-                            Snackbar.make(getView(), "正在登录..." + e.getMessage(), Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(getView(), "正在登录..." , Snackbar.LENGTH_LONG).show();
                             //检查学号密码信息
                             check_user();
 
                         }
                     }
                 });
+
             }
 
 
@@ -297,8 +300,8 @@ public class login_one_fragment extends Fragment {
 
                         //User注册
                         final _User user = new _User();
-                        user.setUsername(usernameid + System.currentTimeMillis());
-                        user.setPassword(passwordid + System.currentTimeMillis());
+                        user.setUsername(usernameid);
+                        user.setPassword(passwordid);
                         user.signUp(new SaveListener<_User>() {
                             @Override
                             public void done(_User user, BmobException e) {
@@ -397,73 +400,55 @@ public class login_one_fragment extends Fragment {
                     }
                     */
 
-                    //查询_User表是否存在该用户
-                    BmobQuery<_User> query = new BmobQuery<_User>();
-                    query.addWhereEqualTo("username", usernameid);
-                    query.findObjects(new FindListener<_User>() {
+                    List<String> xi = new ArrayList<>();
+                    xi.add("cbcae2126b");
+
+                    //上传个人信息到UserInfo表
+                    UserInfo gg = new  UserInfo();
+                    gg.setID(usernameid);
+                    gg.setPassid(passwordid);
+                    gg.setName(name);
+                    gg.setXueyuan(xueyuan);
+                    gg.setNickname(name.replaceAll("姓名：",""));
+                    gg.setQM("这个人很懒，什么都没有留下");
+                    gg.setGuanzhu(xi);
+                    gg.setFensi(xi);
+                    gg.save(new SaveListener<String>() {
                         @Override
-                        public void done(List<_User> object,BmobException e) {
+                        public void done(final String objectId, BmobException e) {
                             if(e==null){
-                                //  Toast.makeText(getApplicationContext(),"查询用户成功:"+object.size(),Toast.LENGTH_LONG).show();
-                                if (object.size() == 0){
+                                _User b = new _User();
+                                b.setID(objectId);
+                                b.update(user_id, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null){
+                                            Toast.makeText(getActivity(), "上海应用技术大学：注册成功", Toast.LENGTH_LONG).show();
 
-                                    List<String> xi = new ArrayList<>();
-                                    xi.add("cbcae2126b");
+                                            SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
+                                            editor.putString("ID",objectId);
+                                            editor.commit();
 
-                                    //上传个人信息到UserInfo表
-                                    UserInfo gg = new  UserInfo();
-                                    gg.setID(usernameid);
-                                    gg.setPassid(passwordid);
-                                    gg.setName(name);
-                                    gg.setXueyuan(xueyuan);
-                                    gg.setNickname(name.replaceAll("姓名：",""));
-                                    gg.setQM("这个人很懒，什么都没有留下");
-                                    gg.setGuanzhu(xi);
-                                    gg.setFensi(xi);
-                                    gg.save(new SaveListener<String>() {
-                                        @Override
-                                        public void done(final String objectId, BmobException e) {
-                                            if(e==null){
-                                                _User b = new _User();
-                                                b.setUsername(usernameid);
-                                                b.setPassword(passwordid);
-                                                b.setID(objectId);
-                                                b.signUp(new SaveListener<_User>() {
-                                                    @Override
-                                                    public void done(_User s, BmobException e) {
-                                                        if(e==null){
-                                                            Toast.makeText(getActivity(), "上海应用技术大学：注册成功", Toast.LENGTH_LONG).show();
+                                            SharedPreferences.Editor editor2=getActivity().getSharedPreferences("User_ID",0).edit();
+                                            editor.putString("ID",user_id);
+                                            editor.commit();
 
-                                                            SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
-                                                            editor.putString("ID",objectId);
-                                                            editor.commit();
+                                            Intent intent = new Intent(getActivity(), MainFragmentActivity.class);
+                                            getActivity().startActivity(intent);
+                                            getActivity().finish();
 
-                                                            Intent intent = new Intent(getActivity(), MainFragmentActivity.class);
-                                                            getActivity().startActivity(intent);
-                                                            getActivity().finish();
 
-                                                        }else{
-                                                            //显示界面
-                                                            Message msg = new Message();
-                                                            msg.what = 1;
-                                                            handler.sendMessage(msg);
-                                                        }
-                                                    }
-                                                });
-
-                                                // Toast.makeText(LoginActivity.this, "上海应用技术大学：注册成功", Toast.LENGTH_SHORT).show();
-                                            }else{
-                                                //显示界面
-                                                Message msg = new Message();
-                                                msg.what = 1;
-                                                handler.sendMessage(msg);
-                                            }
+                                        }else{
+                                            //显示界面
+                                            Message msg = new Message();
+                                            msg.what = 1;
+                                            handler.sendMessage(msg);
                                         }
-                                    });
+                                    }
+                                });
 
 
-
-                                }
+                                // Toast.makeText(LoginActivity.this, "上海应用技术大学：注册成功", Toast.LENGTH_SHORT).show();
                             }else{
                                 //显示界面
                                 Message msg = new Message();
@@ -499,7 +484,6 @@ public class login_one_fragment extends Fragment {
         editor.putString("name",name);
         editor.putString("xueyuan",xueyuan);
         editor.commit();
-        getActivity().finish();
     }
 
 
@@ -509,7 +493,7 @@ public class login_one_fragment extends Fragment {
         public void handleMessage(Message msg) {
             if(msg.what == 1){
                 //显示
-                Snackbar.make(getView(), "注册/登录失败，原因未知，请重试...", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getView(), "注册/登录失败，原因未知，请重试...", Snackbar.LENGTH_LONG).show();
                 username.setText("");
                 password.setText("");
                 progressBar.setVisibility(View.INVISIBLE);
