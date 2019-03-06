@@ -48,4 +48,15 @@ public class QA extends BmobObject {
     }
 
     List<String> image = new ArrayList<>();
+
+    public UserInfo getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserInfo author) {
+        this.author = author;
+    }
+
+    private UserInfo author;
+
 }

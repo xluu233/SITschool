@@ -45,6 +45,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.Tips;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.Bmob_bean.lan;
+import com.example.luhongcheng.Bmob_bean.update;
 import com.example.luhongcheng.Bmob_bean.vp_one;
 import com.example.luhongcheng.ImageLunhuanAdapter;
 import com.example.luhongcheng.MainFragment_three.TwoFragment;
@@ -87,6 +88,7 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -594,18 +596,12 @@ public class OneFragment extends Fragment{
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<lan> query = new BmobQuery<lan>();
-                query.findObjects(new FindListener<lan>(){
+                BmobQuery<update> bmobQuery = new BmobQuery<update>();
+                bmobQuery.getObject("DQZACCCP", new QueryListener<update>() {
                     @Override
-                    public void done(List<lan> list, BmobException e) {
-                        List<lan> lists = new ArrayList<>();
-                        if (list != null) {
-                            String[] sub = new  String[list.size()];
-                            int i;
-                            for(i = 0;i<list.size();i++){
-                                sub[i] = list.get(i).getSubtitle();
-                            }
-                            mToolbar.setSubtitle(sub[0]);
+                    public void done(update xixi, BmobException e) {
+                        if(e==null){
+                            mToolbar.setSubtitle(xixi.getText());
                         }
                     }
                 });

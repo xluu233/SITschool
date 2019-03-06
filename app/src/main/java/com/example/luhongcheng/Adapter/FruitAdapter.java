@@ -17,8 +17,7 @@ public class FruitAdapter extends ArrayAdapter<Fruit> {
 
     private int resourceId;
 
-    public FruitAdapter(Context context, int textViewResourceId,
-                        List<Fruit> objects) {
+    public FruitAdapter(Context context, int textViewResourceId, List<Fruit> objects) {
         super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
     }

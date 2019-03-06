@@ -70,7 +70,7 @@ public class OneFragment extends Fragment {
         Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
         listView = (ListView)getActivity().findViewById(R.id.my_news);
         refresh = (SwipeRefreshLayout)getActivity().findViewById(R.id.news_refresh);
-        refresh.setColorSchemeColors(R.color.red_300);
+        refresh.setColorSchemeColors(R.color.colorPrimary);
 
         onClick();
         getArticle();

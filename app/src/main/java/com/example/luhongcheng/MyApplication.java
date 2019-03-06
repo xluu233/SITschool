@@ -5,6 +5,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import org.litepal.LitePalApplication;
 
 import cn.jpush.android.api.JPushInterface;
@@ -20,6 +23,8 @@ public class MyApplication extends LitePalApplication {
         super.onCreate();
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+        initImageLoader();
     }
 
 
@@ -28,5 +33,11 @@ public class MyApplication extends LitePalApplication {
         return new Handler();
     }
 
+    private void initImageLoader() {
+
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
+        ImageLoader.getInstance().init(configuration);
+
+    }
 
 }

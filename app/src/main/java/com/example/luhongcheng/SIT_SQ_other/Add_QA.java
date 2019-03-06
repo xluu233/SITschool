@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 
 import com.example.luhongcheng.Bmob_bean.QA;
+import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
 
 import java.io.File;
@@ -32,6 +33,7 @@ import java.util.List;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -178,6 +180,7 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
         if (urls.size() != 0 ){
             qa.setImage(urls);
         }
+        //qa.setAuthor(BmobUser.getCurrentUser(UserInfo.class));
         qa.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
