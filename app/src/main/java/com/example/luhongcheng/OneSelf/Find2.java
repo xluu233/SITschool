@@ -227,6 +227,8 @@ public class Find2 extends Activity {
         mText = text.getText().toString();
         mlist.clear();
 
+        he_fensi.clear();
+        he_guanzhu.clear();
         Thread getnews = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -386,7 +388,6 @@ public class Find2 extends Activity {
             holder.check.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
 
 
                     if (GZ_Status == "0"){

@@ -163,16 +163,16 @@ public class SQ_five_QA extends Fragment {
                             String title;
                             String content;
                             String time;
-                            String user_id;
+                            String id;
 
                             for(int i = 0;i<list.size();i++){
                                 title = list.get(i).getTitle();
                                 content = list.get(i).getContent();
                                 time = list.get(i).getCreatedAt();
-                                user_id = list.get(i).getUser_id();
+                                id = list.get(i).getObjectId();
 
                                 url = list.get(i).getImage();
-                                mList.add(new SQ_QA(url,title,content,time));
+                                mList.add(new SQ_QA(url,title,content,time,id));
                             }
                             Message msg = new Message();
                             msg.what = 1;

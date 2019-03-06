@@ -401,7 +401,7 @@ public class login_one_fragment extends Fragment {
                     */
 
                     List<String> xi = new ArrayList<>();
-                    xi.add("cbcae2126b");
+                    xi.add("b15aa78885");
 
                     //上传个人信息到UserInfo表
                     UserInfo gg = new  UserInfo();

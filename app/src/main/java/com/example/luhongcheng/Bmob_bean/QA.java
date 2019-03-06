@@ -6,6 +6,7 @@ import java.util.List;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
 
 public class QA extends BmobObject {
 
@@ -49,6 +50,17 @@ public class QA extends BmobObject {
 
     List<String> image = new ArrayList<>();
 
+
+/*    public _User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(_User author) {
+        this.author = author;
+    }
+
+    _User author;*/
+
     public UserInfo getAuthor() {
         return author;
     }
@@ -57,6 +69,25 @@ public class QA extends BmobObject {
         this.author = author;
     }
 
-    private UserInfo author;
+    UserInfo author;
 
+    public BmobRelation getLikes() {
+        return likes;
+    }
+
+    public void setLikes(BmobRelation likes) {
+        this.likes = likes;
+    }
+
+    private BmobRelation likes;
+
+    public BmobRelation getCollection() {
+        return collection;
+    }
+
+    public void setCollection(BmobRelation collection) {
+        this.collection = collection;
+    }
+
+    private BmobRelation collection;
 }

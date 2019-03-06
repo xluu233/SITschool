@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
+import com.example.luhongcheng.Bmob_bean._User;
 import com.example.luhongcheng.R;
 
 import java.io.File;
@@ -108,19 +110,25 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
             @Override
             public void onClick(View v) {
 
+                String a = title.getText().toString();
+                String b = content.getText().toString();
+
                 if (Path.size() == 0 ){
-                    if (title.getText().toString() == null && content.getText().toString() == null){
+                    if (a.length() ==0  && b.length() ==0){
                         Toast.makeText(getApplicationContext(),"全部为空呢 =。=",Toast.LENGTH_SHORT).show();
                     }else {
                         status_layout.setVisibility(View.VISIBLE);
                         pic_layout.setVisibility(View.INVISIBLE);
-                        Path = null;
-                        update_message(Path);
+                        update_message_no_pic();
                     }
                 }else {
-                    status_layout.setVisibility(View.VISIBLE);
-                    pic_layout.setVisibility(View.INVISIBLE);
-                    update_image();
+                    if (a.length() ==0){
+                        Toast.makeText(getApplicationContext(),"Title不能为空",Toast.LENGTH_SHORT).show();
+                    }else {
+                        status_layout.setVisibility(View.VISIBLE);
+                        pic_layout.setVisibility(View.INVISIBLE);
+                        update_image();
+                    }
                 }
 
 
@@ -176,27 +184,79 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
 
         SharedPreferences sp=getSharedPreferences("personID",0);
         String personID =  sp.getString("ID","");
-        qa.setUser_id(personID);
-        if (urls.size() != 0 ){
-            qa.setImage(urls);
-        }
-        //qa.setAuthor(BmobUser.getCurrentUser(UserInfo.class));
-        qa.save(new SaveListener<String>() {
-            @Override
-            public void done(String s, BmobException e) {
-                if(e==null){
-                    //成功
-                    Log.d("反馈","成功");
-                    status_layout.setVisibility(View.INVISIBLE);
-                    pic_layout.setVisibility(View.VISIBLE);
-                    Toast.makeText(getApplicationContext(),"发布成功，积分+10",Toast.LENGTH_SHORT).show();
-                }else{
-                    //toast("创建数据失败：" + e.getMessage());
-                    status_layout.setVisibility(View.INVISIBLE);
-                    pic_layout.setVisibility(View.VISIBLE);
-                }
+
+
+        if (BmobUser.isLogin()){
+            if (urls.size() != 0 ){
+                qa.setImage(urls);
             }
-        });
+            //添加一对一关联，设置作者为Userinfo表中id的用户
+            UserInfo xixi = new UserInfo();
+            xixi.setObjectId(personID);
+            qa.setAuthor(xixi);
+
+            qa.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if(e==null){
+                        //成功
+                        //Log.d("反馈","成功");
+                        status_layout.setVisibility(View.INVISIBLE);
+                        pic_layout.setVisibility(View.VISIBLE);
+                        Toast.makeText(getApplicationContext(),"发布成功，积分+10",Toast.LENGTH_SHORT).show();
+                    }else{
+                        //toast("创建数据失败：" + e.getMessage());
+                        status_layout.setVisibility(View.INVISIBLE);
+                        pic_layout.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+
+
+        }else {
+            Toast.makeText(getApplicationContext(),"不是登录状态",Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    private void update_message_no_pic() {
+        QA qa = new QA();
+        qa.setTitle(title.getText().toString());
+        qa.setContent(content.getText().toString());
+
+        SharedPreferences sp=getSharedPreferences("personID",0);
+        String personID =  sp.getString("ID","");
+
+
+        if (BmobUser.isLogin()){
+            //添加一对一关联，设置作者为Userinfo表中id的用户
+            UserInfo xixi = new UserInfo();
+            xixi.setObjectId(personID);
+            qa.setAuthor(xixi);
+
+            qa.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if(e==null){
+                        //成功
+                        //Log.d("反馈","成功");
+                        status_layout.setVisibility(View.INVISIBLE);
+                        pic_layout.setVisibility(View.VISIBLE);
+                        Toast.makeText(getApplicationContext(),"发布成功，积分+10",Toast.LENGTH_SHORT).show();
+                    }else{
+                        //toast("创建数据失败：" + e.getMessage());
+                        status_layout.setVisibility(View.INVISIBLE);
+                        pic_layout.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+
+
+        }else {
+            Toast.makeText(getApplicationContext(),"不是登录状态",Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

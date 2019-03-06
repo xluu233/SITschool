@@ -4,13 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SQ_QA {
-    public SQ_QA(List<String> url, String title, String content, String time) {
+    public SQ_QA(List<String> url, String title, String content, String time, String id) {
         this.url = url;
         this.title = title;
         this.content = content;
         this.time = time;
+        this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
     public String getTime() {
         return time;
     }
