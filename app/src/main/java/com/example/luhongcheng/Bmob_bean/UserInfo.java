@@ -110,13 +110,33 @@ public class UserInfo extends BmobObject {
     List<String> guanzhu;//关注列表
 
 
-    public List<String> getShuishui() {
-        return shuishui;
+    public List<String> getMy_SS() {
+        return My_SS;
     }
 
-    public void setShuishui(List<String> shuishui) {
-        this.shuishui = shuishui;
+    public void setMy_SS(List<String> my_SS) {
+        My_SS = my_SS;
     }
 
-    List<String> shuishui;//说说
+    List<String> My_SS;//说说
+
+    public List<String> getMy_Collection() {
+        return My_Collection;
+    }
+
+    public void setMy_Collection(List<String> my_Collection) {
+        My_Collection = my_Collection;
+    }
+
+    List<String> My_Collection;//我的收藏
+
+    public List<String> getMy_Likes() {
+        return My_Likes;
+    }
+
+    public void setMy_Likes(List<String> my_Likes) {
+        My_Likes = my_Likes;
+    }
+
+    List<String> My_Likes;//我的喜欢
 }

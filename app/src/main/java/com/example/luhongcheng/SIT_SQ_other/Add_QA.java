@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,6 +28,7 @@ import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.Bmob_bean._User;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.utils.CompressImageUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -140,8 +142,9 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
     private void update_image() {
         String[] list = new String[Path.size()];
 
+        //图片压缩
         for (int i=0;i<Path.size();i++ ){
-            list[i] = Path.get(i);
+            list[i] = CompressImageUtil.saveBitmap2file(BitmapFactory.decodeFile(Path.get(i)),getApplicationContext());
         }
 
         BmobFile.uploadBatch(list, new UploadBatchListener() {
