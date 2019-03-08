@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:title="动态"
+        app:titleTextAppearance="@style/Toolbar.TitleText3">
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:background="@color/bugray_300"
+        android:layout_width="match_parent"
+        android:layout_height="0.5sp" />
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.example.luhongcheng.ImageView.CircleImageView
+            android:id="@+id/icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_toRightOf="@+id/icon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="100dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_weight="1"
+                android:text="Alex"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/qm"
+                android:layout_weight="1"
+                android:textSize="12dp"
+                android:text="这里是个性签名啊啊啊啊啊啊啊啊"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/secondlayout_guanzhu"
+            android:text="关注"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_shape3"
+            android:layout_alignParentRight="true"
+            android:layout_width="70dp"
+            android:layout_height="30dp" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Question:"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="answer:" />
+
+        <com.example.luhongcheng.View.NineGridTestLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/layout_nine_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:sapcing="4dp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="10分钟前" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/bugray_300"
+        android:layout_width="match_parent"
+        android:layout_height="0.5sp" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
+
+        <ImageView
+            android:id="@+id/qa_zan"
+            android:layout_marginRight="150dp"
+            android:background="@drawable/sq_zan_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <ImageView
+            android:id="@+id/qa_discuss"
+            android:background="@drawable/sq_discuss"
+            android:layout_width="22dp"
+            android:layout_height="22dp" />
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:background="@color/moren_back"
+        android:layout_width="match_parent"
+        android:layout_height="7dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/comment_listview"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="@color/bugray_300"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="评论："
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <EditText
+                android:id="@+id/msg"
+                android:layout_weight="1"
+                android:background="@drawable/textshape3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="11dp"
+                />
+
+            <ImageView
+                android:id="@+id/send_msg"
+                android:scaleType="center"
+                android:src="@drawable/ic_send"
+                android:layout_width="60dp"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
+

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.luhongcheng.image_viewpager.ImageDetailActivity;
 import com.example.luhongcheng.utils.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -79,7 +80,9 @@ public class NineGridTestLayout extends NineGridLayout {
 
     @Override
     protected void onClickImage(int i, String url, List<String> urlList) {
-        Log.d("urllist",urlList.toString());
-        Toast.makeText(mContext, "点击了图片" + url, Toast.LENGTH_SHORT).show();
+        /*Log.d("urllist",urlList.toString());
+        Toast.makeText(mContext, "点击了图片" + url, Toast.LENGTH_SHORT).show();*/
+
+        mContext.startActivity(ImageDetailActivity.getMyStartIntent(mContext,urlList,i, ImageDetailActivity.url_path));
     }
 }

@@ -18,26 +18,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.luhongcheng.Adapter.NineGridTest2Adapter;
-import com.example.luhongcheng.Adapter.OAdapter;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.Report;
-import com.example.luhongcheng.Bmob_bean.SS;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.Bmob_bean.news;
-import com.example.luhongcheng.MainFragmentActivity;
-import com.example.luhongcheng.MainFragment_One.OneFragment;
-import com.example.luhongcheng.OA.OADisplayActvivity;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.Add_QA;
-import com.example.luhongcheng.SIT_SQ_other.QA_item;
-import com.example.luhongcheng.SQ.SSS;
-import com.example.luhongcheng.bean.OA;
+import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
 import com.example.luhongcheng.bean.SQ_QA;
 import com.example.luhongcheng.utils.ItemClickSupport;
 import com.github.clans.fab.FloatingActionButton;
@@ -108,13 +99,13 @@ public class SQ_five_QA extends Fragment {
         status_layout = getActivity().findViewById(R.id.status);
 
         onClick();
-        initRefresh();//刷新事件
-
+        //initRefresh();//刷新事件
+        get_MyCollection();
     }
 
     private void initRefresh() {
         getDate();
-        get_MyCollection();
+
     }
 
     private void get_MyCollection() {
@@ -132,7 +123,7 @@ public class SQ_five_QA extends Fragment {
 
                                 my_collection.addAll(object.getMy_Collection());
                                 my_Likes = object.getMy_Likes();
-
+                                getDate();
                             } else {
                                 //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                             }
@@ -173,7 +164,7 @@ public class SQ_five_QA extends Fragment {
                             e.printStackTrace();
                         }
                         //加载数据
-                        initRefresh();
+                        get_MyCollection();
                         //关闭刷新
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -249,9 +240,11 @@ public class SQ_five_QA extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         //Toast.makeText(getContext(),"短按了一下",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), QA_item.class);
+                        Intent intent = new Intent(getContext(), SQ_SecondLayout.class);
                         intent.putExtra("item_id",mList.get(position).getId());
                         intent.putExtra("user_id",person_id);
+                        intent.putExtra("title",mList.get(position).getTitle());
+                        intent.putExtra("content",mList.get(position).getContent());
                         startActivity(intent);
 
                     }

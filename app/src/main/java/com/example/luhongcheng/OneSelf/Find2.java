@@ -118,7 +118,7 @@ public class Find2 extends Activity {
                             e.printStackTrace();
                         }
 
-                        Start_Search();
+                        getOneInfo();
                         //关闭刷新
                         refreshLayout.setRefreshing(false);
 
@@ -128,10 +128,11 @@ public class Find2 extends Activity {
         });
 
         onClick();
-        getOneInfo();
     }
 
     private void getOneInfo() {
+        you_fensi.clear();
+        you_guanzhu.clear();
         SharedPreferences sp=getSharedPreferences("userid",0);
         final String username = sp.getString("username","");
 
@@ -151,6 +152,7 @@ public class Find2 extends Activity {
                             you_fensi = xixi.getFensi();
                            // Toast.makeText(getApplicationContext(),"你的关注："+you_guanzhu.size()+"你的粉丝："+you_fensi.size(),Toast.LENGTH_LONG).show();
                         }
+                        Start_Search();
 
                     }else{
                         Toast.makeText(getApplicationContext(),"查询你的粉丝列表失败",Toast.LENGTH_SHORT).show();
@@ -177,7 +179,7 @@ public class Find2 extends Activity {
                 String output = text.getText().toString();
                 if (output.length() == 10){
                     progressBar.setVisibility(View.VISIBLE);
-                    Start_Search();
+                    getOneInfo();
                 }else {
                     Toast.makeText(getApplicationContext(),"请输入正确学号",Toast.LENGTH_SHORT).show();
                 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob_bean.QA_Comment;
-import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.SIT_SQ_other.QA_item;
+import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
 import com.example.luhongcheng.View.NineGridTestLayout;
 import com.example.luhongcheng.bean.SQ_QA;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
@@ -84,6 +76,9 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
                 holder.zan.setBackgroundResource(R.drawable.sq_zan_2);
             }
         }
+
+
+
 
 
         holder.zan_layout.setOnClickListener(new View.OnClickListener() {
@@ -145,9 +140,11 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(mContext, QA_item.class);
+                Intent intent = new Intent(mContext, SQ_SecondLayout.class);
                 intent.putExtra("item_id",mList.get(position).getId());
                 intent.putExtra("user_id",personID);
+                intent.putExtra("title",mList.get(position).getTitle());
+                intent.putExtra("content",mList.get(position).getContent());
                 mContext.startActivity(intent);
 
                /* QA post = new QA();

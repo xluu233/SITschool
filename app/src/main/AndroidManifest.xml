@@ -48,11 +48,12 @@
         <activity android:name=".OAitem.item4"> </activity>
         <activity android:name=".OAitem.item5"> </activity>
         <activity android:name=".OAitem.item7"> </activity>
-        <activity android:name=".SIT_SQ_other.QA_item"/>
+        <activity android:name=".SIT_SQ_other.SQ_SecondLayout"/>
         <activity android:name=".OAitem.item8"/>
         <activity android:name=".OAitem.more_item0"/>
         <activity android:name=".OAitem.more_item1"/>
         <activity android:name=".OAitem.more_item2"/>
+        <activity android:name=".image_viewpager.ImageDetailActivity"/>
         <activity android:name=".TuisongActivity"/>
         <activity android:name=".TuisongActivity"
             tools:ignore="DuplicateActivity" />
