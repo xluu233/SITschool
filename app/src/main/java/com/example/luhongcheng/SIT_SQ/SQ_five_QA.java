@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +78,7 @@ public class SQ_five_QA extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
-        person_id =  sp.getString("ID","");
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,6 +98,9 @@ public class SQ_five_QA extends Fragment {
         refreshLayout.setColorSchemeColors(R.color.colorAccent);
         status_layout = getActivity().findViewById(R.id.status);
 
+        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
+        person_id =  sp.getString("ID","");
+
         onClick();
         //initRefresh();//刷新事件
         get_MyCollection();
@@ -110,7 +113,46 @@ public class SQ_five_QA extends Fragment {
 
     private void get_MyCollection() {
         if (person_id.length() == 0){
-            Toast.makeText(getActivity(),"没有获取到ID",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(),"没有获取到ID",Toast.LENGTH_SHORT).show();
+            SharedPreferences sp=getActivity().getSharedPreferences("userid",0);
+            final String username = sp.getString("username","");
+
+            Thread collection = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
+                    query2.addWhereContains("ID",username);
+                    query2.findObjects(new FindListener<UserInfo>() {
+                        @Override
+                        public void done(List<UserInfo> list, BmobException e) {
+                            if (e == null) {
+                                person_id = list.get(0).getObjectId();
+
+                                SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
+                                editor.putString("ID",person_id);
+                                editor.commit();
+
+                                if (list.get(0).getMy_Collection() != null){
+                                    my_collection = list.get(0).getMy_Collection();
+                                }
+
+                                if (list.get(0).getMy_Likes() != null){
+                                    my_Likes = list.get(0).getMy_Likes();
+                                }
+
+                                getDate();
+
+                                Log.d("QA：","get_MyCollection()");
+                            } else {
+                                Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                            }
+                        }
+                    });
+
+                }
+            });
+            collection.start();
+
         }else {
             Thread collection = new Thread(new Runnable() {
                 @Override
@@ -121,11 +163,19 @@ public class SQ_five_QA extends Fragment {
                         public void done(UserInfo object, BmobException e) {
                             if (e == null) {
 
-                                my_collection.addAll(object.getMy_Collection());
-                                my_Likes = object.getMy_Likes();
+                                if (object.getMy_Collection() != null){
+                                    my_collection.addAll(object.getMy_Collection());
+                                }
+
+                                if (object.getMy_Likes() != null){
+                                    my_Likes = object.getMy_Likes();
+                                }
+
                                 getDate();
+
+                                Log.d("QA：","get_MyCollection()");
                             } else {
-                                //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                                Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                             }
                         }
                     });
@@ -141,9 +191,8 @@ public class SQ_five_QA extends Fragment {
             @Override
             public void onClick(View v) {
 
-
                 if (person_id.length() == 0){
-                    Toast.makeText(getActivity(),"没有获取到ID",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"没有获取到ID,请前往个人中心",Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(getContext(), Add_QA.class);
                     startActivity(intent);
@@ -232,6 +281,9 @@ public class SQ_five_QA extends Fragment {
                 status_layout.setVisibility(View.INVISIBLE);
                 mLayoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(mLayoutManager);
+
+
+                Log.d("QA：","handler");
 
                 mAdapter = new NineGridTest2Adapter(getContext(),mList);
                 recyclerView.setAdapter(mAdapter);

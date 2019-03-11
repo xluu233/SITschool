@@ -78,9 +78,6 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
         }
 
 
-
-
-
         holder.zan_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

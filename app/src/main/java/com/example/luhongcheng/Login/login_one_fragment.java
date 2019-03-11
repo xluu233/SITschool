@@ -425,10 +425,12 @@ public class login_one_fragment extends Fragment {
                                         if(e==null){
                                             Toast.makeText(getActivity(), "上海应用技术大学：注册成功", Toast.LENGTH_LONG).show();
 
+                                            //Userinfo表
                                             SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
                                             editor.putString("ID",objectId);
                                             editor.commit();
 
+                                            //_User表
                                             SharedPreferences.Editor editor2=getActivity().getSharedPreferences("User_ID",0).edit();
                                             editor.putString("ID",user_id);
                                             editor.commit();

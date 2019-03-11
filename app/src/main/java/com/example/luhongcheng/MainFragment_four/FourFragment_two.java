@@ -125,11 +125,21 @@ public class FourFragment_two extends Fragment {
     }
 
     private void get_out(){
+        //学号姓名
         SharedPreferences.Editor editor = getActivity().getSharedPreferences("userid", 0).edit();
         editor.clear().commit();
 
+        //Userinfo表
         SharedPreferences.Editor editor2 = getActivity().getSharedPreferences("personID", 0).edit();
         editor2.clear().commit();
+
+        //_User表
+        SharedPreferences.Editor editor3=getActivity().getSharedPreferences("User_ID",0).edit();
+        editor3.clear().commit();
+
+        //学院姓名
+        SharedPreferences.Editor editor4=getActivity().getSharedPreferences("nameid",0).edit();
+        editor4.clear().commit();
 
         Toast.makeText(getActivity(), "账号信息已清除", Toast.LENGTH_SHORT).show();
 

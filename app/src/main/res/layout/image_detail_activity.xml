@@ -29,7 +29,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/save_image"
+        android:id="@+id/xixi_save_image"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_alignParentRight="true"

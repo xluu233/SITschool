@@ -15,24 +15,31 @@ import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.utils.BaseStatusBarActivity;
+import com.example.luhongcheng.utils.ImageSaveUtil;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ImageDetailActivity extends Activity implements OnClickListener, OnLongClickListener {
+public class ImageDetailActivity extends BaseStatusBarActivity implements OnClickListener, OnLongClickListener {
 	ZoomDragImageViewPager vp;
 	Map<Integer, Bitmap> bigBitmapsCache = new HashMap<>();
 	public static int url_path = 0;
 	public static int local_file_path = 1;
 	int pathType ;
+	int position=0;
 
 	TextView title,content,save;
 
@@ -53,8 +60,15 @@ public class ImageDetailActivity extends Activity implements OnClickListener, On
 		pathType = getIntent().getIntExtra("pathType", url_path);
 		title = findViewById(R.id.title);
 		content = findViewById(R.id.content);
-		save = findViewById(R.id.save_image);
+		save = findViewById(R.id.xixi_save_image);
 
+		save.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Bitmap bitmap = bigBitmapsCache.get(position);
+				ImageSaveUtil.saveBitmap2file(bitmap,getApplicationContext());
+			}
+		});
 
 		ArrayList<String> screenshot_samples = getIntent().getStringArrayListExtra("screenshot_samples");
 
@@ -63,12 +77,15 @@ public class ImageDetailActivity extends Activity implements OnClickListener, On
 
 		vp.setOffscreenPageLimit(5);
 		vp.setCurrentItem(pos);
+
+		position=pos;
 		final int size = screenshot_samples.size();
 		//title.setText(pos+1+"/"+size);
 		vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageScrolled(int i, float v, int i1) {
 				title.setText(i+1+"/"+size);
+				position=i;
 			}
 
 			@Override
@@ -83,6 +100,11 @@ public class ImageDetailActivity extends Activity implements OnClickListener, On
 		});
 
 
+	}
+
+	@Override
+	protected int getStatusBarColor() {
+		return getResources().getColor(R.color.black);
 	}
 
 
@@ -153,6 +175,7 @@ public class ImageDetailActivity extends Activity implements OnClickListener, On
 					if (bigBitmapsCache.get(vh.pos) == null) {
 						if(pathType == url_path){
 
+
 						    try {
                                 URL url=new URL(screenshot_samples.get(vh.pos));
                                 HttpURLConnection con=(HttpURLConnection) url.openConnection();
@@ -222,15 +245,13 @@ public class ImageDetailActivity extends Activity implements OnClickListener, On
 
 
 
-    @Override
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
 			case R.id.content_iv:
 				finish();
 				break;
-			case R.id.save_image:
 
-				break;
 
 		}
 	}

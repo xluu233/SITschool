@@ -8,12 +8,12 @@
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_width="60dp"
-        android:layout_height="60dp">
+        android:layout_width="50dp"
+        android:layout_height="50dp">
 
-        <ImageView
+        <com.example.luhongcheng.ImageView.CircleImageView
             android:layout_gravity="center"
-            android:id="@+id/icon"
+            android:id="@+id/comment_icon"
             android:src="@drawable/ic_launcher"
             android:layout_width="match_parent"
             android:layout_height="30dp" />
@@ -22,7 +22,7 @@
             android:id="@+id/nickname"
             android:gravity="center"
             android:text="匿名用户"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -39,8 +39,9 @@
         android:id="@+id/content"
         android:gravity="center_vertical"
         android:text="TEST"
+        android:textSize="12dp"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="50dp" />
 
 </LinearLayout>
