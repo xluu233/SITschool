@@ -29,7 +29,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.ImageView.CircleImageView;
+import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.bean.Friends;
 

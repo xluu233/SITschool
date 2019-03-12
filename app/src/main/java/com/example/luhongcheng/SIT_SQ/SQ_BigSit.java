@@ -9,19 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.luhongcheng.MainFragment_One.OneFragment;
 import com.example.luhongcheng.R;
 
 
-public class SQ_three_big_sit extends Fragment {
+public class SQ_BigSit extends Fragment {
 
-    public SQ_three_big_sit(){
+    public SQ_BigSit(){
         Context mContext = getActivity();
     }
 
-    public static SQ_three_big_sit newInstance(Context context) {
+    public static SQ_BigSit newInstance(Context context) {
         Context mContext = context;
-        return new SQ_three_big_sit();
+        return new SQ_BigSit();
     }
 
     @Override

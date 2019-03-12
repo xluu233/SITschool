@@ -62,7 +62,7 @@ public class CompressImageUtil {
                 filePic.createNewFile();
             }
             FileOutputStream fos = new FileOutputStream(filePic);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 10, fos);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 50, fos);
             fos.flush();
             fos.close();
             Toast.makeText(context, "保存成功,位置:" + filePic.getAbsolutePath(), Toast.LENGTH_SHORT).show();

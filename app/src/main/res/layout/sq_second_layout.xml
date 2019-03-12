@@ -1,185 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        app:title="动态"
-        app:titleTextAppearance="@style/Toolbar.TitleText3">
-    </android.support.v7.widget.Toolbar>
-
-    <ImageView
-        android:background="@color/bugray_300"
-        android:layout_width="match_parent"
-        android:layout_height="0.5sp" />
-
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:background="@drawable/textshape9"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <com.example.luhongcheng.ImageView.CircleImageView
-            android:id="@+id/icon"
-            android:layout_marginLeft="5dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <LinearLayout
-            android:layout_toRightOf="@+id/icon"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="100dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-
-            <TextView
-                android:id="@+id/nickname"
-                android:layout_weight="1"
-                android:text="Alex"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
-
-            <TextView
-                android:id="@+id/qm"
-                android:layout_weight="1"
-                android:textSize="12dp"
-                android:text="这里是个性签名啊啊啊啊啊啊啊啊"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/secondlayout_guanzhu"
-            android:text="关注"
-            android:gravity="center"
-            android:textSize="12dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white"
-            android:background="@drawable/button_shape3"
-            android:layout_alignParentRight="true"
-            android:layout_width="60dp"
-            android:layout_height="30dp" />
-
-
-    </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true"
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <TextView
-            android:id="@+id/title"
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Question:"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:layout_height="match_parent"
+            app:toolbarId="@+id/toolbar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-        <TextView
-            android:id="@+id/content"
+
+
+<!--            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:title=" "
+                android:background="@color/white"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextAppearance="@style/Toolbar.TitleText3">
+            </android.support.v7.widget.Toolbar>-->
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/textshape9"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <com.example.luhongcheng.View.CircleImageView
+                        android:id="@+id/icon"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/icon"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="100dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp">
+
+                        <TextView
+                            android:id="@+id/nickname"
+                            android:layout_weight="1"
+                            android:text="Alex"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" />
+
+                        <TextView
+                            android:id="@+id/qm"
+                            android:layout_weight="1"
+                            android:textSize="10dp"
+                            android:text="这里是个性签名啊啊啊啊啊啊啊啊"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/secondlayout_guanzhu"
+                        android:text="关注"
+                        android:gravity="center"
+                        android:textSize="12dp"
+                        android:layout_marginRight="5dp"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/button_shape3"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="50dp"
+                        android:layout_height="25dp" />
+
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Question:"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
+
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:background="@color/moren_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="1sp" />
+
+                    <TextView
+                        android:id="@+id/content"
+                        android:textColor="@color/moren"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="answer:" />
+
+                    <com.example.luhongcheng.View.NineGridTestLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/layout_nine_grid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:sapcing="4dp" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:textColor="@color/moren"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="10分钟前" />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ScrollingActivity"
+        tools:showIn="@layout/about0"
+        android:layout_marginBottom="50dp"
+        android:background="@color/white">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="answer:" />
-
-        <com.example.luhongcheng.View.NineGridTestLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/layout_nine_grid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:sapcing="4dp" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="10分钟前" />
-    </LinearLayout>
+            android:layout_height="match_parent">
 
 
-    <ImageView
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/bugray_300"
-        android:layout_width="match_parent"
-        android:layout_height="0.5sp" />
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:background="@color/moren_back"
+                android:layout_width="match_parent"
+                android:layout_height="7dp" />
 
-    <LinearLayout
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="25dp">
+            <ListView
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/comment_listview"
+                android:scrollbars="none"
+                android:divider="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/qa_zan"
-            android:layout_marginRight="150dp"
-            android:background="@drawable/sq_zan_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-        <ImageView
-            android:id="@+id/qa_discuss"
-            android:background="@drawable/sq_discuss"
-            android:layout_width="22dp"
-            android:layout_height="22dp" />
+            </ListView>
 
 
 
-    </LinearLayout>
 
-    <ImageView
-        android:layout_marginTop="5dp"
-        android:background="@color/moren_back"
-        android:layout_width="match_parent"
-        android:layout_height="7dp" />
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/comment_listview"
-            android:scrollbars="none"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </ListView>
-
         <LinearLayout
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:background="@color/bugray_300"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
             android:layout_height="45dp">
 
             <TextView
@@ -208,11 +248,10 @@
 
         </LinearLayout>
 
-
     </RelativeLayout>
 
 
+</android.support.design.widget.CoordinatorLayout>
 
 
-</LinearLayout>
 

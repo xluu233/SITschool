@@ -8,6 +8,21 @@ public class PingLun {
         this.author_id = objectId;
     }
 
+    public PingLun(String content, String objectId, String time) {
+        this.content = content;
+        this.author_id = objectId;
+        this.time = time;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    String time;
     public String getContent() {
         return content;
     }

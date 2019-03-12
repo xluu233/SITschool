@@ -30,7 +30,6 @@ import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.Add_QA;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
-import com.example.luhongcheng.bean.SQ_QA;
 import com.example.luhongcheng.utils.ItemClickSupport;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -45,15 +44,15 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 
-public class SQ_five_QA extends Fragment {
+public class SQ_QA extends Fragment {
 
-    public SQ_five_QA(){
+    public SQ_QA(){
         Context mContext = getActivity();
     }
 
-    public static SQ_five_QA newInstance(Context context) {
+    public static SQ_QA newInstance(Context context) {
         Context mContext = context;
-        return new SQ_five_QA();
+        return new SQ_QA();
     }
 
     RecyclerView recyclerView;
@@ -65,7 +64,7 @@ public class SQ_five_QA extends Fragment {
 
     private RecyclerView.LayoutManager mLayoutManager;
     private NineGridTest2Adapter mAdapter;
-    private List<SQ_QA> mList = new ArrayList<>();
+    private List<com.example.luhongcheng.bean.SQ_QA> mList = new ArrayList<>();
     private List<String> url = new ArrayList<>();
 
     private List<String> my_collection = new ArrayList<>();//我的收藏集合
@@ -254,7 +253,7 @@ public class SQ_five_QA extends Fragment {
                                 id = list.get(i).getObjectId();
 
                                 url = list.get(i).getImage();
-                                mList.add(new SQ_QA(url,title,content,time,id,my_Likes));
+                                mList.add(new com.example.luhongcheng.bean.SQ_QA(url,title,content,time,id,my_Likes));
                             }
                             Message msg = new Message();
                             msg.what = 1;

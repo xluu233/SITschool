@@ -9,19 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.luhongcheng.MainFragment_One.OneFragment;
 import com.example.luhongcheng.R;
 
 
-public class SQ_one_my_attention extends Fragment {
+public class SQ_HotMessage extends Fragment {
 
-    public  SQ_one_my_attention(){
+    public SQ_HotMessage(){
         Context mContext = getActivity();
     }
 
-    public static  SQ_one_my_attention newInstance(Context context) {
+    public static SQ_HotMessage newInstance(Context context) {
         Context mContext = context;
-        return new  SQ_one_my_attention();
+        return new SQ_HotMessage();
     }
 
     @Override
@@ -32,7 +31,7 @@ public class SQ_one_my_attention extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View v = inflater.inflate(R.layout.sq_one_myattention, container, false);
+        View v = inflater.inflate(R.layout.sq_two_topmessage, container, false);
         return v;
     }
 

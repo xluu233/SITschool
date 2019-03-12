@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
@@ -123,6 +124,9 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
 
                             }
 
+
+
+
                         }
                     }
                 });
@@ -187,6 +191,7 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
 
         TextView pinlun; //选取一条评论
 
+        TextView zan_nums;
         LinearLayout zan_layout,discuss_layout;
 
         public ViewHolder(View itemView) {
@@ -205,6 +210,7 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
 
             zan_layout = itemView.findViewById(R.id.zan);
             discuss_layout = itemView.findViewById(R.id.discuss);
+            zan_nums = itemView.findViewById(R.id.qa_zan_nums);
 
 
         }

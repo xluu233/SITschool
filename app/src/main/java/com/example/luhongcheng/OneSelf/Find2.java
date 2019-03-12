@@ -30,7 +30,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.ImageView.CircleImageView;
+import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.bean.Friends;
 
@@ -381,7 +381,7 @@ public class Find2 extends Activity {
                 GZ_Status = "3"; //互相关注
                 holder.check.setText("互相关注");
             }
-            if (you_id.equals(news.getPerson_id())){
+            if (you_id == news.getPerson_id()){
                 GZ_Status = "4";
                 holder.check.setVisibility(View.INVISIBLE);
             }

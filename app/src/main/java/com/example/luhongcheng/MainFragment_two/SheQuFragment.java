@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,13 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.luhongcheng.MainFragment_four.FourFragment;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.SIT_SQ.SQ_five_QA;
-import com.example.luhongcheng.SIT_SQ.SQ_four_vedio;
-import com.example.luhongcheng.SIT_SQ.SQ_one_my_attention;
-import com.example.luhongcheng.SIT_SQ.SQ_three_big_sit;
-import com.example.luhongcheng.SIT_SQ.SQ_two_top_message;
+import com.example.luhongcheng.SIT_SQ.SQ_QA;
+import com.example.luhongcheng.SIT_SQ.SQ_Vedio;
+import com.example.luhongcheng.SIT_SQ.SQ_BigSit;
+import com.example.luhongcheng.SIT_SQ.SQ_HotMessage;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -63,23 +60,23 @@ public class SheQuFragment extends Fragment {
     private void initFragment() {
         mFragments = new ArrayList<>();
 
-        SQ_one_my_attention one = new SQ_one_my_attention();
-        SQ_two_top_message two = new SQ_two_top_message();
-        SQ_three_big_sit three = new SQ_three_big_sit();
-        SQ_four_vedio four = new SQ_four_vedio();
-        SQ_five_QA five = new SQ_five_QA();
+
+        SQ_BigSit one = new SQ_BigSit();
+        SQ_HotMessage two = new SQ_HotMessage();
+        SQ_QA three = new SQ_QA();
+        SQ_Vedio four = new SQ_Vedio();
 
 
         mFragments.add(one);
         mFragments.add(two);
         mFragments.add(three);
         mFragments.add(four);
-        mFragments.add(five);
+
 
 
     }
 
-    private static final String DOG_BREEDS[] = {"关注","头条", "社区", "视频","问答"};
+    private static final String DOG_BREEDS[] = {"社区","热点","问答", "视频"};
 
     private void initView() {
         SlidingTabLayout tabLayout = getActivity().findViewById(R.id.sq_tab);
@@ -109,7 +106,7 @@ public class SheQuFragment extends Fragment {
         //tablayout设置与viewpager同步 必须在viewpager设置adapter之后
         tabLayout.setViewPager(viewPager);
         //默认在第二个打开
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
     }
 
     /**

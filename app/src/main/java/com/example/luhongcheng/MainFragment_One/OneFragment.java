@@ -204,7 +204,7 @@ public class OneFragment extends Fragment{
     }
 
     private void getImageUrl() {
-        Thread thread = new Thread(new Runnable() {
+        Thread image_url = new Thread(new Runnable() {
             @Override
             public void run() {
                 BmobQuery<vp_one> query = new BmobQuery<vp_one>();
@@ -224,7 +224,7 @@ public class OneFragment extends Fragment{
                 });
             }
         }); //声明一个子线程
-        thread.start();
+        image_url.start();
     }
 
     @Nullable

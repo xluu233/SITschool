@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp">
 
-        <com.example.luhongcheng.ImageView.CircleImageView
+        <com.example.luhongcheng.View.CircleImageView
             android:id="@+id/icon"
             android:layout_marginLeft="10dp"
             android:layout_width="40dp"

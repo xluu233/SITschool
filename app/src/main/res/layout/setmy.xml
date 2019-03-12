@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp">
 
-        <com.example.luhongcheng.ImageView.CircleImageView
+        <com.example.luhongcheng.View.CircleImageView
             android:id="@+id/setIcon"
             android:layout_gravity="center"
             android:layout_width="70dp"

@@ -9,20 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.luhongcheng.MainFragment_One.OneFragment;
 import com.example.luhongcheng.R;
 
 
-public class SQ_two_top_message extends Fragment {
-
-    public SQ_two_top_message(){
+public class SQ_Vedio extends Fragment {
+    public SQ_Vedio(){
         Context mContext = getActivity();
     }
 
-    public static SQ_two_top_message newInstance(Context context) {
+    public static SQ_Vedio newInstance(Context context) {
         Context mContext = context;
-        return new SQ_two_top_message();
+        return new SQ_Vedio();
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class SQ_two_top_message extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View v = inflater.inflate(R.layout.sq_two_topmessage, container, false);
+        View v = inflater.inflate(R.layout.sq_four_vedio, container, false);
         return v;
     }
 
