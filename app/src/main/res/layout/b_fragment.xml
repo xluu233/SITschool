@@ -7,7 +7,7 @@
 
     <View
         android:id="@+id/statusBarView"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
@@ -17,7 +17,7 @@
         android:layout_below="@+id/statusBarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_main"
+        android:background="@drawable/background_oneself"
         android:gravity="center"
         android:minHeight="45dp"
         android:orientation="horizontal">

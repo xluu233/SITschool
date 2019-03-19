@@ -194,6 +194,9 @@ public class OneFragment extends Fragment{
     private OkHttpClient.Builder builder;
 
 
+    private String sh_imageurl;
+    private String sh_title;
+    private String sh_subtitle;
 
 
     @Override
@@ -293,6 +296,9 @@ public class OneFragment extends Fragment{
         souhutitle = (TextView)getActivity().findViewById(R.id.souhu_title);
         souhusubtitle =(TextView)getActivity().findViewById(R.id.souhu_subtitle);
 
+        vp=(ViewPager) getView().findViewById(R.id.vp);
+        vp.setPageTransformer(true, new ZoomOutPageTransformer());
+        ll_tag=(LinearLayout) getView().findViewById(R.id.ll_tag);
 
     }
 
@@ -521,7 +527,7 @@ public class OneFragment extends Fragment{
             public void run() {
                 AlertDialog dialog = new AlertDialog.Builder(getContext())
                         .setIcon(R.drawable.ic_launcher)//设置标题的图片
-                      //  .setTitle("关于：")//设置对话框的标题
+                        //  .setTitle("关于：")//设置对话框的标题
                         .setMessage("个人信息未完善，请前往个人中心->编辑")//设置对话框的内容
                         //设置对话框的按钮
                         .setNegativeButton("退出", new DialogInterface.OnClickListener() {
@@ -651,10 +657,6 @@ public class OneFragment extends Fragment{
 
     /*轮换图片*/
     private void init() {
-        // TODO Auto-generated method stub
-        vp=(ViewPager) getView().findViewById(R.id.vp);
-        vp.setPageTransformer(true, new ZoomOutPageTransformer());
-        ll_tag=(LinearLayout) getView().findViewById(R.id.ll_tag);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -755,7 +757,7 @@ public class OneFragment extends Fragment{
                 tag[i].setBackgroundResource(R.drawable.dot_normal);
             }
             //设置上下左右的间隔
-            tag[i].setPadding(0,0,40,40);
+            tag[i].setPadding(10,10,30,30);
             tag[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             //添加到viewpager底部的线性布局里面
             ll_tag.addView(tag[i]);
@@ -800,25 +802,19 @@ public class OneFragment extends Fragment{
                     Elements url = doc.select("ul.feed-list-area");
                     Element link =  url.select("li").get(0);
 
-
                     souhu_url = link.select("a.onePic").attr("href");
+
                     souhu_url = " http://m.sohu.com"+souhu_url+"&spm=smwp.media.fd-s.1.1537437360311dAYraYh";
-                    //System.out.println("文章链接:"+souhu_url.toString());
+                    sh_imageurl = link.select("section.onePic__img-area").select("img").attr("original");
+                    sh_title = link.select("article.onePic__content").select("h4.feed__title").text();
+                    sh_subtitle = link.select("article.onePic__content").select("footer.feed__detail").select("span.time").text();
 
-                    String A2 = link.select("section.onePic__img-area").select("img").attr("original");
-                    // System.out.println("图片链接:"+A2.toString());
-
-                    /*
-                    if (A2.length() != 0){
-                        Glide.with(getContext())
-                                .load(A2)
-                                .placeholder(R.drawable.loading)
-                                .error(R.drawable.error)
-                                .fitCenter()
-                                .into(souhuiv);
-                    }*/
-
-                    URL myFileURL;
+                    if (sh_imageurl != null && sh_title != null && sh_subtitle != null){
+                        Message msg = handler.obtainMessage();
+                        msg.what = 1;
+                        handler.sendMessage(msg);
+                    }
+/*
                     if (A2.length() !=0){
                         Glide.with(getContext())
                                 .load(A2)
@@ -827,9 +823,9 @@ public class OneFragment extends Fragment{
                                 .apply(new RequestOptions() .fitCenter())
                                 .into(souhuiv);
 
-                        /*souhutitle.setWidth(600);
+                        souhutitle.setWidth(600);
                         try {
-                            myFileURL = new URL(A2);
+                            URL myFileURL = new URL(sh_imageurl);
                             HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
                             conn.setConnectTimeout(3000);
                             conn.setDoInput(true);
@@ -844,27 +840,10 @@ public class OneFragment extends Fragment{
                         Message msg = handler.obtainMessage();
                         msg.obj = bitmap;
                         msg.what = 1;
-                        handler.sendMessage(msg);*/
-                    }else {
-                        getsouhu2();
+                        handler.sendMessage(msg);
                     }
+*/
 
-                    final String A3 = link.select("article.onePic__content").select("h4.feed__title").text();
-                    // System.out.println("标题:"+A3.toString());
-
-                    final String A4 = link.select("article.onePic__content").select("footer.feed__detail").select("span.time").text();
-                    //System.out.println("时间:"+A4.toString());
-
-                    souhutitle.setText(A3);
-                    souhusubtitle.setText(A4);
-
-/*                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            souhutitle.setText(A3);
-                            souhusubtitle.setText(A4);
-                        }
-                    });*/
 
 
 
@@ -938,7 +917,17 @@ public class OneFragment extends Fragment{
             switch (msg.what) {
                 case 1:
                     souhuiv.setBackgroundResource(0);
-                    souhuiv.setImageBitmap(bitmap);
+                    //souhuiv.setImageBitmap(bitmap);
+                    Glide.with(getContext())
+                            .load(sh_imageurl)
+                            .apply(new RequestOptions().placeholder(R.drawable.loading))
+                            .apply(new RequestOptions() .error(R.drawable.error))
+                            .apply(new RequestOptions() .fitCenter())
+                            .into(souhuiv);
+
+                    souhutitle.setText(sh_title);
+                    souhusubtitle.setText(sh_subtitle);
+
                     break;
             }
         }

@@ -64,8 +64,8 @@ public class SecondClassAdapter extends BaseAdapter {
 
         AssetManager mgr = mContext.getAssets();
         Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
-        viewHolder.A1.setTypeface(tf);
-        viewHolder.A3.setTypeface(tf);
+        viewHolder.A1.setTypeface(tf,Typeface.BOLD);
+        viewHolder.A3.setTypeface(tf,Typeface.BOLD);
 
         return view;
     }
