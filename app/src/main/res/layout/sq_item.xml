@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/textshape9"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.example.luhongcheng.View.CircleImageView
+            android:id="@+id/sq_icon"
+            android:layout_marginLeft="5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:layout_toRightOf="@+id/sq_icon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="100dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/sq_nickname"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/sq_qm"
+                android:layout_weight="1"
+                android:textSize="10dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/sq_collection"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/xia" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/content"
+            android:textSize="14sp"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:lineSpacingMultiplier="1.4"
+            android:textColor="@color/moren"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="answer:" />
+
+<!--        <EditText
+            android:id="@+id/content"
+            android:editable="false"
+            android:textColor="@color/moren"
+            android:background="@null"
+            android:textSize="15sp"
+            style="?android:attr/textViewStyle"
+            android:maxLines="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />-->
+
+        <com.example.luhongcheng.View.NineGridTestLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/layout_nine_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:sapcing="5dp" />
+
+        <TextView
+            android:id="@+id/sq_time"
+            android:textColor="@color/moren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="13sp"
+            android:text="2019-03-25 11:38:18" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/moren_back"
+        android:layout_width="match_parent"
+        android:layout_height="0.5sp" />
+
+    <LinearLayout
+        android:layout_marginLeft="200dp"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/sq_share"
+                android:background="@drawable/ic_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/comment"
+                android:background="@drawable/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/comment_nums"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/moren"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/zan_layout"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/zan"
+                android:background="@drawable/sq_zan_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/zan_nums"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/moren"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:background="@color/moren_back"
+        android:layout_width="match_parent"
+        android:layout_height="5sp" />
+
+</LinearLayout>
+

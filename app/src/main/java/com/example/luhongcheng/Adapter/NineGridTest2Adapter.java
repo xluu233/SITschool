@@ -69,7 +69,7 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
 
         user_Likes = mList.get(position).getMy_likes();
 
-        final String objectId = mList.get(position).getId();
+        final String objectId = mList.get(position).getItem_id();
 
         if (user_Likes != null){
             if (user_Likes.contains(objectId)){
@@ -142,10 +142,9 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
             public void onClick(View v) {
 
                 Intent intent = new Intent(mContext, SQ_SecondLayout.class);
-                intent.putExtra("item_id",mList.get(position).getId());
-                intent.putExtra("user_id",personID);
-                intent.putExtra("title",mList.get(position).getTitle());
-                intent.putExtra("content",mList.get(position).getContent());
+                intent.putExtra("from","QA");
+                intent.putExtra("item_id",mList.get(position).getItem_id());
+                intent.putExtra("author_id",mList.get(position).getAuthor_id());
                 mContext.startActivity(intent);
 
                /* QA post = new QA();

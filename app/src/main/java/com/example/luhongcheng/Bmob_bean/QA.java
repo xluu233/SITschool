@@ -39,7 +39,7 @@ public class QA extends BmobObject {
         this.image = image;
     }
 
-    List<String> image = new ArrayList<>();
+    List<String> image;
 
 
 

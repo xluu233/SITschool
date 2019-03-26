@@ -4,24 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SQ_QA {
-    public SQ_QA(List<String> url, String title, String content, String time, String id, List<String> my_Likes) {
+    public SQ_QA(List<String> url, String title, String content, String time, String id, List<String> my_Likes, String author_id) {
         this.url = url;
         this.title = title;
         this.content = content;
         this.time = time;
-        this.id = id;
+        this.item_id = id;
         this.my_likes = my_Likes;
+        this.author_id = author_id;
     }
 
-    public String getId() {
-        return id;
+
+    public String getItem_id() {
+        return item_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setItem_id(String item_id) {
+        this.item_id = item_id;
     }
 
-    String id;
+    String item_id;
+
+    public String getAuthor_id() {
+        return author_id;
+    }
+
+    public void setAuthor_id(String author_id) {
+        this.author_id = author_id;
+    }
+
+    String author_id;
     public String getTime() {
         return time;
     }

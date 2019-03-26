@@ -125,6 +125,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".OneSelf.Find"/>
+        <activity android:name=".SIT_SQ_other.Add_SQ"/>
 
     </application>
 

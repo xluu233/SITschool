@@ -82,7 +82,7 @@ public class SQ_QA extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View v = inflater.inflate(R.layout.sq_five_qa, container, false);
+        View v = inflater.inflate(R.layout.sq_qa, container, false);
         return v;
     }
 
@@ -244,16 +244,19 @@ public class SQ_QA extends Fragment {
                             String title;
                             String content;
                             String time;
-                            String id;
+                            String item_id;
+                            String author_id;
 
                             for(int i = 0;i<list.size();i++){
                                 title = list.get(i).getTitle();
                                 content = list.get(i).getContent();
                                 time = list.get(i).getCreatedAt();
-                                id = list.get(i).getObjectId();
+                                item_id = list.get(i).getObjectId();
+                                author_id = list.get(i).getAuthor().getObjectId();
+
 
                                 url = list.get(i).getImage();
-                                mList.add(new com.example.luhongcheng.bean.SQ_QA(url,title,content,time,id,my_Likes));
+                                mList.add(new com.example.luhongcheng.bean.SQ_QA(url,title,content,time,item_id,my_Likes,author_id));
                             }
                             Message msg = new Message();
                             msg.what = 1;
@@ -292,10 +295,9 @@ public class SQ_QA extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         //Toast.makeText(getContext(),"短按了一下",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getContext(), SQ_SecondLayout.class);
-                        intent.putExtra("item_id",mList.get(position).getId());
-                        intent.putExtra("user_id",person_id);
-                        intent.putExtra("title",mList.get(position).getTitle());
-                        intent.putExtra("content",mList.get(position).getContent());
+                        intent.putExtra("from","QA");
+                        intent.putExtra("item_id",mList.get(position).getItem_id());
+                        intent.putExtra("author_id",mList.get(position).getAuthor_id());
                         startActivity(intent);
 
                     }
@@ -322,11 +324,11 @@ public class SQ_QA extends Fragment {
                                 switch (which){
                                     case 0:
                                         //收藏
-                                        collection_item(mList.get(position).getId());
+                                        collection_item(mList.get(position).getItem_id());
                                         break;
                                     case 1:
                                         //举报
-                                        report_item(mList.get(position).getId());
+                                        report_item(mList.get(position).getItem_id());
                                         break;
                                 }
                             }

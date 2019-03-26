@@ -76,7 +76,7 @@
             android:hint="标题"
             android:layout_gravity="center"
             android:lines="4"
-            android:textSize="16dp"
+            android:textSize="15sp"
             android:textColor="#474747"
             android:textColorHint="#C6C6C6" />
 
@@ -96,7 +96,7 @@
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="内容..."
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:layout_gravity="center"
             android:lines="4"
             android:textColor="#474747"

@@ -69,7 +69,6 @@
                         <TextView
                             android:id="@+id/nickname"
                             android:layout_weight="1"
-                            android:text="Alex"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
@@ -81,7 +80,6 @@
                             android:id="@+id/qm"
                             android:layout_weight="1"
                             android:textSize="10dp"
-                            android:text="这里是个性签名啊啊啊啊啊啊啊啊"
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
                             android:layout_width="match_parent"

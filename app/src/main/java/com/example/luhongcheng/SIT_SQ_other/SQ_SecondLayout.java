@@ -22,6 +22,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.QA_Comment;
+import com.example.luhongcheng.Bmob_bean.SQ;
+import com.example.luhongcheng.Bmob_bean.SQ_Comment;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.R;
@@ -43,9 +45,10 @@ import cn.bmob.v3.listener.UpdateListener;
 import static org.litepal.LitePalApplication.getContext;
 
 public class SQ_SecondLayout extends BaseStatusBarActivity {
-    String item_id;
-    String user_id;
-    String my_id;
+    String item_id; //说说id
+    String author_id; //作者id
+    String my_id; //我的id
+    String From_TAG;
 
 
     private List<String> urllist = new ArrayList<>(); //图片地址合集
@@ -68,17 +71,24 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         setContentView(R.layout.sq_second_layout);
         super.onCreate(savedInstanceState);
         initView();
+        onClick();
+        SharedPreferences sp=getSharedPreferences("personID",0);
+        my_id =  sp.getString("ID","");
+        From_TAG = getIntent().getStringExtra("from");
         item_id = getIntent().getStringExtra("item_id");
-        user_id = getIntent().getStringExtra("user_id");
+        author_id = getIntent().getStringExtra("author_id");
 
         get_UserInfo();
 
+        if (From_TAG == "QA"){
+            getDateFromQA(); //QA的信息
+            get_QAComment();
+        }else if (From_TAG == "SQ"){
+            ss_title.setVisibility(View.GONE);
+            getDateFromSQ(); //SQ的信息
+            get_SQComment();
+        }
 
-        SharedPreferences sp=getSharedPreferences("personID",0);
-        my_id =  sp.getString("ID","");
-
-
-        onClick();
     }
 
     private void onClick() {
@@ -128,7 +138,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         msg = findViewById(R.id.msg);
         send = findViewById(R.id.send_msg);
 
-        if (user_id == my_id){
+        if (author_id == my_id){
             guanzhu.setVisibility(View.GONE);
         }
 
@@ -136,12 +146,12 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
     //当前作者的信息
     private void get_UserInfo() {
-        if (user_id.length() != 0 || item_id.length() !=0){
+        if (author_id.length() != 0 || item_id.length() !=0){
             Thread collection = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
-                    query2.getObject(user_id, new QueryListener<UserInfo>() {
+                    query2.getObject(author_id, new QueryListener<UserInfo>() {
                         @Override
                         public void done(UserInfo userInfo, BmobException e) {
                             if (e == null) {
@@ -154,9 +164,8 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                                     nickname2 = userInfo.getName().replace("你好：","");
                                 }
 
-                                getDate(); //说说的信息
                                 get_MyInfo(); //我的信息
-                                get_Comment();
+
 
                                 Glide.with(getApplicationContext())
                                         .load(icon_url)
@@ -181,7 +190,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         }
     }
 
-    private void get_Comment() {
+    private void get_QAComment() {
         BmobQuery<QA_Comment> query = new BmobQuery<QA_Comment>();
         //用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
         QA post = new QA();
@@ -214,6 +223,11 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
             }
         });
+    }
+
+    private void get_SQComment() {
+        BmobQuery<SQ_Comment> query = new BmobQuery<SQ_Comment>();
+
     }
 
     @SuppressLint("HandlerLeak")
@@ -325,14 +339,10 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                                 my_guanzhu = userInfo.getGuanzhu();
                                 my_Likes = userInfo.getMy_Likes();
 
-                                if (my_guanzhu.contains(user_id)){
+                                if (my_guanzhu.contains(author_id)){
                                     guanzhu.setText("已关注");
                                     guanzhu.setClickable(false);
                                 }
-
-
-
-
 
                             } else {
                                 //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
@@ -350,8 +360,8 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         guanzhu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!my_guanzhu.contains(user_id)){
-                    my_guanzhu.add(user_id);
+                if (!my_guanzhu.contains(author_id)){
+                    my_guanzhu.add(author_id);
                     UserInfo object = new  UserInfo();
                     object.setGuanzhu(my_guanzhu);
                     object.update(my_id, new UpdateListener() {
@@ -377,8 +387,34 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         return getResources().getColor(R.color.white);
     }
 
+    private void getDateFromSQ() {
+        Thread qa_second = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BmobQuery<SQ> query = new BmobQuery<SQ>();
+                query.getObject(item_id, new QueryListener<SQ>() {
+                    @Override
+                    public void done(SQ qa, BmobException e) {
+                        String content = qa.getContent();
+                        String time = qa.getCreatedAt();
 
-    private void getDate() {
+                        urllist = qa.getImage();
+                        ss_title.setVisibility(View.GONE);
+                        ss_content.setText(content);
+                        ss_time.setText(time);
+
+
+                        if (urllist != null){
+                            gridview.setUrlList(urllist);
+                        }
+                    }
+                });
+            }
+        });
+        qa_second.start();
+    }
+
+    private void getDateFromQA() {
         Thread qa_second = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -396,20 +432,14 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         ss_content.setText(content);
                         ss_time.setText(time);
 
-
                         if (urllist != null){
                             gridview.setUrlList(urllist);
                         }
-
                     }
                 });
-
-
             }
         });
         qa_second.start();
-
-
     }
 
     public void setListViewHeightBasedOnChildren(ListView list) {
