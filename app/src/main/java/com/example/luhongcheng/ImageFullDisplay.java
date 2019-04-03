@@ -1,5 +1,6 @@
 package com.example.luhongcheng;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -28,6 +29,7 @@ public class ImageFullDisplay extends AppCompatActivity {
     Bitmap bitmap;
     ImageView iv;
     int n,num;
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,6 @@ public class ImageFullDisplay extends AppCompatActivity {
 
         String text = n+"/"+num;
         nums.setText(text);
-
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

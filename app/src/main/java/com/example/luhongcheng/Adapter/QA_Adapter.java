@@ -13,33 +13,37 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob_bean.QA;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
-import com.example.luhongcheng.View.NineGridTestLayout;
-import com.example.luhongcheng.bean.SQ_QA;
+import com.example.luhongcheng.bean.QA;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
+
+import static org.litepal.LitePalApplication.getContext;
 
 /**
  * Created by HMY on 2016/8/6
  */
-public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adapter.ViewHolder> {
+public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
 
     private Context mContext;
-    private List<SQ_QA> mList;
+    private List<QA> mList;
     protected LayoutInflater inflater;
     private String personID; //用户ID
 
     List<String> user_Likes = new ArrayList<>();
     boolean hadzan;
 
-    public NineGridTest2Adapter(Context context, List<SQ_QA> list) {
+    public QA_Adapter(Context context, List<QA> list) {
         mContext = context;
         inflater = LayoutInflater.from(context);
         mList = list;
@@ -52,7 +56,7 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View convertView = LayoutInflater.from(mContext).inflate(R.layout.item_nine_sqview, parent, false);
+        View convertView = LayoutInflater.from(mContext).inflate(R.layout.sq_qa_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(convertView);
         return viewHolder;
 
@@ -61,11 +65,10 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
     @SuppressLint("ResourceType")
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.gridview.setUrlList(mList.get(position).getUrl());
+        //holder.gridview.setUrlList(mList.get(position).getUrl());
         holder.title.setText(mList.get(position).getTitle());
         holder.content.setText(mList.get(position).getContent());
         holder.time.setText(mList.get(position).getTime());
-
 
         user_Likes = mList.get(position).getMy_likes();
 
@@ -77,7 +80,6 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
                 holder.zan.setBackgroundResource(R.drawable.sq_zan_2);
             }
         }
-
 
         holder.zan_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,18 +123,34 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
                                         }
                                     }
                                 });
-
                             }
-
-
-
-
                         }
                     }
                 });
                 qa_update_zan.start();
+            }
+        });
 
 
+        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+        query.getObject(mList.get(position).getAuthor_id(), new QueryListener<UserInfo>() {
+            @Override
+            public void done(UserInfo userInfo, BmobException e) {
+                if (e==null){
+                    if (userInfo.getNickname() != null){
+                        holder.nickname.setText(userInfo.getNickname());
+                    }
+                    if (userInfo.geticonUrl() != null){
+                        if (userInfo.geticonUrl().length() != 0){
+                            Glide.with(getContext())
+                                    .load(userInfo.geticonUrl())
+                                    .apply(new RequestOptions().placeholder(R.drawable.loading))
+                                    .apply(new RequestOptions() .error(R.drawable.error))
+                                    .apply(new RequestOptions().fitCenter())
+                                    .into(holder.icon);
+                        }
+                    }
+                }
             }
         });
 
@@ -140,36 +158,11 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
         holder.discuss_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(mContext, SQ_SecondLayout.class);
                 intent.putExtra("from","QA");
                 intent.putExtra("item_id",mList.get(position).getItem_id());
                 intent.putExtra("author_id",mList.get(position).getAuthor_id());
                 mContext.startActivity(intent);
-
-               /* QA post = new QA();
-                post.setObjectId(mList.get(position).getId());
-
-                UserInfo user = new UserInfo();
-                user.setObjectId(personID);
-
-                QA_Comment comment = new QA_Comment();
-                comment.setContent("评论测试");
-                comment.setAuthor(user);
-                comment.setPost(post);
-                comment.save(new SaveListener<String>() {
-
-                    @Override
-                    public void done(String objectId, BmobException e) {
-                        if(e==null){
-                            Toast.makeText(mContext,"评论成功",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Log.i("bmob","失败："+e.getMessage());
-                        }
-                    }
-
-                });*/
-
             }
         });
     }
@@ -180,37 +173,25 @@ public class NineGridTest2Adapter extends RecyclerView.Adapter<NineGridTest2Adap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        NineGridTestLayout gridview;
-        TextView title;
-        TextView content;
-        TextView time;
-        ImageView icon;
-
-        ImageView zan,discuss;
-
-        TextView pinlun; //选取一条评论
-
-        TextView zan_nums;
+        //NineGridTestLayout gridview;
+        TextView title,content,time,nickname;
+        ImageView icon,zan,discuss;
         LinearLayout zan_layout,discuss_layout;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
-            gridview = (NineGridTestLayout) itemView.findViewById(R.id.layout_nine_grid);
+           // gridview = (NineGridTestLayout) itemView.findViewById(R.id.layout_nine_grid);
             title = itemView.findViewById(R.id.title);
             content = itemView.findViewById(R.id.content);
             time = itemView.findViewById(R.id.time);
-            icon = itemView.findViewById(R.id.icon);
-
             zan = itemView.findViewById(R.id.qa_zan);
-
             discuss = itemView.findViewById(R.id.qa_discuss);
-
-            pinlun = itemView.findViewById(R.id.qa_pinglun);
-
             zan_layout = itemView.findViewById(R.id.zan);
             discuss_layout = itemView.findViewById(R.id.discuss);
-            zan_nums = itemView.findViewById(R.id.qa_zan_nums);
 
+            icon = itemView.findViewById(R.id.qa_icon);
+            nickname = itemView.findViewById(R.id.qa_nickname);
 
         }
     }

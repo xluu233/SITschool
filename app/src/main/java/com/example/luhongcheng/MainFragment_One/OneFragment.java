@@ -203,11 +203,11 @@ public class OneFragment extends Fragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getImageUrl();
+
     }
 
     private void getImageUrl() {
-        Thread image_url = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 BmobQuery<vp_one> query = new BmobQuery<vp_one>();
@@ -226,8 +226,7 @@ public class OneFragment extends Fragment{
                     }
                 });
             }
-        }); //声明一个子线程
-        image_url.start();
+        }).start();
     }
 
     @Nullable
@@ -263,7 +262,7 @@ public class OneFragment extends Fragment{
         adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
         gridView.setAdapter(adapter);
 
-
+        getImageUrl();
         initOnClick();
         initRefresh();
 
@@ -666,13 +665,16 @@ public class OneFragment extends Fragment{
                 p=position;
                 //得到当前图片的索引,如果图片只有三张，那么只有0，1，2这三种情况
                 int currentIndex=(position%imageUrl.length);
-                for(int i=0;i<tag.length;i++){
-                    if(i==currentIndex){
-                        tag[i].setBackgroundResource(R.drawable.dot_focused);
-                    }else{
-                        tag[i].setBackgroundResource(R.drawable.dot_normal);
+                if (tag != null){
+                    for(int i=0;i<tag.length;i++){
+                        if(i==currentIndex){
+                            tag[i].setBackgroundResource(R.drawable.dot_focused);
+                        }else{
+                            tag[i].setBackgroundResource(R.drawable.dot_normal);
+                        }
                     }
                 }
+
             }
 
             @Override
@@ -803,16 +805,24 @@ public class OneFragment extends Fragment{
                     Element link =  url.select("li").get(0);
 
                     souhu_url = link.select("a.onePic").attr("href");
-
                     souhu_url = " http://m.sohu.com"+souhu_url+"&spm=smwp.media.fd-s.1.1537437360311dAYraYh";
                     sh_imageurl = link.select("section.onePic__img-area").select("img").attr("original");
                     sh_title = link.select("article.onePic__content").select("h4.feed__title").text();
                     sh_subtitle = link.select("article.onePic__content").select("footer.feed__detail").select("span.time").text();
 
+                    Log.d("souhu:",souhu_url);
+                    Log.d("souhu:",sh_imageurl);
+                    Log.d("souhu:",sh_title);
+                    Log.d("souhu:",sh_subtitle);
+
                     if (sh_imageurl != null && sh_title != null && sh_subtitle != null){
                         Message msg = handler.obtainMessage();
                         msg.what = 1;
                         handler.sendMessage(msg);
+                    }
+
+                    if (sh_title != null || sh_subtitle != null){
+                        getsouhu2();
                     }
 /*
                     if (A2.length() !=0){
@@ -843,9 +853,6 @@ public class OneFragment extends Fragment{
                         handler.sendMessage(msg);
                     }
 */
-
-
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -879,27 +886,20 @@ public class OneFragment extends Fragment{
 
 
                     souhu_url = link.select("a.plainText").attr("href");
-                    souhu_url = " http://m.sohu.com"+souhu_url+"?spm=smwp.media.fd-s.1.1547014372361QHJEKjY";
-                    //System.out.println("文章链接:"+souhu_url.toString());
+                    souhu_url = " http://m.sohu.com"+souhu_url+"&spm=smwp.media.fd-s.1.1537437360311dAYraYh";
+                    sh_title = link.select("a.plainText").select("h4.feed__title").text();
+                    sh_subtitle = link.select("a.plainText").select("footer.feed__detail").select("span.time").text();
 
-                    //http://m.sohu.com/a/287399973_694346&spm=smwp.media.fd-s.1.1537437360311dAYraYh
-                    //http://m.sohu.com/a/287399973_694346?spm=smwp.media.fd-s.1.1547014372361QHJEKjY
-                    //链接经常会变化
 
-                    final String A3 = link.select("a.plainText").select("h4.feed__title").text();
-                    //System.out.println("标题:"+A3.toString());
+                    Log.d("souhu:",souhu_url);
+                    Log.d("souhu:",sh_title);
+                    Log.d("souhu:",sh_subtitle);
 
-                    final String A4 = link.select("a.plainText").select("footer.feed__detail").select("span.time").text();
-                    //System.out.println("时间:"+A4.toString());
-
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            souhuiv.setVisibility(View.INVISIBLE);
-                            souhutitle.setText(A3);
-                            souhusubtitle.setText(A4);
-                        }
-                    });
+                    if (sh_title != null && sh_subtitle != null){
+                        Message msg = handler.obtainMessage();
+                        msg.what = 2;
+                        handler.sendMessage(msg);
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -924,10 +924,13 @@ public class OneFragment extends Fragment{
                             .apply(new RequestOptions() .error(R.drawable.error))
                             .apply(new RequestOptions() .fitCenter())
                             .into(souhuiv);
-
                     souhutitle.setText(sh_title);
                     souhusubtitle.setText(sh_subtitle);
-
+                    break;
+                case 2:
+                    souhuiv.setBackgroundResource(0);
+                    souhutitle.setText(sh_title);
+                    souhusubtitle.setText(sh_subtitle);
                     break;
             }
         }

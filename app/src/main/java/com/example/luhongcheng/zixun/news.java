@@ -29,7 +29,7 @@ public class news extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.item1);
+		setContentView(R.layout.zixun);
 		getCookies();
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -84,8 +84,8 @@ public class news extends AppCompatActivity {
 	private static final String DOG_BREEDS[] = {"学校新闻","校园快讯","学术文化","通知公告"};
 
 	private void initView() {
-		SlidingTabLayout tabLayout = findViewById(R.id.secondclass_tab);
-		ViewPager viewPager = findViewById(R.id.secondclass_viewpager);
+		SlidingTabLayout tabLayout = findViewById(R.id.zixun_tab);
+		ViewPager viewPager = findViewById(R.id.zixun_viewpager);
 
 		viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 			@Override

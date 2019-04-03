@@ -3,8 +3,8 @@ package com.example.luhongcheng.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SQ_QA {
-    public SQ_QA(List<String> url, String title, String content, String time, String id, List<String> my_Likes, String author_id) {
+public class QA {
+    public QA(List<String> url, String title, String content, String time, String id, List<String> my_Likes, String author_id) {
         this.url = url;
         this.title = title;
         this.content = content;

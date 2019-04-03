@@ -33,50 +33,8 @@
         <activity android:name=".Login.LoginActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".OneSelf.setMy"></activity>
-        <activity android:name=".MainFragmentActivity"
-            android:launchMode="singleTask"/>
-
+        <activity android:name=".MainFragmentActivity" android:launchMode="singleTask"/>
         <activity android:name=".OA.OADisplayActvivity"/>
-        <activity
-            android:name=".OAitem.item0"
-            android:theme="@style/myTransparent">
-        </activity>
-        <activity android:name=".connect_vpn"/>
-        <activity android:name=".OAitem.item1"> </activity>
-        <activity android:name=".OAitem.item2"> </activity>
-        <activity android:name=".OAitem.item3"> </activity>
-        <activity android:name=".OAitem.item4"> </activity>
-        <activity android:name=".OAitem.item5"> </activity>
-        <activity android:name=".OAitem.item7"> </activity>
-        <activity android:name=".SIT_SQ_other.SQ_SecondLayout"/>
-        <activity android:name=".OAitem.item8"/>
-        <activity android:name=".OAitem.more_item0"/>
-        <activity android:name=".OAitem.more_item1"/>
-        <activity android:name=".OAitem.more_item2"/>
-        <activity android:name=".image_viewpager.ImageDetailActivity"/>
-        <activity android:name=".TuisongActivity"/>
-        <activity android:name=".TuisongActivity"
-            tools:ignore="DuplicateActivity" />
-        <activity android:name=".userCard.userCardinfo"/>
-        <activity android:name=".setting.about0"
-            android:theme="@style/about0"></activity>
-        <activity android:name=".setting.about1"></activity>
-        <activity android:name=".setting.about2"></activity>
-        <activity android:name=".setting.about3"></activity>
-        <activity android:name=".setting.about4"></activity>
-        <activity android:name=".SWZL.send"/>
-        <activity android:name=".OAitem.item9"/>
-        <activity android:name=".secondclass.SecondClassDisplayActvivity"/>
-        <activity android:name=".zixun.news"/>
-        <activity android:name=".zixun.zhuyeDisplayActvivity"/>
-        <activity android:name=".MoreTips"/>
-        <activity android:name=".MainFragment_three.KB2"></activity>
-        <activity android:name=".SWZL.send2"/>
-        <activity android:name=".SWZL.swzlmain"/>
-        <activity android:name=".SouHuNews"/>
-        <activity android:name=".OneSelf.Find2"/>
-        <activity android:name=".SIT_SQ_other.Add_QA"/>
-
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" >
@@ -98,16 +56,6 @@
                 <category android:name="com.example.luhongcheng" />
             </intent-filter>
         </receiver>
-        <activity android:name=".MBox.MBoxItem"></activity>
-        <activity android:name=".SQ.SS_ADD"></activity>
-        <activity android:name=".SQ.ssDisPlay"></activity>
-        <activity android:name=".SQ.SS_ADD2"></activity>
-        <activity android:name=".OneSelf.MySs"></activity>
-        <activity android:name=".OneSelf.MyLove"></activity>
-        <activity android:name=".ImageFullDisplay"></activity>
-        <activity android:name=".OneSelf.ShowOnePerson"/>
-        <activity android:name=".SQ.PingLun" android:theme="@style/myTransparent"/>
-        <activity android:name=".WeiXin.Weixin_more"/>
         <activity android:name=".SQ.Article_Add">
             <!-- filter for sending text; accepts SENDTO action with sms URI schemes -->
             <intent-filter>
@@ -124,8 +72,54 @@
                 <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".OAitem.item0"
+            android:theme="@style/myTransparent">
+        </activity>
+        <activity android:name=".connect_vpn"/>
+        <activity android:name=".OAitem.item1"> </activity>
+        <activity android:name=".OAitem.item2"> </activity>
+        <activity android:name=".OAitem.item3"> </activity>
+        <activity android:name=".OAitem.item4"> </activity>
+        <activity android:name=".OAitem.item5"> </activity>
+        <activity android:name=".OAitem.item7"> </activity>
+        <activity android:name=".OAitem.item8"/>
+        <activity android:name=".OAitem.more_item0"/>
+        <activity android:name=".OAitem.more_item1"/>
+        <activity android:name=".OAitem.more_item2"/>
+        <activity android:name=".image_viewpager.ImageDetailActivity"/>
+        <activity android:name=".TuisongActivity"/>
+        <activity android:name=".userCard.userCardinfo"/>
+        <activity android:name=".setting.about0" android:theme="@style/about0"/>
+        <activity android:name=".setting.about1"></activity>
+        <activity android:name=".setting.about2"></activity>
+        <activity android:name=".setting.about3"></activity>
+        <activity android:name=".setting.about4"></activity>
+        <activity android:name=".SWZL.send"/>
+        <activity android:name=".OAitem.item9"/>
+        <activity android:name=".secondclass.SecondClassDisplayActvivity"/>
+        <activity android:name=".zixun.news"/>
+        <activity android:name=".zixun.zhuyeDisplayActvivity"/>
+        <activity android:name=".MoreTips"/>
+        <activity android:name=".MainFragment_three.KB2"></activity>
+        <activity android:name=".SWZL.send2"/>
+        <activity android:name=".SWZL.swzlmain"/>
+        <activity android:name=".SouHuNews"/>
+        <activity android:name=".OneSelf.Find2"/>
+        <activity android:name=".SIT_SQ_other.Add_QA"/>
+        <activity android:name=".MBox.MBoxItem"></activity>
+        <activity android:name=".SQ.SS_ADD"></activity>
+        <activity android:name=".SQ.ssDisPlay"></activity>
+        <activity android:name=".SQ.SS_ADD2"></activity>
+        <activity android:name=".OneSelf.MySs"></activity>
+        <activity android:name=".OneSelf.MyLove"></activity>
+        <activity android:name=".ImageFullDisplay"></activity>
+        <activity android:name=".OneSelf.ShowOnePerson"/>
+        <activity android:name=".SQ.PingLun" android:theme="@style/myTransparent"/>
+        <activity android:name=".WeiXin.Weixin_more"/>
         <activity android:name=".OneSelf.Find"/>
         <activity android:name=".SIT_SQ_other.Add_SQ"/>
+        <activity android:name=".SIT_SQ_other.SQ_SecondLayout"/>
 
     </application>
 

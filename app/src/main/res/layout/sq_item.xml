@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/textshape3"
     android:orientation="vertical">
 
     <RelativeLayout
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:background="@drawable/textshape9"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -62,33 +64,22 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/content"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:maxLines="4"
             android:ellipsize="end"
             android:lineSpacingMultiplier="1.4"
             android:textColor="@color/moren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:text="answer:" />
 
-<!--        <EditText
-            android:id="@+id/content"
-            android:editable="false"
-            android:textColor="@color/moren"
-            android:background="@null"
-            android:textSize="15sp"
-            style="?android:attr/textViewStyle"
-            android:maxLines="5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />-->
 
         <com.example.luhongcheng.View.NineGridTestLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/layout_nine_grid"
@@ -102,7 +93,7 @@
             android:textColor="@color/moren"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:textSize="13sp"
             android:text="2019-03-25 11:38:18" />
 
@@ -112,7 +103,7 @@
     <ImageView
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/moren_back"
         android:layout_width="match_parent"
         android:layout_height="0.5sp" />
@@ -121,6 +112,7 @@
         android:layout_marginLeft="200dp"
         android:gravity="center"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="25dp">
@@ -195,11 +187,7 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_marginTop="10dp"
-        android:background="@color/moren_back"
-        android:layout_width="match_parent"
-        android:layout_height="5sp" />
+
 
 </LinearLayout>
 

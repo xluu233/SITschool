@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <include layout="@layout/toolbar"/>
+
+    <ImageView
+        android:id="@+id/div"
+        android:layout_marginTop="45dp"
+        android:background="@color/moren_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:background="@color/white"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="0.3sp" />
 
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+    <ScrollView
+        android:layout_below="@+id/div"
+        android:layout_marginBottom="45dp"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:toolbarId="@+id/toolbar"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-
-
-<!--            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:title=" "
-                android:background="@color/white"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:titleTextAppearance="@style/Toolbar.TitleText3">
-            </android.support.v7.widget.Toolbar>-->
-
-
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:background="@color/white"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -46,7 +34,7 @@
                 <RelativeLayout
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:background="@drawable/textshape9"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
@@ -108,28 +96,32 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/title"
+                        android:textSize="17sp"
+                        android:lineSpacingMultiplier="1.4"
+                        android:textColor="@color/moren"
+                        android:textStyle="bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Question:"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black" />
-
+                        android:layout_marginTop="5dp"
+                        android:text="title:" />
 
                     <ImageView
+                        android:id="@+id/div2"
                         android:layout_marginTop="10dp"
                         android:background="@color/moren_back"
                         android:layout_width="match_parent"
-                        android:layout_height="1sp" />
+                        android:layout_height="0.3sp" />
 
                     <TextView
                         android:id="@+id/content"
+                        android:textSize="14sp"
+                        android:lineSpacingMultiplier="1.4"
                         android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -145,11 +137,12 @@
 
                     <TextView
                         android:id="@+id/time"
+                        android:textSize="13sp"
                         android:textColor="@color/moren"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="15dp"
                         android:text="10分钟前" />
                 </LinearLayout>
 
@@ -157,58 +150,44 @@
 
             </LinearLayout>
 
-
-
-
-
-
-
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".ScrollingActivity"
-        tools:showIn="@layout/about0"
-        android:layout_marginBottom="50dp"
-        android:background="@color/white">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
             <ImageView
-                android:layout_marginTop="5dp"
                 android:background="@color/moren_back"
                 android:layout_width="match_parent"
-                android:layout_height="7dp" />
+                android:layout_height="10sp" />
 
-            <ListView
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
-                android:id="@+id/comment_listview"
-                android:scrollbars="none"
-                android:divider="@color/white"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            </ListView>
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="暂无评论信息"
+                    android:textSize="14sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.example.luhongcheng.View.NoScrollListView
+                    android:id="@+id/comment_listview"
+                    android:scrollbars="none"
+                    android:background="@color/white"
+                    android:divider="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </com.example.luhongcheng.View.NoScrollListView>
+
+            </RelativeLayout>
 
 
 
+        </LinearLayout>
+    </ScrollView>
 
-        </RelativeLayout>
 
-    </android.support.v4.widget.NestedScrollView>
 
 
     <RelativeLayout
+        android:id="@+id/comment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -249,7 +228,7 @@
     </RelativeLayout>
 
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
 
 
 

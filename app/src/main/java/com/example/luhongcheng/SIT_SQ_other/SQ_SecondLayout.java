@@ -28,6 +28,7 @@ import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.View.NineGridTestLayout;
+import com.example.luhongcheng.View.NoScrollListView;
 import com.example.luhongcheng.bean.PingLun;
 import com.example.luhongcheng.utils.BaseStatusBarActivity;
 
@@ -60,9 +61,10 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
     TextView ss_title,ss_content,ss_time,guanzhu;
     NineGridTestLayout gridview;
-    ListView listView;
+    NoScrollListView listView;
     EditText msg;
-    ImageView send;
+    ImageView send,div2;
+    Toolbar toolbar;
 
     List<PingLun> comment_list = new ArrayList<>();
 
@@ -80,46 +82,91 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
         get_UserInfo();
 
-        if (From_TAG == "QA"){
+        if (From_TAG.equals("QA")){
             getDateFromQA(); //QA的信息
             get_QAComment();
-        }else if (From_TAG == "SQ"){
+        }else if (From_TAG.equals("SQ")){
             ss_title.setVisibility(View.GONE);
+            div2.setVisibility(View.GONE);
             getDateFromSQ(); //SQ的信息
             get_SQComment();
         }
 
+        if (author_id.equals(my_id)){
+            guanzhu.setVisibility(View.GONE);
+        }
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
+
+
 
     private void onClick() {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QA post = new QA();
-                post.setObjectId(item_id);
+                if (From_TAG.equals("QA")){
+                    QA post = new QA();
+                    post.setObjectId(item_id);
 
-                UserInfo user = new UserInfo();
-                user.setObjectId(my_id);
+                    UserInfo user = new UserInfo();
+                    user.setObjectId(my_id);
 
-                String content = msg.getText().toString();
-                if (content.length() != 0){
-                    QA_Comment comment = new QA_Comment();
-                    comment.setContent(content);
-                    comment.setAuthor(user);
-                    comment.setPost(post);
-                    comment.save(new SaveListener<String>() {
+                    String content = msg.getText().toString();
+                    if (content.length() != 0){
+                        QA_Comment comment = new QA_Comment();
+                        comment.setContent(content);
+                        comment.setAuthor(user);
+                        comment.setPost(post);
+                        comment.save(new SaveListener<String>() {
 
-                        @Override
-                        public void done(String objectId, BmobException e) {
-                            if(e==null){
-                                Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
-                            }else{
-                                Log.i("bmob","失败："+e.getMessage());
+                            @Override
+                            public void done(String objectId, BmobException e) {
+                                if(e==null){
+                                    Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Log.i("bmob","失败："+e.getMessage());
+                                }
                             }
-                        }
 
-                    });
+                        });
+                    }
+
+                }else if (From_TAG.equals("SQ")){
+                    SQ post1 = new SQ();
+                    post1.setObjectId(item_id);
+
+                    UserInfo user = new UserInfo();
+                    user.setObjectId(my_id);
+
+                    String content = msg.getText().toString();
+                    if (content.length() != 0){
+                        SQ_Comment comment = new SQ_Comment();
+                        comment.setContent(content);
+                        comment.setAuthor(user);
+                        comment.setPost(post1);
+                        comment.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String objectId, BmobException e) {
+                                if(e==null){
+                                    Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Log.i("bmob","失败："+e.getMessage());
+                                }
+                            }
+
+                        });
+                    }
                 }
+
 
             }
         });
@@ -137,10 +184,9 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         listView = findViewById(R.id.comment_listview);
         msg = findViewById(R.id.msg);
         send = findViewById(R.id.send_msg);
+        toolbar = findViewById(R.id.toolbar);
+        div2 = findViewById(R.id.div2);
 
-        if (author_id == my_id){
-            guanzhu.setVisibility(View.GONE);
-        }
 
     }
 
@@ -156,16 +202,12 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         public void done(UserInfo userInfo, BmobException e) {
                             if (e == null) {
 
-
                                 String icon_url = userInfo.geticonUrl();
                                 String qm2 = userInfo.getQM();
                                 String nickname2 = userInfo.getNickname();
                                 if (nickname2 == null){
                                     nickname2 = userInfo.getName().replace("你好：","");
                                 }
-
-                                get_MyInfo(); //我的信息
-
 
                                 Glide.with(getApplicationContext())
                                         .load(icon_url)
@@ -175,7 +217,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                                 nickname.setText(nickname2);
                                 qm.setText(qm2);
 
-
+                                get_MyInfo(); //我的信息
 
                             } else {
                                 //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
@@ -189,6 +231,126 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
             Toast.makeText(this,"没有获取到ID",Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void get_MyInfo() {
+        if (my_id.length() !=0){
+            Thread collection_info = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
+                    query2.getObject(my_id, new QueryListener<UserInfo>() {
+                        @Override
+                        public void done(UserInfo userInfo, BmobException e) {
+                            if (e == null) {
+
+                                my_guanzhu = userInfo.getGuanzhu();
+                                my_Likes = userInfo.getMy_Likes();
+
+                                if (my_guanzhu.contains(author_id)){
+                                    guanzhu.setText("已关注");
+                                    guanzhu.setClickable(false);
+                                }
+
+                            } else {
+                                //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                            }
+                        }
+                    });
+                }
+            });
+            collection_info.start();
+        }else {
+            Toast.makeText(this,"没有获取到ID",Toast.LENGTH_SHORT).show();
+        }
+
+        guanzhu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!my_guanzhu.contains(author_id)){
+                    my_guanzhu.add(author_id);
+                    UserInfo object = new  UserInfo();
+                    object.setGuanzhu(my_guanzhu);
+                    object.update(my_id, new UpdateListener() {
+                        @Override
+                        public void done(BmobException e1) {
+                            if(e1==null){
+                                Toast.makeText(getApplicationContext(), "关注成功", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "关注失败", Toast.LENGTH_SHORT).show();
+                                Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+    }
+
+    private void getDateFromSQ() {
+        Log.d("getDate","getDateFromSQ");
+        Thread qa_second = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BmobQuery<SQ> query = new BmobQuery<SQ>();
+                query.getObject(item_id, new QueryListener<SQ>() {
+                    @Override
+                    public void done(SQ qa, BmobException e) {
+                        String content = qa.getContent();
+                        String time = qa.getCreatedAt();
+
+                        urllist = qa.getImage();
+                        ss_content.setText(content);
+                        ss_time.setText(time);
+
+                        Log.d("getDate", String.valueOf(urllist));
+                        Log.d("getDate",content);
+                        Log.d("getDate",time);
+
+                        if (urllist != null){
+                            gridview.setUrlList(urllist);
+                        }
+                    }
+                });
+            }
+        });
+        qa_second.start();
+    }
+
+    private void getDateFromQA() {
+        Log.d("getDate","getDateFromQA");
+        Thread qa_second = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BmobQuery<QA> query = new BmobQuery<QA>();
+                query.getObject(item_id, new QueryListener<QA>() {
+                    @Override
+                    public void done(QA qa, BmobException e) {
+                        String title = qa.getTitle();
+                        String content = qa.getContent();
+                        String time = qa.getCreatedAt();
+
+                        urllist = qa.getImage();
+
+                        ss_title.setText(title);
+                        ss_content.setText(content);
+                        ss_time.setText(time);
+
+                        Log.d("getDate", String.valueOf(urllist));
+                        Log.d("getDate",time);
+                        Log.d("getDate",title);
+                        Log.d("getDate",content);
+
+                        if (urllist != null){
+                            gridview.setUrlList(urllist);
+                        }
+                    }
+                });
+            }
+        });
+        qa_second.start();
+    }
+
 
     private void get_QAComment() {
         BmobQuery<QA_Comment> query = new BmobQuery<QA_Comment>();
@@ -210,8 +372,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     Log.d("评论",userInfo.getObjectId());
                     Log.d("评论",content);
 
-
-
                     PingLun pingLun = new PingLun(content,userInfo.getObjectId(),time);
                     //PingLun pingLun = new PingLun(userInfo.geticonUrl(),userInfo.getNickname(),content,userInfo.getObjectId());
                     comment_list.add(pingLun);
@@ -227,6 +387,35 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
     private void get_SQComment() {
         BmobQuery<SQ_Comment> query = new BmobQuery<SQ_Comment>();
+        //用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
+        SQ post = new SQ();
+        post.setObjectId(item_id);
+        query.addWhereEqualTo("post",new BmobPointer(post));
+        //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
+        query.include("user,post.author");
+        query.findObjects(new FindListener<SQ_Comment>() {
+            @Override
+            public void done(List<SQ_Comment> objects,BmobException e) {
+
+                for (int i= 0;i<objects.size();i++){
+                    UserInfo userInfo = objects.get(i).getAuthor();
+                    String content = objects.get(i).getContent();
+                    String time = objects.get(i).getCreatedAt();
+
+                    Log.d("评论",userInfo.getObjectId());
+                    Log.d("评论",content);
+
+                    PingLun pingLun = new PingLun(content,userInfo.getObjectId(),time);
+                    //PingLun pingLun = new PingLun(userInfo.geticonUrl(),userInfo.getNickname(),content,userInfo.getObjectId());
+                    comment_list.add(pingLun);
+                }
+
+                Message msg = new Message();
+                msg.what = 1;
+                handler.sendMessage(msg);
+
+            }
+        });
 
     }
 
@@ -325,122 +514,11 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
     }
 
-    private void get_MyInfo() {
-        if (my_id.length() !=0){
-            Thread collection_info = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
-                    query2.getObject(my_id, new QueryListener<UserInfo>() {
-                        @Override
-                        public void done(UserInfo userInfo, BmobException e) {
-                            if (e == null) {
-
-                                my_guanzhu = userInfo.getGuanzhu();
-                                my_Likes = userInfo.getMy_Likes();
-
-                                if (my_guanzhu.contains(author_id)){
-                                    guanzhu.setText("已关注");
-                                    guanzhu.setClickable(false);
-                                }
-
-                            } else {
-                                //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
-                            }
-                        }
-                    });
-                }
-            });
-            collection_info.start();
-
-        }else {
-            Toast.makeText(this,"没有获取到ID",Toast.LENGTH_SHORT).show();
-        }
-
-        guanzhu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!my_guanzhu.contains(author_id)){
-                    my_guanzhu.add(author_id);
-                    UserInfo object = new  UserInfo();
-                    object.setGuanzhu(my_guanzhu);
-                    object.update(my_id, new UpdateListener() {
-                        @Override
-                        public void done(BmobException e1) {
-                            if(e1==null){
-                                Toast.makeText(getApplicationContext(), "关注成功", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(getApplicationContext(), "关注失败", Toast.LENGTH_SHORT).show();
-                                Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
-                            }
-                        }
-                    });
-                }
-
-            }
-        });
-    }
-
-
     @Override
     protected int getStatusBarColor() {
         return getResources().getColor(R.color.white);
     }
 
-    private void getDateFromSQ() {
-        Thread qa_second = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                BmobQuery<SQ> query = new BmobQuery<SQ>();
-                query.getObject(item_id, new QueryListener<SQ>() {
-                    @Override
-                    public void done(SQ qa, BmobException e) {
-                        String content = qa.getContent();
-                        String time = qa.getCreatedAt();
-
-                        urllist = qa.getImage();
-                        ss_title.setVisibility(View.GONE);
-                        ss_content.setText(content);
-                        ss_time.setText(time);
-
-
-                        if (urllist != null){
-                            gridview.setUrlList(urllist);
-                        }
-                    }
-                });
-            }
-        });
-        qa_second.start();
-    }
-
-    private void getDateFromQA() {
-        Thread qa_second = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                BmobQuery<QA> query = new BmobQuery<QA>();
-                query.getObject(item_id, new QueryListener<QA>() {
-                    @Override
-                    public void done(QA qa, BmobException e) {
-                        String title = qa.getTitle();
-                        String content = qa.getContent();
-                        String time = qa.getCreatedAt();
-
-                        urllist = qa.getImage();
-
-                        ss_title.setText(title);
-                        ss_content.setText(content);
-                        ss_time.setText(time);
-
-                        if (urllist != null){
-                            gridview.setUrlList(urllist);
-                        }
-                    }
-                });
-            }
-        });
-        qa_second.start();
-    }
 
     public void setListViewHeightBasedOnChildren(ListView list) {
         // 获取ListView对应的Adapter

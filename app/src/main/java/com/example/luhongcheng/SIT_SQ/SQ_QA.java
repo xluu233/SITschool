@@ -23,7 +23,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Adapter.NineGridTest2Adapter;
+import com.example.luhongcheng.Adapter.QA_Adapter;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
@@ -63,8 +63,8 @@ public class SQ_QA extends Fragment {
 
 
     private RecyclerView.LayoutManager mLayoutManager;
-    private NineGridTest2Adapter mAdapter;
-    private List<com.example.luhongcheng.bean.SQ_QA> mList = new ArrayList<>();
+    private QA_Adapter mAdapter;
+    private List<com.example.luhongcheng.bean.QA> mList = new ArrayList<>();
     private List<String> url = new ArrayList<>();
 
     private List<String> my_collection = new ArrayList<>();//我的收藏集合
@@ -256,7 +256,7 @@ public class SQ_QA extends Fragment {
 
 
                                 url = list.get(i).getImage();
-                                mList.add(new com.example.luhongcheng.bean.SQ_QA(url,title,content,time,item_id,my_Likes,author_id));
+                                mList.add(new com.example.luhongcheng.bean.QA(url,title,content,time,item_id,my_Likes,author_id));
                             }
                             Message msg = new Message();
                             msg.what = 1;
@@ -287,7 +287,7 @@ public class SQ_QA extends Fragment {
 
                 Log.d("QA：","handler");
 
-                mAdapter = new NineGridTest2Adapter(getContext(),mList);
+                mAdapter = new QA_Adapter(getContext(),mList);
                 recyclerView.setAdapter(mAdapter);
 
                 ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {

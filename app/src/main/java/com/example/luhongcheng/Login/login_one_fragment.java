@@ -6,13 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Adapter.NineGridTest2Adapter;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.Bmob_bean._User;
 import com.example.luhongcheng.MainFragmentActivity;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.utils.APKVersionCodeUtils;
-import com.example.luhongcheng.utils.ItemClickSupport;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

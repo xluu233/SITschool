@@ -1,6 +1,7 @@
 package com.example.luhongcheng.SIT_SQ;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +35,10 @@ import com.example.luhongcheng.SIT_SQ_other.Add_SQ;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
 import com.example.luhongcheng.utils.ItemClickSupport;
 import com.github.clans.fab.FloatingActionButton;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +65,7 @@ public class SQ_BigSit extends Fragment {
 
     RecyclerView recyclerView;
     FloatingActionButton button;
-    SwipeRefreshLayout refreshLayout;
+    SmartRefreshLayout refreshLayout;
 
     private RecyclerView.LayoutManager mLayoutManager;
     private SQ_Adapter mAdapter;
@@ -70,7 +76,6 @@ public class SQ_BigSit extends Fragment {
     private List<String> my_Likes = new ArrayList<>(); //我的喜欢合集
     private List<String> my_GuanZhu = new ArrayList<>();
 
-    LinearLayout status_layout;
     String person_id;
     String author_id;
     String nickname,qm,icon_url;
@@ -78,6 +83,8 @@ public class SQ_BigSit extends Fragment {
     String content;
     String time;
     String item_id;
+
+    int position = 5;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,14 +107,15 @@ public class SQ_BigSit extends Fragment {
         button = getActivity().findViewById(R.id.sit_add_news);
         recyclerView = getActivity().findViewById(R.id.sit_recycler);
         refreshLayout = getActivity().findViewById(R.id.sit_refresh);
-        refreshLayout.setColorSchemeColors(R.color.colorAccent);
-        status_layout = getActivity().findViewById(R.id.sit_status);
 
         SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
         person_id =  sp.getString("ID","");
 
         onClick();
         get_MyCollection();
+
+
+
     }
 
 
@@ -192,6 +200,24 @@ public class SQ_BigSit extends Fragment {
 
 
     private void onClick() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                get_MyCollection();
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                //getDate2();
+                //refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                Snackbar.make(getView(),"只支持加载20条数据",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +232,7 @@ public class SQ_BigSit extends Fragment {
             }
         });
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+    /*    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Thread(new Runnable() {
@@ -228,10 +254,8 @@ public class SQ_BigSit extends Fragment {
                         });
                     }
                 }).start();
-
-
             }
-        });
+        });*/
     }
 
     private void getDate() {
@@ -241,6 +265,7 @@ public class SQ_BigSit extends Fragment {
             public void run() {
                 BmobQuery<SQ> query = new BmobQuery<SQ>();
                 query.order("-createdAt");
+                //query.setSkip(10);
                 query.setLimit(20);
                 query.findObjects(new FindListener<SQ>(){
                     @Override
@@ -275,6 +300,53 @@ public class SQ_BigSit extends Fragment {
             }
         });
         qa.start();
+
+    }
+
+    private void getDate2() {
+        mList.clear();
+        Thread qa2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BmobQuery<SQ> query = new BmobQuery<SQ>();
+                query.order("-createdAt");
+                query.setSkip(position);
+                query.setLimit(5);
+                query.findObjects(new FindListener<SQ>(){
+                    @Override
+                    public void done(final List<SQ> list, BmobException e) {
+                        if (list != null) {
+
+                            //String zan_num;
+                            for(int i = 0;i<list.size();i++){
+                                content = list.get(i).getContent();
+                                time = list.get(i).getCreatedAt();
+                                item_id = list.get(i).getObjectId();
+                                url = list.get(i).getImage();
+                                UserInfo userInfo = list.get(i).getAuthor();
+                                author_id = userInfo.getObjectId();
+                                //getAuthorInfo(author_id);
+
+                                //zan_num = queryZanNums(list.get(i).getObjectId());
+
+                                mList.add(new com.example.luhongcheng.bean.SQ(author_id,url,content,time,item_id,my_Likes,null,null));
+                            }
+                            mAdapter.addData(position,mList);
+/*                            Message msg = new Message();
+                            msg.what = 1;
+                            handler.sendMessage(msg);*/
+
+                        }
+
+                    }
+
+                });
+
+                position = position + 5;
+
+            }
+        });
+        qa2.start();
 
     }
 
@@ -337,7 +409,6 @@ public class SQ_BigSit extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
-                status_layout.setVisibility(View.INVISIBLE);
                 mLayoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(mLayoutManager);
 

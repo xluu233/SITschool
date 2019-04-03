@@ -221,24 +221,45 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
 
     }
 
+    public void addData(int position,List<com.example.luhongcheng.bean.SQ> mList) {
+//      在list中添加数据，并通知条目加入一条
+        mList.add(position, (SQ) mList);
+        //添加动画
+        notifyItemInserted(position);
+    }
+
 
     private PopupWindowList mPopupWindowList;
     private void showPopWindows(View view, final String author_id, final String item_id){
+        Log.d("more:","showPopWindows");
+        Log.d("more:",personID);
+        Log.d("more:",item_id);
+        Log.d("more:", String.valueOf(my_collection));
+        Log.d("more:", String.valueOf(my_guanzhu));
         List<String> dataList = new ArrayList<>();
-        if (author_id == personID){
+        if (personID.equals(author_id)){
             dataList.add("---");
         }else {
-            if (my_guanzhu.contains(author_id)){
-                dataList.add("已关注");
-            }else {
+            if (my_guanzhu == null){
                 dataList.add("关注");
+            }else {
+                if (my_guanzhu.contains(author_id)){
+                    dataList.add("已关注");
+                }else {
+                    dataList.add("关注");
+                }
             }
+
         }
 
-        if (my_collection.contains(item_id)){
-            dataList.add("已收藏");
-        }else {
+        if (my_collection == null){
             dataList.add("收藏");
+        }else {
+            if (my_collection.contains(item_id)){
+                dataList.add("已收藏");
+            }else {
+                dataList.add("收藏");
+            }
         }
 
         dataList.add("举报");
@@ -254,10 +275,11 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
-                        while (author_id != personID){
-                            if (my_guanzhu.contains(author_id)){
-                                Toast.makeText(mContext,"已关注",Toast.LENGTH_SHORT).show();
-                            }else {
+                        //["b15aa78885","ffd69ef865","b15aa78885","b15aa78885","b15aa78885
+                        if (!personID.equals(author_id)){
+                            //Toast.makeText(mContext,"---",Toast.LENGTH_SHORT).show();
+                            if (my_guanzhu == null){
+                                my_guanzhu = new ArrayList<>();
                                 my_guanzhu.add(author_id);
                                 UserInfo object = new  UserInfo();
                                 object.setGuanzhu(my_guanzhu);
@@ -272,13 +294,32 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
                                         }
                                     }
                                 });
+                            }else {
+                                if (my_guanzhu.contains(author_id)){
+                                    Toast.makeText(mContext,"已关注",Toast.LENGTH_SHORT).show();
+                                }else {
+                                    my_guanzhu.add(author_id);
+                                    UserInfo object = new  UserInfo();
+                                    object.setGuanzhu(my_guanzhu);
+                                    object.update(personID, new UpdateListener() {
+                                        @Override
+                                        public void done(BmobException e1) {
+                                            if(e1==null){
+                                                Toast.makeText(mContext, "关注成功", Toast.LENGTH_SHORT).show();
+                                            }else{
+                                                Toast.makeText(mContext, "关注失败", Toast.LENGTH_SHORT).show();
+                                                Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                                            }
+                                        }
+                                    });
+                                }
                             }
+
                         }
                         break;
                     case 1:
-                        if (my_collection.contains(item_id)){
-                            Toast.makeText(mContext,"已收藏",Toast.LENGTH_SHORT).show();
-                        }else {
+                        if (my_collection == null){
+                            my_collection = new ArrayList<>();
                             my_collection.add(item_id);
                             UserInfo object = new  UserInfo();
                             object.setMy_Collection(my_collection);
@@ -293,7 +334,27 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
                                     }
                                 }
                             });
+                        }else {
+                            if (my_collection.contains(item_id)){
+                                Toast.makeText(mContext,"已收藏",Toast.LENGTH_SHORT).show();
+                            }else {
+                                my_collection.add(item_id);
+                                UserInfo object = new  UserInfo();
+                                object.setMy_Collection(my_collection);
+                                object.update(personID, new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e1) {
+                                        if(e1==null){
+                                            Toast.makeText(mContext, "收藏成功", Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            Toast.makeText(mContext, "失败", Toast.LENGTH_SHORT).show();
+                                            Log.i("bmob","更新失败："+e1.getMessage()+","+e1.getErrorCode());
+                                        }
+                                    }
+                                });
+                            }
                         }
+
                         break;
                     case 2:
                         report_item(item_id);
@@ -308,15 +369,15 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
 
     private void report_item(final String id) {
 
-        final EditText et = new EditText(getContext());
-        new AlertDialog.Builder(getContext()).setTitle("举报")
+        final EditText et = new EditText(mContext);
+        new AlertDialog.Builder(mContext).setTitle("举报")
                 .setIcon(R.drawable.report)
                 .setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String input = et.getText().toString();
                         if (input.equals("")) {
-                            Toast.makeText(getContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext, "内容不能为空！" + input, Toast.LENGTH_LONG).show();
                         }
                         else {
                             Report report = new Report();
