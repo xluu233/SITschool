@@ -56,7 +56,7 @@
                 <category android:name="com.example.luhongcheng" />
             </intent-filter>
         </receiver>
-        <activity android:name=".SQ.Article_Add">
+        <activity android:name=".SIT_SQ_other.Share_News">
             <!-- filter for sending text; accepts SENDTO action with sms URI schemes -->
             <intent-filter>
                 <action android:name="android.intent.action.SENDTO"/>
@@ -107,19 +107,15 @@
         <activity android:name=".SouHuNews"/>
         <activity android:name=".OneSelf.Find2"/>
         <activity android:name=".SIT_SQ_other.Add_QA"/>
-        <activity android:name=".MBox.MBoxItem"></activity>
-        <activity android:name=".SQ.SS_ADD"></activity>
-        <activity android:name=".SQ.ssDisPlay"></activity>
-        <activity android:name=".SQ.SS_ADD2"></activity>
-        <activity android:name=".OneSelf.MySs"></activity>
         <activity android:name=".OneSelf.MyLove"></activity>
         <activity android:name=".ImageFullDisplay"></activity>
         <activity android:name=".OneSelf.ShowOnePerson"/>
-        <activity android:name=".SQ.PingLun" android:theme="@style/myTransparent"/>
         <activity android:name=".WeiXin.Weixin_more"/>
         <activity android:name=".OneSelf.Find"/>
         <activity android:name=".SIT_SQ_other.Add_SQ"/>
         <activity android:name=".SIT_SQ_other.SQ_SecondLayout"/>
+        <activity android:name=".SIT_SQ_other.QA_Life"/>
+        <activity android:name=".SIT_SQ_other.QA_Study"/>
 
     </application>
 

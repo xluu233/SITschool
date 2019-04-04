@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,7 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -44,11 +42,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.Tips;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.Bmob_bean.lan;
 import com.example.luhongcheng.Bmob_bean.update;
 import com.example.luhongcheng.Bmob_bean.vp_one;
 import com.example.luhongcheng.ImageLunhuanAdapter;
-import com.example.luhongcheng.MainFragment_three.TwoFragment;
 import com.example.luhongcheng.MoreTips;
 import com.example.luhongcheng.OAitem.item0;
 import com.example.luhongcheng.OAitem.item1;
@@ -61,11 +57,10 @@ import com.example.luhongcheng.OAitem.item8;
 import com.example.luhongcheng.OAitem.item9;
 import com.example.luhongcheng.OneSelf.setMy;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.SQ.ZoomOutPageTransformer;
+import com.example.luhongcheng.View.ZoomOutPageTransformer;
 import com.example.luhongcheng.SWZL.swzlmain;
 import com.example.luhongcheng.SouHuNews;
 import com.example.luhongcheng.WeiXin.Weixin_more;
-import com.example.luhongcheng.bean.Box;
 import com.example.luhongcheng.connect_vpn;
 import com.example.luhongcheng.setting.about0;
 import com.example.luhongcheng.userCard.userCardinfo;
@@ -1029,13 +1024,13 @@ public class OneFragment extends Fragment{
                     weather_icon.setBackgroundResource(0);
                     weather_icon.setBackground(getResources().getDrawable(R.drawable.b2));
                     break;
-                case 9:
-                    weather_icon.setBackgroundResource(0);
-                    weather_icon.setBackground(getResources().getDrawable(R.drawable.b7));
-                    break;
                 case 8:
                     weather_icon.setBackgroundResource(0);
                     weather_icon.setBackground(getResources().getDrawable(R.drawable.b8));
+                    break;
+                case 9:
+                    weather_icon.setBackgroundResource(0);
+                    weather_icon.setBackground(getResources().getDrawable(R.drawable.b7));
                     break;
                 case 10:
                     weather_icon.setBackgroundResource(0);

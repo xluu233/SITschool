@@ -1,6 +1,7 @@
-package com.example.luhongcheng.SQ;
+package com.example.luhongcheng.SIT_SQ;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -8,9 +9,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,44 +22,44 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.luhongcheng.Bmob_bean.news;
+import com.example.luhongcheng.Adapter.ShareNews_Adapter;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.SIT_SQ_other.Share_News;
+import com.example.luhongcheng.bean.HotNews;
 import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
+import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 
-public class OneFragment extends Fragment {
-    public static OneFragment newInstance() {
-        return new OneFragment();
-    }
+public class SQ_ShareNews extends Fragment {
 
-    //准备好三张网络图片的地址
-    String imageUrl[]=new String[4];
-    String[] clickUrl = new String[4];
+    public SQ_ShareNews(){
+        Context mContext = getActivity();
+    }
+    public static SQ_ShareNews newInstance(Context context) {
+        Context mContext = context;
+        return new SQ_ShareNews();
+    }
 
     FloatingActionButton choose_box;
     SwipeRefreshLayout refresh;
-    ListView listView;
-    List<SSS> mlist;
+    RecyclerView recyclerView;
+    List<HotNews> mlist = new ArrayList<>();
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        View v = inflater.inflate(R.layout.sq_fragment_one, container, false);
+        View v = inflater.inflate(R.layout.sq_share_news, container, false);
         return v;
     }
 
@@ -66,16 +68,13 @@ public class OneFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        choose_box = (FloatingActionButton)getActivity().findViewById(R.id.choose_box);
-        Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
-        listView = (ListView)getActivity().findViewById(R.id.my_news);
-        refresh = (SwipeRefreshLayout)getActivity().findViewById(R.id.news_refresh);
-        refresh.setColorSchemeColors(R.color.colorPrimary);
+        recyclerView = getActivity().findViewById(R.id.my_news);
+        refresh = getActivity().findViewById(R.id.news_refresh);
+        choose_box = getActivity().findViewById(R.id.share_news);
+
 
         onClick();
         getArticle();
-
-        
     }
 
     @SuppressLint("ResourceAsColor")
@@ -83,12 +82,12 @@ public class OneFragment extends Fragment {
         choose_box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),Article_Add.class);
+                Intent intent = new Intent(getActivity(), Share_News.class);
                 startActivity(intent);
             }
         });
 
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+/*        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
 
@@ -104,7 +103,7 @@ public class OneFragment extends Fragment {
                 }
                 refresh.setEnabled(enable);
             }
-        });
+        });*/
 
 
 
@@ -142,18 +141,16 @@ public class OneFragment extends Fragment {
     }
 
     private void getArticle() {
-        mlist = new ArrayList<SSS>();
         mlist.clear();
-
         Thread getnews = new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<news> query = new BmobQuery<news>();
+                BmobQuery<com.example.luhongcheng.Bmob_bean.Share_News> query = new BmobQuery<com.example.luhongcheng.Bmob_bean.Share_News>();
                 query.order("-createdAt");
-                query.setLimit(100);
-                query.findObjects(new FindListener<news>(){
+                query.setLimit(20);
+                query.findObjects(new FindListener<com.example.luhongcheng.Bmob_bean.Share_News>(){
                     @Override
-                    public void done(final List<news> list, BmobException e) {
+                    public void done(final List<com.example.luhongcheng.Bmob_bean.Share_News> list, BmobException e) {
                         if (list != null) {
                             final String[] title  =  new String[list.size()];
                             final String[] image = new String[list.size()];
@@ -162,11 +159,16 @@ public class OneFragment extends Fragment {
 
                             for(int i = 0;i<list.size();i++){
                                 title[i] = list.get(i).getTitle();
-                                image[i] = list.get(i).getNewsImageUrl();
+                                image[i] = list.get(i).getimageUrl();
                                 time[i] = list.get(i).getCreatedAt();
                                 url[i] = list.get(i).getUrl();
 
-                                mlist.add(new SSS(title[i],time[i],image[i],url[i]));
+                                Log.d("news:",title[i]);
+                                Log.d("news:",image[i] );
+                                Log.d("news:",time[i]);
+                                Log.d("news:",url[i]);
+
+                                mlist.add(new HotNews(title[i],image[i],time[i],url[i]));
                             }
 
 
@@ -191,16 +193,17 @@ public class OneFragment extends Fragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    listView.setAdapter(new newsAdaper(mlist));
+/*                    listView.setAdapter(new newsAdaper(mlist));
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            SSS xixi = mlist.get(position);
-                            Intent intent = new Intent(getActivity(),zhuyeDisplayActvivity.class);
-                            intent.putExtra("news_url", xixi.getIconUrl());
+                            HotNews xixi = mlist.get(position);
+                            Intent intent = new Intent(getActivity(), zhuyeDisplayActvivity.class);
+                            intent.putExtra("news_url", xixi.getUrl());
                             startActivity(intent);
                         }
-                    });
+                    });*/
+                    recyclerView.setAdapter(new ShareNews_Adapter(getContext(),mlist));
                     break;
                 default:
                     break;
@@ -212,8 +215,8 @@ public class OneFragment extends Fragment {
 
     public class newsAdaper extends BaseAdapter {
 
-        List<SSS> list;
-        public newsAdaper(List<SSS> list) {
+        List<HotNews> list;
+        public newsAdaper(List<HotNews> list) {
             super();
             this.list = list;
         }
@@ -236,10 +239,10 @@ public class OneFragment extends Fragment {
         @SuppressLint("NewApi")
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
+            newsAdaper.ViewHolder holder = null;
             if(convertView==null){
-                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_news, null);
-                holder = new OneFragment.newsAdaper.ViewHolder();
+                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.sq_share_news_item, null);
+                holder = new newsAdaper.ViewHolder();
                 holder.time = (TextView)convertView.findViewById(R.id.article_time);
                 holder.img = (ImageView) convertView.findViewById(R.id.article_image);
                 holder.title = (TextView) convertView.findViewById(R.id.article_title);
@@ -247,20 +250,20 @@ public class OneFragment extends Fragment {
 
                 convertView.setTag(holder);
             }else{
-                holder = (OneFragment.newsAdaper.ViewHolder) convertView.getTag();
+                holder = (newsAdaper.ViewHolder) convertView.getTag();
             }
-            final SSS news = list.get(position);
+            final HotNews news = list.get(position);
             holder.title.setText(news.getTitle());
             holder.time.setText(news.getTime());
 
-            AssetManager mgr = getActivity().getAssets();
+/*            AssetManager mgr = getActivity().getAssets();
             Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
             holder.time.setTypeface(tf);
-            holder.title.setTypeface(tf);
+            holder.title.setTypeface(tf);*/
 
-            if (news.getImageUrl().length()>0){
+            if (news.getImage().length()>0){
                 Glide.with(getContext())
-                        .load(news.getImageUrl())
+                        .load(news.getImage())
                         .apply(new RequestOptions().placeholder(R.drawable.loading))
                         .apply(new RequestOptions() .error(R.drawable.error))
                         .apply(new RequestOptions() .centerCrop())
@@ -277,11 +280,6 @@ public class OneFragment extends Fragment {
         }
 
     }
-
-
-
-
-
 
 
 }

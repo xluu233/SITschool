@@ -1,30 +1,31 @@
-package com.example.luhongcheng.SQ;
+package com.example.luhongcheng.SIT_SQ_other;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob_bean.SS;
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.bean.HotNews;
 
 import java.io.File;
 
@@ -33,26 +34,68 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
-public class SS_ADD2 extends AppCompatActivity {
-    String ID;
-    String label;//标签
+public class Share_News extends AppCompatActivity {
+
     ImageView img;
-    EditText content;
-    FloatingActionButton send;
+    EditText title,url;
+    TextView send;
     public static final int CHOOSE_PHOTO = 1;
-    int select =0;
+    Toolbar toolbar;
+    Uri uri;//图片地址
+    LinearLayout status,progress;
+
+    int send_time=0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ss_add2);
+        setContentView(R.layout.add_article);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        img = (ImageView)findViewById(R.id.img);
+        title =(EditText)findViewById(R.id.title);
+        url = (EditText)findViewById(R.id.url);
+        send = findViewById(R.id.send);
+        status = findViewById(R.id.share_news_status_layout);
+        progress = findViewById(R.id.status_progress);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.bugray_400));//设置状态栏背景色
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
         }
 
-        img = (ImageView)findViewById(R.id.img);
-        content =(EditText)findViewById(R.id.content);
-        send = (FloatingActionButton) findViewById(R.id.send);
+        onClick();
+
+
+        Intent intent = getIntent();
+        if(intent == null)
+            return;
+        Bundle extras = intent.getExtras();
+
+        if(extras == null)
+            return;
+
+        switch (intent.getType()) {
+            case "text/plain"://分享的内容类型，如果png图片：image/png 
+                title.setText((CharSequence) extras.get(Intent.EXTRA_TITLE));
+                url.setText((CharSequence) extras.get(Intent.EXTRA_TEXT));
+                break;
+            case "image/png":
+                Toast.makeText(getApplicationContext(),"分享的是图片",Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void onClick() {
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,118 +106,83 @@ public class SS_ADD2 extends AppCompatActivity {
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        label = getIntent().getStringExtra("flag");
-        System.out.println("flag是什么？："+label);
-        TextView tv_label = (TextView)findViewById(R.id.tv_flag);
-        if (label != null){
-            if (label.equals("A1")){
-               tv_label.setText(R.string.A1);
-            }else if (label.equals("A2")){
-               tv_label.setText(R.string.A6);
-            }else if (label.equals("A3")){
-                tv_label.setText(R.string.A3);
-            } else if (label.equals("A4")){
-               tv_label.setText(R.string.A2);
-            } else if (label.equals("A5")){
-               tv_label.setText(R.string.A8);
-            } else if (label.equals("A6")){
-               tv_label.setText(R.string.A4);
-            } else if (label.equals("A7")){
-               tv_label.setText(R.string.A5);
-            } else if (label.equals("A8")){
-              tv_label.setText(R.string.A7);
-            } else if (label.equals("A9")){
-               tv_label.setText(R.string.A9);
-            } else if (label.equals("A10")){
-                tv_label.setText(R.string.A10);
-            } else if (label.equals("A11")){
-                tv_label.setText(R.string.A11);
-            }else if (label.equals("A12")){
-                tv_label.setText(R.string.A12);
-            } else if (label.equals("A13")){
-               tv_label.setText("#谈天说地#");
-            }
-
-        }else {
-            label = "A13";//标签
-        }
-
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences sp=getSharedPreferences("personID",0);
-                ID = sp.getString("ID","");
-
-                if (ID.length() == 0){
-                    Toast.makeText(getApplicationContext(),"获取personID失败,请转到个人中心查看",Toast.LENGTH_LONG).show();
-                }else if (select !=0){
-                    Toast.makeText(getApplicationContext(),"正在发布，请不要重复点击",Toast.LENGTH_SHORT).show();
+                if (send_time>=1){
+                    Snackbar.make(v,"请15s后重试",Toast.LENGTH_SHORT).show();
                 }else {
-                    final String neirong,biaoqian,personID,icon_path;
-                    neirong = content.getText().toString();
-                    biaoqian = label;
-                    personID = ID;
+                    send_time++;
+
+                    final String news_title,news_url,icon_path;
+                    news_title = title.getText().toString();
+                    news_url = url.getText().toString();
                     icon_path = imagePath;
                     if (icon_path == null){
-                        Toast.makeText(SS_ADD2.this,"请选择图片",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Share_News.this,"请选择图片",Toast.LENGTH_SHORT).show();
+                    }else if (news_title == null  || news_url ==null){
+                        Toast.makeText(Share_News.this,"请输入完整信息",Toast.LENGTH_SHORT).show();
+                    }else if (!news_url.contains("http")){
+                        Toast.makeText(Share_News.this,"请输入正确链接地址",Toast.LENGTH_SHORT).show();
                     }else {
+                        status.setVisibility(View.INVISIBLE);
+                        progress.setVisibility(View.VISIBLE);
+
                         final BmobFile bmobfile = new BmobFile(new File(icon_path));
                         bmobfile.upload(new UploadFileListener() {
                             @Override
                             public void done(BmobException e) {
                                 if (e == null) {
-                                    SS object = new  SS();
-                                    object.setContent(neirong);
-                                    object.setID(personID);
-                                    object.setImg(bmobfile);
-                                    object.setLabel(biaoqian);
-                                    object.setZan("0");
+                                    com.example.luhongcheng.Bmob_bean.Share_News object = new com.example.luhongcheng.Bmob_bean.Share_News();
+                                    object.setTitle(news_title);
+                                    object.setUrl(news_url);
+                                    object.setImage(bmobfile);
+
                                     object.save(new SaveListener<String>() {
                                         @Override
                                         public void done(String s, BmobException e) {
                                             if(e==null){
-                                                // Log.i("bmob","更新成功");
-                                                Toast.makeText(SS_ADD2.this, "恭喜你，发布成功", Toast.LENGTH_SHORT).show();
-                                                SS_ADD2.this.finish();
+                                                status.setVisibility(View.VISIBLE);
+                                                progress.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "发布成功,积分+10", Toast.LENGTH_SHORT).show();
+                                                Share_News.this.finish();
                                             }else{
-                                                Toast.makeText(SS_ADD2.this, "失败", Toast.LENGTH_SHORT).show();
-                                                Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+                                                status.setVisibility(View.VISIBLE);
+                                                progress.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "失败", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
 
 
                                 } else {
-                                    Toast.makeText(SS_ADD2.this, "文件上传失败", Toast.LENGTH_SHORT).show();
-                                    System.out.println("文件上传失败");
+                                    status.setVisibility(View.VISIBLE);
+                                    progress.setVisibility(View.INVISIBLE);
+                                    Toast.makeText(Share_News.this, "文件上传失败", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-                        select++;
 
                     }
 
-
                 }
+
+                new Handler().postDelayed(new Runnable(){
+                    public void run() {
+                        send_time = 0;
+                    }
+                }, 15000);
+
+
+
 
             }
         });
 
 
     }
-
 
 
     @Override
@@ -201,7 +209,7 @@ public class SS_ADD2 extends AppCompatActivity {
     String imagePath = null;
     @SuppressLint("NewApi")
     private void handleIMageOnKitKat(Intent data) {
-        Uri uri = data.getData();
+        uri = data.getData();
         if (DocumentsContract.isDocumentUri(this , uri)){
             //如果是document类型的URI，则使用document id处理
             String docId = DocumentsContract.getDocumentId(uri);
@@ -226,7 +234,7 @@ public class SS_ADD2 extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             img.setImageBitmap(bitmap);
         }else {
-            Toast.makeText(SS_ADD2.this, "未得到图片", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Share_News.this, "未得到图片", Toast.LENGTH_SHORT).show();
         }
     }
 

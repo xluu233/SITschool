@@ -26,8 +26,6 @@ import com.example.luhongcheng.R;
 import com.example.luhongcheng.bean.Fruit;
 import com.example.luhongcheng.Adapter.FruitAdapter;
 import com.example.luhongcheng.OneSelf.MyLove;
-import com.example.luhongcheng.OneSelf.MySs;
-import com.example.luhongcheng.OneSelf.Find;
 import com.example.luhongcheng.OneSelf.setMy;
 
 import java.io.InputStream;
@@ -94,11 +92,6 @@ public class FourFragment_one extends Fragment {
                 Fruit fruit = fruitList.get(position);
                 switch (position) {
                     case 0:
-                        Intent intent1 = new Intent(getActivity(),MySs.class);
-                        intent1.putExtra("icon_url",iconUrl);
-                        intent1.putExtra("nickname", String.valueOf(nickname));
-                        intent1.putExtra("qm", String.valueOf(qianming));
-                        startActivity(intent1);
                         break;
                     case 1:
                         Intent intent2 = new Intent(getActivity(),MyLove.class);

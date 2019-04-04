@@ -49,9 +49,7 @@ import cn.bmob.v3.listener.UpdateListener;
 
 import static org.litepal.LitePalApplication.getContext;
 
-/**
- * Created by HMY on 2016/8/6
- */
+
 public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
 
     private Context mContext;

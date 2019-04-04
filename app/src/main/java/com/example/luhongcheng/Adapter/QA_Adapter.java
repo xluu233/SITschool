@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 import static org.litepal.LitePalApplication.getContext;
 
-/**
- * Created by HMY on 2016/8/6
- */
+
 public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
 
     private Context mContext;
@@ -41,7 +41,7 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
     private String personID; //用户ID
 
     List<String> user_Likes = new ArrayList<>();
-    boolean hadzan;
+    boolean hadzan = false;
 
     public QA_Adapter(Context context, List<QA> list) {
         mContext = context;
@@ -84,7 +84,36 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
         holder.zan_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Thread qa_update_zan = new Thread(new Runnable() {
+                if (!user_Likes.contains(mList.get(position).getItem_id())){
+                    UserInfo xixi = new UserInfo();
+                    xixi.setObjectId(personID);
+
+                    com.example.luhongcheng.Bmob_bean.QA post = new com.example.luhongcheng.Bmob_bean.QA();
+                    post.setObjectId(mList.get(position).getItem_id());
+                    //将当前用户添加到Post表中的likes字段值中，表明当前用户喜欢该帖子
+                    BmobRelation relation = new BmobRelation();
+                    //将当前用户添加到多对多关联中
+                    relation.add(xixi);
+                    //多对多关联指向`post`的`likes`字段
+                    post.setLikes(relation);
+                    post.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if(e==null){
+                                Toast.makeText(mContext,"赞",Toast.LENGTH_SHORT).show();
+                                holder.zan.setBackgroundResource(R.drawable.sq_zan_2);
+                                user_Likes.add(mList.get(position).getItem_id());
+                                addZan();
+                                Log.i("bmob","多对多关联添加成功");
+                            }else{
+                                Log.i("bmob","失败："+e.getMessage());
+                            }
+                        }
+
+                    });
+                }
+
+/*                Thread qa_update_zan = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         if (hadzan){
@@ -127,7 +156,7 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
                         }
                     }
                 });
-                qa_update_zan.start();
+                qa_update_zan.start();*/
             }
         });
 
@@ -197,6 +226,20 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
     }
 
 
+    private void addZan() {
+        UserInfo p2 = new UserInfo();
+        p2.setValue("My_Likes",user_Likes);
+        p2.update(personID, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+
+                }else{
+                    //Toast.makeText(mContext,"error"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
 
 

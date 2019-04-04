@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="250dp">
+
+
+
+    <ImageView
+        android:id="@+id/article_image"
+        android:scaleType="centerCrop"
+        android:background="@color/moren_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/article_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="title"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/moren"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_above="@+id/article_title"
+        android:id="@+id/article_time"
+        android:textSize="15sp"
+        android:text="time"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:maxLines="1"
+        android:textColor="@color/moren"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+
+</RelativeLayout>

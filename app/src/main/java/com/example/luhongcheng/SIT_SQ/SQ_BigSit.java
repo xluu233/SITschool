@@ -1,7 +1,6 @@
 package com.example.luhongcheng.SIT_SQ;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,7 +13,6 @@ import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,15 +20,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.luhongcheng.Adapter.SQ_Adapter;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.SQ;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
+import com.example.luhongcheng.LazyFragment.BasePageFragment;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.SIT_SQ_other.Add_QA;
 import com.example.luhongcheng.SIT_SQ_other.Add_SQ;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
 import com.example.luhongcheng.utils.ItemClickSupport;
@@ -108,13 +105,14 @@ public class SQ_BigSit extends Fragment {
         recyclerView = getActivity().findViewById(R.id.sit_recycler);
         refreshLayout = getActivity().findViewById(R.id.sit_refresh);
 
+
+        onClick();
+
+
         SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
         person_id =  sp.getString("ID","");
 
-        onClick();
         get_MyCollection();
-
-
 
     }
 
@@ -203,7 +201,8 @@ public class SQ_BigSit extends Fragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                get_MyCollection();
+                //get_MyCollection();
+                getDate();
                 refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
             }
         });
@@ -212,7 +211,7 @@ public class SQ_BigSit extends Fragment {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
                 //getDate2();
-                //refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
                 Snackbar.make(getView(),"只支持加载20条数据",Toast.LENGTH_SHORT).show();
             }
         });

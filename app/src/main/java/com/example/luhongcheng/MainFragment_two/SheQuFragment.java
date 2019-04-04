@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ.SQ_QA;
+import com.example.luhongcheng.SIT_SQ.SQ_ShareNews;
 import com.example.luhongcheng.SIT_SQ.SQ_Vedio;
 import com.example.luhongcheng.SIT_SQ.SQ_BigSit;
-import com.example.luhongcheng.SIT_SQ.SQ_HotMessage;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class SheQuFragment extends Fragment {
 
 
         SQ_BigSit one = new SQ_BigSit();
-        SQ_HotMessage two = new SQ_HotMessage();
+        SQ_ShareNews two = new SQ_ShareNews();
         SQ_QA three = new SQ_QA();
         SQ_Vedio four = new SQ_Vedio();
 
@@ -83,6 +83,7 @@ public class SheQuFragment extends Fragment {
         ViewPager viewPager = getActivity().findViewById(R.id.sq_vp);
 
         //tabLayout.setupWithViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(4);//记数从0开始!!!
 
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {

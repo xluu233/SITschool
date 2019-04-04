@@ -18,6 +18,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.luhongcheng.LazyFragment.BasePageFragment;
 import com.example.luhongcheng.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -49,6 +50,9 @@ public class SQ_Vedio extends Fragment {
         super.onActivityCreated(savedInstanceState);
         //initView();
     }
+
+
+
 /*
 
     private void initView() {

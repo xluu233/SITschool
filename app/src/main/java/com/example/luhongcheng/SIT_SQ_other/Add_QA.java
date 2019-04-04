@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +22,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +68,9 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
     private static final int RC_PHOTO_PREVIEW = 2;
     private static final String EXTRA_MOMENT = "EXTRA_MOMENT";
 
-
+    RadioGroup radioGroup;
+    String fenqu = "0"; //生活专区0，学习专区1；
+    int send_time = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,37 +110,77 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
         progressBar = findViewById(R.id.qa_progress);
         status_text = findViewById(R.id.qa_status_text);
         pic_layout = findViewById(R.id.qa_layout);
-
+        radioGroup = findViewById(R.id.add_qa_radiogroup);
     }
 
     private void onClick() {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String a = title.getText().toString();
-                String b = content.getText().toString();
-
-                if (Path.size() == 0 ){
-                    if (a.length() ==0  && b.length() ==0){
-                        Toast.makeText(getApplicationContext(),"全部为空呢 =。=",Toast.LENGTH_SHORT).show();
-                    }else {
-                        status_layout.setVisibility(View.VISIBLE);
-                        pic_layout.setVisibility(View.INVISIBLE);
-                        update_message_no_pic();
-                    }
+                if (send_time>=1){
+                    Snackbar.make(v,"请15s后重试",Toast.LENGTH_SHORT).show();
                 }else {
-                    if (a.length() ==0){
-                        Toast.makeText(getApplicationContext(),"Title不能为空",Toast.LENGTH_SHORT).show();
+                    send_time++;
+
+                    String a = title.getText().toString();
+                    String b = content.getText().toString();
+
+                    if (Path.size() == 0 ){
+                        if (a.length() ==0  && b.length() ==0){
+                            Toast.makeText(getApplicationContext(),"全部为空呢 =。=",Toast.LENGTH_SHORT).show();
+                        }else {
+                            status_layout.setVisibility(View.VISIBLE);
+                            pic_layout.setVisibility(View.INVISIBLE);
+                            update_message_no_pic();
+                        }
                     }else {
-                        status_layout.setVisibility(View.VISIBLE);
-                        pic_layout.setVisibility(View.INVISIBLE);
-                        update_image();
+                        if (a.length() ==0){
+                            Toast.makeText(getApplicationContext(),"Title不能为空",Toast.LENGTH_SHORT).show();
+                        }else {
+                            status_layout.setVisibility(View.VISIBLE);
+                            pic_layout.setVisibility(View.INVISIBLE);
+                            update_image();
+                        }
                     }
+
                 }
+
+                new Handler().postDelayed(new Runnable(){
+                    public void run() {
+                        send_time = 0;
+                    }
+                }, 15000);
+
+
+
+
+
 
 
                // Log.d("xixi", String.valueOf(Path));
+            }
+        });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+/*                for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                    ((RadioButton) radioGroup.getChildAt(i)).setTextColor(Color.BLACK);
+                }
+                RadioButton checkedRadio = (RadioButton) findViewById(checkedId);
+                checkedRadio.setTextColor(Color.RED);*/
+                switch (checkedId) {
+                    case R.id.radio_button1:
+                        fenqu = "0";
+                        break;
+                    case R.id.radio_button2:
+                        fenqu = "1";
+                        break;
+                    default:
+                        break;
+                }
+
+
             }
         });
     }
@@ -197,7 +243,7 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
             UserInfo xixi = new UserInfo();
             xixi.setObjectId(personID);
             qa.setAuthor(xixi);
-
+            qa.setFenqu(fenqu);
             qa.save(new SaveListener<String>() {
                 @Override
                 public void done(String s, BmobException e) {
@@ -237,7 +283,7 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
             UserInfo xixi = new UserInfo();
             xixi.setObjectId(personID);
             qa.setAuthor(xixi);
-
+            qa.setFenqu(fenqu);
             qa.save(new SaveListener<String>() {
                 @Override
                 public void done(String s, BmobException e) {

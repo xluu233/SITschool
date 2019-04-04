@@ -1,4 +1,4 @@
-package com.example.luhongcheng.SQ;
+package com.example.luhongcheng.View;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

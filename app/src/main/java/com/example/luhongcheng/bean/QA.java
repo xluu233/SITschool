@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QA {
-    public QA(List<String> url, String title, String content, String time, String id, List<String> my_Likes, String author_id) {
+    public QA(List<String> url, String title, String content, String time, String id, List<String> my_Likes, String author_id,String fenqu) {
         this.url = url;
         this.title = title;
         this.content = content;
@@ -12,6 +12,7 @@ public class QA {
         this.item_id = id;
         this.my_likes = my_Likes;
         this.author_id = author_id;
+        this.fenqu = fenqu;
     }
 
 
@@ -84,6 +85,16 @@ public class QA {
     }
 
     List<String> my_likes; //用户的喜欢合集
+
+    public String getFenqu() {
+        return fenqu;
+    }
+
+    public void setFenqu(String fenqu) {
+        this.fenqu = fenqu;
+    }
+
+    String fenqu;
 
 
 }

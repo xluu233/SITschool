@@ -53,6 +53,7 @@
             android:gravity="center"
             android:text="上传中：0%"
             android:textSize="13dp"
+            android:textColor="@color/moren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -102,6 +103,30 @@
             android:textColor="#474747"
             android:textColorHint="#C6C6C6" />
 
+        <RadioGroup
+            android:id="@+id/add_qa_radiogroup"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radio_button1"
+                android:text="生活专区"
+                android:textColor="@color/moren"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/radio_button2"
+                android:text="学习专区"
+                android:layout_weight="1"
+                android:textColor="@color/moren"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RadioGroup>
 
         <cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
             android:id="@+id/qa_photos"

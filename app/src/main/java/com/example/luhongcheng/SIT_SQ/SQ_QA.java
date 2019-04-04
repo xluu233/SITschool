@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -27,8 +28,11 @@ import com.example.luhongcheng.Adapter.QA_Adapter;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
+import com.example.luhongcheng.LazyFragment.BasePageFragment;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.Add_QA;
+import com.example.luhongcheng.SIT_SQ_other.QA_Life;
+import com.example.luhongcheng.SIT_SQ_other.QA_Study;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
 import com.example.luhongcheng.utils.ItemClickSupport;
 import com.github.clans.fab.FloatingActionButton;
@@ -59,7 +63,7 @@ public class SQ_QA extends Fragment {
     FloatingActionButton button;
     SwipeRefreshLayout refreshLayout;
 
-    int the_load_num = 0; //加载次数
+    ImageView life,study;
 
 
     private RecyclerView.LayoutManager mLayoutManager;
@@ -96,19 +100,19 @@ public class SQ_QA extends Fragment {
         refreshLayout = getActivity().findViewById(R.id.qa_refresh);
         refreshLayout.setColorSchemeColors(R.color.colorAccent);
         status_layout = getActivity().findViewById(R.id.status);
+        life = getActivity().findViewById(R.id.qa_life);
+        study = getActivity().findViewById(R.id.qa_study);
 
         SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
         person_id =  sp.getString("ID","");
 
         onClick();
-        //initRefresh();//刷新事件
         get_MyCollection();
     }
 
-    private void initRefresh() {
-        getDate();
 
-    }
+
+
 
     private void get_MyCollection() {
         if (person_id.length() == 0){
@@ -212,7 +216,8 @@ public class SQ_QA extends Fragment {
                             e.printStackTrace();
                         }
                         //加载数据
-                        get_MyCollection();
+                        //get_MyCollection();
+                        getDate();
                         //关闭刷新
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -221,9 +226,23 @@ public class SQ_QA extends Fragment {
                             }
                         });
                     }
-                }).start();
+                }).run();
+            }
+        });
 
+        life.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), QA_Life.class);
+                startActivity(intent);
+            }
+        });
 
+        study.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), QA_Study.class);
+                startActivity(intent);
             }
         });
     }
@@ -246,6 +265,7 @@ public class SQ_QA extends Fragment {
                             String time;
                             String item_id;
                             String author_id;
+                            String tag;
 
                             for(int i = 0;i<list.size();i++){
                                 title = list.get(i).getTitle();
@@ -253,10 +273,11 @@ public class SQ_QA extends Fragment {
                                 time = list.get(i).getCreatedAt();
                                 item_id = list.get(i).getObjectId();
                                 author_id = list.get(i).getAuthor().getObjectId();
+                                tag = list.get(i).getFenqu();
 
 
                                 url = list.get(i).getImage();
-                                mList.add(new com.example.luhongcheng.bean.QA(url,title,content,time,item_id,my_Likes,author_id));
+                                mList.add(new com.example.luhongcheng.bean.QA(url,title,content,time,item_id,my_Likes,author_id,tag));
                             }
                             Message msg = new Message();
                             msg.what = 1;

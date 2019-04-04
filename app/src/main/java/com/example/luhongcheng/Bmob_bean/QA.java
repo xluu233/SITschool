@@ -54,5 +54,24 @@ public class QA extends BmobObject {
     UserInfo author;
 
 
+    public String getFenqu() {
+        return fenqu;
+    }
+
+    public void setFenqu(String fenqu) {
+        this.fenqu = fenqu;
+    }
+
+    String fenqu;
+
+    public BmobRelation getLikes() {
+        return likes;
+    }
+
+    public void setLikes(BmobRelation likes) {
+        this.likes = likes;
+    }
+
+    BmobRelation likes;
 
 }
