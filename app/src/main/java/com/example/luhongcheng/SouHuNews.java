@@ -23,6 +23,7 @@ import static android.view.KeyEvent.KEYCODE_BACK;
 
 public class SouHuNews extends AppCompatActivity {
     private WebView webview;
+    FloatingActionButton refresh,zhuan,share,finish;
     String URL2= "http://m.sohu.com/media/694346?spm=smwp.content.author-info.1.1537437344995hk1YAuY";
     @SuppressLint("NewApi")
     @Override
@@ -76,9 +77,34 @@ public class SouHuNews extends AppCompatActivity {
 
         final FloatingActionMenu fab = (FloatingActionMenu) findViewById(R.id.fab);
         fab.setClosedOnTouchOutside(true);
-        FloatingActionButton refresh = (FloatingActionButton)findViewById(R.id.fab_preview);
-        FloatingActionButton zhuan = (FloatingActionButton)findViewById(R.id.zhuan);
+        refresh = (FloatingActionButton)findViewById(R.id.refresh);
+        zhuan = (FloatingActionButton)findViewById(R.id.zhuan);
+        share = findViewById(R.id.share);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        onClick();
+
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KEYCODE_BACK) && webview.canGoBack()) {
+            webview.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    private void onClick() {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,26 +124,19 @@ public class SouHuNews extends AppCompatActivity {
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, webview.getUrl());
+                intent.setType("text/plain");
+                startActivity(Intent.createChooser(intent, "分享到"));
+
             }
         });
 
+
     }
-
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KEYCODE_BACK) && webview.canGoBack()) {
-            webview.goBack();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-
-
 }

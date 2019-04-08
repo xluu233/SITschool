@@ -50,6 +50,11 @@ public class send2 extends Activity {
                 startActivityForResult(intent, CHOOSE_PHOTO);
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
+        }
+
     }
 
     public void post (View view){
@@ -57,11 +62,12 @@ public class send2 extends Activity {
         final String mcontent = content.getText().toString();
         final String lianxi = QQ.getText().toString();
         final String icon_path = imagePath;
-        if (mtitle == null){
+        if (mtitle.length()==0||mcontent.length()==0||lianxi.length()==0){
             Toast.makeText(send2.this,"请填写完整信息", Toast.LENGTH_SHORT).show();
         } else if (icon_path == null){
             Toast.makeText(send2.this, "选择图片", Toast.LENGTH_SHORT).show();
         } else {
+            Toast.makeText(send2.this, "正在上传，请等待", Toast.LENGTH_LONG).show();
             final BmobFile bmobfile = new BmobFile(new File(icon_path));
             bmobfile.upload(new UploadFileListener() {
                 @Override
@@ -76,7 +82,8 @@ public class send2 extends Activity {
                             @Override
                             public void done(String objectId, BmobException e) {
                                 if(e==null){
-                                    Toast.makeText(send2.this,"添加数据成功，返回objectId为："+objectId,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(send2.this,"上传成功",Toast.LENGTH_SHORT).show();
+                                    send2.this.finish();
                                 }else{
                                     Toast.makeText(send2.this,"创建数据失败：" + e.getMessage(),Toast.LENGTH_SHORT).show();
                                 }

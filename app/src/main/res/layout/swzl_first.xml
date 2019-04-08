@@ -7,13 +7,21 @@
     android:orientation="vertical"
     tools:layout_editor_absoluteY="25dp">
 
-
-    <ListView
-        android:id="@+id/listView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swzl_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#ffffff"
-        android:dividerHeight="5sp"></ListView>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listView"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#ffffff"
+            android:dividerHeight="0dp">
+        </ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 
@@ -24,7 +32,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:paddingRight="10dp"
-        android:paddingBottom="30dp"
+        android:paddingBottom="20dp"
+        app:menu_fab_size="mini"
         app:menu_colorNormal="@color/colorAccent"
         app:menu_colorPressed="@color/white"
         app:menu_icon="@drawable/fab_add"
@@ -52,22 +61,7 @@
             app:fab_label="发布丢失信息" />
 
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_preview"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/colorAccent"
-            app:fab_colorPressed="@color/white"
-            android:src="@drawable/refresh3"
-            app:fab_size="mini"
-            app:fab_label="刷新" />
-
-
-
     </com.github.clans.fab.FloatingActionMenu>
-
-
 
 
 

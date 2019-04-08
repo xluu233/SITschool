@@ -28,7 +28,6 @@ import com.example.luhongcheng.Adapter.QA_Adapter;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.LazyFragment.BasePageFragment;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.Add_QA;
 import com.example.luhongcheng.SIT_SQ_other.QA_Life;
@@ -77,12 +76,7 @@ public class SQ_QA extends Fragment {
     LinearLayout status_layout;
     String person_id;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -103,11 +97,12 @@ public class SQ_QA extends Fragment {
         life = getActivity().findViewById(R.id.qa_life);
         study = getActivity().findViewById(R.id.qa_study);
 
-        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
-        person_id =  sp.getString("ID","");
 
         onClick();
+        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
+        person_id =  sp.getString("ID","");
         get_MyCollection();
+
     }
 
 

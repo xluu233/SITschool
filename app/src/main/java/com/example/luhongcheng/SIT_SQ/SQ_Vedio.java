@@ -2,6 +2,7 @@ package com.example.luhongcheng.SIT_SQ;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
@@ -18,7 +19,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.luhongcheng.LazyFragment.BasePageFragment;
 import com.example.luhongcheng.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -50,7 +50,6 @@ public class SQ_Vedio extends Fragment {
         super.onActivityCreated(savedInstanceState);
         //initView();
     }
-
 
 
 /*

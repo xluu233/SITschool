@@ -30,14 +30,26 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:paddingRight="10dp"
-        android:paddingBottom="30dp"
+        android:paddingBottom="20dp"
         android:paddingLeft="10dp"
         app:menu_colorNormal="@color/colorAccent"
         app:menu_colorPressed="@color/white"
         app:menu_icon="@drawable/fab_add"
+        app:menu_fab_size="mini"
         app:menu_labels_ellipsize="end"
         app:menu_labels_singleLine="true"
         app:menu_backgroundColor="#00000000">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/white"
+            app:fab_size="mini"
+            android:src="@drawable/share_white"
+            app:fab_label="分享" />
+
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/zhuan"
@@ -47,11 +59,11 @@
             app:fab_colorPressed="@color/white"
             app:fab_size="mini"
             android:src="@drawable/zhuan2"
-            app:fab_label="转到系统浏览器分享" />
+            app:fab_label="转到浏览器" />
 
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_preview"
+            android:id="@+id/refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/colorAccent"
@@ -60,7 +72,15 @@
             android:src="@drawable/refresh3"
             app:fab_label="刷新" />
 
-
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/white"
+            app:fab_size="mini"
+            android:src="@drawable/ic_finish"
+            app:fab_label="退出" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

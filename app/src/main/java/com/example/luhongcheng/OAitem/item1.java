@@ -198,7 +198,7 @@ public class item1 extends AppCompatActivity {
 	private void initView() {
 		SlidingTabLayout tabLayout = findViewById(R.id.secondclass_tab);
 		ViewPager viewPager = findViewById(R.id.secondclass_viewpager);
-
+		viewPager.setOffscreenPageLimit(7);
 
 		viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 			@Override

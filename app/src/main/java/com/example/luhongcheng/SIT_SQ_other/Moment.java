@@ -5,11 +5,7 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-/**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:16/7/10 上午1:12
- * 描述:
- */
+
 public class Moment implements Parcelable {
     public String content;
     public ArrayList<String> photos;

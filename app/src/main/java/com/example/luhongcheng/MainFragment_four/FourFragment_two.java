@@ -2,13 +2,18 @@ package com.example.luhongcheng.MainFragment_four;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +115,10 @@ public class FourFragment_two extends Fragment {
                         startActivity(intent4);
                         break;
                     case 5:
+//                        good_zan();
+                        //goToMarket(getContext(),"com.example.luhongcheng");
+                        break;
+                    case 6:
                         get_out();
                         break;
                     default:
@@ -123,6 +132,27 @@ public class FourFragment_two extends Fragment {
         bindView();
 
     }
+
+    //酷市场 -- 酷安网
+    public static final String PACKAGE_COOL_MARKET = "com.coolapk.market";
+    //小米应用商店
+    public static final String PACKAGE_MI_MARKET = "com.xiaomi.market";
+    //豌豆荚
+    public static final String PACKAGE_WANDOUJIA_MARKET = "com.wandoujia.phoenix2";
+
+
+    public static void goToMarket(Context context, String packageName) {
+        Uri uri = Uri.parse("market://details?id=" + packageName);
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            goToMarket.setClassName(PACKAGE_COOL_MARKET, "com.coolapk.market.activity.AppViewActivity");
+            context.startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void get_out(){
         //学号姓名
@@ -160,8 +190,11 @@ public class FourFragment_two extends Fragment {
         fruitList.add(watermelon);
         Fruit pear = new Fruit("捐赠开发者", R.drawable.juanzeng);
         fruitList.add(pear);
+        Fruit zan = new Fruit("给个好评",R.drawable.good_zan);
+        fruitList.add(zan);
         Fruit out = new Fruit("退出登录",R.drawable.get_out);
         fruitList.add(out);
+
     }
 
 

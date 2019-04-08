@@ -147,6 +147,7 @@
             app:bga_snpl_sortable="true" />
 
 
+<!--
 
         <TextView
             android:layout_marginTop="30dp"
@@ -156,14 +157,19 @@
             android:text="Tip:请不要重复发送以免浪费服务器资源"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-
+-->
 
 
     </LinearLayout>
 
 
-
+    <TextView
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="11sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_article"/>
 
 
 </RelativeLayout>

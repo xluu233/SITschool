@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,9 @@ public class FirstFragment extends Fragment {
 
     ListView listView;
     private static Bitmap bitmap;
-
     List<String> url = new ArrayList<>();
+    SwipeRefreshLayout refreshLayout;
+    FloatingActionButton add,add2;
 
     public static FirstFragment newInstance() {
         return new FirstFragment();
@@ -53,25 +55,39 @@ public class FirstFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        refreshLayout = getActivity().findViewById(R.id.swzl_refresh);
         listView = (ListView) getActivity().findViewById(R.id.listView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-            }
-        });
-
-        Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
-        get();
-
         final FloatingActionMenu fab = (FloatingActionMenu) getActivity().findViewById(R.id.fab);
         fab.setClosedOnTouchOutside(true);
+        add = (FloatingActionButton) getActivity().findViewById(R.id.fab_share);
+        add2 = (FloatingActionButton)getActivity(). findViewById(R.id.diudiu);
 
-        FloatingActionButton add = (FloatingActionButton) getActivity().findViewById(R.id.fab_share);
-        FloatingActionButton refresh = (FloatingActionButton)getActivity(). findViewById(R.id.fab_preview);
-        FloatingActionButton diudiu = (FloatingActionButton)getActivity(). findViewById(R.id.diudiu);
+        get();
+        onClick();
+
+
+    }
+
+    private void onClick() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        get();
+                        try {
+                            Thread.sleep(1000);
+                            refreshLayout.setRefreshing(false);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }).run();
+            }
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,13 +97,7 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                get();
-            }
-        });
-        diudiu.setOnClickListener(new View.OnClickListener() {
+        add2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent1=new Intent(getActivity(),send2.class);
@@ -95,6 +105,13 @@ public class FirstFragment extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+            }
+        });
     }
 
     public void get(){

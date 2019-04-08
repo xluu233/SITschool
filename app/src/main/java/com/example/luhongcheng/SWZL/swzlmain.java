@@ -12,6 +12,7 @@ import android.util.Log;
 
 
 import com.example.luhongcheng.R;
+import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
 
@@ -24,9 +25,11 @@ public class swzlmain extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swzl);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
         }
+
         initFragment();
         initView();
     }
@@ -43,11 +46,9 @@ public class swzlmain extends FragmentActivity {
     private static final String DOG_BREEDS[] = {"丢失物件","寻找物件"};
 
     private void initView() {
-        final TabLayout tabLayout = findViewById(R.id.swzl_tab);
+        SlidingTabLayout  tabLayout = findViewById(R.id.swzl_tab);
         final ViewPager viewPager = findViewById(R.id.viewpager);
-
-        tabLayout.setupWithViewPager(viewPager);
-
+        //tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -67,21 +68,7 @@ public class swzlmain extends FragmentActivity {
         });
 
         viewPager.setOffscreenPageLimit(mFragments.size());
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tabLayout.getSelectedTabPosition(), true);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
+        tabLayout.setViewPager(viewPager);
     }
 
 

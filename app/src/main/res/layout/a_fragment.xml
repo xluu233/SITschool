@@ -37,8 +37,9 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
             app:subtitleTextAppearance="@style/Toolbar.subTitleText"
-            app:titleTextAppearance="@style/Toolbar.TitleText">
+>
 
 
         </android.support.v7.widget.Toolbar>

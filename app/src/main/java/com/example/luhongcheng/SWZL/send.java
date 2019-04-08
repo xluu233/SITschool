@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -52,6 +53,10 @@ public class send extends Activity {
                 startActivityForResult(intent, CHOOSE_PHOTO);
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
+        }
     }
 
 
@@ -61,11 +66,12 @@ public class send extends Activity {
         final String mtime = time.getText().toString();
         final String madress = adress.getText().toString();
         final String icon_path = imagePath;
-        if (mtitle == null){
+        if (mtitle.length()==0|| mcontent.length()==0 || mtime.length()==0|| madress.length()==0){
             Toast.makeText(send.this,"请填写完整信息", Toast.LENGTH_SHORT).show();
         } else if (icon_path == null){
             Toast.makeText(send.this, "选择图片", Toast.LENGTH_SHORT).show();
         } else {
+            Toast.makeText(send.this, "正在上传，请等待", Toast.LENGTH_LONG).show();
             final BmobFile bmobfile = new BmobFile(new File(icon_path));
             bmobfile.upload(new UploadFileListener() {
                 @Override
@@ -81,7 +87,8 @@ public class send extends Activity {
                             @Override
                             public void done(String objectId, BmobException e) {
                                 if(e==null){
-                                    Toast.makeText(send.this,"添加数据成功，返回objectId为："+objectId,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(send.this,"上传成功",Toast.LENGTH_SHORT).show();
+                                    send.this.finish();
                                 }else{
                                     Toast.makeText(send.this,"创建数据失败：" + e.getMessage(),Toast.LENGTH_SHORT).show();
                                 }

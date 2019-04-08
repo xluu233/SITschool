@@ -7,22 +7,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TabLayout
+
+    <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/swzl_tab"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/white"
-        app:tabGravity="center"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorAccent"
-        app:tabIndicatorColor="@color/colorAccent">
-    </android.support.design.widget.TabLayout>
+        android:background="@drawable/background_find"
+        app:tl_textBold="SELECT"
+        app:tl_tab_space_equal="true"
+        app:tl_indicator_color="#eeeeee"
+        app:tl_indicator_style="TRIANGLE" />
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1sp"
-        android:background="@color/moren_back"/>
 
 
     <android.support.v4.view.ViewPager

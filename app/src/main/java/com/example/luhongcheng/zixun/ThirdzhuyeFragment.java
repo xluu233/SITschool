@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.WebDisplay;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -68,8 +69,9 @@ public class ThirdzhuyeFragment extends Fragment{
 						@Override
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							OA news = newsList.get(position);
-							Intent intent = new Intent(getActivity(),zhuyeDisplayActvivity.class);
+							Intent intent = new Intent(getActivity(), WebDisplay.class);
 							intent.putExtra("news_url",news.getA2());
+							intent.putExtra("title","官网资讯");
 							startActivity(intent);
 						}
 					});

@@ -26,7 +26,6 @@ import com.example.luhongcheng.Adapter.SQ_Adapter;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.SQ;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.LazyFragment.BasePageFragment;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.Add_SQ;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
@@ -47,6 +46,7 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+
 
 
 public class SQ_BigSit extends Fragment {
@@ -83,18 +83,12 @@ public class SQ_BigSit extends Fragment {
 
     int position = 5;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.sq_bigsit, container, false);
         return v;
     }
-
 
 
     @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor"})
@@ -105,13 +99,9 @@ public class SQ_BigSit extends Fragment {
         recyclerView = getActivity().findViewById(R.id.sit_recycler);
         refreshLayout = getActivity().findViewById(R.id.sit_refresh);
 
-
         onClick();
-
-
         SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
         person_id =  sp.getString("ID","");
-
         get_MyCollection();
 
     }

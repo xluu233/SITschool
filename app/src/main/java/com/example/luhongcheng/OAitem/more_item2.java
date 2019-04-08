@@ -28,7 +28,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-//教学计划
+//校外考试成绩
 public class more_item2 extends Activity {
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;

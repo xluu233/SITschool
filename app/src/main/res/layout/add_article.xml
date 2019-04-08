@@ -99,6 +99,9 @@
         </LinearLayout>
 
 
+
+
+
     </LinearLayout>
 
 
@@ -128,6 +131,12 @@
 
     </LinearLayout>
 
-
+    <TextView
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:textSize="11sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_article"/>
 
 </RelativeLayout>

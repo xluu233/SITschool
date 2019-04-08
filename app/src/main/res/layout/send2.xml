@@ -1,85 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/top_title"
+    <RelativeLayout
+        android:id="@+id/qa_top"
+        android:background="@drawable/background_oneself"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red_300"
-        android:gravity="center"
-        android:minHeight="45dp"
-        android:orientation="horizontal">
+        android:layout_height="45dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/qa_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="失物信息"
+            app:titleTextAppearance="@style/Toolbar.TitleText">
+
+        </android.support.v7.widget.Toolbar>
 
         <TextView
-            android:id="@+id/top_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:clickable="true"
-            android:text="发布失物信息"
-            android:textColor="@android:color/white"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            />
-    </LinearLayout>
+            android:id="@+id/send"
+            android:onClick="post"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="发送"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+
+    <ImageButton
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:id="@+id/image"
+        android:src="@drawable/fab_add"
+        android:scaleType="center"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
 
     <LinearLayout
-        android:background="@drawable/textshape2"
         android:orientation="vertical"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:background="@drawable/textshape3"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:orientation="vertical"
+        <EditText
+            android:id="@+id/title"
+            android:hint="标题"
+            android:background="@color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/title"
-                android:hint="标题"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            android:layout_height="50dp" />
 
-            <EditText
-                android:id="@+id/content"
-                android:hint="内容描述"
-                android:layout_width="match_parent"
-                android:layout_height="100dp" />
+        <ImageView
+            android:background="@color/moren_back"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="0.5sp" />
 
+        <EditText
+            android:id="@+id/content"
+            android:hint="内容描述"
+            android:textSize="15sp"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+        <ImageView
+            android:background="@color/moren_back"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="0.5sp" />
 
-            <EditText
-                android:id="@+id/adress"
-                android:hint="联系方式"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/adress"
+            android:hint="联系方式"
+            android:textSize="15sp"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
 
+        <ImageView
+            android:background="@color/moren_back"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="0.5sp" />
 
-
-        </LinearLayout>
-
-        <ImageButton
-            android:layout_gravity="center"
-            android:id="@+id/image"
-            android:src="@drawable/fab_add"
-            android:scaleType="center"
-            android:layout_width="150dp"
-            android:layout_height="150dp" />
-
-        <Button
-            android:layout_gravity="center"
-            android:id="@+id/send"
-            android:background="@drawable/button_shape1"
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:text="提交"
-            android:onClick="post"/>
 
     </LinearLayout>
 

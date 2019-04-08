@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class SecondFragment extends Fragment {
 
 
 	ListView listView2;
+	SwipeRefreshLayout refreshLayout2;
 
 	public static SecondFragment newInstance() {
 		return new SecondFragment();
@@ -49,21 +51,34 @@ public class SecondFragment extends Fragment {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		listView2 = (ListView) getActivity().findViewById(R.id.listView2);
-		Bmob.initialize(getActivity(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
-		FloatingActionButton refresh = (FloatingActionButton)getActivity().findViewById(R.id.refresh);
-		refresh.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				get();
-			}
-		});
-
+		refreshLayout2 = getActivity().findViewById(R.id.swzl_refresh2);
 		get();
+		onClick();
 
 
 	}
 
-	public void get(){
+    private void onClick() {
+        refreshLayout2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        get();
+                        try {
+                            Thread.sleep(1000);
+                            refreshLayout2.setRefreshing(false);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).run();
+            }
+        });
+    }
+
+    public void get(){
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {

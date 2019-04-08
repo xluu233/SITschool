@@ -53,19 +53,16 @@ import com.example.luhongcheng.OAitem.item3;
 import com.example.luhongcheng.OAitem.item4;
 import com.example.luhongcheng.OAitem.item5;
 import com.example.luhongcheng.OAitem.item7;
-import com.example.luhongcheng.OAitem.item8;
 import com.example.luhongcheng.OAitem.item9;
 import com.example.luhongcheng.OneSelf.setMy;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.View.ZoomOutPageTransformer;
 import com.example.luhongcheng.SWZL.swzlmain;
-import com.example.luhongcheng.SouHuNews;
-import com.example.luhongcheng.WeiXin.Weixin_more;
 import com.example.luhongcheng.connect_vpn;
 import com.example.luhongcheng.setting.about0;
 import com.example.luhongcheng.userCard.userCardinfo;
 import com.example.luhongcheng.zixun.news;
-import com.example.luhongcheng.zixun.zhuyeDisplayActvivity;
+import com.example.luhongcheng.WebDisplay;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -175,7 +172,7 @@ public class OneFragment extends Fragment{
     TextView weather_t1,weather_t2,weather_t3,weather_t4;
 
     Context mContext;
-    Button more,more2;
+    Button more;
 
     ImageButton souhuiv;
     TextView souhutitle,souhusubtitle;
@@ -278,7 +275,6 @@ public class OneFragment extends Fragment{
         weather_t3 = (TextView)getActivity().findViewById(R.id.weather_t3);
         weather_t4 = (TextView)getActivity().findViewById(R.id.weather_t4);
         more = (Button) getActivity().findViewById(R.id.more);
-        more2 = (Button) getActivity().findViewById(R.id.more2);
 
         swzl_iv = (ImageView) getActivity().findViewById(R.id.swzl_iv);
         swzl_title = (TextView)getActivity().findViewById(R.id.swzl_title);
@@ -377,8 +373,11 @@ public class OneFragment extends Fragment{
                         startActivity(intent5);
                         break;
                     case 8:
-                        Intent intent8 = new Intent(getActivity(),item8.class);
+                        Intent intent8 = new Intent(getActivity(), WebDisplay.class);
+                        intent8.putExtra("news_url","http://m.5read.com/");
+                        intent8.putExtra("title","读书馆");
                         startActivity(intent8);
+
                         break;
                     case 9:
                         Intent intent10 = new Intent(getActivity(),news.class);
@@ -402,15 +401,9 @@ public class OneFragment extends Fragment{
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), zhuyeDisplayActvivity.class);
+                Intent intent = new Intent(getActivity(), WebDisplay.class);
                 intent.putExtra("news_url","https://m.sm.cn/s?q=%E4%B8%8A%E6%B5%B7%E5%A5%89%E8%B4%A4%E5%A4%A9%E6%B0%94&by=submit&snum=6");
-                startActivity(intent);
-            }
-        });
-        more2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Weixin_more.class);
+                intent.putExtra("title","天气");
                 startActivity(intent);
             }
         });
@@ -418,7 +411,9 @@ public class OneFragment extends Fragment{
         souhuiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SouHuNews.class);
+                Intent intent = new Intent(getActivity(), WebDisplay.class);
+                intent.putExtra("news_url","http://m.sohu.com/media/694346?spm=smwp.content.author-info.1.1537437344995hk1YAuY");
+                intent.putExtra("title","搜狐新闻");
                 startActivity(intent);
             }
         });
@@ -426,18 +421,22 @@ public class OneFragment extends Fragment{
         souhutitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),SouHuNews.class);
-                intent.putExtra("url",souhu_url);
+                Intent intent = new Intent(getActivity(), WebDisplay.class);
+                intent.putExtra("news_url",souhu_url);
+                intent.putExtra("title","搜狐新闻");
                 startActivity(intent);
+
             }
         });
 
         souhusubtitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),SouHuNews.class);
-                intent.putExtra("url",souhu_url);
+                Intent intent = new Intent(getActivity(), WebDisplay.class);
+                intent.putExtra("news_url",souhu_url);
+                intent.putExtra("title","搜狐新闻");
                 startActivity(intent);
+
             }
         });
 
@@ -466,6 +465,7 @@ public class OneFragment extends Fragment{
 
     }
 
+
     private void initRefresh() {
         if (imageUrl == null ){
             getImageUrl();
@@ -481,6 +481,25 @@ public class OneFragment extends Fragment{
         getSwzl();
     }
 
+
+    void initGridViewData() {
+        //图标
+        int icno[] = { R.mipmap.g16,R.mipmap.g1,R.mipmap.g7,R.mipmap.g4,
+                R.mipmap.g5,R.mipmap.g3,R.drawable.card,R.mipmap.swzl,
+                R.drawable.library,R.drawable.zixun,R.drawable.weixin,
+                R.mipmap.g15};
+        //图标下的文字
+        String name[]={"学院","第二课堂","OA主页","成绩",
+                "电费","考试","学生卡","失物招领","读书馆","公告","微信","更多"};
+
+        dataList = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i <icno.length; i++) {
+            Map<String, Object> map=new HashMap<String, Object>();
+            map.put("ItemImage", icno[i]);
+            map.put("ItemText",name[i]);
+            dataList.add(map);
+        }
+    }
 
     private void ImprovePersonInformation() {
         SharedPreferences sp= getActivity().getSharedPreferences("userid",0);
@@ -549,24 +568,6 @@ public class OneFragment extends Fragment{
 
 
 
-    void initGridViewData() {
-        //图标
-        int icno[] = { R.mipmap.g16,R.mipmap.g1,R.mipmap.g7,R.mipmap.g4,
-                R.mipmap.g5,R.mipmap.g3,R.drawable.card,R.mipmap.swzl,
-                R.drawable.library,R.drawable.zixun,R.drawable.weixin,
-                R.mipmap.g15};
-        //图标下的文字
-        String name[]={"学院","第二课堂","OA主页","成绩",
-                "电费","考试","学生卡","失物招领","读书馆","公告","微信","更多"};
-
-        dataList = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i <icno.length; i++) {
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("ItemImage", icno[i]);
-            map.put("ItemText",name[i]);
-            dataList.add(map);
-        }
-    }
 
 
     public void gettip(){
@@ -636,8 +637,7 @@ public class OneFragment extends Fragment{
                 Toast.makeText(getApplicationContext(),"已复制到剪切板,在支付宝中搜索即可",Toast.LENGTH_LONG).show();
 
 
-                Intent intent4=new Intent();
-                intent4 = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
+                Intent intent4 = packageManager.getLaunchIntentForPackage("com.eg.android.AlipayGphone");
                 if(intent4==null){
                     Toast.makeText(getActivity(), "未安装支付宝", Toast.LENGTH_SHORT).show();
                 }else{
@@ -816,38 +816,9 @@ public class OneFragment extends Fragment{
                         handler.sendMessage(msg);
                     }
 
-                    if (sh_title != null || sh_subtitle != null){
+                    if (sh_title.length() == 0){
                         getsouhu2();
                     }
-/*
-                    if (A2.length() !=0){
-                        Glide.with(getContext())
-                                .load(A2)
-                                .apply(new RequestOptions().placeholder(R.drawable.loading))
-                                .apply(new RequestOptions() .error(R.drawable.error))
-                                .apply(new RequestOptions() .fitCenter())
-                                .into(souhuiv);
-
-                        souhutitle.setWidth(600);
-                        try {
-                            URL myFileURL = new URL(sh_imageurl);
-                            HttpURLConnection conn = (HttpURLConnection) myFileURL.openConnection();
-                            conn.setConnectTimeout(3000);
-                            conn.setDoInput(true);
-                            conn.setUseCaches(false);
-                            conn.connect();
-                            InputStream is = conn.getInputStream();
-                            bitmap = BitmapFactory.decodeStream(is);
-                            is.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        Message msg = handler.obtainMessage();
-                        msg.obj = bitmap;
-                        msg.what = 1;
-                        handler.sendMessage(msg);
-                    }
-*/
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -911,19 +882,19 @@ public class OneFragment extends Fragment{
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
+                    souhutitle.setText(sh_title);
+                    souhusubtitle.setText(sh_subtitle);
                     souhuiv.setBackgroundResource(0);
-                    //souhuiv.setImageBitmap(bitmap);
                     Glide.with(getContext())
                             .load(sh_imageurl)
                             .apply(new RequestOptions().placeholder(R.drawable.loading))
                             .apply(new RequestOptions() .error(R.drawable.error))
                             .apply(new RequestOptions() .fitCenter())
                             .into(souhuiv);
-                    souhutitle.setText(sh_title);
-                    souhusubtitle.setText(sh_subtitle);
+
                     break;
                 case 2:
-                    souhuiv.setBackgroundResource(0);
+                    souhuiv.setVisibility(View.GONE);
                     souhutitle.setText(sh_title);
                     souhusubtitle.setText(sh_subtitle);
                     break;
