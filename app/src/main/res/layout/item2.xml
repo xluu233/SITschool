@@ -9,8 +9,8 @@
     <LinearLayout
         android:id="@+id/top_title"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="40dp"
+        android:background="@drawable/background_oneself"
         android:gravity="center"
         android:orientation="horizontal">
         <TextView
@@ -22,6 +22,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout

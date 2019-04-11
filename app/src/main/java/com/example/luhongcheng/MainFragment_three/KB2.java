@@ -83,7 +83,7 @@ public class KB2 extends Activity {
         spinner.setVisibility(View.VISIBLE);
 
 
-        ImageButton jiazai = (ImageButton) findViewById(R.id.jiazai);
+/*        ImageButton jiazai = (ImageButton) findViewById(R.id.jiazai);
         jiazai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +109,7 @@ public class KB2 extends Activity {
                 dialog.show();
 
             }
-        });
+        });*/
 
 
 

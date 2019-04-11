@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.luhongcheng.LazyLoadFragment;
 import com.example.luhongcheng.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 
-public class SQ_Vedio extends Fragment {
+public class SQ_Vedio extends LazyLoadFragment {
     public SQ_Vedio(){
         Context mContext = getActivity();
     }
@@ -36,11 +38,25 @@ public class SQ_Vedio extends Fragment {
     RefreshLayout refreshLayout;
     WebView webView;
 
+/*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         View v = inflater.inflate(R.layout.sq_vedio, container, false);
         return v;
+    }
+*/
+
+    @Override
+    protected int setContentView() {
+        return R.layout.sq_vedio;
+    }
+
+
+    @Override
+    protected void lazyLoad() {
+        String message = "Fragment4" + (isInit ? "已经初始并已经显示给用户可以加载数据" : "没有初始化不能加载数据")+">>>>>>>>>>>>>>>>>>>";
+        Log.d(TAG, message);
     }
 
 

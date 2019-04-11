@@ -1,12 +1,14 @@
 package com.example.luhongcheng.SIT_SQ;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
@@ -26,16 +28,19 @@ import com.example.luhongcheng.Adapter.SQ_Adapter;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.SQ;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
+import com.example.luhongcheng.LazyLoadFragment;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.Add_SQ;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
 import com.example.luhongcheng.utils.ItemClickSupport;
+import com.example.luhongcheng.utils.getRAM;
 import com.github.clans.fab.FloatingActionButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,12 +54,9 @@ import cn.bmob.v3.listener.UpdateListener;
 
 
 
-public class SQ_BigSit extends Fragment {
-    public SQ_BigSit(){
-        Context mContext = getActivity();
-    }
+public class SQ_BigSit extends LazyLoadFragment {
+    public SQ_BigSit(){}
     public static SQ_BigSit newInstance(Context context) {
-        Context mContext = context;
         return new SQ_BigSit();
     }
 
@@ -71,7 +73,7 @@ public class SQ_BigSit extends Fragment {
 
     private List<String> my_collection = new ArrayList<>();//我的收藏集合
     private List<String> my_Likes = new ArrayList<>(); //我的喜欢合集
-    private List<String> my_GuanZhu = new ArrayList<>();
+    private List<String> my_GuanZhu = new ArrayList<>();//我的关注
 
     String person_id;
     String author_id;
@@ -82,13 +84,36 @@ public class SQ_BigSit extends Fragment {
     String item_id;
 
     int position = 5;
+    boolean layoutInit = false;
+    boolean canfresh = true;
 
 
+/*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.sq_bigsit, container, false);
         return v;
     }
+*/
+
+    @Override
+    protected int setContentView() {
+        return R.layout.sq_bigsit;
+    }
+
+
+    @Override
+    protected void lazyLoad() {
+        String message = "FragmentSQ" + (isInit ? "已经初始并已经显示给用户可以加载数据" : "没有初始化不能加载数据")+">>>>>>>>>>>>>>>>>>>";
+        Log.d(TAG, message);
+
+        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
+        person_id =  sp.getString("ID","");
+        if (mList.size() == 0){
+            get_MyCollection();
+        }
+    }
+
 
 
     @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor"})
@@ -98,15 +123,93 @@ public class SQ_BigSit extends Fragment {
         button = getActivity().findViewById(R.id.sit_add_news);
         recyclerView = getActivity().findViewById(R.id.sit_recycler);
         refreshLayout = getActivity().findViewById(R.id.sit_refresh);
-
+        layoutInit = true;
         onClick();
-        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
-        person_id =  sp.getString("ID","");
-        get_MyCollection();
+
+        //get_MyCollection();
 
     }
 
+    private void onClick() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(final RefreshLayout refreshlayout) {
+                if (canfresh){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getDate();
+                            canfresh = false;
+                            try {
+                                Thread.sleep(1000);
+                                refreshlayout.finishRefresh(2000/*,false*/);
+                                Thread.sleep(15000);
+                                canfresh = true;
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
+
+                        }
+                    }).start();
+                }else {
+                    Toast.makeText(getContext(),"太快了~10s后再试",Toast.LENGTH_SHORT).show();
+                    refreshlayout.finishRefresh(2000/*,false*/);
+                }
+
+
+            }
+        });
+
+/*        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                //getDate2();
+                refreshlayout.finishLoadMore(2000*//*,false*//*);//传入false表示加载失败
+                Snackbar.make(getView(),"只支持加载20条数据",Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (person_id.length() == 0){
+                    Toast.makeText(getActivity(),"没有获取到ID,请前往个人中心",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(getContext(), Add_SQ.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+    /*    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        //加载数据
+                        get_MyCollection();
+                        //关闭刷新
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });*/
+    }
 
     private void get_MyCollection() {
         if (person_id.length() == 0){
@@ -187,81 +290,30 @@ public class SQ_BigSit extends Fragment {
     }
 
 
-    private void onClick() {
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                //get_MyCollection();
-                getDate();
-                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
-            }
-        });
-
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                //getDate2();
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-                Snackbar.make(getView(),"只支持加载20条数据",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (person_id.length() == 0){
-                    Toast.makeText(getActivity(),"没有获取到ID,请前往个人中心",Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(getContext(), Add_SQ.class);
-                    startActivity(intent);
-                }
-
-            }
-        });
-
-    /*    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        //加载数据
-                        get_MyCollection();
-                        //关闭刷新
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                refreshLayout.setRefreshing(false);
-                            }
-                        });
-                    }
-                }).start();
-            }
-        });*/
-    }
-
+    //加载条数
+    int loadnum = 10;
     private void getDate() {
         mList.clear();
+        String ram = getRAM.showRAMInfo(getContext()).replace(",","");
+        if (ram!=null){
+            if (Integer.valueOf(ram)>5000){
+                loadnum = 20;
+            }else if (Integer.valueOf(ram)>7000){
+                loadnum = 30;
+            }
+        }
         Thread qa = new Thread(new Runnable() {
             @Override
             public void run() {
                 BmobQuery<SQ> query = new BmobQuery<SQ>();
                 query.order("-createdAt");
                 //query.setSkip(10);
-                query.setLimit(20);
+                query.setLimit(loadnum);
                 query.findObjects(new FindListener<SQ>(){
                     @Override
                     public void done(final List<SQ> list, BmobException e) {
                         if (list != null) {
 
-                            //String zan_num;
                             for(int i = 0;i<list.size();i++){
                                 content = list.get(i).getContent();
                                 time = list.get(i).getCreatedAt();
@@ -269,15 +321,14 @@ public class SQ_BigSit extends Fragment {
                                 url = list.get(i).getImage();
                                 UserInfo userInfo = list.get(i).getAuthor();
                                 author_id = userInfo.getObjectId();
-                                //getAuthorInfo(author_id);
-
-                                //zan_num = queryZanNums(list.get(i).getObjectId());
 
                                 mList.add(new com.example.luhongcheng.bean.SQ(author_id,url,content,time,item_id,my_Likes,null,null));
                             }
-                            Message msg = new Message();
-                            msg.what = 1;
-                            handler.sendMessage(msg);
+                            if  (layoutInit){
+                                Message msg = new Message();
+                                msg.what = 1;
+                                handler.sendMessage(msg);
+                            }
 
                         }
 
@@ -292,106 +343,6 @@ public class SQ_BigSit extends Fragment {
 
     }
 
-    private void getDate2() {
-        mList.clear();
-        Thread qa2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                BmobQuery<SQ> query = new BmobQuery<SQ>();
-                query.order("-createdAt");
-                query.setSkip(position);
-                query.setLimit(5);
-                query.findObjects(new FindListener<SQ>(){
-                    @Override
-                    public void done(final List<SQ> list, BmobException e) {
-                        if (list != null) {
-
-                            //String zan_num;
-                            for(int i = 0;i<list.size();i++){
-                                content = list.get(i).getContent();
-                                time = list.get(i).getCreatedAt();
-                                item_id = list.get(i).getObjectId();
-                                url = list.get(i).getImage();
-                                UserInfo userInfo = list.get(i).getAuthor();
-                                author_id = userInfo.getObjectId();
-                                //getAuthorInfo(author_id);
-
-                                //zan_num = queryZanNums(list.get(i).getObjectId());
-
-                                mList.add(new com.example.luhongcheng.bean.SQ(author_id,url,content,time,item_id,my_Likes,null,null));
-                            }
-                            mAdapter.addData(position,mList);
-/*                            Message msg = new Message();
-                            msg.what = 1;
-                            handler.sendMessage(msg);*/
-
-                        }
-
-                    }
-
-                });
-
-                position = position + 5;
-
-            }
-        });
-        qa2.start();
-
-    }
-
-    private void getAuthorInfo(final String author_id) {
-        Thread getAuthorInfo = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-                query.getObject(author_id, new QueryListener<UserInfo>() {
-                    @Override
-                    public void done(UserInfo userInfo, BmobException e) {
-                        if (e==null){
-                            if (userInfo.getNickname() != null){
-                                nickname = userInfo.getNickname();
-                            }
-                            if (userInfo.getQM() != null){
-                                qm = userInfo.getQM();
-                            }
-                            if (userInfo.geticonUrl() != null){
-                                icon_url = userInfo.geticonUrl();
-                            }
-                        }
-                    }
-                });
-
-
-            }
-        });
-        getAuthorInfo.start();
-    }
-
-
-    private String queryZanNums(String objectId) {
-        final String[] zan = new String[1];
-        // 查询喜欢这个帖子的所有用户，因此查询的是用户表
-        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-        com.example.luhongcheng.Bmob_bean.SQ post = new com.example.luhongcheng.Bmob_bean.SQ();
-        post.setObjectId(objectId);
-        //likes是Post表中的字段，用来存储所有喜欢该帖子的用户
-        query.addWhereRelatedTo("likes", new BmobPointer(post));
-        query.findObjects(new FindListener<UserInfo>() {
-            @Override
-            public void done(List<UserInfo> object,BmobException e) {
-                if(e==null){
-                    Log.i("bmob","查询个数："+object.size());
-                    zan[0] = String.valueOf(object.size());
-
-                    Log.d("zan_num",zan[0]);
-                }else{
-                    Log.i("bmob","失败："+e.getMessage());
-                }
-            }
-
-        });
-        return zan[0];
-    }
 
     @SuppressLint("HandlerLeak")
     private Handler handler= new Handler(){
@@ -506,8 +457,6 @@ public class SQ_BigSit extends Fragment {
                 public void done(BmobException e) {
                     if(e==null){
                         Toast.makeText(getContext(),"收藏成功",Toast.LENGTH_SHORT).show();
-                    }else{
-                        // Toast.makeText(mContext,"error"+e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });

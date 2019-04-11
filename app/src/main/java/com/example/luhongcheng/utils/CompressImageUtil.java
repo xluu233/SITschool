@@ -45,6 +45,7 @@ public class CompressImageUtil {
 
     private static final String SD_PATH = Environment.getExternalStorageDirectory().getPath() + "/SIT学生助手/";
 
+    //CompressImageUtil.saveBitmap2file(bitmap,context);
     public static String saveBitmap2file(Bitmap bmp, Context context) {
         String savePath;
         String fileName = generateFileName() + ".JPEG";

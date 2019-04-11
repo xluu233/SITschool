@@ -7,14 +7,13 @@
     <RelativeLayout
         android:id="@+id/ttt"
         android:gravity="center"
-        android:background="@color/red_300"
+        android:background="@drawable/background_oneself"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="40dp">
 
 
         <LinearLayout
             android:orientation="vertical"
-            android:background="@color/red_300"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_marginRight="60dp"
@@ -32,17 +31,6 @@
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/jiazai"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/jiazai" />
 
     </RelativeLayout>
 

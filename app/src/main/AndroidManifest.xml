@@ -101,7 +101,6 @@
         <activity android:name=".MainFragment_three.KB2"/>
         <activity android:name=".SWZL.send2"/>
         <activity android:name=".SWZL.swzlmain"/>
-        <activity android:name=".SouHuNews"/>
         <activity android:name=".OneSelf.Find2"/>
         <activity android:name=".SIT_SQ_other.Add_QA"/>
         <activity android:name=".OneSelf.MyLove"/>
@@ -110,8 +109,7 @@
         <activity android:name=".OneSelf.Find"/>
         <activity android:name=".SIT_SQ_other.Add_SQ"/>
         <activity android:name=".SIT_SQ_other.SQ_SecondLayout"/>
-        <activity android:name=".SIT_SQ_other.QA_Life"/>
-        <activity android:name=".SIT_SQ_other.QA_Study"/>
+        <activity android:name=".SIT_SQ_other.QA_More"/>
 
     </application>
 

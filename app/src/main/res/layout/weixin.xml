@@ -9,8 +9,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="?attr/colorPrimary"
+        android:layout_height="40dp"
+        android:background="@drawable/background_oneself"
         app:title="微信资讯"
         app:titleTextAppearance="@style/Toolbar.TitleText">
     </android.support.v7.widget.Toolbar>

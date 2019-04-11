@@ -4,17 +4,13 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,7 +18,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +25,11 @@ import android.widget.Toast;
 
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.Bmob_bean._User;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.utils.CompressImageUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +41,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
+import id.zelory.compressor.Compressor;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -186,11 +182,20 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
     }
 
     private void update_image() {
-        String[] list = new String[Path.size()];
+        final String[] list = new String[Path.size()];
+        File compressedFile = null;
 
-        //图片压缩
         for (int i=0;i<Path.size();i++ ){
-            list[i] = CompressImageUtil.saveBitmap2file(BitmapFactory.decodeFile(Path.get(i)),getApplicationContext());
+            //list[i] = CompressImageUtil.saveBitmap2file(BitmapFactory.decodeFile(Path.get(i)),getApplicationContext());
+            File file = new File(Path.get(i));
+
+            try {
+                compressedFile = new Compressor(this).compressToFile(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            list[i] = compressedFile.getAbsolutePath();
         }
 
         BmobFile.uploadBatch(list, new UploadBatchListener() {

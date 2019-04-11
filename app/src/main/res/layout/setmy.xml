@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         app:layout_collapseMode="pin"
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:title="个人信息修改"

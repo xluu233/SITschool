@@ -8,10 +8,10 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         app:titleTextAppearance="@style/Toolbar.TitleText"
-        android:background="@color/bugray_500"
+        android:background="@drawable/background_oneself"
         android:layout_width="match_parent"
         app:title="发布"
-        android:layout_height="45dp">
+        android:layout_height="40dp">
 
     </android.support.v7.widget.Toolbar>
 

@@ -94,6 +94,6 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     //64k方法数限制
     implementation 'com.android.support:multidex:1.0.3'
-
-
+    //jpeg压缩库
+    implementation 'id.zelory:compressor:2.1.0'
 }

@@ -64,15 +64,15 @@ public class SheQuFragment extends Fragment {
         SQ_BigSit one = new SQ_BigSit();
         SQ_ShareNews two = new SQ_ShareNews();
         SQ_QA three = new SQ_QA();
-        SQ_Vedio four = new SQ_Vedio();
+        //SQ_Vedio four = new SQ_Vedio();
 
-        mFragments.add(one);
         mFragments.add(two);
+        mFragments.add(one);
         mFragments.add(three);
-        mFragments.add(four);
+        //mFragments.add(four);
     }
 
-    private static final String DOG_BREEDS[] = {"社区","热点","问答", "视频"};
+    private static final String DOG_BREEDS[] = {"热点","社区","问答"};
 
     private void initView() {
         SlidingTabLayout tabLayout = getActivity().findViewById(R.id.sq_tab);

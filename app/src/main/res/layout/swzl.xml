@@ -11,7 +11,7 @@
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/swzl_tab"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:background="@drawable/background_find"
         app:tl_textBold="SELECT"
         app:tl_tab_space_equal="true"

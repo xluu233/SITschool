@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.luhongcheng.Adapter.ShareNews_Adapter;
 import com.example.luhongcheng.Bmob_bean.Report;
+import com.example.luhongcheng.LazyLoadFragment;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.Share_News;
 import com.example.luhongcheng.bean.HotNews;
@@ -40,7 +41,7 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 
-public class SQ_ShareNews extends Fragment {
+public class SQ_ShareNews extends LazyLoadFragment {
 
     public SQ_ShareNews(){
         Context mContext = getActivity();
@@ -55,15 +56,27 @@ public class SQ_ShareNews extends Fragment {
     RecyclerView recyclerView;
     List<HotNews> mlist = new ArrayList<>();
     String person_id;
+    boolean layoutInit = false;
+    boolean canfresh = true;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        View v = inflater.inflate(R.layout.sq_share_news, container, false);
-        return v;
+    protected int setContentView() {
+        return R.layout.sq_share_news;
     }
 
+
+    @Override
+    protected void lazyLoad() {
+        String message = "FragmentNEWS" + (isInit ? "已经初始并已经显示给用户可以加载数据" : "没有初始化不能加载数据")+">>>>>>>>>>>>>>>>>>>";
+        Log.d(TAG, message);
+
+        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
+        person_id =  sp.getString("ID","");
+        if (mlist.size() == 0){
+            getArticle();
+        }
+    }
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -72,12 +85,8 @@ public class SQ_ShareNews extends Fragment {
         recyclerView = getActivity().findViewById(R.id.my_news);
         refresh = getActivity().findViewById(R.id.news_refresh);
         choose_box = getActivity().findViewById(R.id.share_news);
-        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
-        person_id =  sp.getString("ID","");
-
+        layoutInit=true;
         onClick();
-        getArticle();
-
     }
 
 
@@ -95,26 +104,29 @@ public class SQ_ShareNews extends Fragment {
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        //加载数据
-                        getArticle();
-                        //关闭刷新
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
+                if (canfresh){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getArticle();
+                            canfresh = false;
+                            try {
+                                Thread.sleep(1000);
                                 refresh.setRefreshing(false);
-                            }
-                        });
 
-                    }
-                }).start();
+                                Thread.sleep(10000);
+                                canfresh = true;
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    }).start();
+                }else {
+                    Toast.makeText(getContext(),"太快了~10s后再试",Toast.LENGTH_SHORT).show();
+                    refresh.setRefreshing(false);
+                }
 
             }
         });
@@ -156,11 +168,12 @@ public class SQ_ShareNews extends Fragment {
 
                                 mlist.add(new HotNews(title[i],image[i],time[i],url[i],item_id));
                             }
-                            Message msg = new Message();
-                            msg.what = 1;
-                            mHandler.sendMessage(msg);
+                            if (layoutInit){
+                                Message msg = new Message();
+                                msg.what = 1;
+                                handler.sendMessage(msg);
+                            }
 
-                            //mHandler2.obtainMessage(0).sendToTarget();
                         }
                     }
 
@@ -174,7 +187,7 @@ public class SQ_ShareNews extends Fragment {
     }
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler= new Handler(){
+    private Handler handler= new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
@@ -225,7 +238,6 @@ public class SQ_ShareNews extends Fragment {
 
 
     private void report_item(final String id) {
-
         final EditText et = new EditText(getContext());
         new AlertDialog.Builder(getContext()).setTitle("举报")
                 .setIcon(R.drawable.report)

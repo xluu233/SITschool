@@ -24,7 +24,7 @@
     <View
         android:id="@+id/div_tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1sp"
         android:background="#DDDDDD"
         android:layout_above="@id/navigation"/>
 
@@ -32,7 +32,7 @@
         app:labelVisibilityMode="labeled"
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         app:menu="@menu/navigation" />
 

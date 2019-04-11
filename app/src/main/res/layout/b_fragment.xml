@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_oneself"
         android:gravity="center"
-        android:minHeight="45dp"
+        android:minHeight="40dp"
         android:orientation="horizontal">
 
         <TextView

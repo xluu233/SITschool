@@ -85,7 +85,7 @@ public class setMy extends AppCompatActivity {
             }
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.teal_300));//设置状态栏背景色
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
         }
 
 

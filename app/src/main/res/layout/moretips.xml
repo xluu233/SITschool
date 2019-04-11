@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/moren_back"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="?attr/colorPrimary"
+        android:layout_height="40dp"
+        android:background="@drawable/background_oneself"
         app:title="推送信息"
         app:titleTextAppearance="@style/Toolbar.TitleText">
 
@@ -22,7 +22,7 @@
         android:layout_below="@+id/servison"
         android:dividerHeight="10dp"
         android:scrollbars="none"
-        android:divider="@color/moren_back"
+        android:divider="@color/white"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

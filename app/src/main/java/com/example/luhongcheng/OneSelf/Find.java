@@ -79,7 +79,7 @@ public class Find extends Activity {
 
         //状态栏颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.teal_300));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
         }
 
 

@@ -59,12 +59,11 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
     private String author_id; //作者
     private String item_id; //说说
 
-    private String zan_num_text;//点赞数
 
-    List<String> my_guanzhu;
-    List<String> user_Likes = new ArrayList<>();
-    List<String> my_collection;
-    private Boolean hadZan;
+    private List<String> my_guanzhu;
+    private List<String> user_Likes = new ArrayList<>();
+    private List<String> my_collection;
+    private boolean hadZan;
 
 
 
@@ -217,13 +216,6 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
 
 
 
-    }
-
-    public void addData(int position,List<com.example.luhongcheng.bean.SQ> mList) {
-//      在list中添加数据，并通知条目加入一条
-        mList.add(position, (SQ) mList);
-        //添加动画
-        notifyItemInserted(position);
     }
 
 

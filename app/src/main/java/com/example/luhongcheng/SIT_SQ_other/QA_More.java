@@ -1,45 +1,31 @@
-package com.example.luhongcheng.SIT_SQ;
+package com.example.luhongcheng.SIT_SQ_other;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.luhongcheng.Adapter.QA_Adapter;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.LazyLoadFragment;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.SIT_SQ_other.Add_QA;
-import com.example.luhongcheng.SIT_SQ_other.QA_More;
-import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
 import com.example.luhongcheng.utils.ItemClickSupport;
-import com.github.clans.fab.FloatingActionButton;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,148 +38,73 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 
-public class SQ_QA extends LazyLoadFragment {
+public class QA_More extends Activity {
 
-    public SQ_QA(){
-        Context mContext = getActivity();
-    }
-
-    public static SQ_QA newInstance(Context context) {
-        Context mContext = context;
-        return new SQ_QA();
-    }
-
+    SwipeRefreshLayout refreshLayout;
     RecyclerView recyclerView;
-    FloatingActionButton button;
-    SmartRefreshLayout refreshLayout;
-    ImageView life,study;
-
-
-    private RecyclerView.LayoutManager mLayoutManager;
-    private QA_Adapter mAdapter;
-    private List<com.example.luhongcheng.bean.QA> mList = new ArrayList<>();
-    private List<String> my_collection = new ArrayList<>();//我的收藏集合
-    private List<String> my_Likes = new ArrayList<>(); //我的喜欢合集
+    Toolbar toolbar;
 
     String person_id;
-    boolean layoutInit = false;
-    boolean canfresh = true;
-
-
-/*    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
-        View v = inflater.inflate(R.layout.sq_qa, container, false);
-        return v;
-    }*/
-
-    @Override
-    protected int setContentView() {
-        return R.layout.sq_qa;
-    }
+    String fenqu=null;
+    private List<String> my_collection = new ArrayList<>();//我的收藏集合
+    private List<String> my_Likes = new ArrayList<>(); //我的喜欢合集
+    private List<com.example.luhongcheng.bean.QA> mList = new ArrayList<>();
+    private List<String> url = new ArrayList<>();
 
 
     @Override
-    protected void lazyLoad() {
-        String message = "FragmentQA" + (isInit ? "已经初始并已经显示给用户可以加载数据" : "没有初始化不能加载数据")+">>>>>>>>>>>>>>>>>>>";
-        Log.d(TAG, message);
-
-        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.sq_qa_more);
+        toolbar = findViewById(R.id.toolbar);
+        recyclerView = findViewById(R.id.qa_recycler);
+        refreshLayout = findViewById(R.id.refresh);
+        onClick();
+        SharedPreferences sp = getSharedPreferences("personID",0);
         person_id =  sp.getString("ID","");
 
-        if (mList.size() == 0){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
+        }
+
+        String tag = getIntent().getStringExtra("from");
+        if (tag.equals("life")){
+            toolbar.setTitle("问答—life");
+            fenqu = "0";
+            get_MyCollection();
+        }
+        else if (tag.equals("study")){
+            toolbar.setTitle("问答-Study");
+            fenqu = "1";
             get_MyCollection();
         }
     }
 
-
-
-    @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor"})
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        button = getActivity().findViewById(R.id.qa_update);
-        recyclerView = getActivity().findViewById(R.id.qa_recycler);
-        refreshLayout = getActivity().findViewById(R.id.qa_refresh);
-        life = getActivity().findViewById(R.id.qa_life);
-        study = getActivity().findViewById(R.id.qa_study);
-        layoutInit = true;
-        onClick();
-
-    }
-
-
     private void onClick() {
-        button.setOnClickListener(new View.OnClickListener() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
-
-                if (person_id.length() == 0){
-                    Toast.makeText(getActivity(),"没有获取到ID,请前往个人中心",Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(getContext(), Add_QA.class);
-                    startActivity(intent);
-                }
-
-            }
-        });
-
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(final RefreshLayout refreshlayout) {
-                if (canfresh){
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            getDate();
-                            canfresh = false;
-                            try {
-                                Thread.sleep(1000);
-                                refreshlayout.finishRefresh(2000/*,false*/);
-                                Thread.sleep(15000);
-                                canfresh = true;
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-
-
-
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            refreshLayout.setRefreshing(false);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                    }).start();
-                }else {
-                    Toast.makeText(getContext(),"太快了~10s后再试",Toast.LENGTH_SHORT).show();
-                    refreshlayout.finishRefresh(2000/*,false*/);
-                }
-            }
-        });
-
-
-        life.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), QA_More.class);
-                intent.putExtra("from","life");
-                startActivity(intent);
-            }
-        });
-
-        study.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), QA_More.class);
-                intent.putExtra("from","study");
-                startActivity(intent);
+                        getDate();
+                    }
+                }).run();
             }
         });
     }
-
 
 
     private void get_MyCollection() {
         if (person_id.length() == 0){
             //Toast.makeText(getActivity(),"没有获取到ID",Toast.LENGTH_SHORT).show();
-            SharedPreferences sp=getActivity().getSharedPreferences("userid",0);
+            SharedPreferences sp=getSharedPreferences("userid",0);
             final String username = sp.getString("username","");
 
             Thread collection = new Thread(new Runnable() {
@@ -207,7 +118,7 @@ public class SQ_QA extends LazyLoadFragment {
                             if (e == null) {
                                 person_id = list.get(0).getObjectId();
 
-                                SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
+                                SharedPreferences.Editor editor=getSharedPreferences("personID",0).edit();
                                 editor.putString("ID",person_id);
                                 editor.commit();
 
@@ -221,6 +132,7 @@ public class SQ_QA extends LazyLoadFragment {
 
                                 getDate();
 
+                                Log.d("QA：","get_MyCollection()");
                             } else {
                                 Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                             }
@@ -263,8 +175,6 @@ public class SQ_QA extends LazyLoadFragment {
         }
     }
 
-
-
     private void getDate() {
         mList.clear();
         Thread qa = new Thread(new Runnable() {
@@ -273,6 +183,7 @@ public class SQ_QA extends LazyLoadFragment {
                 BmobQuery<QA> query = new BmobQuery<QA>();
                 query.order("-createdAt");
                 query.setLimit(20);
+                query.addWhereEqualTo("fenqu",fenqu);
                 query.findObjects(new FindListener<QA>(){
                     @Override
                     public void done(final List<QA> list, BmobException e) {
@@ -284,7 +195,6 @@ public class SQ_QA extends LazyLoadFragment {
                             String item_id;
                             String author_id;
                             String tag;
-                            List<String> url;
 
                             for(int i = 0;i<list.size();i++){
                                 title = list.get(i).getTitle();
@@ -293,16 +203,14 @@ public class SQ_QA extends LazyLoadFragment {
                                 item_id = list.get(i).getObjectId();
                                 author_id = list.get(i).getAuthor().getObjectId();
                                 tag = list.get(i).getFenqu();
-                                url = list.get(i).getImage();
 
+
+                                url = list.get(i).getImage();
                                 mList.add(new com.example.luhongcheng.bean.QA(url,title,content,time,item_id,my_Likes,author_id,tag));
                             }
-                            if (layoutInit){
-                                Message msg = new Message();
-                                msg.what = 1;
-                                handler.sendMessage(msg);
-                            }
-
+                            Message msg = new Message();
+                            msg.what = 1;
+                            handler.sendMessage(msg);
 
                         }
 
@@ -322,17 +230,16 @@ public class SQ_QA extends LazyLoadFragment {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
-                mLayoutManager = new LinearLayoutManager(getActivity());
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
-
-                mAdapter = new QA_Adapter(getContext(),mList);
+                QA_Adapter mAdapter = new QA_Adapter(getApplicationContext(),mList);
                 recyclerView.setAdapter(mAdapter);
 
                 ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         //Toast.makeText(getContext(),"短按了一下",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), SQ_SecondLayout.class);
+                        Intent intent = new Intent(getApplicationContext(), SQ_SecondLayout.class);
                         intent.putExtra("from","QA");
                         intent.putExtra("item_id",mList.get(position).getItem_id());
                         intent.putExtra("author_id",mList.get(position).getAuthor_id());
@@ -344,7 +251,7 @@ public class SQ_QA extends LazyLoadFragment {
                 ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
-                        Vibrator vibrator = (Vibrator)getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                        Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
                         vibrator.vibrate(50);
 
                         /*连续震动
@@ -355,7 +262,7 @@ public class SQ_QA extends LazyLoadFragment {
 
                         final String[] items = {"收藏","举报"};
 
-                        final AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
+                        final AlertDialog.Builder listDialog = new AlertDialog.Builder(getApplicationContext());
                         listDialog.setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -372,6 +279,7 @@ public class SQ_QA extends LazyLoadFragment {
                             }
                         });
                         listDialog.show();
+
                         //Toast.makeText(getContext(),"长按了一下",Toast.LENGTH_SHORT).show();
                         return false;
                     }
@@ -383,16 +291,15 @@ public class SQ_QA extends LazyLoadFragment {
     };
 
     private void report_item(final String id) {
-
-        final EditText et = new EditText(getContext());
-        new AlertDialog.Builder(getContext()).setTitle("举报")
+        final EditText et = new EditText(getApplicationContext());
+        new AlertDialog.Builder(getApplicationContext()).setTitle("举报")
                 .setIcon(R.drawable.report)
                 .setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String input = et.getText().toString();
                         if (input.equals("")) {
-                            Toast.makeText(getContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
                         }
                         else {
                             Report report = new Report();
@@ -403,7 +310,7 @@ public class SQ_QA extends LazyLoadFragment {
                                 @Override
                                 public void done(String s, BmobException e) {
                                     if (e==null){
-                                        Toast.makeText(getActivity(),"举报成功",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"举报成功",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -426,18 +333,20 @@ public class SQ_QA extends LazyLoadFragment {
                 @Override
                 public void done(BmobException e) {
                     if(e==null){
-                        Toast.makeText(getContext(),"收藏成功",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"收藏成功",Toast.LENGTH_SHORT).show();
                     }else{
                         // Toast.makeText(mContext,"error"+e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }else {
-            Toast.makeText(getContext(),"你已经收藏过了",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"你已经收藏过了",Toast.LENGTH_SHORT).show();
         }
 
 
 
     }
+
+
 
 }

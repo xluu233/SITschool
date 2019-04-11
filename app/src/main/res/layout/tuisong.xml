@@ -8,9 +8,9 @@
         android:id="@+id/top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red_300"
+        android:background="@drawable/background_oneself"
         android:gravity="center"
-        android:minHeight="45dp"
+        android:minHeight="40dp"
         android:orientation="horizontal">
 
 
@@ -36,8 +36,9 @@
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="1"
         android:gravity="center"
-        android:textSize="20dp"/>
+        android:textSize="20sp"/>
 
     <ImageView
         android:layout_marginTop="10dp"
@@ -45,20 +46,20 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/blue_300"/>
+        android:layout_height="1sp"
+        android:background="@color/moren"/>
 
     <ScrollView
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="13dp"/>
+            android:textSize="15sp"/>
 
     </ScrollView>
 

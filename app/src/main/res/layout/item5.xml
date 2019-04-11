@@ -8,8 +8,8 @@
     <LinearLayout
         android:id="@+id/top_title"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="40dp"
+        android:background="@drawable/background_oneself"
         android:gravity="center"
         android:orientation="horizontal">
         <TextView
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="寝室号："
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/chaxun"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="格式为:10+楼号+房间号"
-            android:textSize="15dp"/>
+            android:textSize="14sp"/>
 
     </LinearLayout>
 
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:lineSpacingMultiplier="1.25"
             android:text="Tips：查询结果为每天定时更新数据，与实际数据会有误差。如需查询实时信息请至多媒体机查询。如对查询结果有疑问，请致电一卡通中心咨询，联系电话021-60873113。"
-            android:textSize="14dp"/>
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/b"
@@ -63,7 +63,7 @@
             android:lineSpacingMultiplier="1.25"
             android:text="Tips：学校服务器不稳定，连接内网查询成功几率更高哟，若等待10s后还没有信息，请刷新重试"
             android:layout_below="@+id/a"
-            android:textSize="14dp"/>
+            android:textSize="14sp"/>
 
 
     </RelativeLayout>
@@ -87,14 +87,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="房    间    号   ： "
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/room1"
             android:layout_toRightOf="@id/room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/A"
@@ -102,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="存款余额(元)："
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/A1"
@@ -110,7 +110,7 @@
             android:layout_toRightOf="@id/A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/B"
@@ -118,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="电补余额(元)："
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/B1"
@@ -126,7 +126,7 @@
             android:layout_toRightOf="@id/B"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/C"
@@ -134,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="合计余额(元)："
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/C1"
@@ -142,7 +142,7 @@
             android:layout_toRightOf="@id/C"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/D"
@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="可用电量(度)："
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/D1"
@@ -158,27 +158,28 @@
             android:layout_toRightOf="@id/D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"/>
+            android:textSize="16sp"/>
 
     </RelativeLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_alignParentBottom= "true">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <Button
+            android:layout_alignParentBottom="true"
             android:id="@+id/send_request"
             android:layout_width="130dp"
             android:layout_height="40dp"
             android:background="@drawable/button_shape1"
             android:gravity="center"
+            android:textSize="16sp"
             android:text="查询电费"
             />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
 

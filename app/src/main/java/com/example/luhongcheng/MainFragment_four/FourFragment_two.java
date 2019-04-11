@@ -98,8 +98,9 @@ public class FourFragment_two extends Fragment {
                         break;
                     case 1:
                         //转到QQ群
-                        Intent intent1 = new Intent(getActivity(), about1.class);
-                        startActivity(intent1);
+/*                        Intent intent1 = new Intent(getActivity(), about1.class);
+                        startActivity(intent1);*/
+                        joinQQGroup("ztsdUJHGWN-PjRprGf3p9HbWjQz2yAGo");
                         break;
                     case 2:
                         //检查更新
@@ -115,7 +116,7 @@ public class FourFragment_two extends Fragment {
                         startActivity(intent4);
                         break;
                     case 5:
-//                        good_zan();
+                        good_zan();
                         //goToMarket(getContext(),"com.example.luhongcheng");
                         break;
                     case 6:
@@ -131,6 +132,13 @@ public class FourFragment_two extends Fragment {
 
         bindView();
 
+    }
+
+    private void good_zan() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        //intent.setClassName(PACKAGE_COOL_MARKET, "com.coolapk.market.activity.AppViewActivity");
+        intent.setData(Uri.parse("market://details?id=" + getActivity().getPackageName()));
+        startActivity(intent);
     }
 
     //酷市场 -- 酷安网
@@ -215,7 +223,26 @@ public class FourFragment_two extends Fragment {
     }
 
 
-
+    /****************
+     *
+     * 发起添加群流程。群号：SITschool学生助手(740771842) 的 key 为： ztsdUJHGWN-PjRprGf3p9HbWjQz2yAGo
+     * 调用 joinQQGroup(ztsdUJHGWN-PjRprGf3p9HbWjQz2yAGo) 即可发起手Q客户端申请加群 SITschool学生助手(740771842)
+     *
+     * @param key 由官网生成的key
+     * @return 返回true表示呼起手Q成功，返回fals表示呼起失败
+     ******************/
+    public boolean joinQQGroup(String key) {
+        Intent intent = new Intent();
+        intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D" + key));
+        // 此Flag可根据具体产品需要自定义，如设置，则在加群界面按返回，返回手Q主界面，不设置，按返回会返回到呼起产品界面    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        try {
+            startActivity(intent);
+            return true;
+        } catch (Exception e) {
+            Toast.makeText(getActivity(),"no QQ",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
 
 }
 

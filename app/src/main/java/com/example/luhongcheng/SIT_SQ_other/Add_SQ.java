@@ -21,13 +21,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.SQ;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.utils.CompressImageUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +39,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
+import id.zelory.compressor.Compressor;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -141,11 +142,26 @@ public class Add_SQ extends AppCompatActivity implements EasyPermissions.Permiss
 
     private void update_image() {
         final String[] list = new String[Path.size()];
+        File compressedFile = null;
 
-        //图片压缩
+/*        //图片压缩
         for (int i=0;i<Path.size();i++ ){
             list[i] = CompressImageUtil.saveBitmap2file(BitmapFactory.decodeFile(Path.get(i)),getApplicationContext());
+        }*/
+
+        for (int i=0;i<Path.size();i++ ){
+            //list[i] = CompressImageUtil.saveBitmap2file(BitmapFactory.decodeFile(Path.get(i)),getApplicationContext());
+            File file = new File(Path.get(i));
+
+            try {
+                compressedFile = new Compressor(this).compressToFile(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            list[i] = compressedFile.getAbsolutePath();
         }
+
 
         BmobFile.uploadBatch(list, new UploadBatchListener() {
             @Override
@@ -161,6 +177,9 @@ public class Add_SQ extends AppCompatActivity implements EasyPermissions.Permiss
             @Override
             public void onError(int statuscode, String errormsg) {
                 Log.d("反馈错误码:",statuscode +",错误描述："+errormsg);
+                Toast.makeText(getApplicationContext(),"上传失败",Toast.LENGTH_SHORT).show();
+                status_layout.setVisibility(View.INVISIBLE);
+                pic_layout.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -176,6 +195,8 @@ public class Add_SQ extends AppCompatActivity implements EasyPermissions.Permiss
                 status_text.setText("上传中："+totalPercent+"%");
             }
         });
+
+
 
     }
 
@@ -298,7 +319,6 @@ public class Add_SQ extends AppCompatActivity implements EasyPermissions.Permiss
         choicePhotoWrapper();
     }
 
-
     @Override
     public void onClickDeleteNinePhotoItem(BGASortableNinePhotoLayout sortableNinePhotoLayout, View view, int position, String model, ArrayList<String> models) {
         Photos.removeItem(position);
@@ -318,7 +338,7 @@ public class Add_SQ extends AppCompatActivity implements EasyPermissions.Permiss
 
     @Override
     public void onNinePhotoItemExchanged(BGASortableNinePhotoLayout sortableNinePhotoLayout, int fromPosition, int toPosition, ArrayList<String> models) {
-        Toast.makeText(this, "排序发生变化", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "排序发生变化", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -357,6 +377,7 @@ public class Add_SQ extends AppCompatActivity implements EasyPermissions.Permiss
             Photos.setData(BGAPhotoPickerPreviewActivity.getSelectedPhotos(data));
             Path = BGAPhotoPickerActivity.getSelectedPhotos(data);
         }
+
 
 
     }

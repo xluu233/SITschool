@@ -118,7 +118,25 @@ public class WebDisplay extends BaseStatusBarActivity {
                 }
 
             });
-        } else {
+        } else if (newsUrl.contains("static.owspace.com")){
+            news.setWebViewClient(new WebViewClient(){
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    super.onPageStarted(view, url, favicon);
+                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    super.onPageFinished(view, url);
+                    String javascript =  "javascript:function hideOther() {" +
+                            "document.getElementsByClassName('goapp')[0].remove(); }";
+
+                    view.loadUrl(javascript);
+                    view.loadUrl("javascript:hideOther();");
+                }
+
+            });
+        }else {
             news.setWebViewClient(new WebViewClient());
         }
         news.setWebChromeClient(new WebChromeClient());
