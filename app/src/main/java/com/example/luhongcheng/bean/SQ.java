@@ -10,13 +10,23 @@ public class SQ {
         this.item_id = item_id;
         this.my_likes = my_likes;
         this.my_collection = my_collection;
-        this.nickname = nickname;
-        this.qm = qm;
-        this.icon_url = icon_url;
         this.time = time;
         this.my_guanzhu = my_GuanZhu;
 
     }
+
+    private String zan_nums;
+    private String nickname;
+    private String icon_url;
+    private String qm;
+    private String content;
+    private String item_id;
+    private String author_id;
+    private String time;
+    private List<String> my_guanzhu;
+    private List<String> my_collection;
+    private List<String> my_likes;
+    private List<String> url;
 
     public List<String> getMy_guanzhu() {
         return my_guanzhu;
@@ -26,8 +36,6 @@ public class SQ {
         this.my_guanzhu = my_guanzhu;
     }
 
-    List<String> my_guanzhu;
-
     public String getZan_nums() {
         return zan_nums;
     }
@@ -35,8 +43,6 @@ public class SQ {
     public void setZan_nums(String zan_nums) {
         this.zan_nums = zan_nums;
     }
-
-    String zan_nums;
 
     public String getNickname() {
         return nickname;
@@ -46,8 +52,6 @@ public class SQ {
         this.nickname = nickname;
     }
 
-    String nickname;
-
     public String getQm() {
         return qm;
     }
@@ -55,8 +59,6 @@ public class SQ {
     public void setQm(String qm) {
         this.qm = qm;
     }
-
-    String qm;
 
     public String getIcon_url() {
         return icon_url;
@@ -66,8 +68,6 @@ public class SQ {
         this.icon_url = icon_url;
     }
 
-    String icon_url;
-
     public List<String> getMy_collection() {
         return my_collection;
     }
@@ -76,7 +76,6 @@ public class SQ {
         this.my_collection = my_collection;
     }
 
-    List<String> my_collection;
     public String getAuthor_id() {
         return author_id;
     }
@@ -84,8 +83,6 @@ public class SQ {
     public void setAuthor_id(String author_id) {
         this.author_id = author_id;
     }
-
-    String author_id;
 
     public String getItem_id() {
         return item_id;
@@ -95,8 +92,6 @@ public class SQ {
         this.item_id = item_id;
     }
 
-    String item_id;
-
     public String getTime() {
         return time;
     }
@@ -104,8 +99,6 @@ public class SQ {
     public void setTime(String time) {
         this.time = time;
     }
-
-    String time;
 
     public String getContent() {
         return content;
@@ -115,8 +108,6 @@ public class SQ {
         this.content = content;
     }
 
-    String content;
-
     public List<String> getUrl() {
         return url;
     }
@@ -124,8 +115,6 @@ public class SQ {
     public void setUrl(List<String> url) {
         this.url = url;
     }
-
-    List<String> url;
 
     public List<String> getMy_likes() {
         return my_likes;
@@ -135,7 +124,7 @@ public class SQ {
         this.my_likes = my_likes;
     }
 
-    List<String> my_likes;
+
 
 
 }

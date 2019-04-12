@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,9 +40,8 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
     private List<QA> mList;
     protected LayoutInflater inflater;
     private String personID; //用户ID
+    private List<String> user_Likes = new ArrayList<>();
 
-    List<String> user_Likes = new ArrayList<>();
-    boolean hadzan = false;
 
     public QA_Adapter(Context context, List<QA> list) {
         mContext = context;
@@ -54,8 +54,9 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
     }
 
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(mContext).inflate(R.layout.sq_qa_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(convertView);
         return viewHolder;
@@ -64,7 +65,7 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
 
     @SuppressLint("ResourceType")
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         //holder.gridview.setUrlList(mList.get(position).getUrl());
         holder.title.setText(mList.get(position).getTitle());
         holder.content.setText(mList.get(position).getContent());
@@ -76,7 +77,6 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
 
         if (user_Likes != null){
             if (user_Likes.contains(objectId)){
-                hadzan = true;
                 holder.zan.setBackgroundResource(R.drawable.sq_zan_2);
             }
         }
@@ -161,7 +161,7 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
         });
 
 
-        BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+        BmobQuery<UserInfo> query = new BmobQuery<>();
         query.getObject(mList.get(position).getAuthor_id(), new QueryListener<UserInfo>() {
             @Override
             public void done(UserInfo userInfo, BmobException e) {
@@ -232,11 +232,7 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
         p2.update(personID, new UpdateListener() {
             @Override
             public void done(BmobException e) {
-                if(e==null){
 
-                }else{
-                    //Toast.makeText(mContext,"error"+e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }

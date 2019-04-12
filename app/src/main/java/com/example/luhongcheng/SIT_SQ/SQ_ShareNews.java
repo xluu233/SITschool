@@ -6,22 +6,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.luhongcheng.Adapter.ShareNews_Adapter;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.LazyLoadFragment;
@@ -31,10 +29,9 @@ import com.example.luhongcheng.bean.HotNews;
 import com.example.luhongcheng.utils.ItemClickSupport;
 import com.example.luhongcheng.WebDisplay;
 import com.github.clans.fab.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -43,11 +40,8 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class SQ_ShareNews extends LazyLoadFragment {
 
-    public SQ_ShareNews(){
-        Context mContext = getActivity();
-    }
-    public static SQ_ShareNews newInstance(Context context) {
-        Context mContext = context;
+    public SQ_ShareNews(){}
+    public static SQ_ShareNews newInstance() {
         return new SQ_ShareNews();
     }
 
@@ -66,23 +60,25 @@ public class SQ_ShareNews extends LazyLoadFragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void lazyLoad() {
         String message = "FragmentNEWS" + (isInit ? "已经初始并已经显示给用户可以加载数据" : "没有初始化不能加载数据")+">>>>>>>>>>>>>>>>>>>";
         Log.d(TAG, message);
 
-        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
+        SharedPreferences sp= Objects.requireNonNull(getActivity()).getSharedPreferences("personID",0);
         person_id =  sp.getString("ID","");
         if (mlist.size() == 0){
             getArticle();
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("ResourceAsColor")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        recyclerView = getActivity().findViewById(R.id.my_news);
+        recyclerView = Objects.requireNonNull(getActivity()).findViewById(R.id.my_news);
         refresh = getActivity().findViewById(R.id.news_refresh);
         choose_box = getActivity().findViewById(R.id.share_news);
         layoutInit=true;
@@ -209,9 +205,10 @@ public class SQ_ShareNews extends LazyLoadFragment {
 
 
                 ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
-                        Vibrator vibrator = (Vibrator)getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                        Vibrator vibrator = (Vibrator) Objects.requireNonNull(getActivity()).getSystemService(Context.VIBRATOR_SERVICE);
                         vibrator.vibrate(50);
 
                         final String[] items = {"举报"};

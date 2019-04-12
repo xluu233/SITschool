@@ -61,7 +61,7 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
 
 
     private List<String> my_guanzhu;
-    private List<String> user_Likes = new ArrayList<>();
+    private List<String> my_Likes = new ArrayList<>();
     private List<String> my_collection;
     private boolean hadZan;
 
@@ -104,10 +104,10 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
         }
 
         Log.d("ss-time:",mList.get(position).getTime());
-        user_Likes = mList.get(position).getMy_likes();
+        my_Likes = mList.get(position).getMy_likes();
         author_id = mList.get(position).getAuthor_id();
 
-        if (user_Likes.contains(mList.get(position).getItem_id())){
+        if (my_Likes.contains(mList.get(position).getItem_id())){
             hadZan = true;
             holder.zan.setBackgroundResource(R.drawable.sq_zan_2);
         }else {
@@ -150,7 +150,7 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
         holder.zan_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!user_Likes.contains(mList.get(position).getItem_id())){
+                if (!my_Likes.contains(mList.get(position).getItem_id())){
                     UserInfo xixi = new UserInfo();
                     xixi.setObjectId(personID);
 
@@ -168,7 +168,7 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
                             if(e==null){
                                 Toast.makeText(mContext,"赞",Toast.LENGTH_SHORT).show();
                                 holder.zan.setBackgroundResource(R.drawable.sq_zan_2);
-                                user_Likes.add(mList.get(position).getItem_id());
+                                my_Likes.add(mList.get(position).getItem_id());
                                 addZan();
                                 Log.i("bmob","多对多关联添加成功");
                             }else{
@@ -198,6 +198,9 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
                     }
                 });
 
+/*                my_guanzhu = mList.get(position).getMy_guanzhu();
+                my_collection = mList.get(position).getMy_collection();
+                showPopWindows(v,mList.get(position).getAuthor_id(),mList.get(position).getItem_id());*/
 
             }
         });
@@ -393,7 +396,7 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
 
     private void addZan() {
         UserInfo p2 = new UserInfo();
-        p2.setValue("My_Likes",user_Likes);
+        p2.setValue("My_Likes",my_Likes);
         p2.update(personID, new UpdateListener() {
             @Override
             public void done(BmobException e) {

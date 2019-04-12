@@ -1,26 +1,23 @@
 package com.example.luhongcheng.SIT_SQ;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,15 +34,12 @@ import com.example.luhongcheng.utils.getRAM;
 import com.github.clans.fab.FloatingActionButton;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
@@ -56,37 +50,33 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class SQ_BigSit extends LazyLoadFragment {
     public SQ_BigSit(){}
-    public static SQ_BigSit newInstance(Context context) {
+    public static SQ_BigSit newInstance() {
         return new SQ_BigSit();
     }
-
 
 
     RecyclerView recyclerView;
     FloatingActionButton button;
     SmartRefreshLayout refreshLayout;
 
-    private RecyclerView.LayoutManager mLayoutManager;
-    private SQ_Adapter mAdapter;
+
     private List<com.example.luhongcheng.bean.SQ> mList = new ArrayList<>();
     private List<String> url = new ArrayList<>();
 
     private List<String> my_collection = new ArrayList<>();//我的收藏集合
     private List<String> my_Likes = new ArrayList<>(); //我的喜欢合集
-    private List<String> my_GuanZhu = new ArrayList<>();//我的关注
+    //private List<String> my_GuanZhu = new ArrayList<>();//我的关注
 
     String person_id;
     String author_id;
-    String nickname,qm,icon_url;
+    //String nickname,qm,icon_url;
 
     String content;
     String time;
     String item_id;
 
-    int position = 5;
     boolean layoutInit = false;
     boolean canfresh = true;
-
 
 /*
     @Override
@@ -102,12 +92,13 @@ public class SQ_BigSit extends LazyLoadFragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void lazyLoad() {
         String message = "FragmentSQ" + (isInit ? "已经初始并已经显示给用户可以加载数据" : "没有初始化不能加载数据")+">>>>>>>>>>>>>>>>>>>";
         Log.d(TAG, message);
 
-        SharedPreferences sp=getActivity().getSharedPreferences("personID",0);
+        SharedPreferences sp= Objects.requireNonNull(getActivity()).getSharedPreferences("personID",0);
         person_id =  sp.getString("ID","");
         if (mList.size() == 0){
             get_MyCollection();
@@ -116,16 +107,16 @@ public class SQ_BigSit extends LazyLoadFragment {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint({"ClickableViewAccessibility", "ResourceAsColor"})
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        button = getActivity().findViewById(R.id.sit_add_news);
+        button = Objects.requireNonNull(getActivity()).findViewById(R.id.sit_add_news);
         recyclerView = getActivity().findViewById(R.id.sit_recycler);
         refreshLayout = getActivity().findViewById(R.id.sit_refresh);
         layoutInit = true;
         onClick();
-
         //get_MyCollection();
 
     }
@@ -133,9 +124,10 @@ public class SQ_BigSit extends LazyLoadFragment {
     private void onClick() {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(final RefreshLayout refreshlayout) {
+            public void onRefresh(@NonNull final RefreshLayout refreshlayout) {
                 if (canfresh){
                     new Thread(new Runnable() {
+                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                         @Override
                         public void run() {
                             getDate();
@@ -211,26 +203,29 @@ public class SQ_BigSit extends LazyLoadFragment {
         });*/
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void get_MyCollection() {
         if (person_id.length() == 0){
             //Toast.makeText(getActivity(),"没有获取到ID",Toast.LENGTH_SHORT).show();
-            SharedPreferences sp=getActivity().getSharedPreferences("userid",0);
+            SharedPreferences sp= Objects.requireNonNull(getActivity()).getSharedPreferences("userid",0);
             final String username = sp.getString("username","");
 
             Thread collection = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
-                    query2.addWhereContains("ID",username);
+                    BmobQuery<UserInfo> query2 = new BmobQuery<>();
+                    if (username != null) {
+                        query2.addWhereContains("ID",username);
+                    }
                     query2.findObjects(new FindListener<UserInfo>() {
                         @Override
                         public void done(List<UserInfo> list, BmobException e) {
                             if (e == null) {
                                 person_id = list.get(0).getObjectId();
 
-                                SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
+                                SharedPreferences.Editor editor= Objects.requireNonNull(getActivity()).getSharedPreferences("personID",0).edit();
                                 editor.putString("ID",person_id);
-                                editor.commit();
+                                editor.apply();
 
 /*                                if (list.get(0).getMy_Collection() != null){
                                     my_collection = list.get(0).getMy_Collection();
@@ -242,7 +237,7 @@ public class SQ_BigSit extends LazyLoadFragment {
 
                                 my_collection = list.get(0).getMy_Collection();
                                 my_Likes = list.get(0).getMy_Likes();
-                                my_GuanZhu = list.get(0).getGuanzhu();
+                                //my_GuanZhu = list.get(0).getGuanzhu();
 
                                 getDate();
 
@@ -261,7 +256,7 @@ public class SQ_BigSit extends LazyLoadFragment {
             Thread collection = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
+                    BmobQuery<UserInfo> query2 = new BmobQuery<>();
                     query2.getObject(person_id, new QueryListener<UserInfo>() {
                         @Override
                         public void done(UserInfo object, BmobException e) {
@@ -292,10 +287,11 @@ public class SQ_BigSit extends LazyLoadFragment {
 
     //加载条数
     int loadnum = 10;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getDate() {
         mList.clear();
-        String ram = getRAM.showRAMInfo(getContext()).replace(",","");
-        if (ram!=null){
+        String ram = getRAM.showRAMInfo(Objects.requireNonNull(getContext())).replace(",","");
+        if (ram.length() != 0){
             if (Integer.valueOf(ram)>5000){
                 loadnum = 20;
             }else if (Integer.valueOf(ram)>7000){
@@ -305,7 +301,7 @@ public class SQ_BigSit extends LazyLoadFragment {
         Thread qa = new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<SQ> query = new BmobQuery<SQ>();
+                BmobQuery<SQ> query = new BmobQuery<>();
                 query.order("-createdAt");
                 //query.setSkip(10);
                 query.setLimit(loadnum);
@@ -349,11 +345,10 @@ public class SQ_BigSit extends LazyLoadFragment {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
-                mLayoutManager = new LinearLayoutManager(getActivity());
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(mLayoutManager);
 
-
-                mAdapter = new SQ_Adapter(getContext(),mList);
+                SQ_Adapter mAdapter = new SQ_Adapter(getContext(),mList);
                 recyclerView.setAdapter(mAdapter);
 
 
@@ -372,9 +367,10 @@ public class SQ_BigSit extends LazyLoadFragment {
 
 
                 ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
-                        Vibrator vibrator = (Vibrator)getActivity().getSystemService(getActivity().VIBRATOR_SERVICE);
+                        Vibrator vibrator = (Vibrator) Objects.requireNonNull(getActivity()).getSystemService(Context.VIBRATOR_SERVICE);
                         vibrator.vibrate(50);
 
                         /*连续震动

@@ -4,13 +4,11 @@ package com.example.luhongcheng.OAitem;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-
 import com.example.luhongcheng.OA.EightOAFragment;
 import com.example.luhongcheng.OA.FifthOAFragment;
 import com.example.luhongcheng.OA.FourOAFragment;
@@ -19,10 +17,8 @@ import com.example.luhongcheng.OA.SixOAFragment;
 import com.example.luhongcheng.OA.ThirdOAFragment;
 import com.example.luhongcheng.R;
 import com.flyco.tablayout.SlidingTabLayout;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -94,11 +90,11 @@ public class item3 extends AppCompatActivity {
 
 					cookies = headers.values("Set-Cookie");
 					//Log.d("cookie信息", "onResponse-size: " + cookies);
-
 					String[] strs = cookies.toArray(new String[cookies.size()]);
 					for (int i = 0; i < strs.length; ++i) {
 						str = strs[i];
 					}
+
 					save(str);
 
 					Request request = new Request.Builder()
@@ -106,13 +102,16 @@ public class item3 extends AppCompatActivity {
 							.header("Accept", "text/html, application/xhtml+xml, image/jxr, */*")
 							.header("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5")
 							.header("Connection", "Keep-Alive")
-							.header("Cookie", str)
+							.header("Cookie", cookies.toString())
 							.header("Host", "myportal.sit.edu.cn")
 							.header("Referer", "http://myportal.sit.edu.cn/userPasswordValidate.portal")
 							.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
 							.build();
 					Response response = client.newCall(request).execute();
-					String responseData = response.body().string();
+					String responseData = null;
+					if (response.body() != null) {
+						responseData = response.body().string();
+					}
 					getData(responseData);
 
 				} catch (Exception e) {
@@ -125,13 +124,13 @@ public class item3 extends AppCompatActivity {
 	private void getData(String responseData) {
 		SharedPreferences.Editor editor=getSharedPreferences("OAData",0).edit();
 		editor.putString("data",responseData);
-		editor.commit();
+		editor.apply();
 	}
 
 	private void save(String str) {
 		SharedPreferences.Editor editor=getSharedPreferences("OACookie",0).edit();
 		editor.putString("cookie",str);
-		editor.commit();
+		editor.apply();
 	}
 
 

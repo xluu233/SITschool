@@ -1,20 +1,27 @@
 package com.example.luhongcheng.SIT_SQ_other;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,18 +29,24 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.QA_Comment;
+import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.SQ;
 import com.example.luhongcheng.Bmob_bean.SQ_Comment;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
+import com.example.luhongcheng.MainFragmentActivity;
 import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.View.NineGridTestLayout;
-import com.example.luhongcheng.View.NoScrollListView;
 import com.example.luhongcheng.bean.PingLun;
 import com.example.luhongcheng.utils.BaseStatusBarActivity;
+import com.example.luhongcheng.utils.ItemClickSupport;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
@@ -53,7 +66,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
 
     private List<String> urllist = new ArrayList<>(); //图片地址合集
-    private List<String> my_Likes = new ArrayList<>(); //我的喜欢合集
+    //private List<String> my_Likes = new ArrayList<>(); //我的喜欢合集
     private List<String> my_guanzhu = new ArrayList<>(); //我的关注合集
 
     CircleImageView icon;
@@ -61,13 +74,15 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
     TextView ss_title,ss_content,ss_time,guanzhu;
     NineGridTestLayout gridview;
-    NoScrollListView listView;
+    RecyclerView recyclerView;
+    SmartRefreshLayout refreshLayout;
     EditText msg;
-    ImageView send,div2;
+    ImageView send;
     Toolbar toolbar;
 
     List<PingLun> comment_list = new ArrayList<>();
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.sq_second_layout);
@@ -84,12 +99,11 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
         if (From_TAG.equals("QA")){
             getDateFromQA(); //QA的信息
-            get_QAComment();
+            //get_QAComment();
         }else if (From_TAG.equals("SQ")){
             ss_title.setVisibility(View.GONE);
-            div2.setVisibility(View.GONE);
             getDateFromSQ(); //SQ的信息
-            get_SQComment();
+            //get_SQComment();
         }
 
         if (author_id.equals(my_id)){
@@ -97,7 +111,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         }
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +121,21 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
     }
 
 
+    private void initView() {
+        icon = findViewById(R.id.icon);
+        nickname = findViewById(R.id.nickname);
+        qm = findViewById(R.id.qm);
+        ss_title = findViewById(R.id.title);
+        ss_content = findViewById(R.id.content);
+        ss_time = findViewById(R.id.time);
+        guanzhu = findViewById(R.id.secondlayout_guanzhu);
+        gridview = findViewById(R.id.layout_nine_grid);
+        recyclerView = findViewById(R.id.comment_recy);
+        refreshLayout = findViewById(R.id.item_refresh);
+        msg = findViewById(R.id.msg);
+        send = findViewById(R.id.send_msg);
+        toolbar = findViewById(R.id.toolbar);
+    }
 
 
     private void onClick() {
@@ -170,25 +199,31 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
             }
         });
+
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshlayout) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //getDate();
+                        try {
+                            Thread.sleep(1000);
+                            refreshlayout.finishRefresh(2000/*,false*/);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }).start();
+
+
+            }
+        });
     }
 
-    private void initView() {
-        icon = findViewById(R.id.icon);
-        nickname = findViewById(R.id.nickname);
-        qm = findViewById(R.id.qm);
-        ss_title = findViewById(R.id.title);
-        ss_content = findViewById(R.id.content);
-        ss_time = findViewById(R.id.time);
-        guanzhu = findViewById(R.id.secondlayout_guanzhu);
-        gridview = findViewById(R.id.layout_nine_grid);
-        listView = findViewById(R.id.comment_listview);
-        msg = findViewById(R.id.msg);
-        send = findViewById(R.id.send_msg);
-        toolbar = findViewById(R.id.toolbar);
-        div2 = findViewById(R.id.div2);
-
-
-    }
 
     //当前作者的信息
     private void get_UserInfo() {
@@ -196,7 +231,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
             Thread collection = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
+                    BmobQuery<UserInfo> query2 = new BmobQuery<>();
                     query2.getObject(author_id, new QueryListener<UserInfo>() {
                         @Override
                         public void done(UserInfo userInfo, BmobException e) {
@@ -219,8 +254,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
                                 get_MyInfo(); //我的信息
 
-                            } else {
-                                //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                             }
                         }
                     });
@@ -237,22 +270,20 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
             Thread collection_info = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
+                    BmobQuery<UserInfo> query2 = new BmobQuery<>();
                     query2.getObject(my_id, new QueryListener<UserInfo>() {
                         @Override
                         public void done(UserInfo userInfo, BmobException e) {
                             if (e == null) {
 
                                 my_guanzhu = userInfo.getGuanzhu();
-                                my_Likes = userInfo.getMy_Likes();
+                                //my_Likes = userInfo.getMy_Likes();
 
                                 if (my_guanzhu.contains(author_id)){
                                     guanzhu.setText("已关注");
                                     guanzhu.setClickable(false);
                                 }
 
-                            } else {
-                                //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                             }
                         }
                     });
@@ -292,7 +323,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         Thread qa_second = new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<SQ> query = new BmobQuery<SQ>();
+                BmobQuery<SQ> query = new BmobQuery<>();
                 query.getObject(item_id, new QueryListener<SQ>() {
                     @Override
                     public void done(SQ qa, BmobException e) {
@@ -310,6 +341,8 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         if (urllist != null){
                             gridview.setUrlList(urllist);
                         }
+
+                        get_SQComment();
                     }
                 });
             }
@@ -322,7 +355,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         Thread qa_second = new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<QA> query = new BmobQuery<QA>();
+                BmobQuery<QA> query = new BmobQuery<>();
                 query.getObject(item_id, new QueryListener<QA>() {
                     @Override
                     public void done(QA qa, BmobException e) {
@@ -344,6 +377,8 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         if (urllist != null){
                             gridview.setUrlList(urllist);
                         }
+
+                        get_QAComment();
                     }
                 });
             }
@@ -353,7 +388,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
 
     private void get_QAComment() {
-        BmobQuery<QA_Comment> query = new BmobQuery<QA_Comment>();
+        BmobQuery<QA_Comment> query = new BmobQuery<>();
         //用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
         QA post = new QA();
         post.setObjectId(item_id);
@@ -386,7 +421,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
     }
 
     private void get_SQComment() {
-        BmobQuery<SQ_Comment> query = new BmobQuery<SQ_Comment>();
+        BmobQuery<SQ_Comment> query = new BmobQuery<>();
         //用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
         SQ post = new SQ();
         post.setObjectId(item_id);
@@ -424,56 +459,71 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
-                CommentAdaper adapter = new CommentAdaper(comment_list);
-                listView.setAdapter(adapter);
-                setListViewHeightBasedOnChildren(listView);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(mLayoutManager);
+                CommentRecyAdapter adapter = new CommentRecyAdapter(getApplicationContext(),comment_list);
+                recyclerView.setAdapter(adapter);
+
+                ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        //回复
+                    }
+                });
+
+                ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
+                        Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+                        vibrator.vibrate(50);
+                        final String[] items = {"举报"};
+                        final AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
+                        listDialog.setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 0:
+                                        report_item(comment_list.get(position).getContent());
+                                        break;
+                                }
+                            }
+                        });
+                        listDialog.show();
+                        return false;
+                    }
+                });
+
+
             }
         }
     };
 
-    public class CommentAdaper extends BaseAdapter {
+    private class CommentRecyAdapter extends RecyclerView.Adapter<CommentRecyAdapter.ViewHolder> {
+
+        private Context mContext;
         private List<PingLun> list;
-        public CommentAdaper(List<PingLun> list) {
-            super();
+
+        private CommentRecyAdapter(Context context, List<PingLun> list){
+            this.mContext = context;
             this.list = list;
         }
 
+
+        @NonNull
         @Override
-        public int getCount() {
-            return list.size();
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View convertView = LayoutInflater.from(mContext).inflate(R.layout.pinglun_item, viewGroup, false);
+            CommentRecyAdapter.ViewHolder viewHolder = new CommentRecyAdapter.ViewHolder(convertView);
+            return viewHolder;
         }
 
         @Override
-        public Object getItem(int position) {
-            return list.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
-            if(convertView==null){
-                convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.pinglun_item, null);
-                holder = new ViewHolder();
-                holder.content =(TextView) convertView.findViewById(R.id.content);
-                holder.nickname =(TextView)convertView.findViewById(R.id.nickname);
-                holder.icon = convertView.findViewById(R.id.comment_icon);
-                holder.time = convertView.findViewById(R.id.time);
-
-                convertView.setTag(holder);
-            }else{
-                holder = (ViewHolder) convertView.getTag();
-            }
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             holder.content.setText(list.get(position).getContent());
             holder.time.setText(position+1+"楼"+" · "+list.get(position).getTime());
 
-
-            BmobQuery<UserInfo> bmobQuery = new BmobQuery<UserInfo>();
-            final ViewHolder finalHolder = holder;
+            BmobQuery<UserInfo> bmobQuery = new BmobQuery<>();
+            final CommentRecyAdapter.ViewHolder finalHolder = holder;
             bmobQuery.getObject(list.get(position).getAuthor_id(), new QueryListener<UserInfo>() {
                 @Override
                 public void done(UserInfo userInfo, BmobException e) {
@@ -487,61 +537,81 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                                 .apply(new RequestOptions().fitCenter())
                                 .into(finalHolder.icon);
 
-                    }else{
-
                     }
                 }
             });
 
-
-
-/*            Glide.with(getContext())
-                    .load(list.get(position).getIcon_url())
-                    .apply(new RequestOptions().placeholder(R.drawable.loading))
-                    .apply(new RequestOptions() .error(R.drawable.error))
-                    .apply(new RequestOptions().fitCenter())
-                    .into(holder.icon);*/
-
-
-            return convertView;
         }
 
-        class ViewHolder {
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
             CircleImageView icon;
             TextView nickname,content,time;
 
-        }
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
 
+                icon = itemView.findViewById(R.id.comment_icon);
+                nickname = itemView.findViewById(R.id.nickname);
+                content = itemView.findViewById(R.id.content);
+                time = itemView.findViewById(R.id.time);
+            }
+        }
     }
+
+
 
     @Override
     protected int getStatusBarColor() {
-        return getResources().getColor(R.color.white);
+        return getResources().getColor(R.color.colorAccent);
     }
 
 
-    public void setListViewHeightBasedOnChildren(ListView list) {
-        // 获取ListView对应的Adapter
-        CommentAdaper commentAdaper = (CommentAdaper) list.getAdapter();
-        if (commentAdaper == null) {
-            return;
-        }
+    private void report_item(final String id) {
 
-        int totalHeight = 0;
-        for (int i = 0, len = commentAdaper.getCount(); i < len; i++) {
-            // listAdapter.getCount()返回数据项的数目
-            View listItem = commentAdaper.getView(i, null, listView);
-            // 计算子项View 的宽高
-            listItem.measure(0, 0);
-            // 统计所有子项的总高度
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight+ (listView.getDividerHeight() * (commentAdaper.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        listView.setLayoutParams(params);
+        final EditText et = new EditText(getContext());
+        new AlertDialog.Builder(getContext()).setTitle("举报")
+                .setIcon(R.drawable.report)
+                .setView(et)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String input = et.getText().toString();
+                        if (input.equals("")) {
+                            Toast.makeText(getContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Report report = new Report();
+                            report.setItem_id(id);
+                            report.setTitle(input);
+                            report.setUser_id(my_id);
+                            report.save(new SaveListener<String>() {
+                                @Override
+                                public void done(String s, BmobException e) {
+                                    if (e==null){
+                                        Toast.makeText(getApplicationContext(),"举报成功",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
     }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            this.finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
 }

@@ -9,21 +9,33 @@
 
     <ImageView
         android:id="@+id/div"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="40dp"
         android:background="@color/moren_back"
         android:layout_width="match_parent"
         android:layout_height="0.3sp" />
 
-    <ScrollView
-        android:layout_below="@+id/div"
-        android:layout_marginBottom="45dp"
-        android:scrollbars="none"
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/item_refresh"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:srlPrimaryColor="@color/white"
+        app:srlAccentColor="@color/moren"
+        app:srlEnablePreviewInEditMode="true">
+        <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+        <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:background="@color/white"
                 android:orientation="vertical"
@@ -79,7 +91,7 @@
                         android:id="@+id/secondlayout_guanzhu"
                         android:text="关注"
                         android:gravity="center"
-                        android:textSize="12dp"
+                        android:textSize="13sp"
                         android:layout_marginRight="5dp"
                         android:textColor="@color/white"
                         android:layout_marginTop="2dp"
@@ -95,7 +107,7 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
@@ -108,15 +120,8 @@
                         android:textStyle="bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:text="title:" />
 
-                    <ImageView
-                        android:id="@+id/div2"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/moren_back"
-                        android:layout_width="match_parent"
-                        android:layout_height="0.3sp" />
 
                     <TextView
                         android:id="@+id/content"
@@ -150,39 +155,22 @@
 
             </LinearLayout>
 
+
             <ImageView
                 android:background="@color/moren_back"
                 android:layout_width="match_parent"
-                android:layout_height="10sp" />
+                android:layout_height="5sp" />
 
-            <RelativeLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/comment_recy"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_marginTop="15dp"
-                    android:gravity="center"
-                    android:text="暂无评论信息"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <com.example.luhongcheng.View.NoScrollListView
-                    android:id="@+id/comment_listview"
-                    android:scrollbars="none"
-                    android:background="@color/white"
-                    android:divider="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </com.example.luhongcheng.View.NoScrollListView>
-
-            </RelativeLayout>
-
+            </android.support.v7.widget.RecyclerView>
 
 
         </LinearLayout>
-    </ScrollView>
-
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
 
@@ -197,11 +185,12 @@
             android:background="@color/bugray_300"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="40dp">
 
             <TextView
                 android:layout_marginLeft="10dp"
                 android:text="评论："
+                android:textSize="13sp"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
@@ -212,8 +201,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/textshape3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="11dp"
+                android:layout_height="30dp"
+                android:textSize="13sp"
                 />
 
             <ImageView

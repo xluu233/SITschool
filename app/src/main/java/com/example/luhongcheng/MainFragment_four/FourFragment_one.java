@@ -92,22 +92,18 @@ public class FourFragment_one extends Fragment {
                 Fruit fruit = fruitList.get(position);
                 switch (position) {
                     case 0:
+                        //我的说说
                         break;
                     case 1:
-                        Intent intent2 = new Intent(getActivity(),MyLove.class);
-                        startActivity(intent2);
+                        //我的问答
                         break;
                     case 2:
-                        //Intent intent3 = new Intent(OneSelf.this,MySs.class);
-                        //startActivity(intent3);
+                        //我的收藏
                         break;
                     case 3:
-                        //Intent intent4 = new Intent(OneSelf.this,MySs.class);
-                        //startActivity(intent4);
-                        break;
-                    case 4:
-                        // Intent intent5 = new Intent(OneSelf.this,MySs.class);
-                        //startActivity(intent5);
+                        //好友列表
+                        Intent intent2 = new Intent(getActivity(),MyLove.class);
+                        startActivity(intent2);
                         break;
                     default:
                         break;
@@ -300,10 +296,14 @@ public class FourFragment_one extends Fragment {
     }
 
     private void initFruits() {
-        Fruit pear = new Fruit("我的说说", R.drawable.personcenter);
-        fruitList.add(pear);
-        Fruit apple = new Fruit("好友列表", R.drawable.like);
-        fruitList.add(apple);
+        Fruit x1 = new Fruit("我的说说",R.drawable.friend);
+        Fruit x2 = new Fruit("我的问答", R.drawable.question);
+        Fruit x3 = new Fruit("我的收藏", R.drawable.collection);
+        Fruit x4 = new Fruit("好友列表", R.drawable.ss);
+        fruitList.add(x1);
+        fruitList.add(x2);
+        fruitList.add(x3);
+        fruitList.add(x4);
 
     }
 

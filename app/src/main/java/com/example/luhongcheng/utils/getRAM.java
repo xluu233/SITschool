@@ -4,6 +4,8 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.luhongcheng.SIT_SQ.SQ_BigSit;
+
 import java.text.DecimalFormat;
 
 public class getRAM {
