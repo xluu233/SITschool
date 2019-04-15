@@ -139,4 +139,14 @@ public class UserInfo extends BmobObject {
     }
 
     List<String> My_Likes;//我的喜欢
+
+    public String getJifen() {
+        return jifen;
+    }
+
+    public void setJifen(String jifen) {
+        this.jifen = jifen;
+    }
+
+    String jifen;
 }

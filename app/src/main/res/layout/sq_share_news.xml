@@ -46,4 +46,20 @@
         android:src="@drawable/fab_add" />
 
 
+    <LinearLayout
+        android:id="@+id/share_news_loading"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/share_news_image_loading"
+            android:src="@drawable/loading2"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+
+    </LinearLayout>
+
 </RelativeLayout>

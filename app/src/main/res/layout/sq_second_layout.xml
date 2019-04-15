@@ -1,177 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/moren_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include layout="@layout/toolbar"/>
 
-    <ImageView
-        android:id="@+id/div"
+    <ScrollView
         android:layout_marginTop="40dp"
-        android:background="@color/moren_back"
-        android:layout_width="match_parent"
-        android:layout_height="0.3sp" />
-
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/item_refresh"
         android:layout_marginBottom="40dp"
-        android:layout_marginTop="40dp"
+        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        app:srlPrimaryColor="@color/white"
-        app:srlAccentColor="@color/moren"
-        app:srlEnablePreviewInEditMode="true">
-        <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
-        <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_height="match_parent">
 
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/item_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/moren_back"
+            app:srlPrimaryColor="@color/moren_back"
+            app:srlAccentColor="@color/moren"
+            app:srlEnablePreviewInEditMode="true">
+            <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+            <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <LinearLayout
-                android:background="@color/white"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <RelativeLayout
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/textshape9"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <com.example.luhongcheng.View.CircleImageView
-                        android:id="@+id/icon"
-                        android:layout_marginLeft="5dp"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
-
-                    <LinearLayout
-                        android:layout_toRightOf="@+id/icon"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="100dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp">
-
-                        <TextView
-                            android:id="@+id/nickname"
-                            android:layout_weight="1"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp" />
-
-                        <TextView
-                            android:id="@+id/qm"
-                            android:layout_weight="1"
-                            android:textSize="10dp"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/secondlayout_guanzhu"
-                        android:text="关注"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:layout_marginRight="5dp"
-                        android:textColor="@color/white"
-                        android:layout_marginTop="2dp"
-                        android:background="@drawable/button_shape3"
-                        android:layout_alignParentRight="true"
-                        android:layout_width="50dp"
-                        android:layout_height="25dp" />
-
-
-                </RelativeLayout>
-
+                android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
+                    android:layout_margin="5dp"
+                    android:background="@drawable/textshape3"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/title"
-                        android:textSize="17sp"
-                        android:lineSpacingMultiplier="1.4"
-                        android:textColor="@color/moren"
-                        android:textStyle="bold"
+
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/textshape5"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="title:" />
+                        android:layout_height="50dp">
+
+                        <com.example.luhongcheng.View.CircleImageView
+                            android:id="@+id/icon"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                        <LinearLayout
+                            android:layout_toRightOf="@+id/icon"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="100dp"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp">
+
+                            <TextView
+                                android:id="@+id/nickname"
+                                android:layout_weight="1"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp" />
+
+                            <TextView
+                                android:id="@+id/qm"
+                                android:layout_weight="1"
+                                android:textSize="10dp"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/secondlayout_guanzhu"
+                            android:text="关注"
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:layout_marginRight="5dp"
+                            android:textColor="@color/white"
+                            android:layout_marginTop="2dp"
+                            android:background="@drawable/button_shape3"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="50dp"
+                            android:layout_height="25dp" />
 
 
-                    <TextView
-                        android:id="@+id/content"
-                        android:textSize="14sp"
-                        android:lineSpacingMultiplier="1.4"
-                        android:textColor="@color/moren"
-                        android:layout_width="match_parent"
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="answer:" />
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
 
-                    <com.example.luhongcheng.View.NineGridTestLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/layout_nine_grid"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:sapcing="4dp" />
+                        <TextView
+                            android:id="@+id/title"
+                            android:textSize="17sp"
+                            android:lineSpacingMultiplier="1.4"
+                            android:textColor="@color/moren"
+                            android:textStyle="bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="title:" />
 
-                    <TextView
-                        android:id="@+id/time"
-                        android:textSize="13sp"
-                        android:textColor="@color/moren"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="15dp"
-                        android:text="10分钟前" />
+
+                        <TextView
+                            android:id="@+id/content"
+                            android:textSize="15sp"
+                            android:lineSpacingMultiplier="1.4"
+                            android:textColor="@color/moren"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="answer:" />
+
+                        <com.example.luhongcheng.View.NineGridTestLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/layout_nine_grid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:sapcing="4dp" />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:textSize="13sp"
+                            android:textColor="@color/moren"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="10分钟前" />
+                    </LinearLayout>
+
+
+
                 </LinearLayout>
 
 
+                <ImageView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/comment_recy"
+                    android:background="@drawable/textshape3"
+                    android:layout_margin="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+
 
             </LinearLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
-            <ImageView
-                android:background="@color/moren_back"
-                android:layout_width="match_parent"
-                android:layout_height="5sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/comment_recy"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
 
 
-        </LinearLayout>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+    </ScrollView>
 
 
     <RelativeLayout
@@ -199,7 +206,7 @@
             <EditText
                 android:id="@+id/msg"
                 android:layout_weight="1"
-                android:background="@drawable/textshape3"
+                android:background="@drawable/textshape1"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:textSize="13sp"
@@ -215,6 +222,7 @@
         </LinearLayout>
 
     </RelativeLayout>
+
 
 
 </RelativeLayout>

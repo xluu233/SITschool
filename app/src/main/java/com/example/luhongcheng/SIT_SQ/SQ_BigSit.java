@@ -19,8 +19,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Adapter.SQ_Adapter;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.SQ;
@@ -58,6 +63,8 @@ public class SQ_BigSit extends LazyLoadFragment {
     RecyclerView recyclerView;
     FloatingActionButton button;
     SmartRefreshLayout refreshLayout;
+    LinearLayout loading;
+    ImageView image_load;
 
 
     private List<com.example.luhongcheng.bean.SQ> mList = new ArrayList<>();
@@ -115,6 +122,12 @@ public class SQ_BigSit extends LazyLoadFragment {
         button = Objects.requireNonNull(getActivity()).findViewById(R.id.sit_add_news);
         recyclerView = getActivity().findViewById(R.id.sit_recycler);
         refreshLayout = getActivity().findViewById(R.id.sit_refresh);
+        loading = getActivity().findViewById(R.id.bigsit_loading);
+        image_load = getActivity().findViewById(R.id.bigsit_image_loading);
+        RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        Glide.with(getContext()).load(R.drawable.loading2).apply(options).into(image_load);
+
+
         layoutInit = true;
         onClick();
         //get_MyCollection();
@@ -321,6 +334,7 @@ public class SQ_BigSit extends LazyLoadFragment {
                                 mList.add(new com.example.luhongcheng.bean.SQ(author_id,url,content,time,item_id,my_Likes,null,null));
                             }
                             if  (layoutInit){
+                                loading.setVisibility(View.INVISIBLE);
                                 Message msg = new Message();
                                 msg.what = 1;
                                 handler.sendMessage(msg);

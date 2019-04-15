@@ -20,8 +20,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Adapter.QA_Adapter;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.Report;
@@ -61,7 +65,8 @@ public class SQ_QA extends LazyLoadFragment {
     FloatingActionButton button;
     SmartRefreshLayout refreshLayout;
     ImageView life,study;
-
+    LinearLayout loading;
+    ImageView image_load;
 
     private List<com.example.luhongcheng.bean.QA> mList = new ArrayList<>();
     private List<String> my_collection = new ArrayList<>();//我的收藏集合
@@ -110,6 +115,10 @@ public class SQ_QA extends LazyLoadFragment {
         refreshLayout = getActivity().findViewById(R.id.qa_refresh);
         life = getActivity().findViewById(R.id.qa_life);
         study = getActivity().findViewById(R.id.qa_study);
+        loading = getActivity().findViewById(R.id.qa_loading);
+        image_load = getActivity().findViewById(R.id.qa_image_loading);
+        RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        Glide.with(getContext()).load(R.drawable.loading2).apply(options).into(image_load);
         layoutInit = true;
         onClick();
 
@@ -294,6 +303,7 @@ public class SQ_QA extends LazyLoadFragment {
                                 mList.add(new com.example.luhongcheng.bean.QA(url,title,content,time,item_id,my_Likes,author_id,tag));
                             }
                             if (layoutInit){
+                                loading.setVisibility(View.INVISIBLE);
                                 Message msg = new Message();
                                 msg.what = 1;
                                 handler.sendMessage(msg);

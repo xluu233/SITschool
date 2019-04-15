@@ -17,11 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
-/**
- * 描述:
- * 作者：HMY
- * 时间：2016/5/10
- */
+
 public abstract class NineGridLayout extends ViewGroup {
 
     private static final float DEFUALT_SPACING = 3f;
@@ -76,7 +72,6 @@ public abstract class NineGridLayout extends ViewGroup {
 
     /**
      * 设置间隔
-     *
      * @param spacing
      */
     public void setSpacing(float spacing) {
@@ -199,13 +194,12 @@ public abstract class NineGridLayout extends ViewGroup {
      */
     private void layoutImageView(RatioImageView imageView, int i, String url, boolean showNumFlag) {
         final int singleWidth = (int) ((mTotalWidth - mSpacing * (3 - 1)) / 3);
-        int singleHeight = singleWidth;
 
         int[] position = findPosition(i);
         int left = (int) ((singleWidth + mSpacing) * position[1]);
-        int top = (int) ((singleHeight + mSpacing) * position[0]);
+        int top = (int) ((singleWidth + mSpacing) * position[0]);
         int right = left + singleWidth;
-        int bottom = top + singleHeight;
+        int bottom = top + singleWidth;
 
         imageView.layout(left, top, right, bottom);
 
@@ -217,7 +211,7 @@ public abstract class NineGridLayout extends ViewGroup {
                 final TextView textView = new TextView(mContext);
                 textView.setText("+" + String.valueOf(overCount));
                 textView.setTextColor(Color.WHITE);
-                textView.setPadding(0, singleHeight / 2 - getFontHeight(textSize), 0, 0);
+                textView.setPadding(0, singleWidth / 2 - getFontHeight(textSize), 0, 0);
                 textView.setTextSize(textSize);
                 textView.setGravity(Gravity.CENTER);
                 textView.setBackgroundColor(Color.BLACK);

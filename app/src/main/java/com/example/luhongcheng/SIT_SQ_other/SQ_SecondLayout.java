@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.luhongcheng.Adapter.CommentRecyAdapter;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.QA_Comment;
 import com.example.luhongcheng.Bmob_bean.Report;
@@ -334,6 +335,10 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         ss_content.setText(content);
                         ss_time.setText(time);
 
+                        if (content.length() ==0){
+                            ss_content.setVisibility(View.GONE);
+                        }
+
                         Log.d("getDate", String.valueOf(urllist));
                         Log.d("getDate",content);
                         Log.d("getDate",time);
@@ -369,10 +374,14 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         ss_content.setText(content);
                         ss_time.setText(time);
 
-                        Log.d("getDate", String.valueOf(urllist));
-                        Log.d("getDate",time);
-                        Log.d("getDate",title);
-                        Log.d("getDate",content);
+                        if (content.length() ==0){
+                            ss_content.setVisibility(View.GONE);
+                        }
+
+//                        Log.d("getDate", String.valueOf(urllist));
+//                        Log.d("getDate",time);
+//                        Log.d("getDate",title);
+//                        Log.d("getDate",content);
 
                         if (urllist != null){
                             gridview.setUrlList(urllist);
@@ -431,7 +440,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         query.findObjects(new FindListener<SQ_Comment>() {
             @Override
             public void done(List<SQ_Comment> objects,BmobException e) {
-
                 for (int i= 0;i<objects.size();i++){
                     UserInfo userInfo = objects.get(i).getAuthor();
                     String content = objects.get(i).getContent();
@@ -444,10 +452,11 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     //PingLun pingLun = new PingLun(userInfo.geticonUrl(),userInfo.getNickname(),content,userInfo.getObjectId());
                     comment_list.add(pingLun);
                 }
-
-                Message msg = new Message();
-                msg.what = 1;
-                handler.sendMessage(msg);
+                if (comment_list.size() !=0){
+                    Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);
+                }
 
             }
         });
@@ -462,6 +471,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
                 CommentRecyAdapter adapter = new CommentRecyAdapter(getApplicationContext(),comment_list);
+                recyclerView.setMinimumHeight(comment_list.size()*80);
                 recyclerView.setAdapter(adapter);
 
                 ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -497,72 +507,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
             }
         }
     };
-
-    private class CommentRecyAdapter extends RecyclerView.Adapter<CommentRecyAdapter.ViewHolder> {
-
-        private Context mContext;
-        private List<PingLun> list;
-
-        private CommentRecyAdapter(Context context, List<PingLun> list){
-            this.mContext = context;
-            this.list = list;
-        }
-
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            View convertView = LayoutInflater.from(mContext).inflate(R.layout.pinglun_item, viewGroup, false);
-            CommentRecyAdapter.ViewHolder viewHolder = new CommentRecyAdapter.ViewHolder(convertView);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.content.setText(list.get(position).getContent());
-            holder.time.setText(position+1+"楼"+" · "+list.get(position).getTime());
-
-            BmobQuery<UserInfo> bmobQuery = new BmobQuery<>();
-            final CommentRecyAdapter.ViewHolder finalHolder = holder;
-            bmobQuery.getObject(list.get(position).getAuthor_id(), new QueryListener<UserInfo>() {
-                @Override
-                public void done(UserInfo userInfo, BmobException e) {
-                    if(e==null){
-                        finalHolder.nickname.setText(userInfo.getNickname());
-
-                        Glide.with(getContext())
-                                .load(userInfo.geticonUrl())
-                                .apply(new RequestOptions().placeholder(R.drawable.loading))
-                                .apply(new RequestOptions() .error(R.drawable.error))
-                                .apply(new RequestOptions().fitCenter())
-                                .into(finalHolder.icon);
-
-                    }
-                }
-            });
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return list.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            CircleImageView icon;
-            TextView nickname,content,time;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-
-                icon = itemView.findViewById(R.id.comment_icon);
-                nickname = itemView.findViewById(R.id.nickname);
-                content = itemView.findViewById(R.id.content);
-                time = itemView.findViewById(R.id.time);
-            }
-        }
-    }
-
 
 
     @Override

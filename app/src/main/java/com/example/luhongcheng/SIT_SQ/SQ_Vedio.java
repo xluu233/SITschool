@@ -19,7 +19,12 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.LazyLoadFragment;
 import com.example.luhongcheng.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -34,9 +39,6 @@ public class SQ_Vedio extends LazyLoadFragment {
         return new SQ_Vedio();
     }
 
-
-    RefreshLayout refreshLayout;
-    WebView webView;
 
 /*
     @Override

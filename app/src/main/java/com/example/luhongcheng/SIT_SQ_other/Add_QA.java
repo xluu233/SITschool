@@ -36,10 +36,13 @@ import java.util.List;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 import id.zelory.compressor.Compressor;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -195,8 +198,10 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
                 e.printStackTrace();
             }
 
+            Log.d("filepath:",list[i]);
             list[i] = compressedFile.getAbsolutePath();
         }
+
 
         BmobFile.uploadBatch(list, new UploadBatchListener() {
             @Override
@@ -213,6 +218,9 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
             @Override
             public void onError(int statuscode, String errormsg) {
                 Log.d("反馈错误码:",statuscode +",错误描述："+errormsg);
+                Toast.makeText(getApplicationContext(),"上传失败",Toast.LENGTH_SHORT).show();
+                status_layout.setVisibility(View.INVISIBLE);
+                pic_layout.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -237,41 +245,67 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
         qa.setContent(content.getText().toString());
 
         SharedPreferences sp=getSharedPreferences("personID",0);
-        String personID =  sp.getString("ID","");
+        final String personID =  sp.getString("ID","");
 
-
-        if (BmobUser.isLogin()){
-            if (urls.size() != 0 ){
-                qa.setImage(urls);
-            }
-            //添加一对一关联，设置作者为Userinfo表中id的用户
-            UserInfo xixi = new UserInfo();
-            xixi.setObjectId(personID);
-            qa.setAuthor(xixi);
-            qa.setFenqu(fenqu);
-            qa.save(new SaveListener<String>() {
-                @Override
-                public void done(String s, BmobException e) {
-                    if(e==null){
-                        //成功
-                        //Log.d("反馈","成功");
-                        status_layout.setVisibility(View.INVISIBLE);
-                        pic_layout.setVisibility(View.VISIBLE);
-                        Toast.makeText(getApplicationContext(),"发布成功，积分+10",Toast.LENGTH_SHORT).show();
-                    }else{
-                        //toast("创建数据失败：" + e.getMessage());
-                        status_layout.setVisibility(View.INVISIBLE);
-                        pic_layout.setVisibility(View.VISIBLE);
-                    }
+        qa.setImage(urls);
+        //添加一对一关联，设置作者为Userinfo表中id的用户
+        UserInfo xixi = new UserInfo();
+        xixi.setObjectId(personID);
+        qa.setAuthor(xixi);
+        qa.setFenqu(fenqu);
+        qa.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e==null){
+                    //成功
+                    status_layout.setVisibility(View.INVISIBLE);
+                    pic_layout.setVisibility(View.VISIBLE);
+                    addJifen(personID);
+                }else{
+                    Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
+                    //toast("创建数据失败：" + e.getMessage());
+                    status_layout.setVisibility(View.INVISIBLE);
+                    pic_layout.setVisibility(View.VISIBLE);
                 }
-            });
-
-
+            }
+        });
+/*        if (BmobUser.isLogin()){
         }else {
             Toast.makeText(getApplicationContext(),"不是登录状态",Toast.LENGTH_SHORT).show();
-        }
+            status_layout.setVisibility(View.INVISIBLE);
+            pic_layout.setVisibility(View.VISIBLE);
+        }*/
 
 
+    }
+
+    private void addJifen(final String personID) {
+        BmobQuery<UserInfo> query2 = new BmobQuery<>();
+        query2.getObject(personID, new QueryListener<UserInfo>() {
+            @Override
+            public void done(UserInfo object, BmobException e) {
+                if (e == null) {
+                    int jifen = 0;
+                    jifen = Integer.parseInt(object.getJifen());
+                    jifen = jifen+10;
+
+                    UserInfo userInfo = new UserInfo();
+                    userInfo.setJifen(String.valueOf(jifen));
+                    userInfo.update(personID, new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e==null){
+                                Toast.makeText(getApplicationContext(),"发布成功，积分+10",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(getApplicationContext(),"jifen add error",Toast.LENGTH_SHORT).show();
+                    //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                }
+            }
+        });
     }
 
     private void update_message_no_pic() {

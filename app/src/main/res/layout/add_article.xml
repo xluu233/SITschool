@@ -40,7 +40,7 @@
 
         <ImageView
             android:id="@+id/img"
-            android:background="@drawable/textshape9"
+            android:background="@drawable/textshape5"
             android:src="@drawable/fab_add"
             android:scaleType="center"
             android:layout_margin="20dp"
@@ -49,7 +49,7 @@
 
         <LinearLayout
             android:id="@+id/ss"
-            android:background="@drawable/textshape9"
+            android:background="@drawable/textshape5"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@+id/img"
@@ -74,7 +74,7 @@
 
         <LinearLayout
             android:id="@+id/ssss"
-            android:background="@drawable/textshape9"
+            android:background="@drawable/textshape5"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"

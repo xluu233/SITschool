@@ -19,7 +19,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Adapter.ShareNews_Adapter;
 import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.LazyLoadFragment;
@@ -52,7 +58,8 @@ public class SQ_ShareNews extends LazyLoadFragment {
     String person_id;
     boolean layoutInit = false;
     boolean canfresh = true;
-
+    LinearLayout loading;
+    ImageView image_load;
 
     @Override
     protected int setContentView() {
@@ -81,6 +88,11 @@ public class SQ_ShareNews extends LazyLoadFragment {
         recyclerView = Objects.requireNonNull(getActivity()).findViewById(R.id.my_news);
         refresh = getActivity().findViewById(R.id.news_refresh);
         choose_box = getActivity().findViewById(R.id.share_news);
+        loading = getActivity().findViewById(R.id.share_news_loading);
+        image_load = getActivity().findViewById(R.id.share_news_image_loading);
+        RequestOptions options = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+        Glide.with(getContext()).load(R.drawable.loading2).apply(options).into(image_load);
+
         layoutInit=true;
         onClick();
     }
@@ -165,6 +177,7 @@ public class SQ_ShareNews extends LazyLoadFragment {
                                 mlist.add(new HotNews(title[i],image[i],time[i],url[i],item_id));
                             }
                             if (layoutInit){
+                                loading.setVisibility(View.INVISIBLE);
                                 Message msg = new Message();
                                 msg.what = 1;
                                 handler.sendMessage(msg);

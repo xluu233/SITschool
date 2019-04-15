@@ -3,9 +3,7 @@ package com.example.luhongcheng.View;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.luhongcheng.image_viewpager.ImageDetailActivity;
 import com.example.luhongcheng.utils.ImageLoaderUtil;
@@ -14,11 +12,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
-/**
- * 描述：
- * 作者：HMY
- * 时间：2016/5/12
- */
 public class NineGridTestLayout extends NineGridLayout {
 
     protected static final int MAX_W_H_RATIO = 3;
