@@ -4,24 +4,23 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,17 +33,13 @@ import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.SQ;
 import com.example.luhongcheng.Bmob_bean.SQ_Comment;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
-import com.example.luhongcheng.MainFragmentActivity;
 import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.View.NineGridTestLayout;
+import com.example.luhongcheng.View.PopupWindowList;
 import com.example.luhongcheng.bean.PingLun;
 import com.example.luhongcheng.utils.BaseStatusBarActivity;
 import com.example.luhongcheng.utils.ItemClickSupport;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -69,18 +64,20 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
     private List<String> urllist = new ArrayList<>(); //图片地址合集
     //private List<String> my_Likes = new ArrayList<>(); //我的喜欢合集
     private List<String> my_guanzhu = new ArrayList<>(); //我的关注合集
+    private List<String> my_collection = new ArrayList<>();//我的收藏
+
 
     CircleImageView icon;
     TextView nickname,qm;
-
     TextView ss_title,ss_content,ss_time,guanzhu;
     NineGridTestLayout gridview;
     RecyclerView recyclerView;
-    SmartRefreshLayout refreshLayout;
+    //SmartRefreshLayout refreshLayout;
+    SwipeRefreshLayout refreshLayout;
     EditText msg;
-    ImageView send;
+    ImageView send,more_item;
     Toolbar toolbar;
-
+    TextView no_comments;
     List<PingLun> comment_list = new ArrayList<>();
 
     @SuppressLint("NewApi")
@@ -97,7 +94,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         author_id = getIntent().getStringExtra("author_id");
 
         get_UserInfo();
-
         if (From_TAG.equals("QA")){
             getDateFromQA(); //QA的信息
             //get_QAComment();
@@ -136,6 +132,8 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         msg = findViewById(R.id.msg);
         send = findViewById(R.id.send_msg);
         toolbar = findViewById(R.id.toolbar);
+        no_comments = findViewById(R.id.no_comment);
+        more_item = findViewById(R.id.more_item);
     }
 
 
@@ -202,25 +200,40 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         });
 
 
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(@NonNull final RefreshLayout refreshlayout) {
+            public void onRefresh() {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        //getDate();
+                        comment_list.clear();
+                        get_UserInfo();
+                        if (From_TAG.equals("QA")){
+                            getDateFromQA(); //QA的信息
+                            //get_QAComment();
+                        }else if (From_TAG.equals("SQ")){
+                            ss_title.setVisibility(View.GONE);
+                            getDateFromSQ(); //SQ的信息
+                            //get_SQComment();
+                        }
+
                         try {
                             Thread.sleep(1000);
-                            refreshlayout.finishRefresh(2000/*,false*/);
+                            refreshLayout.setRefreshing(false);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
 
-
                     }
                 }).start();
 
+            }
+        });
 
+        more_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopWindows(v);
             }
         });
     }
@@ -279,6 +292,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
                                 my_guanzhu = userInfo.getGuanzhu();
                                 //my_Likes = userInfo.getMy_Likes();
+                                my_collection = userInfo.getMy_Collection();
 
                                 if (my_guanzhu.contains(author_id)){
                                     guanzhu.setText("已关注");
@@ -412,19 +426,23 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     UserInfo userInfo = objects.get(i).getAuthor();
                     String content = objects.get(i).getContent();
                     String time = objects.get(i).getCreatedAt();
+                    String item_id = objects.get(i).getObjectId();
 
-                    Log.d("评论",userInfo.getObjectId());
-                    Log.d("评论",content);
+/*                    Log.d("评论",userInfo.getObjectId());
+                    Log.d("评论",content);*/
 
-                    PingLun pingLun = new PingLun(content,userInfo.getObjectId(),time);
+                    PingLun pingLun = new PingLun(content,item_id,userInfo.getObjectId(),time);
                     //PingLun pingLun = new PingLun(userInfo.geticonUrl(),userInfo.getNickname(),content,userInfo.getObjectId());
                     comment_list.add(pingLun);
                 }
 
-                Message msg = new Message();
-                msg.what = 1;
-                handler.sendMessage(msg);
-
+                if (comment_list.size() != 0){
+                    Message msg = new Message();
+                    msg.what = 1;
+                    handler.sendMessage(msg);
+                }else {
+                    recyclerView.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -444,24 +462,29 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     UserInfo userInfo = objects.get(i).getAuthor();
                     String content = objects.get(i).getContent();
                     String time = objects.get(i).getCreatedAt();
+                    String item_id = objects.get(i).getObjectId();
 
-                    Log.d("评论",userInfo.getObjectId());
-                    Log.d("评论",content);
+/*                    Log.d("评论",userInfo.getObjectId());
+                    Log.d("评论",content);*/
 
-                    PingLun pingLun = new PingLun(content,userInfo.getObjectId(),time);
+                    PingLun pingLun = new PingLun(content,item_id,userInfo.getObjectId(),time);
                     //PingLun pingLun = new PingLun(userInfo.geticonUrl(),userInfo.getNickname(),content,userInfo.getObjectId());
                     comment_list.add(pingLun);
                 }
-                if (comment_list.size() !=0){
+                if (comment_list.size() != 0){
                     Message msg = new Message();
                     msg.what = 1;
                     handler.sendMessage(msg);
+                }else {
+                    recyclerView.setVisibility(View.GONE);
                 }
 
             }
         });
 
     }
+
+
 
     @SuppressLint("HandlerLeak")
     private Handler handler  = new Handler(){
@@ -470,35 +493,30 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
             if(msg.what == 1){
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setNestedScrollingEnabled(false);
+                no_comments.setVisibility(View.GONE);
+
                 CommentRecyAdapter adapter = new CommentRecyAdapter(getApplicationContext(),comment_list);
-                recyclerView.setMinimumHeight(comment_list.size()*80);
+                //recyclerView.setMinimumHeight(comment_list.size()*80);
                 recyclerView.setAdapter(adapter);
 
                 ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        //回复
+
+                        //Toast.makeText(getContext(),"xizxi",Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
-                        Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+                        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         vibrator.vibrate(50);
-                        final String[] items = {"举报"};
-                        final AlertDialog.Builder listDialog = new AlertDialog.Builder(getContext());
-                        listDialog.setItems(items, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which){
-                                    case 0:
-                                        report_item(comment_list.get(position).getContent());
-                                        break;
-                                }
-                            }
-                        });
-                        listDialog.show();
+
+                        report_item(comment_list.get(position).getItem_id(),comment_list.get(position).getContent());
+                        //showPopWindows(v,comment_list.get(position).getAuthor_id(),comment_list.get(position).getItem_id(),comment_list.get(position).getContent());
+                        //Toast.makeText(getContext(),"长按了一下",Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 });
@@ -508,29 +526,63 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         }
     };
 
-
     @Override
     protected int getStatusBarColor() {
-        return getResources().getColor(R.color.colorAccent);
+        return  getResources().getColor(R.color.colorAccent);
     }
 
 
-    private void report_item(final String id) {
+    private PopupWindowList mPopupWindowList;
+    private void showPopWindows(View view){
 
-        final EditText et = new EditText(getContext());
-        new AlertDialog.Builder(getContext()).setTitle("举报")
+        List<String> dataList = new ArrayList<>();
+        dataList.add("举报");
+        dataList.add("收藏");
+
+        if (mPopupWindowList == null){
+            mPopupWindowList = new PopupWindowList(view.getContext());
+        }
+        mPopupWindowList.setAnchorView(view);
+        mPopupWindowList.setItemData(dataList);
+        mPopupWindowList.setModal(true);
+        mPopupWindowList.show();
+        mPopupWindowList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        report_item(item_id,"0");
+                        break;
+                    case 1:
+                        collection_item(item_id);
+                        break;
+                    default:
+                        break;
+                }
+                mPopupWindowList.hide();
+            }
+        });
+    }
+
+
+
+    private void report_item(final String item_id, final String content) {
+
+        final EditText et = new EditText(getApplicationContext());
+        new AlertDialog.Builder(getApplicationContext()).setTitle("举报")
                 .setIcon(R.drawable.report)
                 .setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String input = et.getText().toString();
                         if (input.equals("")) {
-                            Toast.makeText(getContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
                         }
                         else {
                             Report report = new Report();
-                            report.setItem_id(id);
+                            report.setItem_id(item_id);
                             report.setTitle(input);
+                            report.setContent(content);
                             report.setUser_id(my_id);
                             report.save(new SaveListener<String>() {
                                 @Override
@@ -555,6 +607,44 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    private void collection_item(String id) {
+        if (my_collection.size() == 0 ){
+            BmobQuery<UserInfo> query2 = new BmobQuery<>();
+            query2.getObject(my_id, new QueryListener<UserInfo>() {
+                @Override
+                public void done(UserInfo userInfo, BmobException e) {
+                    if (e == null) {
+
+                        my_guanzhu = userInfo.getGuanzhu();
+                        //my_Likes = userInfo.getMy_Likes();
+                        my_collection = userInfo.getMy_Collection();
+
+                        if (my_guanzhu.contains(author_id)){
+                            guanzhu.setText("已关注");
+                            guanzhu.setClickable(false);
+                        }
+
+                    }
+                }
+            });
+        }else if (!my_collection.contains(id)){
+            my_collection.add(id);
+            UserInfo p2 = new UserInfo();
+            p2.setValue("My_Collection",my_collection);
+            p2.update(my_id, new UpdateListener() {
+                @Override
+                public void done(BmobException e) {
+                    if(e==null){
+                        Toast.makeText(getContext(),"收藏成功",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }else {
+            Toast.makeText(getContext(),"你已经收藏过了",Toast.LENGTH_SHORT).show();
+        }
     }
 
 

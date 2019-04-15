@@ -7,7 +7,7 @@ public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
     private static final float MIN_SCALE = 0.85f;
     private static final float MIN_ALPHA = 0.5f;
 
-    //viewpager动画，调用代码：vp.setPageTransformer(true, new ZoomOutPageTransformer());
+    //viewpager动画，调用：vp.setPageTransformer(true, new ZoomOutPageTransformer());
     public void transformPage(View view, float position) {
         int pageWidth = view.getWidth();
         int pageHeight = view.getHeight();

@@ -26,7 +26,6 @@ import android.widget.Toast;
 import com.example.luhongcheng.Bmob_bean.QA;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.utils.CompressImageUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -189,7 +188,6 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
         File compressedFile = null;
 
         for (int i=0;i<Path.size();i++ ){
-            //list[i] = CompressImageUtil.saveBitmap2file(BitmapFactory.decodeFile(Path.get(i)),getApplicationContext());
             File file = new File(Path.get(i));
 
             try {

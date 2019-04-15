@@ -208,7 +208,6 @@ public class login_one_fragment extends Fragment {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    //int logincode = getLoginUtils.getlgoin(usernameid,passwordid);
                     try {
                         OkHttpClient client = new OkHttpClient();
                         RequestBody requestBody = new FormBody.Builder()

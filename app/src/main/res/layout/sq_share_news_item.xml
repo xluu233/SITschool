@@ -25,11 +25,11 @@
         android:maxLines="1"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/article_time"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:text="time"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"

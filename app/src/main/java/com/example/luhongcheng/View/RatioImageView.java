@@ -13,10 +13,6 @@ import android.widget.ImageView;
 import com.example.luhongcheng.R;
 
 
-/**
- * 根据宽高比例自动计算高度ImageView
- * Created by HMY on 2016/4/21.
- */
 @SuppressLint("AppCompatCustomView")
 public class RatioImageView extends ImageView {
 

@@ -10,9 +10,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 
-/**
- * Created by HMY
- */
 public class ImageLoaderUtil {
 
     public static ImageLoader getImageLoader(Context context) {

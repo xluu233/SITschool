@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/moren_back"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar"/>
+<!--    <include layout="@layout/toolbar"/>-->
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/item_refresh"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        android:scrollbars="none"
+        android:layout_marginBottom="45dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/item_refresh"
+        <android.support.v4.widget.NestedScrollView
+            android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/moren_back"
-            app:srlPrimaryColor="@color/moren_back"
-            app:srlAccentColor="@color/moren"
-            app:srlEnablePreviewInEditMode="true">
-            <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
-            <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
-            <com.scwang.smartrefresh.layout.header.ClassicsHeader
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+
 
                 <LinearLayout
                     android:layout_margin="5dp"
@@ -39,7 +31,6 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
 
                     <RelativeLayout
                         android:orientation="horizontal"
@@ -51,14 +42,14 @@
 
                         <com.example.luhongcheng.View.CircleImageView
                             android:id="@+id/icon"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp" />
 
                         <LinearLayout
-                            android:layout_toRightOf="@+id/icon"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="100dp"
+                            android:layout_toEndOf="@+id/icon"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="100dp"
                             android:gravity="center_vertical"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
@@ -77,7 +68,7 @@
                             <TextView
                                 android:id="@+id/qm"
                                 android:layout_weight="1"
-                                android:textSize="10dp"
+                                android:textSize="10sp"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/black"
                                 android:layout_width="match_parent"
@@ -90,11 +81,11 @@
                             android:text="关注"
                             android:gravity="center"
                             android:textSize="13sp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             android:textColor="@color/white"
                             android:layout_marginTop="2dp"
                             android:background="@drawable/button_shape3"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:layout_width="50dp"
                             android:layout_height="25dp" />
 
@@ -147,9 +138,6 @@
                             android:layout_marginBottom="15dp"
                             android:text="10分钟前" />
                     </LinearLayout>
-
-
-
                 </LinearLayout>
 
 
@@ -166,19 +154,28 @@
                     android:id="@+id/comment_recy"
                     android:background="@drawable/textshape3"
                     android:layout_margin="5dp"
+                    android:focusable="false"
+                    android:scrollbars="none"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 </android.support.v7.widget.RecyclerView>
 
+                <TextView
+                    android:id="@+id/no_comment"
+                    android:gravity="center"
+                    android:textSize="11sp"
+                    android:text="暂无评论，发一条试试吧！"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
 
             </LinearLayout>
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
-
-
-
-    </ScrollView>
+    <include layout="@layout/toolbar"/>
 
 
     <RelativeLayout
@@ -222,7 +219,6 @@
         </LinearLayout>
 
     </RelativeLayout>
-
 
 
 </RelativeLayout>

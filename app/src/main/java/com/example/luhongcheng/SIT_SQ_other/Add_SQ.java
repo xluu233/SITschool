@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.example.luhongcheng.Bmob_bean.SQ;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.utils.CompressImageUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -147,13 +146,8 @@ public class Add_SQ extends AppCompatActivity implements EasyPermissions.Permiss
         final String[] list = new String[Path.size()];
         File compressedFile = null;
 
-/*        //图片压缩
-        for (int i=0;i<Path.size();i++ ){
-            list[i] = CompressImageUtil.saveBitmap2file(BitmapFactory.decodeFile(Path.get(i)),getApplicationContext());
-        }*/
 
         for (int i=0;i<Path.size();i++ ){
-            //list[i] = CompressImageUtil.saveBitmap2file(BitmapFactory.decodeFile(Path.get(i)),getApplicationContext());
             File file = new File(Path.get(i));
 
             try {

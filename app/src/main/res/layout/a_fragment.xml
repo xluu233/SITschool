@@ -29,8 +29,8 @@
             android:id="@+id/OneSelf"
             android:layout_marginLeft="12dp"
             android:background="@drawable/ic_launcher"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="28dp"
+            android:layout_height="28dp" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -67,7 +67,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="20dip"
+                android:layout_height="15dp"
                 android:orientation="vertical"
                 android:layout_gravity="bottom"
                 android:layout_alignParentBottom="true"
@@ -90,18 +90,14 @@
 
     </FrameLayout>
 
-    <LinearLayout
+
+    <ImageView
         android:id="@+id/cutelinear"
+        android:layout_below="@+id/lunhuan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lunhuan">
+        android:layout_height="10dp"
+        android:background="#FFFFFF" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#FFFFFF" />
-
-    </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_one"
@@ -122,6 +118,7 @@
 
                 <GridView
                     android:id="@+id/gridview"
+                    android:scrollbars="none"
                     android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="190dp"
@@ -158,7 +155,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:text="( ♡˙︶˙♡ )"
                         android:background="@drawable/button_shape2"
                         android:layout_width="match_parent"

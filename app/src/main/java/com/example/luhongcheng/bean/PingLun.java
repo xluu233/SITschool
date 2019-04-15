@@ -1,18 +1,13 @@
 package com.example.luhongcheng.bean;
 
 public class PingLun {
-    public PingLun(String iconUrl, String nickname, String content, String objectId) {
-        this.icon_url = iconUrl;
-        this.nickname = nickname;
+    public PingLun(String content, String objectId,String author_id,String time) {
         this.content = content;
-        this.author_id = objectId;
-    }
-
-    public PingLun(String content, String objectId, String time) {
-        this.content = content;
-        this.author_id = objectId;
+        this.item_id = objectId;
+        this.author_id = author_id;
         this.time = time;
     }
+
 
     public String getTime() {
         return time;
@@ -33,25 +28,6 @@ public class PingLun {
 
     String content;//评论
 
-    public String getIcon_url() {
-        return icon_url;
-    }
-
-    public void setIcon_url(String icon_url) {
-        this.icon_url = icon_url;
-    }
-
-    String icon_url;//头像
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    String nickname;//昵称
 
     public String getAuthor_id() {
         return author_id;
@@ -62,4 +38,14 @@ public class PingLun {
     }
 
     String author_id;//评论人的id
+
+    public String getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(String item_id) {
+        this.item_id = item_id;
+    }
+
+    String item_id;
 }
