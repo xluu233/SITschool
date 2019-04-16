@@ -75,14 +75,19 @@ public class FirstFragment extends Fragment {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        get();
+
                         try {
                             Thread.sleep(1000);
-                            refreshLayout.setRefreshing(false);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
+                        get();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
 
                     }
                 }).run();

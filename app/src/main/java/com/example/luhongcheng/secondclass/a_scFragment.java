@@ -1,10 +1,13 @@
 package com.example.luhongcheng.secondclass;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +20,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class SecondFragment extends Fragment {
+public class a_scFragment extends Fragment {
 
 	private OkHttpClient okHttpClient;
 	private OkHttpClient.Builder builder;
@@ -41,30 +45,21 @@ public class SecondFragment extends Fragment {
 	String C8;
 	String C9;
 	String C10;
-
-
-
+	SwipeRefreshLayout refreshLayout;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.layout_second, container, false);
-		getCookies();
 		return v;
-
 	}
 
-	private void getCookies() {
-		SharedPreferences spCount = getActivity().getSharedPreferences("SecondCookie", 0);
-		//在fragment中用share方法要getActivity（）
-		str = spCount.getString("cookie", "");
-	}
 
+
+	@SuppressLint("HandlerLeak")
 	@Override
 	public void onActivityCreated( Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
-		final TextView name = (TextView) getView().findViewById(R.id.id);
+		final TextView name = (TextView) Objects.requireNonNull(getView()).findViewById(R.id.id);
 		final TextView xuefen1 = (TextView) getView().findViewById(R.id.xuefen1);
 		final TextView c1 = (TextView) getView().findViewById(R.id.c1);
 		final TextView c2 = (TextView) getView().findViewById(R.id.c2);
@@ -76,7 +71,8 @@ public class SecondFragment extends Fragment {
 		final TextView c8 = (TextView) getView().findViewById(R.id.c8);
 		final TextView c9 = (TextView) getView().findViewById(R.id.c9);
 		final TextView c10 = (TextView) getView().findViewById(R.id.c10);
-		getmessage();
+		refreshLayout = getView().findViewById(R.id.sc_a_refresh);
+		getCookies();
 
 		handler = new Handler(){
 			@Override
@@ -95,7 +91,6 @@ public class SecondFragment extends Fragment {
 					c9.setText(getC9(C9));
 					c10.setText(getC10(C10));
 
-
 				}
 			}
 
@@ -105,7 +100,6 @@ public class SecondFragment extends Fragment {
 			private String getB2(String B2) {
 				return B2;
 			}
-
 			private String getC1(String C1) {
 				return C1;
 			}
@@ -137,13 +131,39 @@ public class SecondFragment extends Fragment {
 				return C10;
 			}
 
-
 		};
 
 
+		refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						getCookies();
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								refreshLayout.setRefreshing(false);
+							}
+						});
+
+					}
+				}).start();
+			}
+		});
 	}
 
-
+	private void getCookies() {
+		SharedPreferences spCount = Objects.requireNonNull(getActivity()).getSharedPreferences("SecondCookie", 0);
+		str = spCount.getString("cookie", "");
+		getmessage();
+	}
 
 	private void getmessage() {
 		new Thread(new Runnable() {
@@ -154,7 +174,6 @@ public class SecondFragment extends Fragment {
 							.followRedirects(false)//禁止重定向
 							.followSslRedirects(false)//哈哈哈哈哈哈哈好开心啊
 							.build();
-
 
 					Request request4 = new Request.Builder()
 							.url("http://sc.sit.edu.cn/public/pcenter/activityOrderList.action")

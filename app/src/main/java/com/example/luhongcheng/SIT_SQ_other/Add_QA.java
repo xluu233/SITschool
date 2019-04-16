@@ -196,7 +196,6 @@ public class Add_QA extends AppCompatActivity implements EasyPermissions.Permiss
                 e.printStackTrace();
             }
 
-            Log.d("filepath:",list[i]);
             list[i] = compressedFile.getAbsolutePath();
         }
 

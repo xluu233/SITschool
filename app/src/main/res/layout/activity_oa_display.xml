@@ -1,57 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/moren_back"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <TextView
-        android:id="@+id/title0"
-        android:textColor="@color/moren"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/textshape2"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="标题:"
-        android:textSize="25dp"/>
-
-    <TextView
-        android:id="@+id/title1"
-        android:textColor="@color/moren"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/title0"
-        android:background="@drawable/textshape2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="小标题:"
-        android:textSize="12dp"/>
+        android:layout_height="40dp"
+        android:background="@drawable/background_oneself"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="详情"
+        app:subtitleTextAppearance="@style/Toolbar.subTitleText"
+        app:titleTextAppearance="@style/Toolbar.TitleText">
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/xiazai"
-        android:layout_below="@+id/title1"
-        android:layout_margin="5dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical"
+        android:background="@drawable/textshape3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/lv"
-            android:maxHeight="160dp"
+        <TextView
+            android:id="@+id/title0"
+            android:textColor="@color/moren"
+            android:maxLines="2"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </ListView>
+            android:minHeight="55dp"
+            android:layout_height="wrap_content"
+            android:text="标题:"
+            android:textSize="23sp"/>
 
-    </LinearLayout>
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/moren"
+            android:layout_width="match_parent"
+            android:layout_height="0.5sp"/>
 
+        <TextView
+            android:id="@+id/title1"
+            android:scrollbars="vertical"
+            android:textColor="@color/moren"
+            android:background="@drawable/textshape2"
+            android:lineSpacingMultiplier="1.3"
+            android:layout_below="@id/title0"
+            android:maxLines="2"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="小标题:"
+            android:textSize="14sp"/>
 
-    <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_below="@+id/xiazai"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:background="@drawable/textshape2"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <ListView
+                android:id="@+id/lv"
+                android:dividerHeight="0.3sp"
+                android:divider="@color/white"
+                android:scrollbars="none"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+
+        </LinearLayout>
+
 
         <ScrollView
-            android:id="@+id/sc"
+            android:layout_marginTop="5dp"
+            android:scrollbars="none"
             android:background="@drawable/textshape2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -59,15 +86,18 @@
             <TextView
                 android:id="@+id/title2"
                 android:textColor="@color/moren"
-                android:lineSpacingMultiplier="1.5"
-                android:textSize="15dp"
+                android:lineSpacingMultiplier="1.4"
+                android:textSize="16sp"
                 android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
         </ScrollView>
 
-    </RelativeLayout>
+
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

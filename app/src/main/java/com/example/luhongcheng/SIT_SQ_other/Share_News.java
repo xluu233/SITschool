@@ -17,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,14 +26,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.luhongcheng.R;
+import com.example.luhongcheng.WebDisplay;
 import com.example.luhongcheng.bean.HotNews;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
+
+import static org.litepal.LitePalApplication.getContext;
 
 public class Share_News extends AppCompatActivity {
 
@@ -78,7 +84,20 @@ public class Share_News extends AppCompatActivity {
         switch (intent.getType()) {
             case "text/plain"://分享的内容类型，如果png图片：image/png 
                 title.setText((CharSequence) extras.get(Intent.EXTRA_TITLE));
-                url.setText((CharSequence) extras.get(Intent.EXTRA_TEXT));
+                String urls = (String) extras.get(Intent.EXTRA_TEXT);
+                Log.d("murl",urls);
+                final Matcher m = Pattern.compile("(?i)http://[^\u4e00-\u9fa5]+").matcher(urls);
+                while(m.find()){
+                    url.setText(m.group());
+                    Log.d("murl",m.group());
+                }
+
+                final Matcher ms = Pattern.compile("(?i)https://[^\u4e00-\u9fa5]+").matcher(urls);
+                while(ms.find()){
+                    url.setText(ms.group());
+                    Log.d("murl--",ms.group());
+                }
+
                 break;
             case "image/png":
                 Toast.makeText(getApplicationContext(),"分享的是图片",Toast.LENGTH_SHORT).show();
@@ -122,7 +141,7 @@ public class Share_News extends AppCompatActivity {
                     icon_path = imagePath;
                     if (icon_path == null){
                         Toast.makeText(Share_News.this,"请选择图片",Toast.LENGTH_SHORT).show();
-                    }else if (news_title == null  || news_url ==null){
+                    }else if (news_title.length()==0 || news_url.length() ==0){
                         Toast.makeText(Share_News.this,"请输入完整信息",Toast.LENGTH_SHORT).show();
                     }else if (!news_url.contains("http")){
                         Toast.makeText(Share_News.this,"请输入正确链接地址",Toast.LENGTH_SHORT).show();

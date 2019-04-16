@@ -4,7 +4,6 @@ package com.example.luhongcheng.OAitem;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -13,13 +12,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.secondclass.EightFragment;
-import com.example.luhongcheng.secondclass.FifthFragment;
-import com.example.luhongcheng.secondclass.FourFragment;
-import com.example.luhongcheng.secondclass.SecondFragment;
-import com.example.luhongcheng.secondclass.SevenFragment;
-import com.example.luhongcheng.secondclass.SixFragment;
-import com.example.luhongcheng.secondclass.ThridFragment;
+import com.example.luhongcheng.secondclass.g_scFragment;
+import com.example.luhongcheng.secondclass.d_scFragment;
+import com.example.luhongcheng.secondclass.c_scFragment;
+import com.example.luhongcheng.secondclass.a_scFragment;
+import com.example.luhongcheng.secondclass.f_scFragment;
+import com.example.luhongcheng.secondclass.e_scFragment;
+import com.example.luhongcheng.secondclass.b_scFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -176,13 +175,13 @@ public class item1 extends AppCompatActivity {
 	private void initFragment() {
 		mFragments = new ArrayList<>();
 
-		SecondFragment one =new SecondFragment();
-		ThridFragment two = new ThridFragment();
-		FourFragment three = new FourFragment();
-		FifthFragment four = new FifthFragment();
-		SixFragment five = new SixFragment();
-		SevenFragment six = new SevenFragment();
-		EightFragment seven = new EightFragment();
+		a_scFragment one =new a_scFragment();
+		b_scFragment two = new b_scFragment();
+		c_scFragment three = new c_scFragment();
+		d_scFragment four = new d_scFragment();
+		e_scFragment five = new e_scFragment();
+		f_scFragment six = new f_scFragment();
+		g_scFragment seven = new g_scFragment();
 
 		mFragments.add(one);
 		mFragments.add(two);

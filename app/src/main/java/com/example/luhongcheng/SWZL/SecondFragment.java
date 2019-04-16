@@ -65,13 +65,19 @@ public class SecondFragment extends Fragment {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        get();
+
                         try {
                             Thread.sleep(1000);
-                            refreshLayout2.setRefreshing(false);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        get();
+						getActivity().runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								refreshLayout2.setRefreshing(false);
+							}
+						});
                     }
                 }).run();
             }

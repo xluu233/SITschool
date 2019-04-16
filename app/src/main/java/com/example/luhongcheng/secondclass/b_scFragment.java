@@ -1,22 +1,37 @@
 package com.example.luhongcheng.secondclass;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Adapter.SecondClassAdapter;
+import com.example.luhongcheng.LazyLoadFragment;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.bean.SecondClass;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,106 +39,95 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class EightFragment extends Fragment{
+public class b_scFragment extends LazyLoadFragment {
 
-	private List<SecondClass> newsList;
+	private List<SecondClass> newsList = new ArrayList<>();
 	private SecondClassAdapter adapter;
-	private Handler handler;
 	private ListView lv;
-
-	private OkHttpClient okHttpClient;
-	private OkHttpClient.Builder builder;
-	List<String> cookies;
-	private ProgressBar progressBar;
-	String str;
+	private String str;
+	private boolean layoutInit = false;
+	private boolean canfresh = true;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		View v = inflater.inflate(R.layout.layout_class_item, container, false);
-		return v;
+	protected int setContentView() {
+		return R.layout.layout_class_item;
+	}
+
+	@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+	@Override
+	protected void lazyLoad() {
+		if (newsList.size() == 0){
+			SharedPreferences spCount = Objects.requireNonNull(getActivity()).getSharedPreferences("SecondCookie", 0);
+			str = spCount.getString("cookie", "");
+			postdata();
+		}
 	}
 
 
+	@SuppressLint("HandlerLeak")
 	@Override
 	public void onActivityCreated( Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		lv = Objects.requireNonNull(getView()).findViewById(R.id.news_lv);
+		layoutInit = true;
 
-		newsList = new ArrayList<>();
-		lv = (ListView) getView().findViewById(R.id.news_lv);
-		builder = new OkHttpClient.Builder();
-		okHttpClient = builder.build();
-		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
-		CheckAndChangeProgressBar();
-
-
-		final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.secondclass_refresh);
-		refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+		SmartRefreshLayout refreshLayout = getView().findViewById(R.id.secondclass_refresh);
+		refreshLayout.setOnRefreshListener(new OnRefreshListener() {
 			@Override
-			public void onRefresh() {
-				newsList.clear();
-				adapter = new SecondClassAdapter(getActivity(),newsList);
-				lv.setAdapter(adapter);
+			public void onRefresh(@NonNull final RefreshLayout refreshlayout) {
+				if (canfresh){
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							postdata();
+							canfresh = false;
+							try {
+								refreshlayout.finishRefresh(2000/*,false*/);
+								Thread.sleep(10000);
+								canfresh = true;
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 
-				refreshLayout.setRefreshing(false);
-
-				getCookies();
-				postdata();
-
+						}
+					}).start();
+				}else {
+					Toast.makeText(getContext(),"太快了~10s后再试",Toast.LENGTH_SHORT).show();
+					refreshlayout.finishRefresh(2000/*,false*/);
+				}
 			}
 		});
 
 
-		handler = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what == 1){
-					progressBar.setVisibility(View.GONE);
-					adapter = new SecondClassAdapter(getActivity(),newsList);
-					lv.setAdapter(adapter);
-					lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-						@Override
-						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-							SecondClass news = newsList.get(position);
-							Intent intent = new Intent(getActivity(),SecondClassDisplayActvivity.class);
-							intent.putExtra("news_url",news.getA2());
-							startActivity(intent);
-							//Intent intent = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-							//intent.putExtra("news_url",news.getNewsUrl());
-							//startActivity(intent);
+	}
 
-							//Intent intent2 = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-							//intent2.putExtra("COOKIE",str);
-							//startActivity(intent2);
-							//此处不能传递COOKIE，可能会混淆
-						}
-					});
-				}
+
+	@SuppressLint("HandlerLeak")
+	private Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what == 1 ){
+				adapter = new SecondClassAdapter(getActivity(),newsList);
+				lv.setAdapter(adapter);
+				lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						SecondClass news = newsList.get(position);
+						Intent intent = new Intent(getActivity(),SecondClassDisplayActvivity.class);
+						intent.putExtra("news_url",news.getA2());
+						startActivity(intent);
+					}
+				});
 			}
-		};
-		getCookies();
-		postdata();
-	}
-
-	private void getCookies() {
-		SharedPreferences spCount = getActivity().getSharedPreferences("SecondCookie", 0);
-		//在fragment中用share方法要getActivity（）
-		str = spCount.getString("cookie", "");
-	}
-
-	private void CheckAndChangeProgressBar() {
-		SharedPreferences spCount = getActivity().getSharedPreferences("userid", 0);
-		String xuehao= spCount.getString("username", "");
-
-		if(xuehao.length()==0){
-			progressBar.setVisibility(View.INVISIBLE);
 		}
-	}
+	};
+
 
 	public void postdata() {
 		// 开启线程来发起网络请求
@@ -136,10 +140,8 @@ public class EightFragment extends Fragment{
 							.followSslRedirects(false)//哈哈哈哈哈哈哈好开心啊
 							.build();
 
-
 					Request request4 = new Request.Builder()
-							// 社会实践
-							.url("http://sc.sit.edu.cn/public/activity/activityList.action?categoryId=8ab17f543fe62d5d013fe62efd3a0002")
+							.url("http://sc.sit.edu.cn/public/activity/activityList.action?categoryId=001")
 							.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
 							.header("Accept-Language", "zh-CN,zh;q=0.9")
 							.header("Connection", "Keep-Alive")
@@ -152,8 +154,6 @@ public class EightFragment extends Fragment{
 					Response response4 = client.newCall(request4).execute();
 					String responseData4 = response4.body().string();
 					getNews(responseData4);
-
-
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -179,19 +179,21 @@ public class EightFragment extends Fragment{
 
 						String A2 = link.get(j).select("a").attr("href");
 						A2 = "http://sc.sit.edu.cn"+A2;
-						//System.out.println("A2"+A1.toString());
+						//System.out.println("A2"+A2.toString());
 
 						String A3 = link.get(j).select("span").text();
-						//System.out.println("A3"+A1.toString());
+						//System.out.println("A3"+A3.toString());
 
 						SecondClass news = new SecondClass(A1,A2,A3);
 						newsList.add(news);
 					}
 
+					if (layoutInit){
+						Message msg = new Message();
+						msg.what = 1;
+						handler.sendMessage(msg);
+					}
 
-					Message msg = new Message();
-					msg.what = 1;
-					handler.sendMessage(msg);
 				}catch (Exception e){
 					e.printStackTrace();
 				}

@@ -120,7 +120,13 @@ public class SQ_ShareNews extends LazyLoadFragment {
                             canfresh = false;
                             try {
                                 Thread.sleep(1000);
-                                refresh.setRefreshing(false);
+
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        refresh.setRefreshing(false);
+                                    }
+                                });
 
                                 Thread.sleep(10000);
                                 canfresh = true;
@@ -129,11 +135,18 @@ public class SQ_ShareNews extends LazyLoadFragment {
                             }
 
 
+
+
                         }
                     }).start();
                 }else {
                     Toast.makeText(getContext(),"太快了~10s后再试",Toast.LENGTH_SHORT).show();
-                    refresh.setRefreshing(false);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            refresh.setRefreshing(false);
+                        }
+                    });
                 }
 
             }

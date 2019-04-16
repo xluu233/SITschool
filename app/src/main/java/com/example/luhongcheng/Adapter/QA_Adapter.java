@@ -20,10 +20,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
+import com.example.luhongcheng.WebDisplay;
 import com.example.luhongcheng.bean.QA;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobRelation;
@@ -80,6 +83,16 @@ public class QA_Adapter extends RecyclerView.Adapter<QA_Adapter.ViewHolder> {
                 holder.zan.setBackgroundResource(R.drawable.sq_zan_2);
             }
         }
+
+        final Matcher m = Pattern.compile("(?i)http://[^\u4e00-\u9fa5]+").matcher(mList.get(position).getContent());
+        final Matcher ms = Pattern.compile("(?i)https://[^\u4e00-\u9fa5]+").matcher(mList.get(position).getContent());
+        while(m.find()){
+            holder.content.setText(mList.get(position).getContent().replace(m.group(),"(@超链接)"));
+        }
+        while(ms.find()){
+            holder.content.setText(mList.get(position).getContent().replace(ms.group(),"(@超链接)"));
+        }
+
 
         holder.zan_layout.setOnClickListener(new View.OnClickListener() {
             @Override

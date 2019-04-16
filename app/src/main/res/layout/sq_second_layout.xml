@@ -68,7 +68,7 @@
                             <TextView
                                 android:id="@+id/qm"
                                 android:layout_weight="1"
-                                android:textSize="10sp"
+                                android:textSize="11sp"
                                 android:gravity="center_vertical"
                                 android:textColor="@color/black"
                                 android:layout_width="match_parent"
@@ -80,7 +80,7 @@
                             android:id="@+id/secondlayout_guanzhu"
                             android:text="关注"
                             android:gravity="center"
-                            android:textSize="13sp"
+                            android:textSize="12sp"
                             android:layout_marginEnd="5dp"
                             android:textColor="@color/white"
                             android:layout_marginTop="2dp"

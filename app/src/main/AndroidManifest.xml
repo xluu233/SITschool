@@ -103,7 +103,6 @@
         <activity android:name=".SWZL.swzlmain"/>
         <activity android:name=".OneSelf.Find2"/>
         <activity android:name=".SIT_SQ_other.Add_QA"/>
-        <activity android:name=".OneSelf.MyLove"/>
         <activity android:name=".ImageFullDisplay"/>
         <activity android:name=".OneSelf.ShowOnePerson"/>
         <activity android:name=".OneSelf.Find"/>
@@ -113,6 +112,8 @@
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="${applicationId}.BmobContentProvider"></provider>
+        <activity android:name=".OneSelf.MyFensi"/>
+        <activity android:name=".OneSelf.MyGuanzhu"/>
 
     </application>
 

@@ -120,7 +120,12 @@ public class Find2 extends Activity {
 
                         getOneInfo();
                         //关闭刷新
-                        refreshLayout.setRefreshing(false);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
 
                     }
                 }).start();

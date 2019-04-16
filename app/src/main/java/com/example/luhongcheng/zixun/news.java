@@ -5,7 +5,6 @@ package com.example.luhongcheng.zixun;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -71,10 +70,10 @@ public class news extends AppCompatActivity {
 	private void initFragment() {
 		mFragments = new ArrayList<>();
 
-		ThirdzhuyeFragment one = new ThirdzhuyeFragment();
-		FourzhuyeFragment two = new FourzhuyeFragment();
-		FifthzhuyeFragment three = new FifthzhuyeFragment();
-		SixzhuyeFragment four = new SixzhuyeFragment();
+		a_zxFragment one = new a_zxFragment();
+		b_zxFragment two = new b_zxFragment();
+		c_zxFragment three = new c_zxFragment();
+		d_zxFragment four = new d_zxFragment();
 		mFragments.add(one);
 		mFragments.add(two);
 		mFragments.add(three);

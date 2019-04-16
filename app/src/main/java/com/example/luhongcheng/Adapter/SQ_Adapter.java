@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,10 +33,13 @@ import com.example.luhongcheng.SIT_SQ_other.SQ_SecondLayout;
 import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.View.NineGridTestLayout;
 import com.example.luhongcheng.View.PopupWindowList;
+import com.example.luhongcheng.WebDisplay;
 import com.example.luhongcheng.bean.SQ;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -64,7 +68,7 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
     private List<String> my_Likes = new ArrayList<>();
     private List<String> my_collection;
     private boolean hadZan;
-
+    private String url;
 
 
     public SQ_Adapter(Context context, List<com.example.luhongcheng.bean.SQ> mList) {
@@ -98,10 +102,20 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
         Typeface tf = Typeface.createFromAsset(mgr, "fonts/simhei.ttf");//仿宋
         holder.content.setTypeface(tf);
 
-
         if (mList.get(position).getContent().length() == 0){
             holder.content.setHeight(0);
         }
+
+        final Matcher m = Pattern.compile("(?i)http://[^\u4e00-\u9fa5]+").matcher(mList.get(position).getContent());
+        final Matcher ms = Pattern.compile("(?i)https://[^\u4e00-\u9fa5]+").matcher(mList.get(position).getContent());
+
+        while(m.find()){
+            holder.content.setText(mList.get(position).getContent().replace(m.group(),"(@超链接)"));
+        }
+        while(ms.find()){
+            holder.content.setText(mList.get(position).getContent().replace(ms.group(),"(@超链接)"));
+        }
+
 
         Log.d("ss-time:",mList.get(position).getTime());
         my_Likes = mList.get(position).getMy_likes();

@@ -1,27 +1,24 @@
-package com.example.luhongcheng.OA;
+package com.example.luhongcheng.zixun;
 
+import android.annotation.SuppressLint;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.luhongcheng.Adapter.OAdapter;
 import com.example.luhongcheng.R;
-import com.example.luhongcheng.bean.OA;
+import com.example.luhongcheng.WebDisplay;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
@@ -29,8 +26,7 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 
-public class EightOAFragment extends Fragment {
-
+public class b_zxFragment extends Fragment {
 	private List<OA> newsList;
 	private OAdapter adapter;
 	private Handler handler;
@@ -38,18 +34,18 @@ public class EightOAFragment extends Fragment {
 
 	private OkHttpClient okHttpClient;
 	private OkHttpClient.Builder builder;
-	List<String> cookies;
 	private ProgressBar progressBar;
 	String data;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View v = inflater.inflate(R.layout.layout_oa_item, container, false);
+		View v = inflater.inflate(R.layout.layout_zhuye_item, container, false);
 		return v;
 	}
 
 
+	@SuppressLint("HandlerLeak")
 	@Override
 	public void onActivityCreated( Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -61,7 +57,7 @@ public class EightOAFragment extends Fragment {
 		builder = new OkHttpClient.Builder();
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
-		CheckAndChangeProgressBar();
+
 
 
 		handler = new Handler(){
@@ -75,46 +71,17 @@ public class EightOAFragment extends Fragment {
 						@Override
 						public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 							OA news = newsList.get(position);
-							Intent intent = new Intent(getActivity(),OADisplayActvivity.class);
+							Intent intent = new Intent(getActivity(), WebDisplay.class);
 							intent.putExtra("news_url",news.getA2());
+							intent.putExtra("title","官网资讯");
 							startActivity(intent);
-							//Intent intent = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-							//intent.putExtra("news_url",news.getNewsUrl());
-							//startActivity(intent);
-
-							//Intent intent2 = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-							//intent2.putExtra("COOKIE",str);
-							//startActivity(intent2);
-							//此处不能传递COOKIE，可能会混淆
 						}
 					});
 				}
 			}
 		};
-
-		final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout)getActivity().findViewById(R.id.oa_refresh);
-		refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-				lv.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1));
-				refreshLayout.setRefreshing(false);
-				getData();
-
-			}
-		});
 		getData();
 	}
-
-	private void CheckAndChangeProgressBar() {
-		SharedPreferences spCount = getActivity().getSharedPreferences("userid", 0);
-		String xuehao= spCount.getString("username", "");
-
-		if(xuehao.length()==0){
-			progressBar.setVisibility(View.INVISIBLE);
-		}
-	}
-
-
 
 	private void getData() {
 		SharedPreferences spCount = getActivity().getSharedPreferences("OAData", 0);
@@ -131,18 +98,18 @@ public class EightOAFragment extends Fragment {
 			public void run() {
 				try{
 					Document doc = Jsoup.parse(data);
-					Element url = doc.getElementById("pf8277");   //依据ID取值
-					Elements link =  url.getElementsByTag("li");
+					Elements url = doc.getElementsByClass("post post2");   //依据ID取值
+					Elements link =  url.select("tbody");
 
-					for(int j = 0;j < link.size();j++){
-						String A2 = link.get(j).select("a.rss-title").attr("href");
-						A2 = "http://myportal.sit.edu.cn/"+A2;
+					for(int j = 1;j < link.size();j++){
+						String A2 = link.get(j).select("a").attr("href");
+						A2 = "http://www.sit.edu.cn"+A2;
 						//System.out.println(A2.toString());
 
-						String A1 = link.get(j).select("a").attr("title");
+						String A1 = link.get(j).select("td").get(0).text();
 						//System.out.println(A1.toString());
 
-						String A3 = link.get(j).select("span").text();
+						String A3 = link.get(j).select("td").get(1).text();
 						//System.out.println(A3.toString());
 
 						OA news = new OA(A1,A2,A3);

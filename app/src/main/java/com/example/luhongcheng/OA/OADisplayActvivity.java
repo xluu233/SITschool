@@ -11,24 +11,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.example.luhongcheng.Adapter.Downloadadapter;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.bean.xiazai;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -39,97 +35,94 @@ import okhttp3.Response;
 
 public class OADisplayActvivity extends AppCompatActivity {
 
-    private String newsUrl;
-    String str;
-    String T0;
-    String T1;
-    String T2 = "";
-
-    String title;
-    String titleUrl;
-    List<String> cookies;
-    String xuehao;
-    String mima;
-
-    ListView lv;
-    private OkHttpClient okHttpClient;
-    private OkHttpClient.Builder builder;
-    private Handler handler,handler2;
+    private String newsUrl = null;
+    private String str = null;
+    private String T0 = null;
+    private String T1 = null;
+    private String T2 = "";
+    private String title = null;
+    private String titleUrl = null;
+    private List<String> cookies = new ArrayList<>();
+    private String xuehao = null;
+    private String mima = null;
     private List<xiazai> newsList =  new ArrayList<>();
+    ListView lv;
+    Toolbar toolbar;
+    TextView title0;
+    TextView title1;
+    TextView title2;
+
+
     @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oa_display);
-
         newsUrl = getIntent().getStringExtra("news_url");
-
-        final TextView title0 = (TextView) findViewById(R.id.title0);
-        final TextView title1 = (TextView) findViewById(R.id.title1) ;
-        final TextView title2 = (TextView) findViewById(R.id.title2) ;
-
-
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        title0 = (TextView) findViewById(R.id.title0);
+        title1 = (TextView) findViewById(R.id.title1) ;
+        title2 = (TextView) findViewById(R.id.title2) ;
         lv = (ListView)findViewById(R.id.lv);
 
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                if(msg.what == 1){
-                    title0.setText(getT0(T0));
-                    title1.setText(getT1(T1));
-                    title2.setText(getT2(T2));
-
-                    AssetManager mgr = getAssets();
-                    Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
-                    title0.setTypeface(tf);
-                    title1.setTypeface(tf);
-                    title2.setTypeface(tf);
-
-                }
-            }
-            private String getT0(String T0) {
-                return T0;
-            }
-            private String getT1(String T1) {
-                return T1;
-            }
-            private String getT2(String T2) {
-                return T2;
-            }
-
-        };
-
-        handler2 = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                if(msg.what == 1){
-                    lv.setAdapter(new Downloadadapter(getApplicationContext(),newsList));
-                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            xiazai url = newsList.get(position);
-                            Intent intent = new Intent();
-                            intent.setData(Uri.parse(url.getUrl()));//Url 就是你要打开的网址
-                            intent.setAction(Intent.ACTION_VIEW);
-                            startActivity(intent); //启动浏览器
-                        }
-                    });
-
-
-                }
-            }
-        };
-
         getID();
-        getmessage();
-
     }
 
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == 1){
+                title0.setText(T0);
+                title1.setText(T1);
+                title2.setText(T2);
+
+                AssetManager mgr = getAssets();
+                Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
+                title0.setTypeface(tf);
+                title1.setTypeface(tf);
+                title2.setTypeface(tf);
+            }
+        }
+
+
+    };
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler2 = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == 1){
+                lv.setAdapter(new Downloadadapter(getApplicationContext(),newsList));
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        xiazai url = newsList.get(position);
+                        Intent intent = new Intent();
+                        intent.setData(Uri.parse(url.getUrl()));//Url 就是你要打开的网址
+                        intent.setAction(Intent.ACTION_VIEW);
+                        startActivity(intent); //启动浏览器
+                    }
+                });
+
+
+            }
+        }
+    };
 
     private void getID() {
         SharedPreferences spCount = getSharedPreferences("userid", 0);
         xuehao= spCount.getString("username", "");
         mima= spCount.getString("password", "");
+        getmessage();
     }
 
     private void getmessage() {
@@ -176,15 +169,6 @@ public class OADisplayActvivity extends AppCompatActivity {
                     getNews(responseData);
                     getXiazai(responseData);
 
-                    okHttpClient.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(okhttp3.Call call, IOException e) {
-                        }
-                        @Override
-                        public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                            // Log.d("源代码", "onResponse: " + response.body().string().toString());
-                        }
-                    });
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -199,20 +183,14 @@ public class OADisplayActvivity extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    Document doc = Jsoup.parse(responseData);
-                    Elements url = doc.getElementById("mainContentFrame").select("table").get(0).select("tbody").select("tr").select("td");
+                    Elements url = Jsoup.parse(responseData).getElementById("mainContentFrame").select("table").get(0).select("tbody").select("tr").select("td");
                     if (url.size() != 0){
 
-                        //System.out.println("妈的数量到底是多少："+url.size());
                         for(int j = 0;j<url.size();j++){
                             titleUrl = url.select("a").attr("href");
                             titleUrl = "http://myportal.sit.edu.cn/"+titleUrl;
-
-                            //http://myportal.sit.edu.cn/attachmentDownload.portal?notUseCache=true&attachmentId=fa965403-a753-11e8-b606-13e308f774a2
-                            title = url.select("a").text();
-                            //System.out.println("title"+title);
-                            //System.out.println("titleurl"+titleUrl);
-
+                            title = url.get(j).select("a").text();
+                            //Log.d("totle:",title);
                             xiazai xixi = new xiazai(title,titleUrl);
                             newsList.add(xixi);
                         }
@@ -220,6 +198,7 @@ public class OADisplayActvivity extends AppCompatActivity {
                     }
 
                     if (newsList.size() != 0 ){
+                        lv.setVisibility(View.VISIBLE);
                         Message msg = new Message();
                         msg.what = 1;
                         handler2.sendMessage(msg);

@@ -9,12 +9,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
-import com.example.luhongcheng.OA.EightOAFragment;
-import com.example.luhongcheng.OA.FifthOAFragment;
-import com.example.luhongcheng.OA.FourOAFragment;
-import com.example.luhongcheng.OA.SevenOAFragment;
-import com.example.luhongcheng.OA.SixOAFragment;
-import com.example.luhongcheng.OA.ThirdOAFragment;
+import com.example.luhongcheng.OA.f_oaFragment;
+import com.example.luhongcheng.OA.c_oaFragment;
+import com.example.luhongcheng.OA.b_oaFragment;
+import com.example.luhongcheng.OA.e_oaFragment;
+import com.example.luhongcheng.OA.d_oaFragment;
+import com.example.luhongcheng.OA.a_oaFragment;
 import com.example.luhongcheng.R;
 import com.flyco.tablayout.SlidingTabLayout;
 import java.util.ArrayList;
@@ -40,14 +40,11 @@ public class item3 extends AppCompatActivity {
 
 
 
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.item1);
 		getID();
-		getCookies();
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));//设置状态栏背景色
@@ -63,10 +60,11 @@ public class item3 extends AppCompatActivity {
 
 		if(xuehao.length()==0){
 			Toast.makeText(item3.this,"你还没有输入账号", Toast.LENGTH_SHORT).show();
+		}else {
+			getCookies();
 		}
 
 	}
-
 
 	private void getCookies() {
 		new Thread(new Runnable() {
@@ -95,14 +93,14 @@ public class item3 extends AppCompatActivity {
 						str = strs[i];
 					}
 
-					save(str);
+					//save(str);
 
 					Request request = new Request.Builder()
 							.url("http://myportal.sit.edu.cn/index.portal")
 							.header("Accept", "text/html, application/xhtml+xml, image/jxr, */*")
 							.header("Accept-Language", "zh-Hans-CN,zh-Hans;q=0.5")
 							.header("Connection", "Keep-Alive")
-							.header("Cookie", cookies.toString())
+							.header("Cookie", str)
 							.header("Host", "myportal.sit.edu.cn")
 							.header("Referer", "http://myportal.sit.edu.cn/userPasswordValidate.portal")
 							.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
@@ -127,22 +125,22 @@ public class item3 extends AppCompatActivity {
 		editor.apply();
 	}
 
-	private void save(String str) {
+/*	private void save(String str) {
 		SharedPreferences.Editor editor=getSharedPreferences("OACookie",0).edit();
 		editor.putString("cookie",str);
 		editor.apply();
-	}
+	}*/
 
 
 	private void initFragment() {
 		mFragments = new ArrayList<>();
 
-		ThirdOAFragment one = new ThirdOAFragment();
-		FourOAFragment two = new FourOAFragment();
-		FifthOAFragment three = new FifthOAFragment();
-		SixOAFragment four = new SixOAFragment();
-		SevenOAFragment five = new SevenOAFragment();
-		EightOAFragment six = new EightOAFragment();
+		a_oaFragment one = new a_oaFragment();
+		b_oaFragment two = new b_oaFragment();
+		c_oaFragment three = new c_oaFragment();
+		d_oaFragment four = new d_oaFragment();
+		e_oaFragment five = new e_oaFragment();
+		f_oaFragment six = new f_oaFragment();
 
 		mFragments.add(one);
 		mFragments.add(two);

@@ -1,6 +1,5 @@
 package com.example.luhongcheng.zixun;
 
-
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -27,7 +26,8 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 
-public class FifthzhuyeFragment extends Fragment {
+public class a_zxFragment extends Fragment{
+
 	private List<OA> newsList;
 	private OAdapter adapter;
 	private Handler handler;
@@ -50,15 +50,12 @@ public class FifthzhuyeFragment extends Fragment {
 	@Override
 	public void onActivityCreated( Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
 		newsList = new ArrayList<>();
 		lv = (ListView) getView().findViewById(R.id.news_lv);
-
 
 		builder = new OkHttpClient.Builder();
 		okHttpClient = builder.build();
 		progressBar = (ProgressBar) getView().findViewById(R.id.progressBarNormal) ;
-
 
 
 		handler = new Handler(){
@@ -98,9 +95,9 @@ public class FifthzhuyeFragment extends Fragment {
 			@Override
 			public void run() {
 				try{
-					Document doc = Jsoup.parse(data);
-					Elements url = doc.getElementsByClass("post post3");   //依据ID取值
-					Elements link =  url.select("tbody");
+                    Document doc = Jsoup.parse(data);
+                    Elements url = doc.getElementsByClass("post post1");   //依据ID取值
+                    Elements link =  url.select("tbody");
 
 					for(int j = 1;j < link.size();j++){
 						String A2 = link.get(j).select("a").attr("href");

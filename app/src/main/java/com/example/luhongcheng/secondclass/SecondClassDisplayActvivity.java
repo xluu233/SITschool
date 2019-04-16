@@ -1,7 +1,7 @@
 package com.example.luhongcheng.secondclass;
 
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -9,77 +9,55 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.luhongcheng.R;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
-import java.io.IOException;
-
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class SecondClassDisplayActvivity extends Activity {
+public class SecondClassDisplayActvivity extends AppCompatActivity {
 
     private String newsUrl;
-    String str;
-    String T0;
-    String T1;
-    String T2;
-    String shenqingURL;
+    private String str;
+    private String T0;
+    private String T1;
+    private String T2;
+    private String shenqingURL;
+    TextView title0;
+    TextView title1;
+    TextView title2;
+    Toolbar toolbar;
 
-    private OkHttpClient okHttpClient;
-    private OkHttpClient.Builder builder;
-    private Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secondclass_display);
-
         newsUrl = getIntent().getStringExtra("news_url");
 
-        final TextView title0 = (TextView) findViewById(R.id.title0);
-        final TextView title1 = (TextView) findViewById(R.id.title1) ;
-        final TextView title2 = (TextView) findViewById(R.id.title2) ;
+        title0= (TextView) findViewById(R.id.title0);
+        title1 = (TextView) findViewById(R.id.title1) ;
+        title2 = (TextView) findViewById(R.id.title2) ;
         Button bt = (Button) findViewById(R.id.shenqing);
-        getCookies();
-        getmessage();
-
-        handler = new Handler(){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void handleMessage(Message msg) {
-                if(msg.what == 1){
-                    title0.setText(getT0(T0));
-                    title1.setText(getT1(T1));
-                    title2.setText(getT2(T2));
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-                    AssetManager mgr = getAssets();
-                    Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
-                    title0.setTypeface(tf);
-                    title1.setTypeface(tf);
-                    title2.setTypeface(tf);
-
-                }
-            }
-            private String getT0(String T0) {
-                return T0;
-            }
-            private String getT1(String T1) {
-                return T1;
-            }
-            private String getT2(String T2) {
-                return T2;
-            }
-
-        };
+        SharedPreferences spCount = getSharedPreferences("SecondCookie", 0);
+        str = spCount.getString("cookie", "");
+        getmessage();
 
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +68,35 @@ public class SecondClassDisplayActvivity extends Activity {
         });
 
     }
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what == 1){
+                title0.setText(getT0(T0));
+                title1.setText(getT1(T1));
+                title2.setText(getT2(T2));
+
+                AssetManager mgr = getAssets();
+                Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋
+                title0.setTypeface(tf);
+                title1.setTypeface(tf);
+                title2.setTypeface(tf);
+
+            }
+        }
+        private String getT0(String T0) {
+            return T0;
+        }
+        private String getT1(String T1) {
+            return T1;
+        }
+        private String getT2(String T2) {
+            return T2;
+        }
+
+    };
 
     private void shenqing() {
         new Thread(new Runnable() {
@@ -139,11 +146,6 @@ public class SecondClassDisplayActvivity extends Activity {
     //webView.loadUrl(newsUrl,extraHeaders);
 
 
-    private void getCookies() {
-        SharedPreferences spCount = getSharedPreferences("SecondCookie", 0);
-        //在fragment中用share方法要getActivity（）
-        str = spCount.getString("cookie", "");
-    }
 
     private void getmessage() {
         new Thread(new Runnable() {
@@ -171,18 +173,6 @@ public class SecondClassDisplayActvivity extends Activity {
                     getNews(responseData4);
 
 
-
-
-                    okHttpClient.newCall(request4).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(okhttp3.Call call, IOException e) {
-                        }
-                        @Override
-                        public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                            //Log.d("源代码", "onResponse: " + response.body().string().toString());
-                        }
-                    });
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -208,7 +198,6 @@ public class SecondClassDisplayActvivity extends Activity {
                     //System.out.println("T2"+T1.toString());
 
                     T2 = "       "+link.select("div").get(2).text();
-
 
 
                     Message msg = new Message();

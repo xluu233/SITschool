@@ -119,7 +119,12 @@ public class Find extends Activity {
 
                         Start_Search();
                         //关闭刷新
-                        refreshLayout.setRefreshing(false);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
 
                     }
                 }).start();

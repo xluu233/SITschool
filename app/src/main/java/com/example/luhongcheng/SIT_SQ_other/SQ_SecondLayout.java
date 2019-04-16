@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,12 +39,15 @@ import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.View.NineGridTestLayout;
 import com.example.luhongcheng.View.PopupWindowList;
+import com.example.luhongcheng.WebDisplay;
 import com.example.luhongcheng.bean.PingLun;
 import com.example.luhongcheng.utils.BaseStatusBarActivity;
 import com.example.luhongcheng.utils.ItemClickSupport;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
@@ -74,11 +79,12 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
     RecyclerView recyclerView;
     //SmartRefreshLayout refreshLayout;
     SwipeRefreshLayout refreshLayout;
-    EditText msg;
+    EditText editText;
     ImageView send,more_item;
     Toolbar toolbar;
     TextView no_comments;
     List<PingLun> comment_list = new ArrayList<>();
+
 
     @SuppressLint("NewApi")
     @Override
@@ -129,7 +135,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         gridview = findViewById(R.id.layout_nine_grid);
         recyclerView = findViewById(R.id.comment_recy);
         refreshLayout = findViewById(R.id.item_refresh);
-        msg = findViewById(R.id.msg);
+        editText = findViewById(R.id.msg);
         send = findViewById(R.id.send_msg);
         toolbar = findViewById(R.id.toolbar);
         no_comments = findViewById(R.id.no_comment);
@@ -148,7 +154,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     UserInfo user = new UserInfo();
                     user.setObjectId(my_id);
 
-                    String content = msg.getText().toString();
+                    String content = editText.getText().toString();
                     if (content.length() != 0){
                         QA_Comment comment = new QA_Comment();
                         comment.setContent(content);
@@ -175,7 +181,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     UserInfo user = new UserInfo();
                     user.setObjectId(my_id);
 
-                    String content = msg.getText().toString();
+                    String content = editText.getText().toString();
                     if (content.length() != 0){
                         SQ_Comment comment = new SQ_Comment();
                         comment.setContent(content);
@@ -219,10 +225,16 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
                         try {
                             Thread.sleep(1000);
-                            refreshLayout.setRefreshing(false);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
 
                     }
                 }).start();
@@ -349,6 +361,33 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         ss_content.setText(content);
                         ss_time.setText(time);
 
+                        final Matcher m = Pattern.compile("(?i)http://[^\u4e00-\u9fa5]+").matcher(content);
+                        final Matcher ms = Pattern.compile("(?i)https://[^\u4e00-\u9fa5]+").matcher(content);
+                        while(m.find()){
+                            final String url = m.group();
+                            ss_content.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent8 = new Intent(getApplicationContext(), WebDisplay.class);
+                                    intent8.putExtra("news_url", url);
+                                    intent8.putExtra("title","超链接");
+                                    startActivity(intent8);
+                                }
+                            });
+                        }
+                        while(ms.find()){
+                            final String url = ms.group();
+                            ss_content.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent8 = new Intent(getApplicationContext(), WebDisplay.class);
+                                    intent8.putExtra("news_url", url);
+                                    intent8.putExtra("title","超链接");
+                                    startActivity(intent8);
+                                }
+                            });
+                        }
+
                         if (content.length() ==0){
                             ss_content.setVisibility(View.GONE);
                         }
@@ -391,6 +430,34 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         if (content.length() ==0){
                             ss_content.setVisibility(View.GONE);
                         }
+
+                        final Matcher m = Pattern.compile("(?i)http://[^\u4e00-\u9fa5]+").matcher(content);
+                        final Matcher ms = Pattern.compile("(?i)https://[^\u4e00-\u9fa5]+").matcher(content);
+                        while(m.find()){
+                            final String url = m.group();
+                            ss_content.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent8 = new Intent(getApplicationContext(), WebDisplay.class);
+                                    intent8.putExtra("news_url", url);
+                                    intent8.putExtra("title","超链接");
+                                    startActivity(intent8);
+                                }
+                            });
+                        }
+                        while(ms.find()){
+                            final String url = ms.group();
+                            ss_content.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent8 = new Intent(getApplicationContext(), WebDisplay.class);
+                                    intent8.putExtra("news_url", url);
+                                    intent8.putExtra("title","超链接");
+                                    startActivity(intent8);
+                                }
+                            });
+                        }
+
 
 //                        Log.d("getDate", String.valueOf(urllist));
 //                        Log.d("getDate",time);
@@ -485,11 +552,12 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
     }
 
 
-
+    String huifu;
     @SuppressLint("HandlerLeak")
     private Handler handler  = new Handler(){
         @Override
         public void handleMessage(Message msg) {
+
             if(msg.what == 1){
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
@@ -503,25 +571,25 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                 ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-
-                        //Toast.makeText(getContext(),"xizxi",Toast.LENGTH_SHORT).show();
+                        if (!my_id.equals(comment_list.get(position).getAuthor_id())){
+                            BmobQuery<UserInfo> bmobQuery = new BmobQuery<>();
+                            bmobQuery.getObject(comment_list.get(position).getAuthor_id(), new QueryListener<UserInfo>() {
+                                @Override
+                                public void done(UserInfo userInfo, BmobException e) {
+                                    if(e==null){
+                                        huifu = userInfo.getNickname();
+                                        Message msg = new Message();
+                                        msg.what = 2;
+                                        handler.sendMessage(msg);
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
-
-                ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
-                        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                        vibrator.vibrate(50);
-
-                        report_item(comment_list.get(position).getItem_id(),comment_list.get(position).getContent());
-                        //showPopWindows(v,comment_list.get(position).getAuthor_id(),comment_list.get(position).getItem_id(),comment_list.get(position).getContent());
-                        //Toast.makeText(getContext(),"长按了一下",Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });
-
-
+            }
+            if (msg.what == 2){
+                editText.setText("回复@"+huifu+"：");
             }
         }
     };
@@ -536,7 +604,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
     private void showPopWindows(View view){
 
         List<String> dataList = new ArrayList<>();
-        dataList.add("举报");
         dataList.add("收藏");
 
         if (mPopupWindowList == null){
@@ -551,9 +618,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
-                        report_item(item_id,"0");
-                        break;
-                    case 1:
                         collection_item(item_id);
                         break;
                     default:
@@ -564,40 +628,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         });
     }
 
-
-
-    private void report_item(final String item_id, final String content) {
-
-        final EditText et = new EditText(getApplicationContext());
-        new AlertDialog.Builder(getApplicationContext()).setTitle("举报")
-                .setIcon(R.drawable.report)
-                .setView(et)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String input = et.getText().toString();
-                        if (input.equals("")) {
-                            Toast.makeText(getApplicationContext(), "内容不能为空！" + input, Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            Report report = new Report();
-                            report.setItem_id(item_id);
-                            report.setTitle(input);
-                            report.setContent(content);
-                            report.setUser_id(my_id);
-                            report.save(new SaveListener<String>() {
-                                @Override
-                                public void done(String s, BmobException e) {
-                                    if (e==null){
-                                        Toast.makeText(getApplicationContext(),"举报成功",Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        }
-                    }
-                })
-                .setNegativeButton("取消", null)
-                .show();
-    }
 
 
     @Override

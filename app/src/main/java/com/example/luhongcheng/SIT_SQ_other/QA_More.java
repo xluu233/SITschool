@@ -87,13 +87,18 @@ public class QA_More extends Activity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        getDate();
                         try {
                             Thread.sleep(1000);
-                            refreshLayout.setRefreshing(false);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        getDate();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
                     }
                 }).run();
             }

@@ -166,15 +166,6 @@ public class SQ_BigSit extends LazyLoadFragment {
             }
         });
 
-/*        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                //getDate2();
-                refreshlayout.finishLoadMore(2000*//*,false*//*);//传入false表示加载失败
-                Snackbar.make(getView(),"只支持加载20条数据",Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,36 +181,12 @@ public class SQ_BigSit extends LazyLoadFragment {
             }
         });
 
-    /*    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        //加载数据
-                        get_MyCollection();
-                        //关闭刷新
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                refreshLayout.setRefreshing(false);
-                            }
-                        });
-                    }
-                }).start();
-            }
-        });*/
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void get_MyCollection() {
         if (person_id.length() == 0){
-            //Toast.makeText(getActivity(),"没有获取到ID",Toast.LENGTH_SHORT).show();
             SharedPreferences sp= Objects.requireNonNull(getActivity()).getSharedPreferences("userid",0);
             final String username = sp.getString("username","");
 
@@ -227,9 +194,7 @@ public class SQ_BigSit extends LazyLoadFragment {
                 @Override
                 public void run() {
                     BmobQuery<UserInfo> query2 = new BmobQuery<>();
-                    if (username != null) {
-                        query2.addWhereContains("ID",username);
-                    }
+                    query2.addWhereContains("ID",username);
                     query2.findObjects(new FindListener<UserInfo>() {
                         @Override
                         public void done(List<UserInfo> list, BmobException e) {
@@ -240,23 +205,12 @@ public class SQ_BigSit extends LazyLoadFragment {
                                 editor.putString("ID",person_id);
                                 editor.apply();
 
-/*                                if (list.get(0).getMy_Collection() != null){
-                                    my_collection = list.get(0).getMy_Collection();
-                                }
-
-                                if (list.get(0).getMy_Likes() != null){
-                                    my_Likes = list.get(0).getMy_Likes();
-                                }*/
-
                                 my_collection = list.get(0).getMy_Collection();
                                 my_Likes = list.get(0).getMy_Likes();
-                                //my_GuanZhu = list.get(0).getGuanzhu();
 
                                 getDate();
-
-                                Log.d("QA：","get_MyCollection()");
                             } else {
-                                Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                                Toast.makeText(getActivity(),"get perosnID error,请先前往个人中心",Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -274,20 +228,13 @@ public class SQ_BigSit extends LazyLoadFragment {
                         @Override
                         public void done(UserInfo object, BmobException e) {
                             if (e == null) {
-
                                 if (object.getMy_Collection() != null){
                                     my_collection.addAll(object.getMy_Collection());
                                 }
-
                                 if (object.getMy_Likes() != null){
                                     my_Likes = object.getMy_Likes();
                                 }
-
                                 getDate();
-
-                                Log.d("QA：","get_MyCollection()");
-                            } else {
-                                Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                             }
                         }
                     });

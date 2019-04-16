@@ -1,6 +1,7 @@
 package com.example.luhongcheng.MainFragment_four;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -22,10 +23,11 @@ import android.widget.TextView;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.DataBase.Person_Data;
 import com.example.luhongcheng.OneSelf.Find2;
+import com.example.luhongcheng.OneSelf.MyFensi;
+import com.example.luhongcheng.OneSelf.MyGuanzhu;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.bean.Fruit;
 import com.example.luhongcheng.Adapter.FruitAdapter;
-import com.example.luhongcheng.OneSelf.MyLove;
 import com.example.luhongcheng.OneSelf.setMy;
 
 import java.io.InputStream;
@@ -101,9 +103,14 @@ public class FourFragment_one extends Fragment {
                         //我的收藏
                         break;
                     case 3:
-                        //好友列表
-                        Intent intent2 = new Intent(getActivity(),MyLove.class);
+                        //我的关注
+                        Intent intent2 = new Intent(getActivity(), MyGuanzhu.class);
                         startActivity(intent2);
+                        break;
+                    case 4:
+                        //我的粉丝
+                        Intent intent3 = new Intent(getActivity(), MyFensi.class);
+                        startActivity(intent3);
                         break;
                     default:
                         break;
@@ -152,7 +159,7 @@ public class FourFragment_one extends Fragment {
                         personID = xixi.getObjectId();
 
                         if (personID != null){
-                            APPid.setText(personID);
+                            APPid.setText("personID："+personID);
                         }
 
                         name = name.replace("姓名：","");
@@ -257,6 +264,7 @@ public class FourFragment_one extends Fragment {
     }
 
     private static Bitmap bitmap;
+    @SuppressLint("HandlerLeak")
     private static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -299,11 +307,13 @@ public class FourFragment_one extends Fragment {
         Fruit x1 = new Fruit("我的说说",R.drawable.friend);
         Fruit x2 = new Fruit("我的问答", R.drawable.question);
         Fruit x3 = new Fruit("我的收藏", R.drawable.collection);
-        Fruit x4 = new Fruit("好友列表", R.drawable.ss);
+        Fruit x4 = new Fruit("我的关注", R.drawable.ss);
+        Fruit x5 = new Fruit("我的粉丝", R.drawable.ss);
         fruitList.add(x1);
         fruitList.add(x2);
         fruitList.add(x3);
         fruitList.add(x4);
+        fruitList.add(x5);
 
     }
 

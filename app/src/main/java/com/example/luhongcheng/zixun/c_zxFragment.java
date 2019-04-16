@@ -1,5 +1,6 @@
 package com.example.luhongcheng.zixun;
 
+
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -26,7 +27,7 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 
-public class SixzhuyeFragment extends Fragment{
+public class c_zxFragment extends Fragment {
 	private List<OA> newsList;
 	private OAdapter adapter;
 	private Handler handler;
@@ -98,7 +99,7 @@ public class SixzhuyeFragment extends Fragment{
 			public void run() {
 				try{
 					Document doc = Jsoup.parse(data);
-					Elements url = doc.getElementsByClass("post post4");   //依据ID取值
+					Elements url = doc.getElementsByClass("post post3");   //依据ID取值
 					Elements link =  url.select("tbody");
 
 					for(int j = 1;j < link.size();j++){

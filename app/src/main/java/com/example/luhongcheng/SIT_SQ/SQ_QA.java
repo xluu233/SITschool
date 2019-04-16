@@ -195,7 +195,6 @@ public class SQ_QA extends LazyLoadFragment {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void get_MyCollection() {
         if (person_id.length() == 0){
-            //Toast.makeText(getActivity(),"没有获取到ID",Toast.LENGTH_SHORT).show();
             SharedPreferences sp= Objects.requireNonNull(getActivity()).getSharedPreferences("userid",0);
             final String username = sp.getString("username","");
 
@@ -227,7 +226,8 @@ public class SQ_QA extends LazyLoadFragment {
                                 getDate();
 
                             } else {
-                                Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                                //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                                Toast.makeText(getActivity(),"get perosnID error,请先前往个人中心",Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -256,9 +256,6 @@ public class SQ_QA extends LazyLoadFragment {
 
                                 getDate();
 
-                                Log.d("QA：","get_MyCollection()");
-                            } else {
-                                Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                             }
                         }
                     });
