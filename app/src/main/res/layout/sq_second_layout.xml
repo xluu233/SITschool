@@ -105,7 +105,7 @@
                             android:id="@+id/title"
                             android:textSize="17sp"
                             android:lineSpacingMultiplier="1.4"
-                            android:textColor="@color/moren"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -115,6 +115,7 @@
                         <TextView
                             android:id="@+id/content"
                             android:textSize="15sp"
+                            android:layout_marginTop="5dp"
                             android:lineSpacingMultiplier="1.4"
                             android:textColor="@color/moren"
                             android:layout_width="match_parent"
@@ -210,10 +211,17 @@
                 />
 
             <ImageView
+                android:id="@+id/add_image"
+                android:scaleType="center"
+                android:src="@drawable/fab_add"
+                android:layout_width="30dp"
+                android:layout_height="50dp" />
+
+            <ImageView
                 android:id="@+id/send_msg"
                 android:scaleType="center"
                 android:src="@drawable/ic_send"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="50dp" />
 
         </LinearLayout>

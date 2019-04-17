@@ -34,7 +34,7 @@
                 android:layout_height="70dip"
                 android:scaleType="fitXY"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/project_detail_cir" />
+                android:src="@drawable/ic_launcher" />
 
             <TextView
                 android:id="@+id/title"

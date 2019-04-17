@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -48,9 +50,11 @@ public class FourFragment_one extends Fragment {
     static ImageView icon;
     String username;
     private List<Fruit> fruitList = new ArrayList<Fruit>();
+    SwipeRefreshLayout refreshLayout;
 
     TextView a1,a2,bianji;
     TextView find;
+    TextView jifen;
     String iconUrl;
     String name;
     String personID;
@@ -71,7 +75,7 @@ public class FourFragment_one extends Fragment {
         super.onActivityCreated(savedInstanceState);
         cn.bmob.v3.Bmob.initialize(getContext(), "69d2a14bfc1139c1e9af3a9678b0f1ed");
 
-        bianji = (TextView)getActivity().findViewById(R.id.bianji);
+        bianji = (TextView) Objects.requireNonNull(getActivity()).findViewById(R.id.bianji);
         icon = (ImageView) getActivity().findViewById(R.id.myicon);
         nickname = (TextView)getActivity().findViewById(R.id.nickname);
         qianming = (TextView)getActivity().findViewById(R.id.qianming);
@@ -81,6 +85,8 @@ public class FourFragment_one extends Fragment {
         a2 = (TextView)getActivity().findViewById(R.id.fensi);
         find = (TextView)getActivity().findViewById(R.id.find);
         ListView one_list = (ListView) getActivity().findViewById(R.id.oneself_list);
+        refreshLayout = getActivity().findViewById(R.id.A);
+        jifen = getActivity().findViewById(R.id.jifen);
 
         //getInfoFromDB();
         restoreInfo();
@@ -91,7 +97,6 @@ public class FourFragment_one extends Fragment {
         one_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Fruit fruit = fruitList.get(position);
                 switch (position) {
                     case 0:
                         //我的说说
@@ -139,6 +144,30 @@ public class FourFragment_one extends Fragment {
         });
 
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        restoreInfo();
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
+
+                    }
+                }).start();
+
+            }
+        });
     }
 
 
@@ -176,6 +205,12 @@ public class FourFragment_one extends Fragment {
                             qianming.setText(qm);
                         }
 
+
+                        if (xixi.getJifen()!=null){
+                            jifen.setText("积分："+xixi.getJifen());
+                        }else {
+                            jifen.setText("积分：0");
+                        }
 
                         //保存用户的ID
                         SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();

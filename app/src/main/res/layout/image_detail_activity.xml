@@ -36,6 +36,7 @@
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:textSize="15sp"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:text="保存" />
 
@@ -44,6 +45,7 @@
         android:text="1/n"
         android:gravity="center"
         android:textSize="15sp"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="60dp" />

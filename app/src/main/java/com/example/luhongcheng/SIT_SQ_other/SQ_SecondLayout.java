@@ -2,15 +2,23 @@ package com.example.luhongcheng.SIT_SQ_other;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +43,7 @@ import com.example.luhongcheng.Bmob_bean.Report;
 import com.example.luhongcheng.Bmob_bean.SQ;
 import com.example.luhongcheng.Bmob_bean.SQ_Comment;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
+import com.example.luhongcheng.ImageFullDisplay;
 import com.example.luhongcheng.View.CircleImageView;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.View.NineGridTestLayout;
@@ -43,19 +52,27 @@ import com.example.luhongcheng.WebDisplay;
 import com.example.luhongcheng.bean.PingLun;
 import com.example.luhongcheng.utils.BaseStatusBarActivity;
 import com.example.luhongcheng.utils.ItemClickSupport;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadBatchListener;
+import id.zelory.compressor.Compressor;
 
 import static org.litepal.LitePalApplication.getContext;
 
@@ -80,11 +97,13 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
     //SmartRefreshLayout refreshLayout;
     SwipeRefreshLayout refreshLayout;
     EditText editText;
-    ImageView send,more_item;
+    ImageView send,more_item,add_image;
     Toolbar toolbar;
     TextView no_comments;
     List<PingLun> comment_list = new ArrayList<>();
-
+    public static final int CHOOSE_PHOTO = 1; //选择
+    String image_url = null;
+    private boolean hadSend = false;
 
     @SuppressLint("NewApi")
     @Override
@@ -140,6 +159,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         toolbar = findViewById(R.id.toolbar);
         no_comments = findViewById(R.id.no_comment);
         more_item = findViewById(R.id.more_item);
+        add_image = findViewById(R.id.add_image);
     }
 
 
@@ -147,60 +167,25 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (From_TAG.equals("QA")){
-                    QA post = new QA();
-                    post.setObjectId(item_id);
-
-                    UserInfo user = new UserInfo();
-                    user.setObjectId(my_id);
-
-                    String content = editText.getText().toString();
-                    if (content.length() != 0){
-                        QA_Comment comment = new QA_Comment();
-                        comment.setContent(content);
-                        comment.setAuthor(user);
-                        comment.setPost(post);
-                        comment.save(new SaveListener<String>() {
-
-                            @Override
-                            public void done(String objectId, BmobException e) {
-                                if(e==null){
-                                    Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Log.i("bmob","失败："+e.getMessage());
-                                }
-                            }
-
-                        });
+                if (!hadSend){
+                    if (imagePath == null){
+                        update_comment();
+                    }else {
+                        Toast.makeText(getApplicationContext(),"正在上传图片哟~ Please wait a moment",Toast.LENGTH_SHORT).show();
+                        update_image();
                     }
+                    hadSend = true;
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        public void run() {
+                            hadSend = false;
+                        }
+                    }, 10000);
 
-                }else if (From_TAG.equals("SQ")){
-                    SQ post1 = new SQ();
-                    post1.setObjectId(item_id);
 
-                    UserInfo user = new UserInfo();
-                    user.setObjectId(my_id);
-
-                    String content = editText.getText().toString();
-                    if (content.length() != 0){
-                        SQ_Comment comment = new SQ_Comment();
-                        comment.setContent(content);
-                        comment.setAuthor(user);
-                        comment.setPost(post1);
-                        comment.save(new SaveListener<String>() {
-                            @Override
-                            public void done(String objectId, BmobException e) {
-                                if(e==null){
-                                    Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Log.i("bmob","失败："+e.getMessage());
-                                }
-                            }
-
-                        });
-                    }
+                }else {
+                    Toast.makeText(getApplicationContext(),"请稍后再试",Toast.LENGTH_SHORT).show();
                 }
-
 
             }
         });
@@ -216,11 +201,9 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                         get_UserInfo();
                         if (From_TAG.equals("QA")){
                             getDateFromQA(); //QA的信息
-                            //get_QAComment();
                         }else if (From_TAG.equals("SQ")){
                             ss_title.setVisibility(View.GONE);
                             getDateFromSQ(); //SQ的信息
-                            //get_SQComment();
                         }
 
                         try {
@@ -248,6 +231,119 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                 showPopWindows(v);
             }
         });
+
+        add_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("android.intent.action.GET_CONTENT");
+                intent.setType("image/*");
+                startActivityForResult(intent, CHOOSE_PHOTO);
+            }
+        });
+    }
+
+    private void update_image() {
+        File file = new File(imagePath);
+        File compressedFile = null;
+        String compressed_imagePath = null;
+
+        try {
+            compressedFile = new Compressor(this).compressToFile(file);
+            compressed_imagePath = compressedFile.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BmobFile.uploadBatch(new String[]{compressed_imagePath}, new UploadBatchListener() {
+            @Override
+            public void onSuccess(List<BmobFile> files,List<String> urls) {
+                //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
+                //2、urls-上传文件的完整url地址
+                if(urls.size()==1){//如果数量相等，则代表文件全部上传完成
+                    //Log.d("反馈url", String.valueOf(urls));
+                    image_url = urls.get(0);
+                    update_comment();
+                }
+            }
+
+            @Override
+            public void onError(int statuscode, String errormsg) {
+                //Log.d("反馈错误码:",statuscode +",错误描述："+errormsg);
+                Toast.makeText(getApplicationContext(),"图片上传失败",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onProgress(int curIndex, int curPercent, int total,int totalPercent) {
+                //1、curIndex--表示当前第几个文件正在上传
+                //2、curPercent--表示当前上传文件的进度值（百分比）
+                //3、total--表示总的上传文件数
+                //4、totalPercent--表示总的上传进度（百分比）
+                //Log.d("反馈-总上传进度：", totalPercent+"%");
+            }
+        });
+
+    }
+
+    private void update_comment() {
+        if (From_TAG.equals("QA")){
+            QA post = new QA();
+            post.setObjectId(item_id);
+
+            UserInfo user = new UserInfo();
+            user.setObjectId(my_id);
+
+            String content = editText.getText().toString();
+            if (image_url!=null){
+                content = editText.getText().toString().replace("[图片]","[图片"+image_url+"链接]");
+            }
+            if (content.length() != 0){
+                QA_Comment comment = new QA_Comment();
+                comment.setContent(content);
+                comment.setAuthor(user);
+                comment.setPost(post);
+                comment.save(new SaveListener<String>() {
+
+                    @Override
+                    public void done(String objectId, BmobException e) {
+                        if(e==null){
+                            Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Log.i("bmob","失败："+e.getMessage());
+                        }
+                    }
+
+                });
+            }
+
+        }else if (From_TAG.equals("SQ")){
+            SQ post1 = new SQ();
+            post1.setObjectId(item_id);
+
+            UserInfo user = new UserInfo();
+            user.setObjectId(my_id);
+
+            String content = editText.getText().toString();
+            if (image_url!=null){
+                content = editText.getText().toString().replace("[图片]","[图片"+image_url+"链接]");
+            }
+            if (content.length() != 0){
+                SQ_Comment comment = new SQ_Comment();
+                comment.setContent(content);
+                comment.setAuthor(user);
+                comment.setPost(post1);
+                comment.save(new SaveListener<String>() {
+                    @Override
+                    public void done(String objectId, BmobException e) {
+                        if(e==null){
+                            Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Log.i("bmob","失败："+e.getMessage());
+                        }
+                    }
+
+                });
+            }
+        }
     }
 
 
@@ -458,12 +554,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                             });
                         }
 
-
-//                        Log.d("getDate", String.valueOf(urllist));
-//                        Log.d("getDate",time);
-//                        Log.d("getDate",title);
-//                        Log.d("getDate",content);
-
                         if (urllist != null){
                             gridview.setUrlList(urllist);
                         }
@@ -479,11 +569,9 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
     private void get_QAComment() {
         BmobQuery<QA_Comment> query = new BmobQuery<>();
-        //用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
         QA post = new QA();
         post.setObjectId(item_id);
         query.addWhereEqualTo("post",new BmobPointer(post));
-        //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
         query.include("user,post.author");
         query.findObjects(new FindListener<QA_Comment>() {
             @Override
@@ -495,11 +583,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     String time = objects.get(i).getCreatedAt();
                     String item_id = objects.get(i).getObjectId();
 
-/*                    Log.d("评论",userInfo.getObjectId());
-                    Log.d("评论",content);*/
-
                     PingLun pingLun = new PingLun(content,item_id,userInfo.getObjectId(),time);
-                    //PingLun pingLun = new PingLun(userInfo.geticonUrl(),userInfo.getNickname(),content,userInfo.getObjectId());
                     comment_list.add(pingLun);
                 }
 
@@ -516,11 +600,9 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
 
     private void get_SQComment() {
         BmobQuery<SQ_Comment> query = new BmobQuery<>();
-        //用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
         SQ post = new SQ();
         post.setObjectId(item_id);
         query.addWhereEqualTo("post",new BmobPointer(post));
-        //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
         query.include("user,post.author");
         query.findObjects(new FindListener<SQ_Comment>() {
             @Override
@@ -531,11 +613,15 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     String time = objects.get(i).getCreatedAt();
                     String item_id = objects.get(i).getObjectId();
 
-/*                    Log.d("评论",userInfo.getObjectId());
-                    Log.d("评论",content);*/
+/*                    final Matcher m = Pattern.compile("(?i)http://[^\u4e00-\u9fa5]+").matcher(content);
+                    while(m.find()){
+                        final String url = m.group();
+
+                    }*/
+
+
 
                     PingLun pingLun = new PingLun(content,item_id,userInfo.getObjectId(),time);
-                    //PingLun pingLun = new PingLun(userInfo.geticonUrl(),userInfo.getNickname(),content,userInfo.getObjectId());
                     comment_list.add(pingLun);
                 }
                 if (comment_list.size() != 0){
@@ -565,7 +651,6 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                 no_comments.setVisibility(View.GONE);
 
                 CommentRecyAdapter adapter = new CommentRecyAdapter(getApplicationContext(),comment_list);
-                //recyclerView.setMinimumHeight(comment_list.size()*80);
                 recyclerView.setAdapter(adapter);
 
                 ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -578,9 +663,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                                 public void done(UserInfo userInfo, BmobException e) {
                                     if(e==null){
                                         huifu = userInfo.getNickname();
-                                        Message msg = new Message();
-                                        msg.what = 2;
-                                        handler.sendMessage(msg);
+                                        editText.setText("回复@"+huifu+"：");
                                     }
                                 }
                             });
@@ -588,9 +671,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     }
                 });
             }
-            if (msg.what == 2){
-                editText.setText("回复@"+huifu+"：");
-            }
+
         }
     };
 
@@ -676,6 +757,61 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
             Toast.makeText(getContext(),"你已经收藏过了",Toast.LENGTH_SHORT).show();
         }
     }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case CHOOSE_PHOTO:
+                if (resultCode == RESULT_OK){
+                    handleIMageOnKitKat(data);
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    String imagePath = null;
+    @SuppressLint("NewApi")
+    private void handleIMageOnKitKat(Intent data) {
+        Uri uri = data.getData();
+        if (DocumentsContract.isDocumentUri(this , uri)){
+            String docId = DocumentsContract.getDocumentId(uri);
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())){
+                String id = docId.split(":")[1];
+                String selection = MediaStore.Images.Media._ID +"=" +id;
+                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI , selection);
+            }else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())){
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),
+                        Long.valueOf(docId));
+                imagePath = getImagePath(contentUri ,null);
+            }
+        }else if ("content".equalsIgnoreCase(uri.getScheme())){
+            imagePath = getImagePath(uri , null);
+        }
+        //Log.d("imagepath:",imagePath);
+        String content = editText.getText().toString();
+        editText.setText(content+" [图片] ");
+    }
+
+
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        Cursor cursor = getContentResolver().query(uri , null , selection , null , null);
+        if (cursor!=null){
+            if(cursor.moveToFirst()){
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+
+
 
 
 }

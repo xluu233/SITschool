@@ -13,8 +13,8 @@
         <com.example.luhongcheng.View.CircleImageView
             android:layout_gravity="center"
             android:id="@+id/comment_icon"
-            android:src="@drawable/ic_launcher"
-            android:layout_width="match_parent"
+            android:background="@drawable/ic_launcher"
+            android:layout_width="30dp"
             android:layout_height="30dp" />
 
 

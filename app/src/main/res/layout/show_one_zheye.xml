@@ -12,54 +12,72 @@
         android:layout_height="40dp"
         android:background="@drawable/background_oneself"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:title="动态"
+        app:title="Show One"
         app:subtitleTextAppearance="@style/Toolbar.subTitleText"
         app:titleTextAppearance="@style/Toolbar.TitleText">
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
+        <com.example.luhongcheng.View.CircleImageView
+            android:id="@+id/show_icon"
+            android:layout_marginLeft="10dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_launcher"/>
+
         <LinearLayout
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
+            android:layout_width="match_parent"
+            android:layout_height="130dp">
 
             <TextView
-                android:id="@+id/nickname"
+                android:id="@+id/show_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="110dp"
-                android:maxLines="3"
-                android:text="简介："
+                android:maxLines="1"
+                android:text="nickname"
                 android:textColor="@color/moren"
                 android:textSize="14sp" />
 
 
             <TextView
-                android:id="@+id/qm"
+                android:id="@+id/show_qm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="110dp"
                 android:maxLines="3"
                 android:text="简介："
                 android:textColor="@color/moren"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/friends"
+                android:id="@+id/show_xueyuan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="110dp"
+                android:maxLines="3"
+                android:text="经管学院"
+                android:textColor="@color/moren"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/show_friends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:maxLines="3"
                 android:text="关注：12          粉丝：569"
                 android:textColor="@color/moren"
@@ -67,32 +85,37 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="150dp"
-            android:layout_height="100dp">
 
-            <com.example.luhongcheng.View.CircleImageView
-                android:id="@+id/icon"
-                android:layout_marginTop="10dp"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/ic_launcher"/>
-
-            <TextView
-                android:id="@+id/guanzhu"
-                android:text="关注"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button_shape3"
-                android:layout_width="50dp"
-                android:layout_height="20dp" />
-        </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/moren_back"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/show_guanzhu"
+            android:text="关注"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_shape3"
+            android:layout_width="60dp"
+            android:layout_height="30dp" />
+
+    </LinearLayout>
+
+
+
 
 
 

@@ -12,9 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.example.luhongcheng.utils.BaseStatusBarActivity;
 import com.example.luhongcheng.utils.ImageSaveUtil;
 
 import java.io.InputStream;
@@ -22,29 +24,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class ImageFullDisplay extends AppCompatActivity {
-    TextView nums;
+public class ImageFullDisplay extends BaseStatusBarActivity {
     Button save_image;
     String url;
     Bitmap bitmap;
     ImageView iv;
-    int n,num;
+    LinearLayout layout;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.imagefull);
         iv = (ImageView)findViewById(R.id.iv);
-        nums= (TextView)findViewById(R.id.nums);
         save_image = (Button)findViewById(R.id.save_image);
-
-
-        n = 1;
-        num = 1;
-        // n = getIntent().getIntExtra("n",0)+1;
-       // num = getIntent().getIntExtra("nums",0);
         url = getIntent().getStringExtra("url2");
-
+        layout = findViewById(R.id.close_image);
 
         postUrl(url);
         save_image.setOnClickListener(new View.OnClickListener() {
@@ -56,13 +51,8 @@ public class ImageFullDisplay extends AppCompatActivity {
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.black));//设置状态栏背景色
-        }
 
-        String text = n+"/"+num;
-        nums.setText(text);
-        iv.setOnClickListener(new View.OnClickListener() {
+        layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 close();
@@ -71,6 +61,7 @@ public class ImageFullDisplay extends AppCompatActivity {
 
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -120,5 +111,9 @@ public class ImageFullDisplay extends AppCompatActivity {
         this.finish();
     }
 
+    @Override
+    protected int getStatusBarColor() {
+        return getResources().getColor(R.color.black);
+    }
 
 }
