@@ -218,27 +218,29 @@
 
     </ScrollView>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_toRightOf="@+id/bt"
         android:layout_below="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progressBarNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-
-        <WebView
-            android:id="@+id/wb"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:background="@color/moren_back"
+            android:id="@+id/table_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </WebView>
+            <WebView
+                android:id="@+id/wb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </WebView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 
-    </RelativeLayout>
+
+    </LinearLayout>
 
 
 

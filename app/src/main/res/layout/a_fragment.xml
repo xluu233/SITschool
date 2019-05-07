@@ -38,11 +38,7 @@
             android:layout_height="40dp"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:subtitleTextAppearance="@style/Toolbar.subTitleText"
->
-
-
-        </android.support.v7.widget.Toolbar>
+            app:subtitleTextAppearance="@style/Toolbar.subTitleText"/>
 
 
     </LinearLayout>

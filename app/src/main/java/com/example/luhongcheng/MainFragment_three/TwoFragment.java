@@ -2,13 +2,14 @@ package com.example.luhongcheng.MainFragment_three;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,18 +20,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.example.luhongcheng.DataBase.Class_Schedule;
-import com.example.luhongcheng.MainFragment_two.SheQuFragment;
 import com.example.luhongcheng.R;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -38,9 +32,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-/**
- * Created by Administrator on 2018/4/8.
- */
 
 @SuppressLint("ValidFragment")
 public class TwoFragment extends Fragment implements View.OnClickListener {
@@ -50,41 +41,49 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
     }
 
     public static TwoFragment newInstance(Context context) {
-        Context mContext = context;
         return new TwoFragment();
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.b_fragment,container,false);
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.b_fragment,container,false);
     }
 
-
     WebView wb;
-    //private static HttpClient client = new DefaultHttpClient();
-    private OkHttpClient okHttpClient;
-    private OkHttpClient.Builder builder;
-    List<String> cookies = null;
-
-  //  String URL;
+    List<String> cookies = new ArrayList<>();
     String xuehao;
     String mima;
     String A;//第A周
-    int B;
-    private  List<String> table = new ArrayList<String>();
-
     String str;
     Button zong,bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt10,bt11,bt12,bt13,bt14,bt15,bt16,bt17,bt18,bt19,bt20;
+    SwipeRefreshLayout refreshLayout;
 
-
-   // ProgressDialog waitingDialog;
-
+    @SuppressLint("ShowToast")
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        wb = (WebView) getActivity().findViewById(R.id.wb);
+        initView();
+
+        SharedPreferences spCount = Objects.requireNonNull(getActivity()).getSharedPreferences("userid", 0);
+        xuehao= spCount.getString("username", "");
+        mima= spCount.getString("password", "");
+
+        if (xuehao.length() == 10){
+            getCookie();
+        }else {
+            Toast.makeText(getContext(),"你还没有登录哦",Toast.LENGTH_SHORT);
+        }
+
+        View statusBar = Objects.requireNonNull(getView()).findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight(getActivity());
+
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void initView() {
+        wb = Objects.requireNonNull(getActivity()).findViewById(R.id.wb);
         wb.getSettings().setJavaScriptEnabled(true);
         wb.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         wb.getSettings().setSupportMultipleWindows(true);
@@ -137,30 +136,38 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         bt19.setOnClickListener(this);
         bt20.setOnClickListener(this);
 
-        builder = new OkHttpClient.Builder();
-        okHttpClient = builder.build();
 
-        SharedPreferences spCount = getActivity().getSharedPreferences("userid", 0);
-        xuehao= spCount.getString("username", "");
-        mima= spCount.getString("password", "");
+        refreshLayout = getActivity().findViewById(R.id.table_refresh);
 
-        if (xuehao.length() == 10){
-            getCookie();
-        }else {
-            Toast.makeText(getContext(),"你还没有登录哦",Toast.LENGTH_SHORT);
-        }
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        postdata();
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
 
-        View statusBar = getView().findViewById(R.id.statusBarView);
-        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
-        layoutParams.height = getStatusBarHeight(getActivity());
+                    }
+                }).start();
 
+            }
+        });
     }
 
 
     /**
      * 利用反射获取状态栏高度
-     * @return
-     * @param activity
      */
     public int getStatusBarHeight(Activity activity) {
         int result = 0;
@@ -196,12 +203,11 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
                     final Headers headers1 = response1.headers();
                     cookies = headers1.values("Set-Cookie"); //这是另一种获取cookie的方法
 
-                    String[] aa = cookies.toArray(new String[cookies.size()]);
                     String str1 = null;
                     String str2 = null;
-                    for (int i = 0; i < aa.length; ++i) {
-                        str1 = aa[i=0];
-                        str2 = aa[i=1];
+                    for (int i = 0; i < cookies.size(); ++i) {
+                        str1 = cookies.get(0);
+                        str2 = cookies.get(1);
                     }
 
                     RequestBody requestBody1 = new FormBody.Builder()
@@ -233,20 +239,15 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
                     final Headers headers2 = response2.headers();
                     cookies = headers2.values("Set-Cookie");
 
-                    String[] bb = cookies.toArray(new String[cookies.size()]);
                     String str3 = null;
                     String str4 = null;
-                    String str5 = null;
-                    for (int i = 0; i < bb.length; ++i) {
-                        str3 = bb[i=0];
-                        str4 = bb[i=1];
-                        str5 = bb[i=2];
+                    for (int i = 0; i < cookies.size(); ++i) {
+                        str3 = cookies.get(0);
+                        str4 = cookies.get(1);
                     }
                     str = str1+";"+str2+";"+str3+";"+str4;
 
-
                     Log.e("cookies",str);
-
 
 
                 } catch (Exception e) {
@@ -254,7 +255,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
                 }
             }
         }).start();
-
 
     }
 
@@ -265,7 +265,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         // TODO Auto-generated method stub
         switch (whichbtn.getId()) {
             case R.id.zong:
-                //getDataShowWeb0();
                 postdata0();
                 setBack();
                 zong.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -273,7 +272,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou1:
                 A = "1";
-                //getDataShowWeb();
                 postdata();
                 setBack();
                 bt1.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -281,7 +279,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou2:
                 A= "2";
-              //  getDataShowWeb();
                 postdata();
                 setBack();
                 bt2.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -289,7 +286,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou3:
                 A= "3";
-             //   getDataShowWeb();
                 postdata();
                 setBack();
                 bt3.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -297,7 +293,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou4:
                 A= "4";
-            //    getDataShowWeb();
                 postdata();
                 setBack();
                 bt4.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -305,7 +300,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou5:
                 A= "5";
-            //    getDataShowWeb();
                 postdata();
                 setBack();
                 bt5.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -313,7 +307,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou6:
                 A= "6";
-               // getDataShowWeb();
                 postdata();
                 setBack();
                 bt6.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -321,7 +314,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou7:
                 A= "7";
-              //  getDataShowWeb();
                 postdata();
                 setBack();
                 bt7.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -329,7 +321,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou8:
                 A= "8";
-               // getDataShowWeb();
                 postdata();
                 setBack();
                 bt8.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -337,7 +328,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou9:
                 A= "9";
-               // getDataShowWeb();
                 postdata();
                 setBack();
                 bt9.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -345,7 +335,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou10:
                 A= "10";
-               // getDataShowWeb();
                 postdata();
                 setBack();
                 bt10.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -353,7 +342,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou11:
                 A= "11";
-              //  getDataShowWeb();
                 postdata();
                 setBack();
                 bt11.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -361,7 +349,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou12:
                 A= "12";
-               // getDataShowWeb();
                 postdata();
                 setBack();
                 bt12.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -369,7 +356,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou13:
                 A= "13";
-              //  getDataShowWeb();
                 postdata();
                 setBack();
                 bt13.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -377,7 +363,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou14:
                 A= "14";
-               // getDataShowWeb();
                 postdata();
                 setBack();
                 bt14.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -385,7 +370,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou15:
                 A= "15";
-               // getDataShowWeb();
                 postdata();
                 setBack();
                 bt15.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -393,7 +377,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou16:
                 A= "16";
-                //getDataShowWeb();
                 postdata();
                 setBack();
                 bt16.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -401,7 +384,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
             case R.id.zhou17:
                 A= "17";
-               // getDataShowWeb();
                 postdata();
                 setBack();
                 bt17.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -410,7 +392,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
             case R.id.zhou18:
                 A= "18";
                 postdata();
-                //getDataShowWeb();
                 setBack();
                 bt18.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 break;
@@ -418,14 +399,12 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
             case R.id.zhou19:
                 A= "19";
                 postdata();
-               // getDataShowWeb();
                 setBack();
                 bt19.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 break;
 
             case R.id.zhou20:
                 A= "20";
-                //getDataShowWeb();
                 setBack();
                 bt20.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 postdata();
@@ -462,38 +441,6 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
         bt20.setBackgroundColor(Color.parseColor("#ebebeb"));
     }
 
-    private void getDataShowWeb0() {
-        List<Class_Schedule> list = LitePal.where("name = ?","0").find(Class_Schedule.class);
-        final String data = list.get(0).getContent();
-        if (data != null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    wb.loadData(data, "text/html; charset=UTF-8", null);
-                }
-            });
-        }else {
-            postdata0();
-        }
-
-    }
-
-    private void getDataShowWeb() {
-        List<Class_Schedule> list = LitePal.where("name = ?",A).find(Class_Schedule.class);
-        final String data = list.get(0).getContent();
-        if (data != null){
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    wb.loadData(data, "text/html; charset=UTF-8", null);
-                }
-            });
-        }else {
-            postdata();
-        }
-
-    }
-
 
     public void postdata() {
         new Thread(new Runnable() {
@@ -527,13 +474,8 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
                             .post(requestBody2)
                             .build();
                     Response response3 = client.newCall(request3).execute();
-                    String responseData3 = response3.body().string();
-                    showResponse(responseData3);
+                    showResponse(Objects.requireNonNull(response3.body()).string());
 
-                    Class_Schedule schedule = new Class_Schedule();
-                    schedule.setName(Integer.parseInt(A));
-                    schedule.setContent(responseData3);
-                    schedule.save();
 
 
                 } catch (Exception e) {
@@ -569,15 +511,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
                             .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko")
                             .build();
                     Response response3 = client.newCall(request3).execute();
-                    String responseData3 = response3.body().string();
-                    showResponse(responseData3);
-
-                    Class_Schedule schedule2 = new Class_Schedule();
-                    schedule2.setName(0);
-                    schedule2.setContent(responseData3);
-                    schedule2.save();
-
-
+                    showResponse(Objects.requireNonNull(response3.body()).string());
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -589,7 +523,7 @@ public class TwoFragment extends Fragment implements View.OnClickListener {
 
 
     private void showResponse(final String response) {
-        getActivity().runOnUiThread(new Runnable() {
+        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 wb.loadData(response, "text/html; charset=UTF-8", null);
