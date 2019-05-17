@@ -56,7 +56,6 @@ public class item5 extends Activity implements View.OnClickListener {
     String a3;
     String a4;
 
-    RelativeLayout layout;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -70,7 +69,6 @@ public class item5 extends Activity implements View.OnClickListener {
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
         progressBar = (ProgressBar) findViewById(R.id.result_progressBar) ;
-        layout = (RelativeLayout)findViewById(R.id.result);
 
         final TextView title0 = (TextView) findViewById(R.id.room1);
         final TextView title1 = (TextView) findViewById(R.id.A1) ;
@@ -127,7 +125,6 @@ public class item5 extends Activity implements View.OnClickListener {
                 if (classroomid.contains("10") && classroomid.length() >=6){
                     postdata();
                     memInfo(classroomid);
-                    layout.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                 }
                 else{
@@ -239,7 +236,6 @@ public class item5 extends Activity implements View.OnClickListener {
             @Override
             public void run() {
                 try{
-                    layout.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
 
                     Document doc = Jsoup.parse(responseData);

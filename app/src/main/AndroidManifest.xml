@@ -38,6 +38,7 @@
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" />
+
         <receiver
             android:name="MyReceiver"
             android:enabled="true">
