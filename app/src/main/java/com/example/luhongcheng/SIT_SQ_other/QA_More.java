@@ -259,13 +259,7 @@ public class QA_More extends Activity {
                         Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
                         vibrator.vibrate(50);
 
-                        /*连续震动
-                        Vibrator vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
-                        long[] patter = {1000, 1000, 2000, 50};
-                        vibrator.vibrate(patter, 0);
-                        vibrator.cancel();*/
-
-                        final String[] items = {"收藏","举报"};
+/*                        final String[] items = {"收藏","举报"};
 
                         final AlertDialog.Builder listDialog = new AlertDialog.Builder(getApplicationContext());
                         listDialog.setItems(items, new DialogInterface.OnClickListener() {
@@ -283,9 +277,8 @@ public class QA_More extends Activity {
                                 }
                             }
                         });
-                        listDialog.show();
+                        listDialog.show();*/
 
-                        //Toast.makeText(getContext(),"长按了一下",Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 });

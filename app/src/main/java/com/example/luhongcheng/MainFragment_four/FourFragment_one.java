@@ -26,6 +26,8 @@ import com.example.luhongcheng.DataBase.Person_Data;
 import com.example.luhongcheng.OneSelf.Find2;
 import com.example.luhongcheng.OneSelf.MyFensi;
 import com.example.luhongcheng.OneSelf.MyGuanzhu;
+import com.example.luhongcheng.OneSelf.MyQA;
+import com.example.luhongcheng.OneSelf.MySS;
 import com.example.luhongcheng.R;
 import com.example.luhongcheng.bean.Fruit;
 import com.example.luhongcheng.Adapter.FruitAdapter;
@@ -100,9 +102,13 @@ public class FourFragment_one extends Fragment {
                 switch (position) {
                     case 0:
                         //我的说说
+                        Intent intent0 = new Intent(getActivity(), MySS.class);
+                        startActivity(intent0);
                         break;
                     case 1:
                         //我的问答
+                        Intent intent1 = new Intent(getActivity(), MyQA.class);
+                        startActivity(intent1);
                         break;
                     case 2:
                         //我的收藏

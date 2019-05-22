@@ -245,7 +245,7 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
         Log.d("more:", String.valueOf(my_guanzhu));
         List<String> dataList = new ArrayList<>();
         if (personID.equals(author_id)){
-            dataList.add("---");
+            dataList.add("删除");
         }else {
             if (my_guanzhu == null){
                 dataList.add("关注");
@@ -270,6 +270,8 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
         }
 
         dataList.add("举报");
+
+        
         if (mPopupWindowList == null){
             mPopupWindowList = new PopupWindowList(view.getContext());
         }
@@ -283,8 +285,10 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
                 switch (position){
                     case 0:
                         //["b15aa78885","ffd69ef865","b15aa78885","b15aa78885","b15aa78885
-                        if (!personID.equals(author_id)){
+                        if (personID.equals(author_id)){
                             //Toast.makeText(mContext,"---",Toast.LENGTH_SHORT).show();
+                            DeleteItem(item_id);
+                        }else {
                             if (my_guanzhu == null){
                                 my_guanzhu = new ArrayList<>();
                                 my_guanzhu.add(author_id);
@@ -321,7 +325,6 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
                                     });
                                 }
                             }
-
                         }
                         break;
                     case 1:
@@ -372,6 +375,22 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
                 mPopupWindowList.hide();
             }
         });
+    }
+
+    private void DeleteItem(String item_id) {
+        com.example.luhongcheng.Bmob_bean.SQ sq = new com.example.luhongcheng.Bmob_bean.SQ();
+        sq.setObjectId(item_id);
+        sq.delete(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+                    Toast.makeText(mContext, "删除成功！" , Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(mContext, "失败！", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     private void report_item(final String id) {
