@@ -65,7 +65,8 @@ public class FirstFragment extends Fragment {
 				String javascript =  "javascript:function hideOther() {" +
 						// 第一个页面
 						"document.getElementsByClassName('tab-top')[0].remove();" +
-						"document.getElementsByClassName('header')[0].remove();+" +
+						"document.getElementsByClassName('hhy-navcontainer')[0].remove();+" +
+						//"document.getElementsByClassName('header')[0].remove();+" +
 						"document.getElementsByClassName('account-txt')[0].remove();" +
 						"document.getElementsByClassName('footer')[0].remove();" +
 						"document.getElementsByClassName('back-top')[0].remove(); }";

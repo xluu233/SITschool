@@ -3,12 +3,20 @@ package com.example.luhongcheng.bean;
 public class Friends {
 
 
-    public Friends(String name,String xueyuan, String qm, String id) {
+    public Friends(String name,String xueyuan, String qm, String id,String icon_url) {
         this.name = name;
         this.qm = qm;
         this.person_id = id;
         this.xueyuan = xueyuan;
+        this.icon_url = icon_url;
     }
+
+    String person_id;
+    String nickname;
+    String qm;
+    String icon_url;
+    String xueyuan;
+    String name;
 
     public String getNickname() {
         return nickname;
@@ -26,9 +34,6 @@ public class Friends {
         this.person_id = person_id;
     }
 
-    String person_id;
-    String nickname;
-
     public String getQm() {
         return qm;
     }
@@ -37,17 +42,6 @@ public class Friends {
         this.qm = qm;
     }
 
-    String qm;
-
-    public String getFensi() {
-        return fensi;
-    }
-
-    public void setFensi(String fensi) {
-        this.fensi = fensi;
-    }
-
-    String fensi;
 
     public String getIcon_url() {
         return icon_url;
@@ -57,8 +51,6 @@ public class Friends {
         this.icon_url = icon_url;
     }
 
-    String icon_url;
-
     public String getXueyuan() {
         return xueyuan;
     }
@@ -66,8 +58,6 @@ public class Friends {
     public void setXueyuan(String xueyuan) {
         this.xueyuan = xueyuan;
     }
-
-    String xueyuan;
 
     public String getName() {
         return name;
@@ -77,5 +67,6 @@ public class Friends {
         this.name = name;
     }
 
-    String name;
+
+
 }

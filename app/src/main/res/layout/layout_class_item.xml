@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/moren_back"
+	android:background="@color/white"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:paddingLeft="@dimen/activity_horizontal_margin"
 	android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,8 +14,8 @@
 		android:id="@+id/secondclass_refresh"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/moren_back"
-		app:srlPrimaryColor="@color/moren_back"
+		android:background="@color/white"
+		app:srlPrimaryColor="@color/white"
 		app:srlAccentColor="@color/moren"
 		app:srlEnablePreviewInEditMode="true">
 		<com.scwang.smartrefresh.layout.header.ClassicsHeader

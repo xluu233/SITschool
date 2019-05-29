@@ -42,6 +42,7 @@
 
                         <com.example.luhongcheng.View.CircleImageView
                             android:id="@+id/icon"
+                            android:clickable="true"
                             android:layout_marginStart="5dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp" />
@@ -131,13 +132,24 @@
 
                         <TextView
                             android:id="@+id/time"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/moren"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="3dp"
+                            android:textSize="13sp"
+                            android:text="2019-00-00 00:00:00" />
+
+<!--                        <TextView
+                            android:id="@+id/time"
                             android:textSize="13sp"
                             android:textColor="@color/moren"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="15dp"
-                            android:text="10分钟前" />
+                            android:text="10分钟前" />-->
                     </LinearLayout>
                 </LinearLayout>
 

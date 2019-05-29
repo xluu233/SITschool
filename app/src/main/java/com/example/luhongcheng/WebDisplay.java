@@ -160,7 +160,6 @@ public class WebDisplay extends BaseStatusBarActivity {
             @Override
             public void onClick(View v) {
                 String nowURL = news.getUrl();
-
                 Intent intent= new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 intent.setData(Uri.parse(nowURL));
@@ -172,12 +171,11 @@ public class WebDisplay extends BaseStatusBarActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, news.getUrl());
+                intent.putExtra(Intent.EXTRA_TEXT, "上应助手资讯分享："+news.getTitle()+news.getUrl());
                 intent.setType("text/plain");
-                startActivity(Intent.createChooser(intent, "分享到"));
+                startActivity(Intent.createChooser(intent, "分享到："));
 
             }
         });

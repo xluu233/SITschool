@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:background="@drawable/background_oneself"
         android:gravity="center"
+        android:id="@+id/search_bar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp">
@@ -62,6 +62,8 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
+        android:layout_above="@+id/tip"
+        android:layout_below="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -71,17 +73,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="265dp"
-                android:gravity="center"
-                android:text="Tip:完善个人信息才能被搜索到  (eg.头像)"
-                android:textSize="12dp"
-                tools:ignore="RtlCompat" />
 
             <ProgressBar
                 android:id="@+id/ProgressBar"
@@ -111,4 +102,14 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tip"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Tip:完善头像、签名等个人信息才能被查找到"
+        android:textSize="14sp"/>
+
+</RelativeLayout>

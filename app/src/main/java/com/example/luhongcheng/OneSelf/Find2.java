@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -36,10 +37,14 @@ import com.example.luhongcheng.bean.Friends;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class Find2 extends Activity {
@@ -47,8 +52,8 @@ public class Find2 extends Activity {
     ImageView back;
     ImageView search;
     EditText text;
-    String mText;
-    private ListView mlistview;
+
+    private ListView listView;
     private List<Friends> mlist = new ArrayList<>();
     private Handler handler;
     private SwipeRefreshLayout refreshLayout;
@@ -60,39 +65,34 @@ public class Find2 extends Activity {
     List<String> he_guanzhu = new ArrayList<>();
     List<String> he_fensi = new ArrayList<>();
 
-    private String you_id;
-
+    String you_id;//我的person id;
     String GZ_Status = "0";//关注状态
-    String You_Statue;//你的状态，代表是否获取到关注和粉丝列表
 
     @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find);
-        back = (ImageView)findViewById(R.id.back);
-        search = (ImageView)findViewById(R.id.search);
-        text = (EditText)findViewById(R.id.text);
-        mlistview = (ListView)findViewById(R.id.search_friends);
-        refreshLayout  =(SwipeRefreshLayout)findViewById(R.id.refresh);
-        progressBar = (ProgressBar)findViewById(R.id.ProgressBar);
-        cn.bmob.v3.Bmob.initialize(this, "69d2a14bfc1139c1e9af3a9678b0f1ed");
-
+        back = findViewById(R.id.back);
+        search = findViewById(R.id.search);
+        text = findViewById(R.id.text);
+        listView = findViewById(R.id.search_friends);
+        refreshLayout =findViewById(R.id.refresh);
+        progressBar = findViewById(R.id.ProgressBar);
         //状态栏颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
-        }
+        getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
 
-
+        SharedPreferences sp2=getSharedPreferences("personID",0);
+        you_id = sp2.getString("ID","");
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
-                    progressBar.setVisibility(View.GONE);
+                    hide_progressbar();
                     FriendAdaper adapter = new FriendAdaper(mlist,getApplicationContext());
-                    mlistview.setAdapter(adapter);
-                    mlistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Friends news = mlist.get(position);
@@ -106,68 +106,28 @@ public class Find2 extends Activity {
             }
         };
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
 
-                        getOneInfo();
-                        //关闭刷新
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                refreshLayout.setRefreshing(false);
-                            }
-                        });
-
-                    }
-                }).start();
-            }
-        });
 
         onClick();
     }
 
-    private void getOneInfo() {
-        you_fensi.clear();
-        you_guanzhu.clear();
-        SharedPreferences sp=getSharedPreferences("userid",0);
-        final String username = sp.getString("username","");
-
-        SharedPreferences sp2=getSharedPreferences("personID",0);
-        you_id = sp2.getString("ID","");
-
-        if (username != null){
-            BmobQuery<UserInfo> query2 = new BmobQuery<UserInfo>();
-            query2.addWhereEqualTo("ID", username);
-            query2.findObjects(new FindListener<UserInfo>() {
-                @Override
-                public void done(List<UserInfo> object, BmobException e) {
-                    if(e==null){
-
-                        for (UserInfo xixi : object) {
-                            you_guanzhu = xixi.getGuanzhu();
-                            you_fensi = xixi.getFensi();
-                           // Toast.makeText(getApplicationContext(),"你的关注："+you_guanzhu.size()+"你的粉丝："+you_fensi.size(),Toast.LENGTH_LONG).show();
-                        }
-                        Start_Search();
-
-                    }else{
-                        Toast.makeText(getApplicationContext(),"查询你的粉丝列表失败",Toast.LENGTH_SHORT).show();
-                        //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
-                    }
-                }
-            });
-        }
+    private void hide_progressbar() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
 
 
+    private void show_progressbar() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void onClick() {
@@ -183,11 +143,19 @@ public class Find2 extends Activity {
             public void onClick(View v) {
                 String output = text.getText().toString();
                 if (output.length() == 10){
-                    progressBar.setVisibility(View.VISIBLE);
+                    show_progressbar();
                     getOneInfo();
                 }else {
                     Toast.makeText(getApplicationContext(),"请输入正确学号",Toast.LENGTH_SHORT).show();
                 }
+
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    public void run() {
+                        hide_progressbar();
+                    }
+                }, 5000);
+
             }
         });
 
@@ -198,8 +166,8 @@ public class Find2 extends Activity {
 
                     String output = text.getText().toString();
                     if (output.length() == 10){
-                        progressBar.setVisibility(View.VISIBLE);
-                        Start_Search();
+                        show_progressbar();
+                        getOneInfo();
                     }else {
                         Toast.makeText(getApplicationContext(),"请输入正确学号",Toast.LENGTH_SHORT).show();
                     }
@@ -210,43 +178,91 @@ public class Find2 extends Activity {
             }
         });
 
-        mlistview.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
 
-            }
-
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-                boolean enable = false;
-                if (mlistview != null &&mlistview.getChildCount() > 0) {
-                    boolean firstItemVisible = mlistview.getFirstVisiblePosition() == 0;
-                    boolean topOfFirstItemVisible = mlistview.getChildAt(0).getTop() == 0;
-                    enable = firstItemVisible && topOfFirstItemVisible;
-                }
-                refreshLayout.setEnabled(enable);
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String output = text.getText().toString();
+                        if (output.length() == 10){
+                            getOneInfo();
+                        }else {
+                            Toast.makeText(getApplicationContext(),"请输入正确学号",Toast.LENGTH_SHORT).show();
+                        }
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        //关闭刷新
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshLayout.setRefreshing(false);
+                            }
+                        });
+
+                    }
+                }).start();
             }
         });
 
     }
 
-    private void Start_Search() {
-        mText = text.getText().toString();
+
+    private void getOneInfo() {
+        you_fensi.clear();
+        you_guanzhu.clear();
+        SharedPreferences sp=getSharedPreferences("userid",0);
+        String username = sp.getString("username","");
+
+        final String id = text.getText().toString();
+        if(id.equals(username)){
+            hide_progressbar();
+            Toast.makeText(getApplicationContext(),"不能查询自己",Toast.LENGTH_SHORT).show();
+        }else {
+            //获取我的关注信息
+            BmobQuery<UserInfo> query = new BmobQuery<>();
+            query.getObject(you_id, new QueryListener<UserInfo>() {
+                @Override
+                public void done(UserInfo userInfo, BmobException e) {
+                    if (e==null){
+                        you_guanzhu = userInfo.getGuanzhu();
+                        you_fensi = userInfo.getFensi();
+                        // Toast.makeText(getApplicationContext(),"你的关注："+you_guanzhu.size()+"你的粉丝："+you_fensi.size(),Toast.LENGTH_LONG).show();
+                        Start_Search(id);
+                    }else {
+                        hide_progressbar();
+                        Toast.makeText(getApplicationContext(),"查询你的粉丝列表失败",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }
+
+
+    }
+
+
+    private void Start_Search(final String id) {
         mlist.clear();
 
         he_fensi.clear();
         he_guanzhu.clear();
-        Thread getnews = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-                query.addWhereEqualTo("ID", mText);
+                BmobQuery<UserInfo> query = new BmobQuery<>();
+                query.addWhereEqualTo("ID", id);
                 query.findObjects(new FindListener<UserInfo>() {
                     @Override
                     public void done(List<UserInfo> list, BmobException e) {
                         if (e == null){
                             for (UserInfo userInfo : list){
-                                String name,qm,id,xueyuan;
 
                                 /*Log.d("信息-学号",userInfo.getID());
                                 Log.d("信息-关注",userInfo.getGuanzhu().toString());
@@ -255,17 +271,17 @@ public class Find2 extends Activity {
                                 Log.d("信息-头像连接",userInfo.geticonUrl());
                                 Log.d("信息-签名",userInfo.getQM());*/
 
-                                id = userInfo.getObjectId();
+                                String id = userInfo.getObjectId();
+                                String name = userInfo.getName().replace("姓名：","");
+                                String xueyuan = userInfo.getXueyuan();
 
-                                name = userInfo.getName().replace("姓名：","");
-
-                                xueyuan = userInfo.getXueyuan().replace("院系：","");
-
-
-                                if (userInfo.getQM() != null){
+                                String qm = null,icon = null;
+                                if (userInfo.getQM()!=null){
                                     qm = userInfo.getQM();
-                                }else {
-                                    qm = "这个人很懒，什么都没有留下";
+                                }
+
+                                if (userInfo.geticonUrl()!=null){
+                                    icon = userInfo.geticonUrl();
                                 }
 
                                 if(userInfo.getGuanzhu() != null){
@@ -276,21 +292,23 @@ public class Find2 extends Activity {
                                     he_fensi = userInfo.getFensi();
                                 }
 
-                                mlist.add(new Friends(name,xueyuan,qm,id));
-
-                                Message msg = new Message();
-                                msg.what = 1;
-                                handler.sendMessage(msg);
+                                mlist.add(new Friends(name,xueyuan,qm,id,icon));
                             }
+
+                            Message msg = new Message();
+                            msg.what = 1;
+                            handler.sendMessage(msg);
+
+                        }else {
+                            Toast.makeText(getApplicationContext(),"查询失败",Toast.LENGTH_SHORT).show();
+                            hide_progressbar();
                         }
                     }
                 });
 
 
             }
-        });
-        getnews.start();
-
+        }).start();
 
     }
 
@@ -300,7 +318,7 @@ public class Find2 extends Activity {
         List<Friends> list;
         Context mContext;
 
-        public FriendAdaper(List<Friends> list,Context mContext) {
+        FriendAdaper(List<Friends> list, Context mContext) {
             super();
             this.mContext = mContext;
             this.list = list;
@@ -321,18 +339,18 @@ public class Find2 extends Activity {
             return position;
         }
 
-        @SuppressLint("NewApi")
+        @SuppressLint({"NewApi", "InflateParams"})
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            FriendAdaper.ViewHolder holder = null;
+            final FriendAdaper.ViewHolder holder;
             if(convertView==null){
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.find_item, null);
                 holder = new FriendAdaper.ViewHolder();
-                holder.name = (TextView)convertView.findViewById(R.id.nickname);
-                holder.icon = (CircleImageView) convertView.findViewById(R.id.icon);
-                holder.qm= (TextView) convertView.findViewById(R.id.qm);
-                holder.xueyuan = (TextView) convertView.findViewById(R.id.fensi);
-                holder.check = (TextView)convertView.findViewById(R.id.check);
+                holder.name = convertView.findViewById(R.id.nickname);
+                holder.icon = convertView.findViewById(R.id.icon);
+                holder.qm= convertView.findViewById(R.id.qm);
+                holder.xueyuan = convertView.findViewById(R.id.fensi);
+                holder.check = convertView.findViewById(R.id.check);
 
 
                 convertView.setTag(holder);
@@ -341,33 +359,20 @@ public class Find2 extends Activity {
             }
             final Friends news = list.get(position);
             holder.name.setText(news.getName());
-            holder.qm.setText(news.getQm());
             holder.xueyuan.setText(news.getXueyuan());
 
-            String id = news.getPerson_id();
-            final String[] icon_url = new String[1];
+            if (news.getQm()!=null){
+                holder.qm.setText(news.getQm());
+            }
 
-            BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
-            query.addWhereEqualTo("ID", mText);
-            final ViewHolder finalHolder1 = holder;
-            query.findObjects(new FindListener<UserInfo>() {
-                @Override
-                public void done(List<UserInfo> list, BmobException e) {
-                    if (e == null){
-                        for (UserInfo userInfo : list){
+            if (news.getIcon_url()!=null){
+                Glide.with(mContext)
+                        .load(news.getIcon_url())
+                        .apply(new RequestOptions().placeholder(R.drawable.loading))
+                        .apply(new RequestOptions() .error(R.drawable.error))
+                        .into(holder.icon);
+            }
 
-                            icon_url[0] = userInfo.geticonUrl();
-                            //Log.d("头像",icon_url[0]);
-                        }
-
-                        Glide.with(mContext)
-                                .load(icon_url[0])
-                                .apply(new RequestOptions().placeholder(R.drawable.loading))
-                                .apply(new RequestOptions() .error(R.drawable.error))
-                                .into(finalHolder1.icon);
-                    }
-                }
-            });
 
 
             if (he_guanzhu == null  && you_guanzhu ==null){
@@ -386,10 +391,7 @@ public class Find2 extends Activity {
                 GZ_Status = "3"; //互相关注
                 holder.check.setText("互相关注");
             }
-            if (you_id == news.getPerson_id()){
-                GZ_Status = "4";
-                holder.check.setVisibility(View.INVISIBLE);
-            }
+
 
             final ViewHolder finalHolder = holder;
             holder.check.setOnClickListener(new View.OnClickListener() {
@@ -397,7 +399,7 @@ public class Find2 extends Activity {
                 public void onClick(View v) {
 
 
-                    if (GZ_Status == "0"){
+                    if (GZ_Status.equals("0")){
                         progressBar.setVisibility(View.VISIBLE);
                         if (you_guanzhu != null){
                             you_guanzhu.add(news.getPerson_id());
@@ -428,7 +430,7 @@ public class Find2 extends Activity {
 
                     }
 
-                    if (GZ_Status == "1"){
+                    if (GZ_Status.equals("1")){
                         //Toast.makeText(getApplicationContext(), "暂不支持取消关注", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.VISIBLE);
                         if (you_guanzhu != null){
@@ -459,7 +461,7 @@ public class Find2 extends Activity {
 
                     }
 
-                    if (GZ_Status =="2"){
+                    if (GZ_Status.equals("2")){
                         progressBar.setVisibility(View.VISIBLE);
                         if (you_guanzhu != null){
                             you_guanzhu.add(news.getPerson_id());
@@ -491,7 +493,7 @@ public class Find2 extends Activity {
                     }
 
 
-                    if (GZ_Status == "3"){
+                    if (GZ_Status.equals("3")){
                         //Toast.makeText(getApplicationContext(), "暂不支持取消关注", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.VISIBLE);
                         if (you_guanzhu != null){
@@ -522,9 +524,7 @@ public class Find2 extends Activity {
 
                     }
 
-                    if (GZ_Status == "4"){
-                        Toast.makeText(getApplicationContext(), "你还想关注自己咋地？", Toast.LENGTH_SHORT).show();
-                    }
+
 
                 }
             });

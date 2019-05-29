@@ -9,21 +9,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.luhongcheng.Adapter.SecondClassAdapter;
 import com.example.luhongcheng.LazyLoadFragment;
 import com.example.luhongcheng.R;
@@ -44,7 +34,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class g_scFragment extends LazyLoadFragment {
+public class h_scFragment extends LazyLoadFragment {
 
 	private List<SecondClass> newsList = new ArrayList<>();
 	private SecondClassAdapter adapter;
@@ -141,11 +131,10 @@ public class g_scFragment extends LazyLoadFragment {
 							.build();
 
 
-					//http://sc.sit.edu.cn/public/activity/activityList.action?categoryId=ff808081674ec4720167ce60dda77cea
 
 					Request request4 = new Request.Builder()
-							// 社会实践
-							.url("http://sc.sit.edu.cn/public/activity/activityList.action?categoryId=8ab17f543fe62d5d013fe62efd3a0002")
+							// 主题教育
+							.url("http://sc.sit.edu.cn/public/activity/activityList.action?categoryId=ff808081674ec4720167ce60dda77cea")
 							.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
 							.header("Accept-Language", "zh-CN,zh;q=0.9")
 							.header("Connection", "Keep-Alive")

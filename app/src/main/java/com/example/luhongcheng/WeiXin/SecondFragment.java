@@ -55,9 +55,9 @@ public class SecondFragment extends Fragment {
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
 				String javascript =  "javascript:function hideOther() {" +
-						// 第一个页面
 						"document.getElementsByClassName('tab-top')[0].remove();" +
-						"document.getElementsByClassName('header')[0].remove();+" +
+						"document.getElementsByClassName('hhy-navcontainer')[0].remove();+" +
+						//"document.getElementsByClassName('header')[0].remove();+" +
 						"document.getElementsByClassName('account-txt')[0].remove();" +
 						"document.getElementsByClassName('footer')[0].remove();" +
 						"document.getElementsByClassName('back-top')[0].remove(); }";

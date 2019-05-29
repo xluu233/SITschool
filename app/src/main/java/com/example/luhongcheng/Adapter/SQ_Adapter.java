@@ -496,9 +496,9 @@ public class SQ_Adapter extends RecyclerView.Adapter<SQ_Adapter.ViewHolder> {
             qm = itemView.findViewById(R.id.sq_qm);
             zan = itemView.findViewById(R.id.zan);
             zan_layout = itemView.findViewById(R.id.zan_layout);
-            zan_nums = itemView.findViewById(R.id.zan_nums);
+            //zan_nums = itemView.findViewById(R.id.zan_nums);
             comment = itemView.findViewById(R.id.comment);
-            comment_nums = itemView.findViewById(R.id.comment_nums);
+            //comment_nums = itemView.findViewById(R.id.comment_nums);
             more = itemView.findViewById(R.id.sq_collection);
             share = itemView.findViewById(R.id.sq_share);
 

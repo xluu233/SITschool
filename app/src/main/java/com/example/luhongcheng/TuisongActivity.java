@@ -10,12 +10,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by alex233 on 2018/6/15.
  */
 
 public class TuisongActivity extends Activity{
 
+    String Url;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tuisong);
@@ -29,6 +33,22 @@ public class TuisongActivity extends Activity{
 
         title.setText(a);
         content.setText(b);
+
+        final Matcher m = Pattern.compile("(?i)http://[^\u4e00-\u9fa5]+").matcher(b);
+        while(m.find()){
+            Url = m.group();
+
+            content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), WebDisplay.class);
+                    intent.putExtra("news_url",Url);
+                    intent.putExtra("title","推送");
+                    startActivity(intent);
+                }
+            });
+        }
+
 
 
     }

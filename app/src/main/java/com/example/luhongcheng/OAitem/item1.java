@@ -19,6 +19,8 @@ import com.example.luhongcheng.secondclass.a_scFragment;
 import com.example.luhongcheng.secondclass.f_scFragment;
 import com.example.luhongcheng.secondclass.e_scFragment;
 import com.example.luhongcheng.secondclass.b_scFragment;
+import com.example.luhongcheng.secondclass.h_scFragment;
+import com.example.luhongcheng.secondclass.i_scFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -182,17 +184,21 @@ public class item1 extends AppCompatActivity {
 		e_scFragment five = new e_scFragment();
 		f_scFragment six = new f_scFragment();
 		g_scFragment seven = new g_scFragment();
+		h_scFragment eight = new h_scFragment();
+		i_scFragment nine = new i_scFragment();
 
 		mFragments.add(one);
 		mFragments.add(two);
+		mFragments.add(eight);
 		mFragments.add(three);
 		mFragments.add(four);
 		mFragments.add(five);
 		mFragments.add(six);
 		mFragments.add(seven);
+		mFragments.add(nine);
 	}
 
-	private static final String DOG_BREEDS[] = {"我的", "讲座","公益","三创","校园文化","社团","社会实践"};
+	private static final String DOG_BREEDS[] = {"我的", "讲座","主题教育","公益","三创","校园文化","社团","社会实践","安全教育"};
 
 	private void initView() {
 		SlidingTabLayout tabLayout = findViewById(R.id.secondclass_tab);
