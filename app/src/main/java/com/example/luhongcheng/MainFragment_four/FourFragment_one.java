@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.example.luhongcheng.Bmob_bean.UserInfo;
 import com.example.luhongcheng.DataBase.Person_Data;
 import com.example.luhongcheng.OneSelf.Find2;
+import com.example.luhongcheng.OneSelf.MyCollection;
 import com.example.luhongcheng.OneSelf.MyFensi;
 import com.example.luhongcheng.OneSelf.MyGuanzhu;
 import com.example.luhongcheng.OneSelf.MyQA;
@@ -112,6 +113,8 @@ public class FourFragment_one extends Fragment {
                         break;
                     case 2:
                         //我的收藏
+                        Intent intent4 = new Intent(getActivity(), MyCollection.class);
+                        startActivity(intent4);
                         break;
                     case 3:
                         //我的关注

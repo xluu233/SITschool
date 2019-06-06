@@ -947,7 +947,7 @@ public class OneFragment extends Fragment{
                         handler_weather.sendMessage(message);
                     }
                     if (tt.contains("小雨")){
-                        message.what=9;
+                        message.what=11;
                         handler_weather.sendMessage(message);
                     }
                     if (tt.contains("中雨") || tt.contains("暴雨")){
@@ -999,7 +999,7 @@ public class OneFragment extends Fragment{
                     weather_icon.setBackgroundResource(0);
                     weather_icon.setBackground(getResources().getDrawable(R.drawable.b8));
                     break;
-                case 9:
+                case 11:
                     weather_icon.setBackgroundResource(0);
                     weather_icon.setBackground(getResources().getDrawable(R.drawable.b7));
                     break;

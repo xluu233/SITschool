@@ -64,7 +64,7 @@
                     android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="学生助手（简称SITschool）"/>
+                    android:text="上应助手（简称SITschool）"/>
 
                 <LinearLayout
                     android:layout_marginTop="20dp"
@@ -81,7 +81,7 @@
                         android:textColor="@color/moren"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:text="        SITschool是一款为应技大学生服务的Android移动端软件，由个人开发，集成了校园OA系统的大部分查询功能，例如：成绩查询，课表查询，电费查询，学生卡服务，考试安排查询等，更多功能将在后续版本更新。"/>
+                        android:text="        SITschool是一款为应技大学生服务的Android移动端软件，集成了校园OA系统的大部分查询功能，例如：成绩查询，课表查询，电费查询，学生卡服务，考试安排查询等。"/>
 
                     <TextView
                         android:layout_marginLeft="5dp"
@@ -126,7 +126,7 @@
                         android:textColor="@color/moren"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="        上应社区：热门模块正在完善中"/>
+                        android:text="        上应社区：正在完善中"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -188,14 +188,6 @@
                         android:layout_height="wrap_content"
                         android:text="        —极光推送"/>
 
-                    <TextView
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/moren"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="        —com.github.clans:fab:1.6.4"/>
 
                     <TextView
                         android:layout_marginLeft="5dp"
@@ -207,6 +199,7 @@
                         android:text="        —Iconfont+阿里巴巴矢量图库"/>
 
                 </LinearLayout>
+
 
                 <ImageButton
                     android:id="@+id/my_weixin"

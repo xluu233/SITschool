@@ -116,6 +116,7 @@
         <activity android:name=".OneSelf.MyGuanzhu"/>
         <activity android:name=".OneSelf.MySS"/>
         <activity android:name=".OneSelf.MyQA"/>
+        <activity android:name=".OneSelf.MyCollection"/>
 
     </application>
 

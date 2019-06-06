@@ -30,6 +30,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
@@ -107,7 +108,7 @@ public class login_one_fragment extends Fragment {
 
     //读取密码，符合要求就跳过当前activity，并销毁当前activity
     private void test() {
-        SharedPreferences sp=getActivity().getSharedPreferences("userid",0);
+        SharedPreferences sp= Objects.requireNonNull(getActivity()).getSharedPreferences("userid",0);
         usernameid = sp.getString("username","");
         passwordid = sp.getString("password","");
 
@@ -117,27 +118,33 @@ public class login_one_fragment extends Fragment {
         if (usernameid.length()==10 && passwordid.length()>=4 ){
             Intent intent3 = new Intent(getActivity(),MainFragmentActivity.class);
             startActivity(intent3);
-            if (personID.length() == 0){
-                BmobQuery<UserInfo> query = new BmobQuery<UserInfo>();
+            if (Objects.requireNonNull(personID).length() == 0){
+
+                BmobQuery<UserInfo> query = new BmobQuery<>();
                 query.addWhereEqualTo("ID", username);
                 query.findObjects(new FindListener<UserInfo>() {
                     @Override
                     public void done(List<UserInfo> object, BmobException e) {
                         if(e==null){
                             for (UserInfo xixi : object) {
-                                //保存用户的ID
-                                SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
-                                editor.putString("ID",xixi.getObjectId());
-                                editor.commit();
+
+                                String personID = xixi.getObjectId();
+
+                                if (personID != null){
+                                    //保存用户的ID
+                                    SharedPreferences.Editor editor= Objects.requireNonNull(getActivity()).getSharedPreferences("personID",0).edit();
+                                    editor.putString("ID",personID);
+                                    editor.apply();
+                                }
 
                             }
-                        }else{
-                            //Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                         }
                     }
                 });
+
+                getActivity().finish();
+
             }
-            getActivity().finish();
         }
     }
 

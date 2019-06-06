@@ -21,17 +21,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.luhongcheng.Bmob_bean.LoginTimes;
 import com.example.luhongcheng.Bmob_bean.update;
 import com.example.luhongcheng.MainFragment_One.OneFragment;
 import com.example.luhongcheng.MainFragment_four.FourFragment;
 import com.example.luhongcheng.MainFragment_three.TwoFragment;
 import com.example.luhongcheng.MainFragment_two.SheQuFragment;
 import com.example.luhongcheng.utils.APKVersionCodeUtils;
+import com.example.luhongcheng.utils.DeviceUtil;
+
+import java.util.Objects;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 
 public class MainFragmentActivity extends AppCompatActivity{
 
@@ -124,6 +129,32 @@ public class MainFragmentActivity extends AppCompatActivity{
         transaction.show(fragments[0]).commitAllowingStateLoss();
         //switchFrament(lastShowFragment,0);
 
+        putLoginInfo();
+    }
+
+    private void putLoginInfo() {
+        //将用户信息及设备信息上传
+        SharedPreferences sp= getSharedPreferences("userid",0);
+        String username = sp.getString("username","");
+
+        if (username.length()!=0){
+            LoginTimes loginTimes = new LoginTimes();
+            loginTimes.setUser(username);
+            loginTimes.setAndroidVersion(DeviceUtil.getBuildVersion());
+            loginTimes.setAPI(String.valueOf(DeviceUtil.getBuildLevel()));
+            loginTimes.setDevices_id(DeviceUtil.getDeviceId(getApplicationContext()));
+            loginTimes.setPhone(DeviceUtil.getPhoneBrand());
+            loginTimes.setPhoneModel(DeviceUtil.getPhoneModel());
+            loginTimes.setAppVersion(DeviceUtil.getVersionName(getApplicationContext()));
+            loginTimes.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if (e==null){
+                        System.out.println("用户登录信息上传成功");
+                    }
+                }
+            });
+        }
     }
 
     public int getStatusBarHeight() {

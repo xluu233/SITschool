@@ -307,6 +307,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     public void done(String objectId, BmobException e) {
                         if(e==null){
                             Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
+                            editText.setText(null);
                         }else{
                             Log.i("bmob","失败："+e.getMessage());
                         }
@@ -336,6 +337,7 @@ public class SQ_SecondLayout extends BaseStatusBarActivity {
                     public void done(String objectId, BmobException e) {
                         if(e==null){
                             Toast.makeText(getApplicationContext(),"评论成功",Toast.LENGTH_SHORT).show();
+                            editText.setText(null);
                         }else{
                             Log.i("bmob","失败："+e.getMessage());
                         }

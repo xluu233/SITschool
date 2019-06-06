@@ -196,48 +196,39 @@ public class SQ_QA extends LazyLoadFragment {
     private void get_MyCollection() {
         if (person_id.length() == 0){
             SharedPreferences sp= Objects.requireNonNull(getActivity()).getSharedPreferences("userid",0);
-            final String username = sp.getString("username","");
+            String username = sp.getString("username","");
 
-            Thread collection = new Thread(new Runnable() {
+            BmobQuery<UserInfo> query = new BmobQuery<>();
+            query.addWhereEqualTo("ID", username);
+            query.findObjects(new FindListener<UserInfo>() {
                 @Override
-                public void run() {
-                    BmobQuery<UserInfo> query2 = new BmobQuery<>();
-                    if (username != null) {
-                        query2.addWhereContains("ID", username);
-                    }
-                    query2.findObjects(new FindListener<UserInfo>() {
-                        @Override
-                        public void done(List<UserInfo> list, BmobException e) {
-                            if (e == null) {
-                                person_id = list.get(0).getObjectId();
+                public void done(List<UserInfo> object, BmobException e) {
+                    if(e==null){
+                        for (UserInfo xixi : object) {
 
-                                SharedPreferences.Editor editor= Objects.requireNonNull(getActivity()).getSharedPreferences("personID",0).edit();
-                                editor.putString("ID",person_id);
-                                editor.apply();
+                            String personID = xixi.getObjectId();
 
-                                if (list.get(0).getMy_Collection() != null){
-                                    my_collection = list.get(0).getMy_Collection();
-                                }
-
-                                if (list.get(0).getMy_Likes() != null){
-                                    my_Likes = list.get(0).getMy_Likes();
-                                }
-
-                                getDate();
-
-                            } else {
-                                //Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
-                                Toast.makeText(getActivity(),"get perosnID error,请先前往个人中心",Toast.LENGTH_LONG).show();
+                            if (personID != null){
+                                //保存用户的ID
+                                SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
+                                editor.putString("ID",personID);
+                                editor.commit();
                             }
-                        }
-                    });
 
+                            my_collection = xixi.getMy_Collection();
+                            my_Likes = xixi.getMy_Likes();
+                        }
+
+                        getDate();
+
+                    } else {
+                        Toast.makeText(getActivity(),"get perosnID error,请先前往个人中心",Toast.LENGTH_LONG).show();
+                    }
                 }
             });
-            collection.start();
 
         }else {
-            Thread collection = new Thread(new Runnable() {
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
                     BmobQuery<UserInfo> query2 = new BmobQuery<>();
@@ -260,8 +251,7 @@ public class SQ_QA extends LazyLoadFragment {
                         }
                     });
                 }
-            });
-            collection.start();
+            }).start();
         }
     }
 
