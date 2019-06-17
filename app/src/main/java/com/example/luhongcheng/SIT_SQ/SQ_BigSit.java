@@ -192,7 +192,7 @@ public class SQ_BigSit extends LazyLoadFragment {
 
             BmobQuery<UserInfo> query = new BmobQuery<>();
             query.addWhereEqualTo("ID", username);
-            String personID = xixi.getObjectId();
+
 
             query.findObjects(new FindListener<UserInfo>() {
                 @Override
@@ -200,7 +200,7 @@ public class SQ_BigSit extends LazyLoadFragment {
                     if(e==null){
                         for (UserInfo xixi : object) {
 
-
+                            String personID = xixi.getObjectId();
                             if (personID != null){
                                 //保存用户的ID
                                 SharedPreferences.Editor editor=getActivity().getSharedPreferences("personID",0).edit();
