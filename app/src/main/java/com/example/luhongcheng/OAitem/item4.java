@@ -1,11 +1,14 @@
 package com.example.luhongcheng.OAitem;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -33,6 +36,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
+//成绩查询
 public class item4 extends AppCompatActivity {
 
     private List<grade> newsList;
@@ -56,29 +60,24 @@ public class item4 extends AppCompatActivity {
     String b = "http://ems.sit.edu.cn/";
     String c="http://ems.sit.edu.cn:85/student/graduate/scorelist.jsp";//成绩链接
     private ProgressBar progressBar;
+    private SwipeRefreshLayout refreshLayout;
 
 
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item4);
         newsList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.news_lv);
-
-        Button sendpostdata = (Button) findViewById(R.id.send_request);
-        sendpostdata.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newsList.clear();
-                getID();
-            }
-        });
+        refreshLayout = findViewById(R.id.cj_refresh);
 
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
         progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
 
+        getID();
 
         handler = new Handler(){
             @Override
@@ -90,18 +89,51 @@ public class item4 extends AppCompatActivity {
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            grade news = newsList.get(position);
 
-                           //Intent intent2 = new Intent(MainActivity.this,NewsDisplayActvivity.class);
-                            //intent2.putExtra("COOKIE",str);
-                            //startActivity(intent2);
-                            //此处不能传递COOKIE，可能会混淆
                         }
                     });
                 }
             }
         };
-        getID();
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                newsList.clear();
+                getID();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        });
+
+        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+            //解决原生SwipeRefreshLayout与原生listview的滑动冲突
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) { }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                boolean enable = false;
+                if (lv != null && lv.getChildCount() > 0) {
+                    boolean firstItemVisible = lv.getFirstVisiblePosition() == 0;
+                    boolean topOfFirstItemVisible = lv.getChildAt(0).getTop() == 0;
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                refreshLayout.setEnabled(enable);
+            }
+        });
+
+
     }
 
     private void getID() {

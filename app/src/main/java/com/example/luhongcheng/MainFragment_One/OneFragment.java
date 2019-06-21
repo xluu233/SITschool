@@ -341,53 +341,64 @@ public class OneFragment extends Fragment{
             public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        //"学院"
                         Intent intent=new Intent(getActivity(),item2.class);
                         startActivity(intent);
                         break;
                     case 1:
+                        //,"第二课堂"
                         Intent intent1=new Intent(getActivity(),item1.class);
                         startActivity(intent1);
                         break;
                     case 2:
+                        //,"OA主页"
                         Intent intent2=new Intent(getActivity(),item3.class);
                         startActivity(intent2);
                         break;
                     case 3:
+                        //成绩
                         Intent intent3=new Intent(getActivity(),item4.class);
                         startActivity(intent3);
                         break;
                     case 4:
+                        //"电费",
                         Intent intent4=new Intent(getActivity(),item5.class);
                         startActivity(intent4);
                         break;
                     case 5:
+                        //考试安排
                         Intent intent6=new Intent(getActivity(),item7.class);
                         startActivity(intent6);
                         break;
                     case 6:
+                        //,"学生卡",
                         Intent intent7 = new Intent(getActivity(),userCardinfo.class);
                         startActivity(intent7);
                         break;
                     case 7:
+                        //"失物招领",
                         Intent intent5 = new Intent(getActivity(),swzlmain.class);
                         startActivity(intent5);
                         break;
                     case 8:
+                        //"读书馆",
                         Intent intent8 = new Intent(getActivity(), WebDisplay.class);
                         intent8.putExtra("news_url","http://m.5read.com/");
                         intent8.putExtra("title","读书馆");
                         startActivity(intent8);
-
                         break;
                     case 9:
+                        //"公告",
                         Intent intent10 = new Intent(getActivity(),news.class);
                         startActivity(intent10);
                         break;
                     case 10:
+                        //"微信",
                         Intent intent11 = new Intent(getActivity(),item9.class);
                         startActivity(intent11);
                         break;
                     case 11:
+                        //"更多"
                         startActivity(new Intent(getActivity(),item0.class));
                         getActivity().overridePendingTransition(R.anim.bottom_in,R.anim.bottom_silent);
                         break;

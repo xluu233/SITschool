@@ -21,51 +21,41 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:background="@drawable/textshape3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_below="@id/top_title"
-        android:layout_margin="10dp">
+        android:background="@color/moren_back"
+        android:id="@+id/bk_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-        <ListView
+        <RelativeLayout
+            android:background="@drawable/textshape3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/news_lv"
-            android:dividerHeight="0dp"
-            android:divider="@color/white">
-        </ListView>
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
 
-        <ProgressBar
-            android:id="@+id/progressBarNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center"
-            android:layout_alignParentBottom= "true"
-            >
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/news_lv"
+                android:dividerHeight="0dp"
+                android:divider="@color/white">
+            </ListView>
 
-            <Button
-                android:id="@+id/send_request"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_shape1"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:text="--刷新哟--"
-                />
+            <ProgressBar
+                android:id="@+id/progressBarNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 
-
-    </RelativeLayout>
 
 
 </RelativeLayout>

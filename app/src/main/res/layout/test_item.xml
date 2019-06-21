@@ -10,27 +10,27 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/A1"
             android:gravity="center"
             android:background="@drawable/button_shape1"
-            android:textSize="60sp"/>
+            android:textSize="30sp"/>
 
 
         <TextView
             android:background="@drawable/textshape2"
             android:layout_width="match_parent"
+            android:layout_toRightOf="@+id/A1"
             android:layout_height="100dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="120dp"
-            android:lineSpacingMultiplier="1.5"
+            android:layout_margin="10dp"
+            android:lineSpacingMultiplier="1.2"
             android:id="@+id/A2"
             android:gravity="center"
             android:textStyle="bold"
-            android:textSize="17sp"/>
+            android:textSize="15sp"/>
 
     </RelativeLayout>
 

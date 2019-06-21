@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -32,8 +34,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-
-public class  item7 extends Activity implements View.OnClickListener {
+//考试安排
+public class  item7 extends Activity {
 
     private List<Test> newsList;
     private TestAdapter adapter;
@@ -51,6 +53,7 @@ public class  item7 extends Activity implements View.OnClickListener {
     String mima;
 
     private ProgressBar progressBar;
+    private SwipeRefreshLayout refreshLayout;
 
 
     @SuppressLint("HandlerLeak")
@@ -61,13 +64,60 @@ public class  item7 extends Activity implements View.OnClickListener {
         newsList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.news_lv);
 
-        Button sendpostdata = (Button) findViewById(R.id.send_request);
-        sendpostdata.setOnClickListener(this);
+
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
         progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
 
 
+        refreshLayout = findViewById(R.id.bk_refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if(xuehao.length()==10&&mima.length()>=4){
+                            newsList.clear();
+                            postdata();
+                        }
+
+                        try {
+                            Thread.sleep(2000);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refreshLayout.setRefreshing(false);
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                }).start();
+            }
+        });
+
+
+        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+            //解决原生SwipeRefreshLayout与原生listview的滑动冲突
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) { }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                boolean enable = false;
+                if (lv != null && lv.getChildCount() > 0) {
+                    boolean firstItemVisible = lv.getFirstVisiblePosition() == 0;
+                    boolean topOfFirstItemVisible = lv.getChildAt(0).getTop() == 0;
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                refreshLayout.setEnabled(enable);
+            }
+        });
 
         handler = new Handler(){
             @Override
@@ -96,15 +146,7 @@ public class  item7 extends Activity implements View.OnClickListener {
 
     }
 
-    public void onClick(View v) {
-        if (v.getId() == R.id.send_request) {
-            if(xuehao.length()==10&&mima.length()>=4){
-                newsList.clear();
-                postdata();
-            }
 
-        }
-    }
 
     public void postdata() {
         // 开启线程来发起网络请求
@@ -239,7 +281,7 @@ public class  item7 extends Activity implements View.OnClickListener {
                         int a1 = j-1;
 
                         a2 = link.get(j).select("td").text();
-                        System.out.println("考试安排："+a2.toString());
+                        //System.out.println("考试安排："+a2.toString());
                         a2 = a2.replaceAll("第","\n 第");
 
                         Test ne  = new Test(a1,a2);

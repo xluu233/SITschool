@@ -57,8 +57,8 @@ public class TestAdapter extends BaseAdapter {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.a1.setText(" "+newsList.get(position).geta1());
-        viewHolder.a2.setText(" "+newsList.get(position).geta2());
+        viewHolder.a1.setText(String.valueOf(newsList.get(position).geta1()));
+        viewHolder.a2.setText(String.valueOf(newsList.get(position).geta2()));
 
         AssetManager mgr = mContext.getAssets();
         Typeface tf = Typeface.createFromAsset(mgr, "fonts/fangsong.TTF");//仿宋

@@ -33,6 +33,9 @@ public class connect_vpn extends Activity implements View.OnClickListener {
         Button open = (Button)findViewById(R.id.open_vpn);
         open.setOnClickListener(this);
 
+        Button newvpn = findViewById(R.id.down_new_vpn);
+        newvpn.setOnClickListener(this);
+
     }
 
     private void check() {
@@ -98,6 +101,11 @@ public class connect_vpn extends Activity implements View.OnClickListener {
                     startActivity(intent2);
                 }
                 break;
+            case R.id.down_new_vpn:
+                Intent intent0 = new Intent();
+                intent0.setData(Uri.parse("https://vpn1.sit.edu.cn"));
+                intent0.setAction(Intent.ACTION_VIEW);
+                startActivity(intent0); //启动浏览器
         }
     }
 }

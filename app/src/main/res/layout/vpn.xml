@@ -55,5 +55,14 @@
         android:layout_width="150dp"
         android:layout_height="40dp" />
 
+    <Button
+        android:id="@+id/down_new_vpn"
+        android:layout_margin="10dp"
+        android:text="下载新版VPN"
+        android:layout_gravity="center"
+        android:background="@drawable/button_shape1"
+        android:layout_width="150dp"
+        android:layout_height="40dp" />
+
 
 </LinearLayout>
